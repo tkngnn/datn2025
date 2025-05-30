@@ -1,0 +1,376 @@
+@extends('admin.layouts.app')
+@section('title', 'Dashboard')
+@push('styles')
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/css/bootstrap-select.min.css">
+@endpush
+@section('content')
+    <main id="content" role="main" class="main">
+        <!-- Content -->
+        <div class="content container-fluid">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="row align-items-center mb-3">
+                    <div class="col-sm mb-2 mb-sm-0">
+                        <h1 class="page-header-title">Tòa nhà <span
+                                class="badge badge-soft-dark ml-2">{{ $dsToaNha->count() }}</span></h1>
+                    </div>
+
+                    <div class="col-sm-auto">
+                        <a class="btn btn-primary" href="{{ route('admin.toanha.create') }}">Tạo tòa nhà</a>
+                    </div>
+                </div>
+                <!-- End Row -->
+
+                <!-- Nav Scroller -->
+                <div class="js-nav-scroller hs-nav-scroller-horizontal">
+                    <span class="hs-nav-scroller-arrow-prev" style="display: none;">
+                        <a class="hs-nav-scroller-arrow-link" href="javascript:;">
+                            <i class="tio-chevron-left"></i>
+                        </a>
+                    </span>
+
+                    <span class="hs-nav-scroller-arrow-next" style="display: none;">
+                        <a class="hs-nav-scroller-arrow-link" href="javascript:;">
+                            <i class="tio-chevron-right"></i>
+                        </a>
+                    </span>
+
+                    <!-- Nav -->
+                    <ul class="nav nav-tabs page-header-tabs" id="pageHeaderTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">Tất cả tòa nhà</a>
+                        </li>
+                    </ul>
+                    <!-- End Nav -->
+                </div>
+                <!-- End Nav Scroller -->
+            </div>
+            <!-- End Page Header -->
+
+            @if (session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Thành công!</strong> {{ session('success') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Đóng">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
+
+            @if (session('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Lỗi!</strong> {{ session('error') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Đóng">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
+
+            <script>
+                // Sau 5 giây (5000ms), tự động ẩn các alert có class `.alert`
+                setTimeout(function() {
+                    const alerts = document.querySelectorAll('.alert');
+                    alerts.forEach(alert => {
+                        // Sử dụng Bootstrap class để fade out
+                        alert.classList.remove('show');
+                        alert.classList.add('fade');
+                        setTimeout(() => alert.remove(), 300); // Xóa khỏi DOM sau khi fade xong
+                    });
+                }, 5000);
+            </script>
+
+            <div class="row justify-content-end mb-3">
+                <div class="col-lg">
+                    <!-- Datatable Info -->
+                    <div id="datatableCounterInfo" style="display: none;">
+                        <div class="d-sm-flex justify-content-lg-end align-items-sm-center">
+                            <span class="d-block d-sm-inline-block font-size-sm mr-3 mb-2 mb-sm-0">
+                                <span id="datatableCounter">0</span>
+                                Selected
+                            </span>
+                            <a class="btn btn-sm btn-outline-danger mb-2 mb-sm-0 mr-2" href="javascript:;">
+                                <i class="tio-delete-outlined"></i> Delete
+                            </a>
+                            <a class="btn btn-sm btn-white mb-2 mb-sm-0 mr-2" href="javascript:;">
+                                <i class="tio-archive"></i> Archive
+                            </a>
+                            <a class="btn btn-sm btn-white mb-2 mb-sm-0 mr-2" href="javascript:;">
+                                <i class="tio-publish"></i> Publish
+                            </a>
+                            <a class="btn btn-sm btn-white mb-2 mb-sm-0" href="javascript:;">
+                                <i class="tio-clear"></i> Unpublish
+                            </a>
+                        </div>
+                    </div>
+                    <!-- End Datatable Info -->
+                </div>
+            </div>
+            <!-- End Row -->
+
+            <!-- Card -->
+            <div class="card">
+                <!-- Header -->
+                <div class="card-header">
+                    <div class="row justify-content-between align-items-center flex-grow-1">
+                        <div class="col-md-4 mb-3 mb-md-0">
+                            <form>
+                                <!-- Search -->
+                                <div class="input-group input-group-merge input-group-flush">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i class="tio-search"></i>
+                                        </div>
+                                    </div>
+                                    <input id="datatableSearch" type="search" class="form-control"
+                                        placeholder="Tìm kiếm toà nhà" aria-label="Tìm kiếm toà nhà"
+                                        aria-describedby="datatableSearch"
+                                        data-hs-datatables-options='{
+                                         "isSearchable": true,
+                                         "smartPositionOff": true
+                                        }'>
+                                </div>
+                                <!-- End Search -->
+                            </form>
+                        </div>
+
+                        <div class="col-auto">
+                            <!-- Unfold -->
+                            <div class="hs-unfold mr-2">
+                                <a class="js-hs-unfold-invoker btn btn-white" href="javascript:;"
+                                    data-hs-unfold-options='{
+                                        "target": "#datatableFilterSidebar",
+                                        "type": "css-animation",
+                                        "animationIn": "fadeInRight",
+                                        "animationOut": "fadeOutRight",
+                                        "hasOverlay": true,
+                                        "smartPositionOff": true
+                                    }'>
+                                    <i class="tio-filter-list mr-1"></i> Filters
+                                </a>
+                            </div>
+                            <!-- End Unfold -->
+                            <!-- Unfold -->
+                            <div class="hs-unfold mr-2">
+                                <a href="{{ url()->current() }}" class="btn btn-outline-secondary ml-2">
+                                    <i class="tio-clear"></i> Reset Filter
+                                </a>
+                            </div>
+                            <!-- End Unfold -->
+                        </div>
+
+
+                        <!-- Sidebar filter -->
+                        <div id="datatableFilterSidebar"
+                            class="hs-unfold-content sidebar sidebar-bordered sidebar-box-shadow">
+                            <div class="card mb-5">
+                                <div class="card-header">
+                                    <h5 class="mb-0">Lọc theo trạng thái</h5>
+                                </div>
+                                <div class="card-body">
+                                    <form method="GET" action="{{ route('admin.toanha.index') }}">
+                                        <div class="form-group">
+                                            <label for="filterStatus">Trạng thái</label>
+                                            <select name="trang_thai" id="filterStatus" class="form-control selectpicker"
+                                                data-live-search="true" title="Chọn trạng thái">
+                                                <option value="">-- Tất cả --</option>
+                                                <option value="hoat_dong"
+                                                    {{ request('trang_thai') == 'hoat_dong' ? 'selected' : '' }}>Hoạt động
+                                                </option>
+                                                <option value="tam_ngung"
+                                                    {{ request('trang_thai') == 'tam_ngung' ? 'selected' : '' }}>Tạm ngưng
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary btn-block">Lọc</button>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Sidebar filter -->
+                    </div>
+                    <!-- End Row -->
+                </div>
+                <!-- End Header -->
+
+                <!-- Table -->
+                <div class="table-responsive datatable-custom">
+                    <table id="datatable"
+                        class="table table-borderless table-thead-bordered table-nowrap table-align-middle card-table"
+                        data-hs-datatables-options='{
+                           "columnDefs": [{"targets": [0, 5], "width": "5%", "orderable": false}],
+                           "order": [],
+                           "info": {"totalQty": "#datatableWithPaginationInfoTotalQty"},
+                           "search": "#datatableSearch",
+                           "entries": "#datatableEntries",
+                           "pageLength": 12,
+                           "isResponsive": false,
+                           "isShowPaging": false,
+                           "pagination": "datatablePagination"
+                         }'>
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col" class="table-column-pr-0">
+                                    <div class="custom-control custom-checkbox">
+                                        <input id="datatableCheckAll" type="checkbox" class="custom-control-input">
+                                        <label class="custom-control-label" for="datatableCheckAll"></label>
+                                    </div>
+                                </th>
+                                <th class="table-column-pl-0">Tên Tòa Nhà</th>
+                                <th>Địa Chỉ</th>
+                                <th>Số Tầng</th>
+                                <th>Trạng Thái</th>
+                                <th>Hành Động</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach ($dsToaNha as $item)
+                                <tr>
+                                    <td class="table-column-pr-0">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input"
+                                                id="check-{{ $item->ma_toa_nha }}">
+                                            <label class="custom-control-label"
+                                                for="check-{{ $item->ma_toa_nha }}"></label>
+                                        </div>
+                                    </td>
+                                    <td class="table-column-pl-0">
+                                        {{ $item->ten_toa_nha }}
+                                    </td>
+                                    <td>{{ $item->dia_chi }}</td>
+                                    <td>{{ $item->so_tang }}</td>
+                                    <td>
+                                        @if ($item->trang_thai === 'hoat_dong')
+                                            <span class="badge badge-success">Hoạt động</span>
+                                        @else
+                                            <span class="badge badge-warning">Tạm ngưng</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <a class="btn btn-sm btn-white"
+                                                href="{{ route('admin.toanha.edit', $item->ma_toa_nha) }}">
+                                                <i class="tio-edit"></i>
+                                            </a>
+                                            <form action="{{ route('admin.toanha.destroy', $item->ma_toa_nha) }}"
+                                                method="POST" onsubmit="return confirm('Xác nhận ẩn tòa nhà này?')">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="btn btn-sm btn-white">
+                                                    <i class="tio-delete-outlined"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+
+                    </table>
+                </div>
+
+                <!-- End Table -->
+
+                <!-- Footer -->
+                <div class="card-footer">
+                    <!-- Pagination -->
+                    <div class="row justify-content-center justify-content-sm-between align-items-sm-center">
+                        <div class="col-sm mb-2 mb-sm-0">
+                            <div class="d-flex justify-content-center justify-content-sm-start align-items-center">
+                                <span class="mr-2">Showing:</span>
+
+                                <!-- Select -->
+                                <select id="datatableEntries" class="js-select2-custom"
+                                    data-hs-select2-options='{
+                          "minimumResultsForSearch": "Infinity",
+                          "customClass": "custom-select custom-select-sm custom-select-borderless",
+                          "dropdownAutoWidth": true,
+                          "width": true
+                        }'>
+                                    <option value="12" selected="">12</option>
+                                    <option value="14">14</option>
+                                    <option value="16">16</option>
+                                    <option value="18">18</option>
+                                </select>
+                                <!-- End Select -->
+
+                                <span class="text-secondary mr-2">of</span>
+
+                                <!-- Pagination Quantity -->
+                                <span id="datatableWithPaginationInfoTotalQty"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-auto">
+                            <div class="d-flex justify-content-center justify-content-sm-end">
+                                <!-- Pagination -->
+                                <nav id="datatablePagination" aria-label="Activity pagination"></nav>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Pagination -->
+                </div>
+                <!-- End Footer -->
+            </div>
+            <!-- End Card -->
+        </div>
+        <!-- End Content -->
+
+        <!-- Footer -->
+
+        <div class="footer">
+            <div class="row justify-content-between align-items-center">
+                <div class="col">
+                    <p class="font-size-sm mb-0">&copy; Front. <span class="d-none d-sm-inline-block">2020
+                            Htmlstream.</span></p>
+                </div>
+                <div class="col-auto">
+                    <div class="d-flex justify-content-end">
+                        <!-- List Dot -->
+                        <ul class="list-inline list-separator">
+                            <li class="list-inline-item">
+                                <a class="list-separator-link" href="#">FAQ</a>
+                            </li>
+
+                            <li class="list-inline-item">
+                                <a class="list-separator-link" href="#">License</a>
+                            </li>
+
+                            <li class="list-inline-item">
+                                <!-- Keyboard Shortcuts Toggle -->
+                                <div class="hs-unfold">
+                                    <a class="js-hs-unfold-invoker btn btn-icon btn-ghost-secondary rounded-circle"
+                                        href="javascript:;"
+                                        data-hs-unfold-options='{
+                            "target": "#keyboardShortcutsSidebar",
+                            "type": "css-animation",
+                            "animationIn": "fadeInRight",
+                            "animationOut": "fadeOutRight",
+                            "hasOverlay": true,
+                            "smartPositionOff": true
+                           }'>
+                                        <i class="tio-command-key"></i>
+                                    </a>
+                                </div>
+                                <!-- End Keyboard Shortcuts Toggle -->
+                            </li>
+                        </ul>
+                        <!-- End List Dot -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Footer -->
+    </main>
+@endsection
+
+@push('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/js/bootstrap-select.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Initialize Bootstrap Select
+            $('.selectpicker').selectpicker();
+        });
+    </script>
+@endpush

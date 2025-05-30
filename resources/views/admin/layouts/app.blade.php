@@ -23,6 +23,7 @@
 
     <!-- CSS Front Template -->
     <link rel="stylesheet" href="{{ asset('assets/css/theme.min.css?v=1.0') }}">
+    @stack('styles')
 </head>
 
 <body class="   footer-offset">
@@ -72,7 +73,7 @@
                                     id="layoutSkinsRadio1" checked="" value="default">
                                 <label class="custom-checkbox-card-label" for="layoutSkinsRadio1">
                                     <img class="custom-checkbox-card-img"
-                                        src="assets\svg\layouts\layouts-sidebar-default.svg" alt="Image Description">
+                                        src="{{ asset('assets/svg/layouts/layouts-sidebar-default.svg') }}" alt="Image Description">
                                 </label>
                                 <span class="custom-checkbox-card-text">Default</span>
                             </div>
@@ -88,7 +89,7 @@
                                     id="layoutSkinsRadio2" value="navbar-dark">
                                 <label class="custom-checkbox-card-label" for="layoutSkinsRadio2">
                                     <img class="custom-checkbox-card-img"
-                                        src="assets\svg\layouts\layouts-sidebar-dark.svg" alt="Image Description">
+                                        src="{{ asset('assets/svg/layouts/layouts-sidebar-dark.svg') }}" alt="Image Description">
                                 </label>
                                 <span class="custom-checkbox-card-text">Dark</span>
                             </div>
@@ -104,7 +105,7 @@
                                     id="layoutSkinsRadio3" value="navbar-light">
                                 <label class="custom-checkbox-card-label" for="layoutSkinsRadio3">
                                     <img class="custom-checkbox-card-img"
-                                        src="assets\svg\layouts\layouts-sidebar-light.svg" alt="Image Description">
+                                        src="{{ asset('assets/svg/layouts/layouts-sidebar-light.svg') }}" alt="Image Description">
                                 </label>
                                 <span class="custom-checkbox-card-text">Light</span>
                             </div>
@@ -126,7 +127,7 @@
                                     id="sidebarLayoutOptions1" checked="" value="default">
                                 <label class="custom-checkbox-card-label" for="sidebarLayoutOptions1">
                                     <img class="custom-checkbox-card-img"
-                                        src="assets\svg\layouts\sidebar-default-classic.svg" alt="Image Description">
+                                        src="{{ asset('assets/svg/layouts/sidebar-default-classic.svg') }}" alt="Image Description">
                                 </label>
                                 <span class="custom-checkbox-card-text">Default</span>
                             </div>
@@ -141,7 +142,7 @@
                                 <input type="radio" class="custom-checkbox-card-input" name="sidebarLayoutOptions"
                                     id="sidebarLayoutOptions2" value="navbar-vertical-aside-compact-mode">
                                 <label class="custom-checkbox-card-label" for="sidebarLayoutOptions2">
-                                    <img class="custom-checkbox-card-img" src="assets\svg\layouts\sidebar-compact.svg"
+                                    <img class="custom-checkbox-card-img" src="{{ asset('assets/svg/layouts/sidebar-compact.svg') }}"
                                         alt="Image Description">
                                 </label>
                                 <span class="custom-checkbox-card-text">Compact</span>
@@ -157,7 +158,7 @@
                                 <input type="radio" class="custom-checkbox-card-input" name="sidebarLayoutOptions"
                                     id="sidebarLayoutOptions3" value="navbar-vertical-aside-mini-mode">
                                 <label class="custom-checkbox-card-label" for="sidebarLayoutOptions3">
-                                    <img class="custom-checkbox-card-img" src="assets\svg\layouts\sidebar-mini.svg"
+                                    <img class="custom-checkbox-card-img" src="{{ asset('assets/svg/layouts/sidebar-mini.svg') }}"
                                         alt="Image Description">
                                 </label>
                                 <span class="custom-checkbox-card-text">Mini</span>
@@ -180,7 +181,7 @@
                                     id="headerLayoutOptions1" value="single">
                                 <label class="custom-checkbox-card-label" for="headerLayoutOptions1">
                                     <img class="custom-checkbox-card-img"
-                                        src="assets\svg\layouts\header-default-fluid.svg" alt="Image Description">
+                                        src="{{ asset('assets/svg/layouts/header-default-fluid.svg') }}" alt="Image Description">
                                 </label>
                                 <span class="custom-checkbox-card-text">Default (Fluid)</span>
                             </div>
@@ -196,7 +197,7 @@
                                     id="headerLayoutOptions2" value="single-container">
                                 <label class="custom-checkbox-card-label" for="headerLayoutOptions2">
                                     <img class="custom-checkbox-card-img"
-                                        src="assets\svg\layouts\header-default-container.svg" alt="Image Description">
+                                        src="{{ asset('assets/svg/layouts/header-default-container.svg') }}" alt="Image Description">
                                 </label>
                                 <span class="custom-checkbox-card-text">Default (Container)</span>
                             </div>
@@ -212,7 +213,7 @@
                                     id="headerLayoutOptions3" value="double">
                                 <label class="custom-checkbox-card-label" for="headerLayoutOptions3">
                                     <img class="custom-checkbox-card-img"
-                                        src="assets\svg\layouts\header-double-line-fluid.svg" alt="Image Description">
+                                        src="{{ asset('assets/svg/layouts/header-double-line-fluid.svg') }}" alt="Image Description">
                                 </label>
                                 <span class="custom-checkbox-card-text">Double line (Fluid)</span>
                             </div>
@@ -228,7 +229,7 @@
                                     id="headerLayoutOptions4" value="double-container">
                                 <label class="custom-checkbox-card-label" for="headerLayoutOptions4">
                                     <img class="custom-checkbox-card-img"
-                                        src="assets\svg\layouts\header-double-line-container.svg"
+                                        src="{{ asset('assets/svg/layouts/header-double-line-container.svg') }}"
                                         alt="Image Description">
                                 </label>
                                 <span class="custom-checkbox-card-text">Double line (Container)</span>
@@ -297,8 +298,8 @@
                 <div class="navbar-brand-wrapper">
                     <!-- Logo -->
                     <a class="navbar-brand" href="index.html" aria-label="Front">
-                        <img class="navbar-brand-logo" src="assets\svg\logos\logo.svg" alt="Logo">
-                        <img class="navbar-brand-logo-mini" src="assets\svg\logos\logo-short.svg" alt="Logo">
+                        <img class="navbar-brand-logo" src="{{ asset('assets/svg/logos/logo.svg') }}" alt="Logo">
+                        <img class="navbar-brand-logo-mini" src="{{ asset('assets/svg/logos/logo-short.svg') }}" alt="Logo">
                     </a>
                     <!-- End Logo -->
                 </div>
@@ -397,7 +398,7 @@
                                     <a class="dropdown-item my-2" href="index.html">
                                         <div class="media align-items-center">
                                             <img class="avatar avatar-xs avatar-circle mr-2"
-                                                src="assets\img\160x160\img10.jpg" alt="Image Description">
+                                                src="{{ asset('assets/img/160x160/img10.jpg') }}" alt="Image Description">
                                             <div class="media-body text-truncate">
                                                 <span>Amanda Harvey <i class="tio-verified text-primary"
                                                         data-toggle="tooltip" data-placement="top"
@@ -409,7 +410,7 @@
                                     <a class="dropdown-item my-2" href="index.html">
                                         <div class="media align-items-center">
                                             <img class="avatar avatar-xs avatar-circle mr-2"
-                                                src="assets\img\160x160\img3.jpg" alt="Image Description">
+                                                src="{{ asset('assets/img/160x160/img3.jpg') }}" alt="Image Description">
                                             <div class="media-body text-truncate">
                                                 <span>David Harrison</span>
                                             </div>
@@ -561,7 +562,7 @@
                                                                     </div>
                                                                     <div class="avatar avatar-sm avatar-circle">
                                                                         <img class="avatar-img"
-                                                                            src="assets\img\160x160\img3.jpg"
+                                                                            src="{{ asset('assets/img/160x160/img3.jpg') }}"
                                                                             alt="Image Description">
                                                                     </div>
                                                                 </div>
@@ -630,7 +631,7 @@
                                                                     </div>
                                                                     <div class="avatar avatar-sm avatar-circle">
                                                                         <img class="avatar-img"
-                                                                            src="assets\img\160x160\img10.jpg"
+                                                                            src="{{ asset('assets/img/160x160/img10.jpg') }}"
                                                                             alt="Image Description">
                                                                     </div>
                                                                 </div>
@@ -663,7 +664,7 @@
                                                                     </div>
                                                                     <div class="avatar avatar-sm avatar-circle">
                                                                         <img class="avatar-img"
-                                                                            src="assets\svg\brands\google.svg"
+                                                                            src="{{ asset('assets/svg/brands/google.svg') }}"
                                                                             alt="Image Description">
                                                                     </div>
                                                                 </div>
@@ -697,7 +698,7 @@
                                                                     </div>
                                                                     <div class="avatar avatar-sm avatar-circle">
                                                                         <img class="avatar-img"
-                                                                            src="assets\img\160x160\img7.jpg"
+                                                                            src="{{ asset('assets/img/160x160/img7.jpg') }}"
                                                                             alt="Image Description">
                                                                     </div>
                                                                 </div>
@@ -768,7 +769,7 @@
                                                                     </div>
                                                                     <div class="avatar avatar-sm avatar-circle">
                                                                         <img class="avatar-img"
-                                                                            src="assets\img\160x160\img5.jpg"
+                                                                            src="{{ asset('assets/img/160x160/img5.jpg') }}"
                                                                             alt="Image Description">
                                                                     </div>
                                                                 </div>
@@ -834,7 +835,7 @@
                                                                     </div>
                                                                     <div class="avatar avatar-sm avatar-circle">
                                                                         <img class="avatar-img"
-                                                                            src="assets\img\160x160\img8.jpg"
+                                                                            src="{{ asset('assets/img/160x160/img8.jpg') }}"
                                                                             alt="Image Description">
                                                                     </div>
                                                                 </div>
@@ -929,7 +930,7 @@
                                                 <div class="media align-items-center">
                                                     <span class="mr-3">
                                                         <img class="avatar avatar-xs avatar-4by3"
-                                                            src="assets\svg\brands\atlassian.svg"
+                                                            src="{{ asset('assets/svg/brands/atlassian.svg') }}"
                                                             alt="Image Description">
                                                     </span>
                                                     <div class="media-body text-truncate">
@@ -944,7 +945,7 @@
                                                 <div class="media align-items-center">
                                                     <span class="mr-3">
                                                         <img class="avatar avatar-xs avatar-4by3"
-                                                            src="assets\svg\brands\slack.svg" alt="Image Description">
+                                                            src="{{ asset('assets/svg/brands/slack.svg') }}" alt="Image Description">
                                                     </span>
                                                     <div class="media-body text-truncate">
                                                         <span class="h5 mb-0">Slack <span
@@ -959,7 +960,7 @@
                                                 <div class="media align-items-center">
                                                     <span class="mr-3">
                                                         <img class="avatar avatar-xs avatar-4by3"
-                                                            src="assets\svg\brands\google-webdev.svg"
+                                                            src="{{ asset('assets/svg/brands/google-webdev.svg') }}"
                                                             alt="Image Description">
                                                     </span>
                                                     <div class="media-body text-truncate">
@@ -974,7 +975,7 @@
                                                 <div class="media align-items-center">
                                                     <span class="mr-3">
                                                         <img class="avatar avatar-xs avatar-4by3"
-                                                            src="assets\svg\brands\frontapp.svg"
+                                                            src="{{ asset('assets/svg/brands/frontapp.svg') }}"
                                                             alt="Image Description">
                                                     </span>
                                                     <div class="media-body text-truncate">
@@ -989,7 +990,7 @@
                                                 <div class="media align-items-center">
                                                     <span class="mr-3">
                                                         <img class="avatar avatar-xs avatar-4by3"
-                                                            src="assets\svg\illustrations\review-rating-shield.svg"
+                                                            src="{{ asset('assets/svg/illustrations/review-rating-shield.svg') }}"
                                                             alt="Image Description">
                                                     </span>
                                                     <div class="media-body text-truncate">
@@ -1056,7 +1057,7 @@
                  "type": "css-animation"
                }'>
                                     <div class="avatar avatar-sm avatar-circle">
-                                        <img class="avatar-img" src="assets\img\160x160\img6.jpg"
+                                        <img class="avatar-img" src="{{ asset('assets/img/160x160/img6.jpg') }}"
                                             alt="Image Description">
                                         <span class="avatar-status avatar-sm-status avatar-status-success"></span>
                                     </div>
@@ -1068,7 +1069,7 @@
                                     <div class="dropdown-item-text">
                                         <div class="media align-items-center">
                                             <div class="avatar avatar-sm avatar-circle mr-2">
-                                                <img class="avatar-img" src="assets\img\160x160\img6.jpg"
+                                                <img class="avatar-img" src="{{ asset('assets/img/160x160/img6.jpg') }}"
                                                     alt="Image Description">
                                             </div>
                                             <div class="media-body">
@@ -1209,7 +1210,7 @@
                     <!-- Logo -->
 
                     <a class="navbar-brand" href="index.html" aria-label="Front">
-                        <img class="navbar-brand-logo" src="assets\svg\logos\logo.svg" alt="Logo">
+                        <img class="navbar-brand-logo" src="{{ asset('assets/svg/logos/logo.svg') }}" alt="Logo">
                     </a>
 
                     <!-- End Logo -->
@@ -1316,7 +1317,7 @@
                                                                     </div>
                                                                     <div class="avatar avatar-sm avatar-circle">
                                                                         <img class="avatar-img"
-                                                                            src="assets\img\160x160\img3.jpg"
+                                                                            src="{{ asset('assets/img/160x160/img3.jpg') }}"
                                                                             alt="Image Description">
                                                                     </div>
                                                                 </div>
@@ -1385,7 +1386,7 @@
                                                                     </div>
                                                                     <div class="avatar avatar-sm avatar-circle">
                                                                         <img class="avatar-img"
-                                                                            src="assets\img\160x160\img10.jpg"
+                                                                            src="{{ asset('assets/img/160x160/img10.jpg') }}"
                                                                             alt="Image Description">
                                                                     </div>
                                                                 </div>
@@ -1418,7 +1419,7 @@
                                                                     </div>
                                                                     <div class="avatar avatar-sm avatar-circle">
                                                                         <img class="avatar-img"
-                                                                            src="assets\svg\brands\google.svg"
+                                                                            src="{{ asset('assets/svg/brands/google.svg') }}"
                                                                             alt="Image Description">
                                                                     </div>
                                                                 </div>
@@ -1452,7 +1453,7 @@
                                                                     </div>
                                                                     <div class="avatar avatar-sm avatar-circle">
                                                                         <img class="avatar-img"
-                                                                            src="assets\img\160x160\img7.jpg"
+                                                                            src="{{ asset('assets/img/160x160/img7.jpg') }}"
                                                                             alt="Image Description">
                                                                     </div>
                                                                 </div>
@@ -1523,7 +1524,7 @@
                                                                     </div>
                                                                     <div class="avatar avatar-sm avatar-circle">
                                                                         <img class="avatar-img"
-                                                                            src="assets\img\160x160\img5.jpg"
+                                                                            src="{{ asset('assets/img/160x160/img5.jpg') }}"
                                                                             alt="Image Description">
                                                                     </div>
                                                                 </div>
@@ -1590,7 +1591,7 @@
                                                                     </div>
                                                                     <div class="avatar avatar-sm avatar-circle">
                                                                         <img class="avatar-img"
-                                                                            src="assets\img\160x160\img8.jpg"
+                                                                            src="{{ asset('assets/img/160x160/img8.jpg') }}"
                                                                             alt="Image Description">
                                                                     </div>
                                                                 </div>
@@ -1685,7 +1686,7 @@
                                                 <div class="media align-items-center">
                                                     <span class="mr-3">
                                                         <img class="avatar avatar-xs avatar-4by3"
-                                                            src="assets\svg\brands\atlassian.svg"
+                                                            src="{{ asset('assets/svg/brands/atlassian.svg') }}"
                                                             alt="Image Description">
                                                     </span>
                                                     <div class="media-body text-truncate">
@@ -1700,7 +1701,7 @@
                                                 <div class="media align-items-center">
                                                     <span class="mr-3">
                                                         <img class="avatar avatar-xs avatar-4by3"
-                                                            src="assets\svg\brands\slack.svg"
+                                                            src="{{ asset('assets/svg/brands/slack.svg') }}"
                                                             alt="Image Description">
                                                     </span>
                                                     <div class="media-body text-truncate">
@@ -1716,7 +1717,7 @@
                                                 <div class="media align-items-center">
                                                     <span class="mr-3">
                                                         <img class="avatar avatar-xs avatar-4by3"
-                                                            src="assets\svg\brands\google-webdev.svg"
+                                                            src="{{ asset('assets/svg/brands/google-webdev.svg') }}"
                                                             alt="Image Description">
                                                     </span>
                                                     <div class="media-body text-truncate">
@@ -1731,7 +1732,7 @@
                                                 <div class="media align-items-center">
                                                     <span class="mr-3">
                                                         <img class="avatar avatar-xs avatar-4by3"
-                                                            src="assets\svg\brands\frontapp.svg"
+                                                            src="{{ asset('assets/svg/brands/frontapp.svg') }}"
                                                             alt="Image Description">
                                                     </span>
                                                     <div class="media-body text-truncate">
@@ -1746,7 +1747,7 @@
                                                 <div class="media align-items-center">
                                                     <span class="mr-3">
                                                         <img class="avatar avatar-xs avatar-4by3"
-                                                            src="assets\svg\illustrations\review-rating-shield.svg"
+                                                            src="{{ asset('assets/svg/illustrations/review-rating-shield.svg') }}"
                                                             alt="Image Description">
                                                     </span>
                                                     <div class="media-body text-truncate">
@@ -1814,7 +1815,7 @@
                  "type": "css-animation"
                }'>
                                     <div class="avatar avatar-sm avatar-circle">
-                                        <img class="avatar-img" src="assets\img\160x160\img6.jpg"
+                                        <img class="avatar-img" src="{{ asset('assets/img/160x160/img6.jpg') }}"
                                             alt="Image Description">
                                         <span class="avatar-status avatar-sm-status avatar-status-success"></span>
                                     </div>
@@ -1826,7 +1827,7 @@
                                     <div class="dropdown-item-text">
                                         <div class="media align-items-center">
                                             <div class="avatar avatar-sm avatar-circle mr-2">
-                                                <img class="avatar-img" src="assets\img\160x160\img6.jpg"
+                                                <img class="avatar-img" src="{{ asset('assets/img/160x160/img6.jpg') }}"
                                                     alt="Image Description">
                                             </div>
                                             <div class="media-body">
@@ -2605,7 +2606,7 @@
                         <div class="navbar-brand-wrapper">
                             <!-- Logo -->
                             <a class="navbar-brand" href="index.html" aria-label="Front">
-                                <img class="navbar-brand-logo" src="assets\svg\logos\logo-white.svg"
+                                <img class="navbar-brand-logo" src="{{ asset('assets/svg/logos/logo-white.svg') }}"
                                     alt="Logo">
                             </a>
                             <!-- End Logo -->
@@ -2696,7 +2697,7 @@
                                             <a class="dropdown-item my-2" href="index.html">
                                                 <div class="media align-items-center">
                                                     <img class="avatar avatar-xs avatar-circle mr-2"
-                                                        src="assets\img\160x160\img10.jpg" alt="Image Description">
+                                                        src="{{ asset('assets/img/160x160/img10.jpg') }}" alt="Image Description">
                                                     <div class="media-body text-truncate">
                                                         <span>Amanda Harvey <i class="tio-verified text-primary"
                                                                 data-toggle="tooltip" data-placement="top"
@@ -2708,7 +2709,7 @@
                                             <a class="dropdown-item my-2" href="index.html">
                                                 <div class="media align-items-center">
                                                     <img class="avatar avatar-xs avatar-circle mr-2"
-                                                        src="assets\img\160x160\img3.jpg" alt="Image Description">
+                                                        src="{{ asset('assets/img/160x160/img3.jpg') }}" alt="Image Description">
                                                     <div class="media-body text-truncate">
                                                         <span>David Harrison</span>
                                                     </div>
@@ -2867,7 +2868,7 @@
                                                                             <div
                                                                                 class="avatar avatar-sm avatar-circle">
                                                                                 <img class="avatar-img"
-                                                                                    src="assets\img\160x160\img3.jpg"
+                                                                                    src="{{ asset('assets/img/160x160/img3.jpg') }}"
                                                                                     alt="Image Description">
                                                                             </div>
                                                                         </div>
@@ -2945,7 +2946,7 @@
                                                                             <div
                                                                                 class="avatar avatar-sm avatar-circle">
                                                                                 <img class="avatar-img"
-                                                                                    src="assets\img\160x160\img10.jpg"
+                                                                                    src="{{ asset('assets/img/160x160/img10.jpg') }}"
                                                                                     alt="Image Description">
                                                                             </div>
                                                                         </div>
@@ -2980,7 +2981,7 @@
                                                                             <div
                                                                                 class="avatar avatar-sm avatar-circle">
                                                                                 <img class="avatar-img"
-                                                                                    src="assets\svg\brands\google.svg"
+                                                                                    src="{{ asset('assets/svg/brands/google.svg') }}"
                                                                                     alt="Image Description">
                                                                             </div>
                                                                         </div>
@@ -3016,7 +3017,7 @@
                                                                             <div
                                                                                 class="avatar avatar-sm avatar-circle">
                                                                                 <img class="avatar-img"
-                                                                                    src="assets\img\160x160\img7.jpg"
+                                                                                    src="{{ asset('assets/img/160x160/img7.jpg') }}"
                                                                                     alt="Image Description">
                                                                             </div>
                                                                         </div>
@@ -3092,7 +3093,7 @@
                                                                             <div
                                                                                 class="avatar avatar-sm avatar-circle">
                                                                                 <img class="avatar-img"
-                                                                                    src="assets\img\160x160\img5.jpg"
+                                                                                    src="{{ asset('assets/img/160x160/img5.jpg') }}"
                                                                                     alt="Image Description">
                                                                             </div>
                                                                         </div>
@@ -3163,7 +3164,7 @@
                                                                             <div
                                                                                 class="avatar avatar-sm avatar-circle">
                                                                                 <img class="avatar-img"
-                                                                                    src="assets\img\160x160\img8.jpg"
+                                                                                    src="{{ asset('assets/img/160x160/img8.jpg') }}"
                                                                                     alt="Image Description">
                                                                             </div>
                                                                         </div>
@@ -3261,7 +3262,7 @@
                                                         <div class="media align-items-center">
                                                             <span class="mr-3">
                                                                 <img class="avatar avatar-xs"
-                                                                    src="assets\svg\brands\atlassian.svg"
+                                                                    src="{{ asset('assets/svg/brands/atlassian.svg') }}"
                                                                     alt="Image Description">
                                                             </span>
                                                             <div class="media-body text-truncate">
@@ -3276,7 +3277,7 @@
                                                         <div class="media align-items-center">
                                                             <span class="mr-3">
                                                                 <img class="avatar avatar-xs"
-                                                                    src="assets\svg\brands\slack.svg"
+                                                                    src="{{ asset('assets/svg/brands/slack.svg') }}"
                                                                     alt="Image Description">
                                                             </span>
                                                             <div class="media-body text-truncate">
@@ -3292,7 +3293,7 @@
                                                         <div class="media align-items-center">
                                                             <span class="mr-3">
                                                                 <img class="avatar avatar-xs"
-                                                                    src="assets\svg\brands\frontapp.svg"
+                                                                    src="{{ asset('assets/svg/brands/frontapp.svg') }}"
                                                                     alt="Image Description">
                                                             </span>
                                                             <div class="media-body text-truncate">
@@ -3307,7 +3308,7 @@
                                                         <div class="media align-items-center">
                                                             <span class="mr-3">
                                                                 <img class="avatar avatar-xs"
-                                                                    src="assets\svg\illustrations\review-rating-shield.svg"
+                                                                    src="{{ asset('assets/svg/illustrations/review-rating-shield.svg') }}"
                                                                     alt="Image Description">
                                                             </span>
                                                             <div class="media-body text-truncate">
@@ -3376,7 +3377,7 @@
                      "type": "css-animation"
                    }'>
                                             <div class="avatar avatar-sm avatar-circle">
-                                                <img class="avatar-img" src="assets\img\160x160\img6.jpg"
+                                                <img class="avatar-img" src="{{ asset('assets/img/160x160/img6.jpg') }}"
                                                     alt="Image Description">
                                                 <span
                                                     class="avatar-status avatar-sm-status avatar-status-success"></span>
@@ -3389,7 +3390,7 @@
                                             <div class="dropdown-item-text">
                                                 <div class="media align-items-center">
                                                     <div class="avatar avatar-sm avatar-circle mr-2">
-                                                        <img class="avatar-img" src="assets\img\160x160\img6.jpg"
+                                                        <img class="avatar-img" src="{{ asset('assets/img/160x160/img6.jpg') }}"
                                                             alt="Image Description">
                                                     </div>
                                                     <div class="media-body">
@@ -4208,8 +4209,8 @@
 
 
                         <a class="navbar-brand" href="index.html" aria-label="Front">
-                            <img class="navbar-brand-logo" src="assets\svg\logos\logo.svg" alt="Logo">
-                            <img class="navbar-brand-logo-mini" src="assets\svg\logos\logo-short.svg"
+                            <img class="navbar-brand-logo" src="{{ asset('assets/svg/logos/logo.svg') }}" alt="Logo">
+                            <img class="navbar-brand-logo-mini" src="{{ asset('assets/svg/logos/logo-short.svg') }}"
                                 alt="Logo">
                         </a>
 
@@ -4252,6 +4253,32 @@
                                 </ul>
                             </li>
                             <!-- End Dashboards -->
+                            <!-- Components -->
+                            <li class="navbar-vertical-aside-has-menu ">
+                                <a class="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle "
+                                    href="javascript:;" title="Apps">
+                                    <i class="tio-apps nav-icon"></i>
+                                    <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Tòa Nhà
+                                        </span>
+                                </a>
+
+                                <ul class="js-navbar-vertical-aside-submenu nav nav-sub">
+                                    <li class="nav-item">
+                                        <a class="nav-link " href="{{ route('admin.toanha.index') }}" title="Tòa Nhà">
+                                            <span class="tio-circle nav-indicator-icon"></span>
+                                            <span class="text-truncate">Tòa Nhà</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link " href="#" title="Calendar">
+                                            <span class="tio-circle nav-indicator-icon"></span>
+                                            <span class="text-truncate">Văn Phòng</span>
+                                        </a>
+                                    </li>
+                                    
+                                </ul>
+                            </li>
+                            <!-- End Components -->
 
                             <li class="nav-item">
                                 <small class="nav-subtitle" title="Pages">Pages</small>
@@ -4906,7 +4933,7 @@
                                 <a class="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle "
                                     href="javascript:;" title="Language">
                                     <img class="avatar avatar-xss avatar-circle"
-                                        src="assets\vendor\flag-icon-css\flags\1x1\us.svg" alt="United States Flag">
+                                        src="{{ asset('assets/vendor/flag-icon-css/flags/1x1/us.svg') }}" alt="United States Flag">
                                     <span
                                         class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Language</span>
                                 </a>
@@ -4915,42 +4942,42 @@
                                     <li class="nav-item">
                                         <a class="nav-link" href="#" title="English (US)">
                                             <img class="avatar avatar-xss avatar-circle mr-2"
-                                                src="assets\vendor\flag-icon-css\flags\1x1\us.svg" alt="Flag">
+                                                src="{{ asset('assets/vendor/flag-icon-css/flags/1x1/us.svg') }}" alt="Flag">
                                             English (US)
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="#" title="English (UK)">
                                             <img class="avatar avatar-xss avatar-circle mr-2"
-                                                src="assets\vendor\flag-icon-css\flags\1x1\gb.svg" alt="Flag">
+                                                src="{{ asset('assets/vendor/flag-icon-css/flags/1x1/gb.svg') }}" alt="Flag">
                                             English (UK)
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="#" title="Deutsch">
                                             <img class="avatar avatar-xss avatar-circle mr-2"
-                                                src="assets\vendor\flag-icon-css\flags\1x1\de.svg" alt="Flag">
+                                                src="{{ asset('assets/vendor/flag-icon-css/flags/1x1/de.svg') }}" alt="Flag">
                                             Deutsch
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="#" title="Dansk">
                                             <img class="avatar avatar-xss avatar-circle mr-2"
-                                                src="assets\vendor\flag-icon-css\flags\1x1\dk.svg" alt="Flag">
+                                                src="{{ asset('assets/vendor/flag-icon-css/flags/1x1/dk.svg') }}" alt="Flag">
                                             Dansk
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="#" title="Italiano">
                                             <img class="avatar avatar-xss avatar-circle mr-2"
-                                                src="assets\vendor\flag-icon-css\flags\1x1\it.svg" alt="Flag">
+                                                src="{{ asset('assets/vendor/flag-icon-css/flags/1x1/it.svg') }}" alt="Flag">
                                             Italiano
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="#" title="中文 (繁體)">
                                             <img class="avatar avatar-xss avatar-circle mr-2"
-                                                src="assets\vendor\flag-icon-css\flags\1x1\cn.svg" alt="Flag">
+                                                src="{{ asset('assets/vendor/flag-icon-css/flags/1x1/cn.svg') }}" alt="Flag">
                                             中文 (繁體)
                                         </a>
                                     </li>
@@ -5043,7 +5070,7 @@
                   "hideOnScroll": true
                  }'>
                                         <img class="avatar avatar-xss avatar-circle"
-                                            src="assets\vendor\flag-icon-css\flags\1x1\us.svg"
+                                            src="{{ asset('assets/vendor/flag-icon-css/flags/1x1/us.svg') }}"
                                             alt="United States Flag">
                                     </a>
 
@@ -5052,32 +5079,32 @@
                                         <span class="dropdown-header">Select language</span>
                                         <a class="dropdown-item" href="#">
                                             <img class="avatar avatar-xss avatar-circle mr-2"
-                                                src="assets\vendor\flag-icon-css\flags\1x1\us.svg" alt="Flag">
+                                                src="{{ asset('assets/vendor/flag-icon-css/flags/1x1/us.svg') }}" alt="Flag">
                                             <span class="text-truncate pr-2" title="English">English (US)</span>
                                         </a>
                                         <a class="dropdown-item" href="#">
                                             <img class="avatar avatar-xss avatar-circle mr-2"
-                                                src="assets\vendor\flag-icon-css\flags\1x1\gb.svg" alt="Flag">
+                                                src="{{ asset('assets/vendor/flag-icon-css/flags/1x1/gb.svg') }}" alt="Flag">
                                             <span class="text-truncate pr-2" title="English">English (UK)</span>
                                         </a>
                                         <a class="dropdown-item" href="#">
                                             <img class="avatar avatar-xss avatar-circle mr-2"
-                                                src="assets\vendor\flag-icon-css\flags\1x1\de.svg" alt="Flag">
+                                                src="{{ asset('assets/vendor/flag-icon-css/flags/1x1/de.svg') }}" alt="Flag">
                                             <span class="text-truncate pr-2" title="Deutsch">Deutsch</span>
                                         </a>
                                         <a class="dropdown-item" href="#">
                                             <img class="avatar avatar-xss avatar-circle mr-2"
-                                                src="assets\vendor\flag-icon-css\flags\1x1\dk.svg" alt="Flag">
+                                                src="{{ asset('assets/vendor/flag-icon-css/flags/1x1/dk.svg') }}" alt="Flag">
                                             <span class="text-truncate pr-2" title="Dansk">Dansk</span>
                                         </a>
                                         <a class="dropdown-item" href="#">
                                             <img class="avatar avatar-xss avatar-circle mr-2"
-                                                src="assets\vendor\flag-icon-css\flags\1x1\it.svg" alt="Flag">
+                                                src="{{ asset('assets/vendor/flag-icon-css/flags/1x1/it.svg') }}" alt="Flag">
                                             <span class="text-truncate pr-2" title="Italiano">Italiano</span>
                                         </a>
                                         <a class="dropdown-item" href="#">
                                             <img class="avatar avatar-xss avatar-circle mr-2"
-                                                src="assets\vendor\flag-icon-css\flags\1x1\cn.svg" alt="Flag">
+                                                src="{{ asset('assets/vendor/flag-icon-css/flags/1x1/cn.svg') }}" alt="Flag">
                                             <span class="text-truncate pr-2" title="中文 (繁體)">中文 (繁體)</span>
                                         </a>
                                     </div>
@@ -5100,7 +5127,7 @@
 
 
                     <a class="navbar-brand" href="index.html" aria-label="Front">
-                        <img class="navbar-brand-logo-short" src="assets\svg\logos\logo-short.svg" alt="Logo">
+                        <img class="navbar-brand-logo-short" src="{{ asset('assets/svg/logos/logo-short.svg') }}" alt="Logo">
                     </a>
 
                     <!-- End Logo -->
@@ -6131,7 +6158,7 @@
                     <li class="step-item">
                         <div class="step-content-wrapper">
                             <div class="step-avatar">
-                                <img class="step-avatar-img" src="assets\img\160x160\img9.jpg"
+                                <img class="step-avatar-img" src="{{ asset('assets/img/160x160/img9.jpg') }}"
                                     alt="Image Description">
                             </div>
 
@@ -6149,7 +6176,7 @@
                                                 <div class="media">
                                                     <span class="mt-1 mr-2">
                                                         <img class="avatar avatar-xs"
-                                                            src="assets\svg\brands\excel.svg"
+                                                            src="{{ asset('assets/svg/brands/excel.svg') }}"
                                                             alt="Image Description">
                                                     </span>
                                                     <div class="media-body text-truncate">
@@ -6163,7 +6190,7 @@
                                                 <div class="media">
                                                     <span class="mt-1 mr-2">
                                                         <img class="avatar avatar-xs"
-                                                            src="assets\svg\brands\word.svg"
+                                                            src="{{ asset('assets/svg/brands/word.svg') }}"
                                                             alt="Image Description">
                                                     </span>
                                                     <div class="media-body text-truncate">
@@ -6207,7 +6234,7 @@
                     <li class="step-item">
                         <div class="step-content-wrapper">
                             <div class="step-avatar">
-                                <img class="step-avatar-img" src="assets\img\160x160\img3.jpg"
+                                <img class="step-avatar-img" src="{{ asset('assets/img/160x160/img3.jpg') }}"
                                     alt="Image Description">
                             </div>
 
@@ -6221,17 +6248,17 @@
                                         <div class="row gx-1">
                                             <div class="col">
                                                 <img class="img-fluid rounded ie-sidebar-activity-img"
-                                                    src="assets\svg\illustrations\card-1.svg"
+                                                    src="{{ asset('assets/svg/illustrations/card-1.svg') }}"
                                                     alt="Image Description">
                                             </div>
                                             <div class="col">
                                                 <img class="img-fluid rounded ie-sidebar-activity-img"
-                                                    src="assets\svg\illustrations\card-2.svg"
+                                                    src="{{ asset('assets/svg/illustrations/card-2.svg') }}"
                                                     alt="Image Description">
                                             </div>
                                             <div class="col">
                                                 <img class="img-fluid rounded ie-sidebar-activity-img"
-                                                    src="assets\svg\illustrations\card-3.svg"
+                                                    src="{{ asset('assets/svg/illustrations/card-3.svg') }}"
                                                     alt="Image Description">
                                             </div>
                                             <div class="col-auto align-self-center">
@@ -6269,7 +6296,7 @@
                     <li class="step-item">
                         <div class="step-content-wrapper">
                             <div class="step-avatar">
-                                <img class="step-avatar-img" src="assets\img\160x160\img7.jpg"
+                                <img class="step-avatar-img" src="{{ asset('assets/img/160x160/img7.jpg') }}"
                                     alt="Image Description">
                             </div>
 
@@ -6291,7 +6318,7 @@
                     <li class="step-item">
                         <div class="step-content-wrapper">
                             <div class="step-avatar">
-                                <img class="step-avatar-img" src="assets\img\160x160\img5.jpg"
+                                <img class="step-avatar-img" src="{{ asset('assets/img/160x160/img5.jpg') }}"
                                     alt="Image Description">
                             </div>
 
@@ -6355,7 +6382,7 @@
                 <div class="modal-body p-sm-5">
                     <div class="text-center">
                         <div class="w-75 w-sm-50 mx-auto mb-4">
-                            <img class="img-fluid" src="assets\svg\illustrations\graphs.svg"
+                            <img class="img-fluid" src="{{ asset('assets/svg/illustrations/graphs.svg') }}"
                                 alt="Image Description">
                         </div>
 
@@ -6373,19 +6400,19 @@
                     <div class="w-85 mx-auto">
                         <div class="row justify-content-between">
                             <div class="col">
-                                <img class="img-fluid ie-welcome-brands" src="assets\svg\brands\gitlab-gray.svg"
+                                <img class="img-fluid ie-welcome-brands" src="{{ asset('assets/svg/brands/gitlab-gray.svg') }}"
                                     alt="Image Description">
                             </div>
                             <div class="col">
-                                <img class="img-fluid ie-welcome-brands" src="assets\svg\brands\fitbit-gray.svg"
+                                <img class="img-fluid ie-welcome-brands" src="{{ asset('assets/svg/brands/fitbit-gray.svg') }}"
                                     alt="Image Description">
                             </div>
                             <div class="col">
-                                <img class="img-fluid ie-welcome-brands" src="assets\svg\brands\flow-xo-gray.svg"
+                                <img class="img-fluid ie-welcome-brands" src="{{ asset('assets/svg/brands/flow-xo-gray.svg') }}"
                                     alt="Image Description">
                             </div>
                             <div class="col">
-                                <img class="img-fluid ie-welcome-brands" src="assets\svg\brands\layar-gray.svg"
+                                <img class="img-fluid ie-welcome-brands" src="{{ asset('assets/svg/brands/layar-gray.svg') }}"
                                     alt="Image Description">
                             </div>
                         </div>
@@ -6460,7 +6487,7 @@
 
                         <div class="col-auto">
                             <a class="d-flex align-items-center font-size-sm text-body" href="#">
-                                <img class="avatar avatar-xss mr-2" src="assets\svg\brands\gmail.svg"
+                                <img class="avatar avatar-xss mr-2" src="{{ asset('assets/svg/brands/gmail.svg') }}"
                                     alt="Image Description">
                                 Import contacts
                             </a>
@@ -6474,7 +6501,7 @@
                         <li>
                             <div class="media">
                                 <div class="avatar avatar-sm avatar-circle mr-3">
-                                    <img class="avatar-img" src="assets\img\160x160\img10.jpg"
+                                    <img class="avatar-img" src="{{ asset('assets/img/160x160/img10.jpg') }}"
                                         alt="Image Description">
                                 </div>
 
@@ -6522,7 +6549,7 @@
                         <li>
                             <div class="media">
                                 <div class="avatar avatar-sm avatar-circle mr-3">
-                                    <img class="avatar-img" src="assets\img\160x160\img3.jpg"
+                                    <img class="avatar-img" src="{{ asset('assets/img/160x160/img3.jpg') }}"
                                         alt="Image Description">
                                 </div>
 
@@ -6568,7 +6595,7 @@
                         <li>
                             <div class="media">
                                 <div class="avatar avatar-sm avatar-circle mr-3">
-                                    <img class="avatar-img" src="assets\img\160x160\img9.jpg"
+                                    <img class="avatar-img" src="{{ asset('assets/img/160x160/img9.jpg') }}"
                                         alt="Image Description">
                                 </div>
 
@@ -6703,6 +6730,7 @@
 
     <!-- JS Front -->
     <script src="{{ asset('assets/js/theme.min.js') }}"></script>
+    
 
     <!-- JS Plugins Init. -->
     <script>
@@ -6783,6 +6811,36 @@
             // =======================================================
             $('.js-select2-custom').each(function() {
                 var select2 = $.HSCore.components.HSSelect2.init($(this));
+            });
+
+            // INITIALIZATION OF QUILLJS EDITOR
+            // =======================================================
+            var quill = $.HSCore.components.HSQuill.init('.js-quill');
+
+            // INITIALIZATION OF ADD INPUT FILED
+            // =======================================================
+            $('.js-add-field').each(function () {
+            new HSAddField($(this), {
+                addedField: function() {
+                $('.js-add-field .js-select2-custom-dynamic').each(function () {
+                    var select2dynamic = $.HSCore.components.HSSelect2.init($(this));
+                });
+                }
+            }).init();
+            });
+
+            
+            // INITIALIZATION OF TAGIFY
+            // =======================================================
+            $('.js-tagify').each(function () {
+            var tagify = $.HSCore.components.HSTagify.init($(this));
+            });
+
+            
+            // INITIALIZATION OF DROPZONE FILE ATTACH MODULE
+            // =======================================================
+            $('.js-dropzone').each(function () {
+            var dropzone = $.HSCore.components.HSDropzone.init('#' + $(this).attr('id'));
             });
 
 
@@ -6938,7 +6996,7 @@
                 },
                 language: {
                     zeroRecords: '<div class="text-center p-4">' +
-                        '<img class="mb-3" src="./assets/svg/illustrations/sorry.svg" alt="Image Description" style="width: 7rem;">' +
+                        '<img class="mb-3" src="{{ asset('assets/svg/illustrations/sorry.svg') }}" alt="Image Description" style="width: 7rem;">' +
                         '<p class="mb-0">No data to show</p>' +
                         '</div>'
                 }
@@ -6980,8 +7038,10 @@
     <!-- IE Support -->
     <script>
         if (/MSIE \d|Trident.*rv:/.test(navigator.userAgent)) document.write(
-            '<script src="./assets/vendor/babel-polyfill/polyfill.min.js"><\/script>');
+            '<script src="{{ asset('assets/vendor/babel-polyfill/polyfill.min.js') }}"><\/script>');
     </script>
+
+    @stack('scripts')
 </body>
 
 </html>

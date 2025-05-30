@@ -1,0 +1,113 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Models\ToaNha; 
+
+class ToaNhaController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index(Request $request)
+    {
+        $query = ToaNha::query();
+
+        if ($request->filled('trang_thai')) {
+            $query->where('trang_thai', $request->trang_thai);
+        }
+
+        $dsToaNha = $query->paginate(10);
+
+        return view('admin.toanha.index', compact('dsToaNha'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        return view('admin.toanha.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'building_name' => 'required|string|max:100',
+            'address' => 'required|string|max:255',
+            'floor_count' => 'required|integer|min:1',
+            'mo_ta' => 'nullable|string',
+            'trang_thai' => 'required|in:hoat_dong,tam_ngung',
+        ]);
+
+        ToaNha::create([
+            'ten_toa_nha' => $request->building_name,
+            'dia_chi' => $request->address,
+            'so_tang' => $request->floor_count,
+            'mo_ta' => $request->mo_ta,
+            'trang_thai' => $request->trang_thai,
+            'created_at' => now(),
+        ]);
+
+        return redirect()->route('admin.toanha.index')->with('success', 'Tạo tòa nhà thành công.');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        $toaNha = ToaNha::findOrFail($id);
+        return view('admin.toanha.show', compact('toaNha'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        $toaNha = ToaNha::findOrFail($id);
+        return view('admin.toanha.edit', compact('toaNha'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        $request->validate([
+            'building_name' => 'required|string|max:100',
+            'address' => 'required|string|max:255',
+            'floor_count' => 'required|integer|min:1',
+            'mo_ta' => 'nullable|string',
+            'trang_thai' => 'required|in:hoat_dong,tam_ngung',
+        ]);
+
+        $toanha = ToaNha::findOrFail($id);
+        $toanha->update([
+            'ten_toa_nha' => $request->building_name,
+            'dia_chi' => $request->address,
+            'so_tang' => $request->floor_count,
+            'mo_ta' => $request->mo_ta,
+            'trang_thai' => $request->trang_thai,
+        ]);
+
+        return redirect()->route('admin.toanha.index')->with('success', 'Cập nhật tòa nhà thành công.');
+    }
+
+    /**
+     * Chỉ cập nhật trạng thái, không xóa khỏi DB.
+     */
+    public function destroy(string $id)
+    {
+        $toaNha = ToaNha::findOrFail($id);
+        $toaNha->update(['trang_thai' => 'tam_ngung']);
+        $toaNha->delete(); // Thực hiện soft delete
+        return redirect()->route('admin.toanha.index')->with('success', 'Đã cập nhật trạng thái xóa.');
+    }
+}

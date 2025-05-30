@@ -2,17 +2,18 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\ToaNhaController;
 
 Route::get('/', function () {
     return redirect()->route('dashboard');
 });
 
-Route::middleware(['auth', 'verified'])->group(function () {
-
-    Route::get('/admin/dashboard', function () {
+Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', function () {
         return view('admin.index');
-    })->name('admin.dashboard');
+    })->name('dashboard');
 
+    Route::resource('toanha', ToaNhaController::class);
 });
 
 Route::get('/dashboard', function () {
