@@ -66,6 +66,7 @@ return new class extends Migration
         Schema::create('hop_dong', function (Blueprint $table) {
             $table->id('ma_hop_dong');
             $table->unsignedBigInteger('user_id');
+            $table->dateTime('ngay_lap');
             $table->dateTime('ngay_bat_dau');
             $table->dateTime('ngay_ket_thuc');
             $table->decimal('tong_tien_coc', 18, 2);

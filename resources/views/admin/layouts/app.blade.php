@@ -4304,6 +4304,17 @@
                             </li>
                             <!-- End Components -->
 
+                            <!-- Components -->
+                            <li class="navbar-vertical-aside-has-menu ">
+                                <a class="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle "
+                                    href="{{ route('admin.hopdong.index') }}" title="Apps">
+                                    <i class="tio-apps nav-icon"></i>
+                                    <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Hợp Đồng
+                                    </span>
+                                </a>
+                            </li>
+                            <!-- End Components -->
+
                             <li class="nav-item">
                                 <small class="nav-subtitle" title="Pages">Pages</small>
                                 <small class="tio-more-horizontal nav-subtitle-replacer"></small>

@@ -11,7 +11,7 @@ class HopDong extends Model
 
     protected $table = 'hop_dong';
     protected $primaryKey = 'ma_hop_dong';
-    protected $fillable = ['user_id', 'ngay_bat_dau', 'ngay_ket_thuc', 'tong_tien_coc', 'tinh_trang', 'da_thanh_ly', 'ngay_thanh_ly', 'ghi_chu_thanh_ly'];
+    protected $fillable = ['user_id', 'ngay_ky' ,'ngay_bat_dau', 'ngay_ket_thuc', 'tong_tien_coc', 'tinh_trang', 'da_thanh_ly', 'ngay_thanh_ly', 'ghi_chu_thanh_ly'];
 
     public function user()
     {
