@@ -23,6 +23,8 @@
 
     <!-- CSS Front Template -->
     <link rel="stylesheet" href="{{ asset('assets/css/theme.min.css?v=1.0') }}">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body class="   footer-offset">
@@ -4784,6 +4786,14 @@
                                 </ul>
                             </li>
                             <!-- End Authentication -->
+                            <li class="nav-item ">
+                                <a class="js-nav-tooltip-link nav-link " href="{{ route('admin.vanphong.index') }}"
+                                    title="Welcome page" data-placement="left">
+                                    <i class="tio-dashboard-vs-outlined nav-icon"></i>
+                                    <span
+                                        class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Văn phòng</span>
+                                </a>
+                            </li>
 
                             <li class="nav-item ">
                                 <a class="js-nav-tooltip-link nav-link " href="welcome-page.html"
