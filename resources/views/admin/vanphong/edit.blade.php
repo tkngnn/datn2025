@@ -13,7 +13,7 @@
         </div>
       
       <!-- Step Form -->
-      <form action="{{ route('admin.vanphong.update',$vanphong->ma_van_phong) }}" method="POST" id="formVanPhong" class="js-step-form py-md-5" data-hs-step-form-options='{
+      <form action="{{ route('admin.vanphong.update',$vanphong->id) }}" method="POST" id="formVanPhong" class="js-step-form py-md-5" data-hs-step-form-options='{
               "progressSelector": "#addUserStepFormProgress",
               "stepsSelector": "#addUserStepFormContent",
               "endSelector": "#addUserFinishBtn",
@@ -170,22 +170,19 @@
             method: "POST",
             data: $(this).serialize(),
             success: function(response) {
-              // sessionStorage.setItem('showSuccessMessage', 'true');
               $('#successMessage').fadeIn();
 
               setTimeout(function() {
                 $('#successMessage').fadeOut();
               }, 5000);
               const data = response.data;
-              $('input[name="ten_van_phong"]').val(data.ten_van_phong);
-              $('input[name="dien_tich"]').val(data.dien_tich);
-              $('input[name="gia_thue"]').val(
-                data.gia_thue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
-              );
-              $('input[name="mo_ta"]').val(data.mo_ta);
-              $('input[name="tien_ich"]').val(data.tien_ich);
+              $('input[name="name"]').val(data.name);
+              $('input[name="email"]').val(data.email);
+              $('input[name="so_dien_thoai"]').val(data.so_dien_thoai);
+              $('input[name="dia_chi"]').val(data.dia_chi);
+              $('input[name="cccd"]').val(data.cccd);
+              $('select[name="vai_tro"]').val(data.vai_tro);
               $('select[name="trang_thai"]').val(data.trang_thai);
-              $('select[name="ma_toa_nha"]').val(data.ma_toa_nha);
             },
             error: function(xhr) {
               if(xhr.status === 422) {
@@ -197,29 +194,6 @@
             }
           });
         });
-
-        // $(document).ready(function() {
-        //   if (sessionStorage.getItem('showSuccessMessage') === 'true') {
-        //     if ($('#successMessage').length === 0) {
-        //       $('body').append(`
-        //         <div id="successMessage" class="alert alert-success alert-dismissible fade show" role="alert" 
-        //             style="position: fixed; top: 20px; right: 20px; z-index: 1050; min-width: 250px;">
-        //           <strong>Cập nhật văn phòng thành công</strong> 
-        //           <button type="button" class="close" aria-label="Close" onclick="$('#successMessage').hide()">
-        //             <span aria-hidden="true">&times;</span>
-        //           </button>
-        //         </div>
-        //       `);
-        //     } else {
-        //       $('#successMessage').show();
-        //     }
-        //     setTimeout(function() {
-        //       $('#successMessage').fadeOut();
-        //     }, 10000);
-
-        //     sessionStorage.removeItem('showSuccessMessage');
-        //   }
-        // });
         </script>
     
     <!-- End Footer -->

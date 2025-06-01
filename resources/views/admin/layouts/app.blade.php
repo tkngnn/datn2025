@@ -4786,6 +4786,7 @@
                                 </ul>
                             </li>
                             <!-- End Authentication -->
+                            <!-- Văn phòng -->
                             <li class="nav-item ">
                                 <a class="js-nav-tooltip-link nav-link " href="{{ route('admin.vanphong.index') }}"
                                     title="Welcome page" data-placement="left">
@@ -4794,6 +4795,32 @@
                                         class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Văn phòng</span>
                                 </a>
                             </li>
+                            <!-- End Văn phòng -->
+
+                            <!-- Khách hàng -->
+                            <li class="navbar-vertical-aside-has-menu ">
+                                <a class="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle "
+                                    href="javascript:;" title="Apps">
+                                    <i class="tio-user nav-icon"></i>
+                                    <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Khách hàng</span>
+                                </a>
+
+                                <ul class="js-navbar-vertical-aside-submenu nav nav-sub">
+                                    <li class="nav-item">
+                                        <a class="nav-link " href="{{ route('admin.khachhang.index') }}" title="Kanban">
+                                            <span class="tio-circle nav-indicator-icon"></span>
+                                            <span class="text-truncate">Khách hàng</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link " href="apps-kanban.html" title="Kanban">
+                                            <span class="tio-circle nav-indicator-icon"></span>
+                                            <span class="text-truncate">Khách hẹn xem</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <!-- End Khách hàng -->
 
                             <li class="nav-item ">
                                 <a class="js-nav-tooltip-link nav-link " href="welcome-page.html"
