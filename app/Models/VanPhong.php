@@ -27,4 +27,9 @@ class VanPhong extends Model
     {
         return $this->belongsTo(ToaNha::class,'ma_toa_nha', 'ma_toa_nha');
     }
+
+    public function henxem()
+    {
+        return $this->belongsTo(HenXem::class, 'ma_hen_xem', 'ma_hen_xem');
+    }
 }

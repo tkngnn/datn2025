@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HenXemController;
 use App\Http\Controllers\KhachHangController;
 use App\Http\Controllers\VanPhongController;
 use App\Http\Controllers\ProfileController;
@@ -28,6 +29,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('khachhang', [KhachHangController::class, 'store'])->name('khachhang.store');
         Route::get('khachhang/{id}/edit', [KhachHangController::class, 'edit'])->name('khachhang.edit');
         Route::put('khachhang/{id}', [KhachHangController::class, 'update'])->name('khachhang.update');
+
+        Route::get('henxem', [HenXemController::class, 'index'])->name('henxem.index');
+        Route::get('henxem/create', [HenXemController::class, 'create'])->name('henxem.create');
+        Route::post('henxem', [HenXemController::class, 'store'])->name('henxem.store');
+        Route::get('henxem/{id}/edit', [HenXemController::class, 'edit'])->name('henxem.edit');
+        Route::put('henxem/{id}', [HenXemController::class, 'update'])->name('henxem.update');
     });
 });
 

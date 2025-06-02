@@ -1,5 +1,5 @@
 @extends('admin.layouts.app')
-@section('title', 'Thêm khách hàng')
+@section('title', 'Cập nhật khách hàng')
 @section('content')
   <main id="content" role="main" class="main">
     <!-- Content -->

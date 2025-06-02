@@ -313,7 +313,7 @@
                         <i class="tio-last-page navbar-vertical-aside-toggle-full-align"
                             data-template='<div class="tooltip d-none d-sm-block" role="tooltip"><div class="arrow"></div><div class="tooltip-inner"></div></div>'
                             data-toggle="tooltip" data-placement="right" title="Expand"></i>
-                    </button>
+                    </button>   
                     <!-- End Navbar Vertical Toggle -->
 
                     <!-- Search Form -->
@@ -4813,7 +4813,7 @@
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link " href="apps-kanban.html" title="Kanban">
+                                        <a class="nav-link " href="{{ route('admin.henxem.index') }}" title="Kanban">
                                             <span class="tio-circle nav-indicator-icon"></span>
                                             <span class="text-truncate">Khách hẹn xem</span>
                                         </a>
