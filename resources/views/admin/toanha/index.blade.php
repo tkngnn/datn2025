@@ -173,11 +173,12 @@
                                             <select name="trang_thai" id="filterStatus" class="form-control selectpicker"
                                                 data-live-search="true" title="Chọn trạng thái">
                                                 <option value="">-- Tất cả --</option>
-                                                <option value="hoat_dong"
-                                                    {{ request('trang_thai') == 'hoat_dong' ? 'selected' : '' }}>Hoạt động
+                                                <option value="hoat dong"
+                                                    {{ request('trang_thai') == 'hoat dong' ? 'selected' : '' }}>Hoạt động
                                                 </option>
-                                                <option value="tam_ngung"
-                                                    {{ request('trang_thai') == 'tam_ngung' ? 'selected' : '' }}>Tạm ngưng
+                                                <option value="khong hoat dong"
+                                                    {{ request('trang_thai') == 'khong hoat dong' ? 'selected' : '' }}>Tạm
+                                                    ngưng
                                                 </option>
                                             </select>
                                         </div>
@@ -241,10 +242,10 @@
                                     <td>{{ $item->dia_chi }}</td>
                                     <td>{{ $item->so_tang }}</td>
                                     <td>
-                                        @if ($item->trang_thai === 'hoat_dong')
+                                        @if ($item->trang_thai === 'hoat dong')
                                             <span class="badge badge-success">Hoạt động</span>
                                         @else
-                                            <span class="badge badge-warning">Tạm ngưng</span>
+                                            <span class="badge badge-warning">Không hoạt động</span>
                                         @endif
                                     </td>
                                     <td>

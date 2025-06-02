@@ -102,8 +102,8 @@
                                         <div class="form-group">
                                             <label for="statusLabel" class="input-label">Trạng thái</label>
                                             <select class="form-control" name="trang_thai" id="statusLabel">
-                                                <option value="hoat_dong" selected>Hoạt động</option>
-                                                <option value="tam_ngung">Tạm ngưng</option>
+                                                <option value="hoat dong" selected>Hoạt động</option>
+                                                <option value="khong hoat dong">Không hoạt động</option>
                                             </select>
                                         </div>
                                         <!-- End Form Group -->

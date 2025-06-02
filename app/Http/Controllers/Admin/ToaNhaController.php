@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\ToaNha; 
+use App\Models\ToaNha;
 
 class ToaNhaController extends Controller
 {
@@ -42,7 +42,7 @@ class ToaNhaController extends Controller
             'address' => 'required|string|max:255',
             'floor_count' => 'required|integer|min:1',
             'mo_ta' => 'nullable|string',
-            'trang_thai' => 'required|in:hoat_dong,tam_ngung',
+            'trang_thai' => 'required|in:hoat dong, khong hoat dong',
         ]);
 
         ToaNha::create([
@@ -85,7 +85,7 @@ class ToaNhaController extends Controller
             'address' => 'required|string|max:255',
             'floor_count' => 'required|integer|min:1',
             'mo_ta' => 'nullable|string',
-            'trang_thai' => 'required|in:hoat_dong,tam_ngung',
+            'trang_thai' => 'required|in:hoat dong, khong hoat dong',
         ]);
 
         $toanha = ToaNha::findOrFail($id);
@@ -106,7 +106,7 @@ class ToaNhaController extends Controller
     public function destroy(string $id)
     {
         $toaNha = ToaNha::findOrFail($id);
-        $toaNha->update(['trang_thai' => 'tam_ngung']);
+        $toaNha->update(['trang_thai' => 'khong hoat dong']);
         $toaNha->delete(); // Thực hiện soft delete
         return redirect()->route('admin.toanha.index')->with('success', 'Đã cập nhật trạng thái xóa.');
     }

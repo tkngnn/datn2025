@@ -106,12 +106,12 @@
                                         <div class="form-group">
                                             <label for="statusLabel" class="input-label">Trạng thái</label>
                                             <select class="form-control" name="trang_thai" id="statusLabel">
-                                                <option value="hoat_dong"
-                                                    {{ old('trang_thai', $toaNha->trang_thai) == 'hoat_dong' ? 'selected' : '' }}>
+                                                <option value="hoat dong"
+                                                    {{ old('trang_thai', $toaNha->trang_thai) == 'hoat dong' ? 'selected' : '' }}>
                                                     Hoạt động</option>
-                                                <option value="tam_ngung"
-                                                    {{ old('trang_thai', $toaNha->trang_thai) == 'tam_ngung' ? 'selected' : '' }}>
-                                                    Tạm ngưng</option>
+                                                <option value="khong hoat dong"
+                                                    {{ old('trang_thai', $toaNha->trang_thai) == 'khong hoat dong' ? 'selected' : '' }}>
+                                                    Không hoạt động</option>
                                             </select>
                                         </div>
                                         <!-- End Form Group -->

@@ -100,10 +100,10 @@
                                 <label for="trang_thai">Trạng thái</label>
                                 <select class="form-control" name="tinh_trang" id="tinh_trang">
                                     <option value="">Chọn trạng thái</option>
-                                    <option value="dang_thue" {{ $hopDong->tinh_trang == 'Đang thuê' ? 'selected' : '' }}>
+                                    <option value="dang thue" {{ $hopDong->tinh_trang == 'dang thue' ? 'selected' : '' }}>
                                         Đang thuê</option>
-                                    <option value="da_thanh_ly"
-                                        {{ $hopDong->tinh_trang == 'da_thanh_ly' ? 'selected' : '' }}>Đã thanh lý</option>
+                                    <option value="da thanh ly"
+                                        {{ $hopDong->tinh_trang == 'da thanh ly' ? 'selected' : '' }}>Đã thanh lý</option>
                                 </select>
                             </div>
                             <div class="col-md-8">

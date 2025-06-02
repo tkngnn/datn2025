@@ -92,7 +92,7 @@ class HopDongController extends Controller
                 'ngay_bat_dau' => $validated['ngay_bat_dau'],
                 'ngay_ket_thuc' => $validated['han_hop_dong'],
                 'tong_tien_coc' => $validated['tien_coc'],
-                'tinh_trang' => 'Đang thuê',
+                'tinh_trang' => 'dang thue',
                 'ghi_chu_thanh_ly' => $validated['ghi_chu'] ?? null,
             ]);
 
@@ -116,7 +116,7 @@ class HopDongController extends Controller
                 'so_tien' => $validated['tien_coc'],
                 'ngay_coc' => $validated['ngay_ky'],
                 'ngay_tra_phong' => $validated['han_hop_dong'],
-                'tinh_trang_hoan' => 'Chưa hoàn',
+                'tinh_trang_hoan' => 'chua hoan',
                 'so_tien_hoan' => null,
                 'ghi_chu' => 'Cọc ban đầu khi ký hợp đồng'
             ]);
@@ -277,7 +277,7 @@ class HopDongController extends Controller
 
         HopDong::where('ma_hop_dong', $maHopDong)->update([
             'da_thanh_ly' => true,
-            'tinh_trang' => 'Da thanh ly',
+            'tinh_trang' => 'da thanh ly',
         ]);
 
         return redirect()->back()->with('success', 'Đã thanh lý hợp đồng thành công.');
