@@ -23,8 +23,8 @@
     <br>
     <p><strong>BÊN THUÊ (Bên B):</strong></p>
     <p>Họ tên / Công ty: {{ $hopdong->user->name ?? 'Không có' }}</p>
-    <p>Địa chỉ: {{ $hopdong->user->address ?? 'Không rõ' }}</p>
-    <p>Điện thoại: {{ $hopdong->user->phone ?? 'Không rõ' }}</p>
+    <p>Địa chỉ: {{ $hopdong->user->dia_chi ?? 'Không rõ' }}</p>
+    <p>Điện thoại: {{ $hopdong->user->so_dien_thoai ?? 'Không rõ' }}</p>
     <p>Đại diện: {{ $hopdong->user->name ?? 'Không có' }}</p>
     <p>Chức vụ: [Chức vụ]</p>
 

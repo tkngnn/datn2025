@@ -123,7 +123,7 @@ class HopDongController extends Controller
 
             // 6. CẬP NHẬT TRẠNG THÁI VĂN PHÒNG
             $vanPhong->update([
-                'trang_thai' => 'da_thue'
+                'trang_thai' => 'da thue'
             ]);
 
             DB::commit();

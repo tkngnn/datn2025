@@ -23,7 +23,7 @@ class TNVPController extends Controller
     public function getDetails($vanPhongId)
     {
         $vanPhong = VanPhong::where('ma_van_phong', $vanPhongId)
-            ->where('trang_thai', 'Dang su dung')
+            ->where('trang_thai', 'dang trong')
             ->first();
 
         Log::info('Lấy chi tiết văn phòng: ' . $vanPhongId, ['vanPhong' => $vanPhong]);

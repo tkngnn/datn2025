@@ -607,13 +607,12 @@
                                         aria-label="Text input with radio button 2" readonly>
                                 </div>
                             </div>
+                            <div class="mb-2">
+                                <label>Ngày chuyển đi:</label>
+                                <input type="date" name="ngay_thanh_ly" class="form-control" required>
+                            </div>
 
                             <div id="thongTinCongNo">
-                                <div class="mb-2">
-                                    <label>Ngày chuyển đi:</label>
-                                    <input type="date" name="ngay_thanh_ly" class="form-control" required>
-                                </div>
-
                                 <h2 class="mt-4 text-primary">2. Công nợ khách hàng</h2>
                                 <div id="hoaDonTableContainer">
                                     <table class="table table-bordered" id="hoaDonTable">
@@ -628,7 +627,8 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <p id="noDebtMessage" class="alert alert-soft-primary">Khách hàng không còn nợ khoản tiền
+                                <p id="noDebtMessage" class="alert alert-soft-primary">Khách hàng không còn nợ khoản
+                                    tiền
                                     nào.
                                 </p>
 
@@ -807,6 +807,21 @@
 
                     // Hàm cập nhật tổng cộng
                     function capNhatTongCong() {
+
+                        const lyDo = document.querySelector('input[name="ly_do"]:checked')?.value;
+                        if (lyDo === 'Khách bỏ cọc') {
+                            // Reset hết về 0
+                            document.getElementById('tongPhiPhat').innerText = '0 ₫';
+                            document.getElementById('hoanCoc').innerText = '0 ₫';
+                            document.getElementById('tongCong').innerText = '0 ₫';
+
+                            document.getElementById('inputTongNo').value = 0;
+                            document.getElementById('inputPhiPhat').value = 0;
+                            document.getElementById('inputHoanTraCoc').value = 0;
+                            document.getElementById('inputTongCong').value = 0;
+
+                            return; // Không tính toán nữa
+                        }
                         // Lấy các giá trị số từ input, nếu rỗng thì mặc định 0
                         const phiPhat = Number(document.getElementById('phiPhat').value) || 0;
                         const hoanCoc = Number(document.getElementById('hoanTraCoc').value) || 0;

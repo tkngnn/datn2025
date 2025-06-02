@@ -10,7 +10,7 @@ class VanPhongController extends Controller
 {
     public function index()
     {
-        $vanphongs = VanPhong::with('toanha')->get();
+        $vanphongs = VanPhong::with('toaNha')->get();
         return view('admin.vanphong.index', compact('vanphongs'));
     }
 

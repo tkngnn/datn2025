@@ -531,7 +531,7 @@
                   </td>
                   <td>
                     <div>
-                      <a class="btn btn-sm btn-white" href="{{ route('admin.vanphong.edit',$vanphong->ma_van_phong) }}">
+                      <a class="btn btn-sm btn-white" href="{{ route('admin.vanphong.edit', $vanphong->ma_van_phong) }}">
                         <i class="tio-edit"></i> Sửa
                       </a>
                     </div>

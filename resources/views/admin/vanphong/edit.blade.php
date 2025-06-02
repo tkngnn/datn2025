@@ -13,7 +13,7 @@
         </div>
       
       <!-- Step Form -->
-      <form action="{{ route('admin.vanphong.update',$vanphong->id) }}" method="POST" id="formVanPhong" class="js-step-form py-md-5" data-hs-step-form-options='{
+      <form action="{{ route('admin.vanphong.update',$vanphong->ma_van_phong) }}" method="POST" id="formVanPhong" class="js-step-form py-md-5" data-hs-step-form-options='{
               "progressSelector": "#addUserStepFormProgress",
               "stepsSelector": "#addUserStepFormContent",
               "endSelector": "#addUserFinishBtn",

@@ -17,7 +17,7 @@ class ToaNhaSeeder extends Seeder
                 'dia_chi' => '1 Le Loi', 
                 'mo_ta' => 'Van phong cao cap', 
                 'so_tang' => 10, 
-                'trang_thai' => 'Dang su dung', 
+                'trang_thai' => 'hoat dong', 
                 'created_at' => now(), 
                 'updated_at' => now()
             ],
@@ -26,7 +26,7 @@ class ToaNhaSeeder extends Seeder
                 'dia_chi' => '2 Nguyen Trai', 
                 'mo_ta' => 'Toa nha moi', 
                 'so_tang' => 8, 
-                'trang_thai' => 'Bao tri', 
+                'trang_thai' => 'khong hoat dong', 
                 'created_at' => now(), 
                 'updated_at' => now()
             ],   
