@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ToaNhaController;
 use App\Http\Controllers\Admin\HopDongController;
 use App\Http\Controllers\Admin\TNVPController;
+use App\Http\Controllers\Admin\HoTroController;
 
 Route::get('/', function () {
     return redirect()->route('dashboard');
@@ -61,6 +62,9 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::post('henxem', [HenXemController::class, 'store'])->name('henxem.store');
     Route::get('henxem/{id}/edit', [HenXemController::class, 'edit'])->name('henxem.edit');
     Route::put('henxem/{id}', [HenXemController::class, 'update'])->name('henxem.update');
+
+    //Route quản lý yêu cầu hỗ trợ
+    Route::resource('hotro', HoTroController::class);
 });
 
 Route::get('/dashboard', function () {
