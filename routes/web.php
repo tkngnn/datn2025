@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\ToaNhaController;
 use App\Http\Controllers\Admin\HopDongController;
 use App\Http\Controllers\Admin\TNVPController;
 use App\Http\Controllers\Admin\HoTroController;
+use App\Http\Controllers\Admin\ThongKeController;
 
 Route::get('/', function () {
     return redirect()->route('dashboard');
@@ -65,6 +66,11 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
 
     //Route quản lý yêu cầu hỗ trợ
     Route::resource('hotro', HoTroController::class);
+
+    //Route thống kê
+    Route::get('thongke', [ThongKeController::class, 'index'])->name('thongke.index');
+    Route::get('thongke/doanh-thu-thang', [ThongKeController::class, 'doanhThuThang'])->name('thongke.doanh_thu_thang');
+    Route::get('thongke/ty-le-lap-day', [ThongKeController::class, 'tyLeLapDay'])->name('thongke.ty_le_lap_day');
 });
 
 Route::get('/dashboard', function () {

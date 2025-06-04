@@ -4327,6 +4327,39 @@
                             </li>
                             <!-- End Components -->
 
+                             <!-- Components -->
+                             <li class="navbar-vertical-aside-has-menu ">
+                                <a class="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle "
+                                    href="javascript:;" title="Apps">
+                                    <i class="tio-apps nav-icon"></i>
+                                    <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Thống Kê
+                                    </span>
+                                </a>
+
+                                <ul class="js-navbar-vertical-aside-submenu nav nav-sub">
+                                    <li class="nav-item">
+                                        <a class="nav-link " href="{{ route('admin.thongke.index') }}"
+                                            title="Calendar">
+                                            <span class="tio-circle nav-indicator-icon"></span>
+                                            <span class="text-truncate">Thống kê</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link " href="{{ route('admin.thongke.doanh_thu_thang') }}" title="Calendar">
+                                            <span class="tio-circle nav-indicator-icon"></span>
+                                            <span class="text-truncate">Doanh thu</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link " href="{{ route('admin.thongke.ty_le_lap_day') }}" title="Calendar">
+                                            <span class="tio-circle nav-indicator-icon"></span>
+                                            <span class="text-truncate">Tỷ lệ lắp đầy</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <!-- End Components -->
+
                             <li class="nav-item">
                                 <small class="nav-subtitle" title="Pages">Pages</small>
                                 <small class="tio-more-horizontal nav-subtitle-replacer"></small>
