@@ -13,6 +13,10 @@ class ThanhToan extends Model
     protected $primaryKey = 'ma_thanh_toan';
     protected $fillable = ['ma_hoa_don', 'ma_giao_dich', 'so_tien', 'phuong_thuc', 'trang_thai', 'thoi_gian', 'noi_dung', 'phan_hoi_tu_cong_thanh_toan'];
 
+    protected $casts = [
+        'thoi_gian' => 'datetime',
+    ];
+
     public function hoaDon()
     {
         return $this->belongsTo(HoaDon::class, 'ma_hoa_don');

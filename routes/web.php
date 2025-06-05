@@ -11,11 +11,14 @@ use App\Http\Controllers\Admin\TNVPController;
 use App\Http\Controllers\Admin\HoTroController;
 use App\Http\Controllers\Admin\ThongKeController;
 
+use App\Http\Controllers\Admin\KT\KTController;
+use App\Http\Controllers\Admin\KT\ThanhToanController;
+
 Route::get('/', function () {
-    return redirect()->route('dashboard');
+    return redirect()->route('login');
 });
 
-Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', 'verified', 'check.role:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', function () {
         return view('admin.index');
     })->name('dashboard');
@@ -72,6 +75,16 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::get('thongke/doanh-thu-thang', [ThongKeController::class, 'doanhThuThang'])->name('thongke.doanh_thu_thang');
     Route::get('thongke/ty-le-lap-day', [ThongKeController::class, 'tyLeLapDay'])->name('thongke.ty_le_lap_day');
 });
+
+Route::middleware(['auth', 'verified', 'check.role:KT'])->prefix('kt')->name('kt.')->group(function () {
+    Route::get('/dashboard', [KTController::class, 'index'])->name('dashboard');
+    Route::get('/hoadon', [KTController::class, 'DSHoaDon'])->name('hoadon');
+    Route::get('/hoadon/thanh-toan/{id}', [ThanhToanController::class, 'thanhToan'])->name('hoadon.thanh_toan');
+    Route::get('/vnpay/return', [ThanhToanController::class, 'vnpayReturn'])->name('vnpay.return');
+});
+
+
+
 
 Route::get('/dashboard', function () {
     return view('admin.index');

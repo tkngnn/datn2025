@@ -28,7 +28,13 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->route('admin.dashboard');
+        if (Auth::user()->vai_tro === 'admin') {
+            return redirect()->route('admin.dashboard');
+        } elseif (Auth::user()->vai_tro === 'KT') {
+            return redirect()->route('kt.dashboard');
+        }
+
+        return redirect('/')->with('error', 'Bạn không có quyền truy cập vào hệ thống.');
     }
 
     /**
