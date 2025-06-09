@@ -13,9 +13,15 @@ use App\Http\Controllers\Admin\ThongKeController;
 
 use App\Http\Controllers\Admin\KT\KTController;
 use App\Http\Controllers\Admin\KT\ThanhToanController;
+use App\Http\Controllers\User\HomeController;
 
 Route::get('/', function () {
     return redirect()->route('login');
+});
+
+Route::group(['prefix' => 'user'], function () {
+    Route::get('/trang-chu', [HomeController::class, 'index'])->name('user.home');
+    Route::get('/danh-sach', [HomeController::class, 'danhsach'])->name('user.danhsach');
 });
 
 Route::middleware(['auth', 'verified', 'check.role:admin'])->prefix('admin')->name('admin.')->group(function () {
