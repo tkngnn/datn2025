@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\VanPhong;
 use App\Models\ToaNha;
 use Illuminate\Http\Request;
@@ -35,7 +36,10 @@ class VanPhongController extends Controller
         ]);
 
         VanPhong::create($data);
-        return redirect()->route('admin.vanphong.index')->with('success', 'Thêm văn phòng thành công');
+        return response()->json([
+            'message' => 'Thêm văn phòng thành công!',
+            'next_id' => VanPhong::max('ma_van_phong') + 1
+        ]);      
     }
 
     public function edit($ma_van_phong)

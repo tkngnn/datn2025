@@ -523,10 +523,10 @@
                   <td>{{ $vanphong->dien_tich }}</td>
                   <td>{{ number_format($vanphong->gia_thue, 0, ',', '.') }}</td>
                   <td>
-                    @if ($vanphong->trang_thai === 'Dang su dung')
-                        <span class="legend-indicator bg-success"></span> Đang sử dụng
+                    @if ($vanphong->trang_thai === 'Da thue')
+                        <span class="legend-indicator bg-success"></span> Đã thuê
                     @else
-                        <span class="legend-indicator bg-danger"></span> Bảo trì
+                        <span class="legend-indicator bg-danger"></span> Đang trống
                     @endif
                   </td>
                   <td>

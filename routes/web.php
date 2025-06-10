@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\VanPhongController;
+use App\Http\Controllers\Admin\VanPhongController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
