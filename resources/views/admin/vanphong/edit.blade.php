@@ -1,6 +1,43 @@
 @extends('admin.layouts.app')
 @section('title', 'Thêm văn phòng')
 
+<meta name="csrf-token" content="{{ csrf_token() }}">
+<style>
+    .preview-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 10px;
+    }
+    .preview-image {
+        position: relative;
+        width: 100px;
+        height: 100px;
+    }
+    .preview-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border: 1px solid #ccc;
+    }
+    .remove-btn {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        background: red;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+</style>
+
+
 @section('content')
     <main id="content" role="main" class="main">
         <form action="{{ route('admin.vanphong.update',$vanphong->ma_van_phong) }}" method="POST" id="formVanPhong" class="js-step-form py-md-5" data-hs-step-form-options='{
@@ -145,6 +182,26 @@
                                         <span class="text-danger" id="error-tien_ich"></span>
                                     </div>    
 
+                                    <!-- Media -->
+                                    <div class="card mb-3 mb-lg-5">
+                                      <div class="card-header">
+                                          <h4 class="card-header-title">Hình ảnh</h4>
+                                      </div>
+                                      <div class="card-body">
+                                          <input type="file" name="images[]" id="imageInput" multiple accept="image/*">
+                                          <div id="previewContainer" class="preview-container">
+                                              @if ($vanphong->hasMedia('anh_van_phong'))
+                                                  @foreach ($vanphong->getMedia('anh_van_phong') as $media)
+                                                      <div class="preview-image" data-existing-image="{{ $media->id }}">
+                                                        <img src="{{ asset('storage/' . $media->id . '/' . $media->file_name) }}" alt="Preview">                                                          <button type="button" class="remove-btn" onclick="removeExistingImage(this, '{{ $media->id }}')">X</button>
+                                                      </div>
+                                                  @endforeach
+                                              @endif
+                                          </div>
+                                          <input type="hidden" name="deleted_images" id="deletedImages" value="">
+                                      </div>
+                                    </div>
+
                                     <!-- Mô tả -->
                                     <div class="form-group">
                                     <label class="col-sm-3 col-form-label input-label">Mô tả</label>
@@ -204,6 +261,60 @@
                 <!-- Footer -->
                 <!-- End Footer -->
                 <script>
+                  // Xử lý ảnh
+                  const imageInput = document.getElementById('imageInput');
+                  const previewContainer = document.getElementById('previewContainer');
+                  let selectedFiles = [];
+                  let deletedImages = [];
+
+                  // Xử lý khi chọn file mới
+                  imageInput.addEventListener('change', function(e) {
+                      const files = Array.from(e.target.files);
+                      files.forEach(file => {
+                          if (file.type.startsWith('image/')) {
+                              selectedFiles.push(file);
+                              displayImage(file);
+                          }
+                      });
+                      updateInputFiles();
+                  });
+
+                  // Hiển thị ảnh preview
+                  function displayImage(file) {
+                      const reader = new FileReader();
+                      reader.onload = function(e) {
+                          const div = document.createElement('div');
+                          div.className = 'preview-image';
+                          div.innerHTML = `
+                              <img src="${e.target.result}" alt="Preview">
+                              <button type="button" class="remove-btn" onclick="removeImage(this, '${file.name}')">X</button>
+                          `;
+                          previewContainer.appendChild(div);
+                      };
+                      reader.readAsDataURL(file);
+                  }
+
+                  // Xóa ảnh mới
+                  function removeImage(button, fileName) {
+                      selectedFiles = selectedFiles.filter(file => file.name !== fileName);
+                      button.parentElement.remove();
+                      updateInputFiles();
+                  }
+
+                  // Xóa ảnh hiện có
+                  function removeExistingImage(button, imageId) {
+                      deletedImages.push(imageId);
+                      document.getElementById('deletedImages').value = deletedImages.join(',');
+                      button.parentElement.remove();
+                  }
+
+                  // Cập nhật danh sách file cho input
+                  function updateInputFiles() {
+                      const dataTransfer = new DataTransfer();
+                      selectedFiles.forEach(file => dataTransfer.items.add(file));
+                      imageInput.files = dataTransfer.files;
+                  }
+
                     document.addEventListener("DOMContentLoaded", function() {
                         setTimeout(() => {
                             const editor = document.querySelector('.js-quill .ql-editor');
@@ -239,6 +350,8 @@
                       if(message.includes("The gia thue must be a number")) return "Giá thuê phải là số";
                       if(message.includes("The mo ta field is required")) return "Vui lòng nhập mô tả";
                       if(message.includes("The tien ich field is required")) return "Vui lòng nhập tiện ích";
+                      if (message.includes("The images.* must be an image")) return "Hình ảnh phải là định dạng jpeg, png, jpg, hoặc gif";
+                      if (message.includes("The images.* may not be greater than 2048 kilobytes")) return "Hình ảnh không được lớn hơn 2MB";
                       return message;
                     }
             
@@ -246,14 +359,23 @@
                       e.preventDefault();
                       $('.text-danger').html('');
 
-                      const quillEditor = document.querySelector('.js-quill .ql-editor');
+                    const quillEditor = document.querySelector('.js-quill .ql-editor');
                     const content = quillEditor ? quillEditor.innerHTML : '';
                     $('#hiddenDescription').val(content);
             
+                    const formData = new FormData(this);
+                    formData.append('_token', '{{ csrf_token() }}');
+                    formData.append('_method', 'PUT');
+
                       $.ajax({
                         url: "{{ route('admin.vanphong.update', $vanphong->ma_van_phong) }}",
                         method: "POST",
-                        data: $(this).serialize(),
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
                         success: function(response) {
                             $('#successText').text('Cập nhật văn phòng thành công!');
                           $('#successMessage').fadeIn();

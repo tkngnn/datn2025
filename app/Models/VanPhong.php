@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class VanPhong extends Model
+class VanPhong extends Model implements HasMedia
 {
-    use HasFactory;
+    use HasFactory, InteractsWithMedia;
 
     protected $table = 'van_phong';
     protected $primaryKey = 'ma_van_phong';
@@ -22,6 +24,13 @@ class VanPhong extends Model
         'tien_ich',
         'trang_thai',
     ];
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('anh_van_phong')
+             ->acceptsMimeTypes(['image/jpeg', 'image/png'])
+             ->useDisk('public');
+    }
 
     public function toanha()
     {
