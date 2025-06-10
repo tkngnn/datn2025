@@ -1,13 +1,15 @@
 <?php
 
-use App\Http\Controllers\HenXemController;
-use App\Http\Controllers\KhachHangController;
-use App\Http\Controllers\VanPhongController;
+use App\Http\Controllers\Admin\HenXemController;
+use App\Http\Controllers\Admin\KhachHangController;
+use App\Http\Controllers\Admin\VanPhongController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ToaNhaController;
 use App\Http\Controllers\Admin\HopDongController;
 use App\Http\Controllers\Admin\TNVPController;
+use App\Http\Controllers\Admin\HoaDonController;
+use App\Http\Controllers\Admin\ChiSoController;
 
 Route::get('/', function () {
     return redirect()->route('dashboard');
@@ -61,6 +63,21 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::post('henxem', [HenXemController::class, 'store'])->name('henxem.store');
     Route::get('henxem/{id}/edit', [HenXemController::class, 'edit'])->name('henxem.edit');
     Route::put('henxem/{id}', [HenXemController::class, 'update'])->name('henxem.update');
+
+    // Route quản lý chỉ số
+    Route::get('chiso', [ChiSoController::class, 'index'])->name('chiso.index');
+    Route::get('chiso/create', [ChiSoController::class, 'create'])->name('chiso.create');
+    Route::post('chiso', [ChiSoController::class, 'store'])->name('chiso.store');
+    Route::get('chiso/{id}/edit', [ChiSoController::class, 'edit'])->name('chiso.edit');
+    Route::put('chiso/{id}', [ChiSoController::class, 'update'])->name('chiso.update');
+
+    // Route quản lý hóa đơn
+    Route::get('hoadon', [HoaDonController::class, 'index'])->name('hoadon.index');
+    Route::get('hoadon/create', [HoaDonController::class, 'create'])->name('hoadon.create');
+    Route::post('hoadon', [HoaDonController::class, 'store'])->name('hoadon.store');
+    Route::get('hoadon/{id}/edit', [HoaDonController::class, 'edit'])->name('hoadon.edit');
+    Route::put('hoadon/{id}', [HoaDonController::class, 'update'])->name('hoadon.update');
+
 });
 
 Route::get('/dashboard', function () {

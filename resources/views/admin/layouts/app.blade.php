@@ -4317,6 +4317,34 @@
                             </li>
                             <!-- End Components -->
 
+                            <!-- Components -->
+                            <li class="navbar-vertical-aside-has-menu ">
+                                <a class="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle "
+                                    href="javascript:;" title="Apps">
+                                    <i class="tio-money nav-icon"></i>
+                                    <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Tài chính
+                                    </span>
+                                </a>
+
+                                <ul class="js-navbar-vertical-aside-submenu nav nav-sub">
+                                    <li class="nav-item">
+                                         <a class="nav-link " href="{{ route('admin.chiso.index') }}"
+                                            title="Ghi chỉ số">
+                                            <span class="tio-circle nav-indicator-icon"></span>
+                                            <span class="text-truncate">Ghi chỉ số</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link " href="{{ route('admin.hoadon.index') }}" title="Hóa đơn"> 
+                                            <span class="tio-circle nav-indicator-icon"></span>
+                                            <span class="text-truncate">Hóa đơn</span>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </li>
+                            <!-- End Components -->
+
                             <li class="nav-item">
                                 <small class="nav-subtitle" title="Pages">Pages</small>
                                 <small class="tio-more-horizontal nav-subtitle-replacer"></small>

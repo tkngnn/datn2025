@@ -1,10 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
+
+
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 use App\Models\VanPhong;
 use App\Models\HenXem;
-use Illuminate\Http\Request;
 
 class HenXemController extends Controller
 {
