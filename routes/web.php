@@ -2,7 +2,8 @@
 
 use App\Http\Controllers\HenXemController;
 use App\Http\Controllers\KhachHangController;
-use App\Http\Controllers\VanPhongController;
+//use App\Http\Controllers\VanPhongController;
+use App\Http\Controllers\Admin\VanPhongController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ToaNhaController;
