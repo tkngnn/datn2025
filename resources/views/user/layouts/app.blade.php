@@ -31,6 +31,18 @@
     <link href="{{ asset('user/assets/css/main.css') }}" rel="stylesheet">
 
     @stack('styles')
+    <style>
+        /* Custom styles can be added here */
+        .sitename {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        .logo-img-footer {
+            width: 100px;
+            height: auto;
+        }
+    </style>
 
     <!-- =======================================================
   * Template Name: eStore
@@ -52,7 +64,8 @@
                     <!-- Logo -->
                     <a href="index.html" class="logo d-flex align-items-center">
                         <!-- Uncomment the line below if you also wish to use an image logo -->
-                        <!-- <img src="user/assets/img/logo.webp" alt=""> -->
+                        <img src="{{ asset('user/assets/img/bGROUP.png') }}" alt="" loading="lazy"
+                            class="logo-img">
                         <h1 class="sitename">BGROUP</h1>
                     </a>
 
@@ -163,6 +176,8 @@
                     <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="footer-widget footer-about">
                             <a href="index.html" class="logo">
+                                <img src="{{ asset('user/assets/img/bGROUP.png') }}" alt="Logo" class="logo-img-footer"
+                                    loading="lazy">
                                 <span class="sitename">BGROUP</span>
                             </a>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in nibh vehicula,
