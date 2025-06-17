@@ -1,9 +1,27 @@
 @extends('admin.layouts.app')
-@section('title', 'Ghi chỉ số')
+@section('title', 'Hóa đơn')
 @section('content')
 <main id="content" role="main" class="main">
     <!-- Content -->
     <div class="content container-fluid">
+
+      @if (session('success'))
+            <div id="toastSuccess" class="alert alert-success alert-dismissible fade show"
+                role="alert"
+                style="position: fixed; top: 20px; right: 20px; z-index: 1050; min-width: 300px;">
+              <strong>{{ session('success') }}</strong>
+              <button type="button" class="close" aria-label="Close" onclick="$('#toastSuccess').hide()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+            <script>
+              setTimeout(function() {
+                $('#toastSuccess').fadeOut();
+              }, 7000);
+            </script>
+        @endif
+
       <!-- Page Header -->
       <div class="page-header">
         <div class="row align-items-end">
@@ -11,32 +29,24 @@
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb breadcrumb-no-gutter">
                 <li class="breadcrumb-item"><a class="breadcrumb-link" href="javascript:;">Trang chủ</a></li>
-                <li class="breadcrumb-item"><a class="breadcrumb-link" href="javascript:;">Ghi chỉ số</a></li>
+                <li class="breadcrumb-item"><a class="breadcrumb-link" href="javascript:;">Hóa đơn</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Tổng quan</li>
               </ol>
             </nav>
 
-            <h1 class="page-header-title">Ghi chỉ số</h1>
+            <h1 class="page-header-title">Hóa đơn</h1>
           </div>
 
-          <div class="col-sm-auto">
+          {{-- <div class="col-sm-auto">
             <a class="btn btn-primary" href="{{ route('admin.chiso.create') }}">
               <i class="tio-user-add mr-1"></i> Ghi chỉ số
             </a>
-          </div>
+          </div> --}}
         </div>
         <!-- End Row -->
       </div>
       <!-- End Page Header -->
-@if ($chuaNhap>0)
-  <div class="alert alert-danger">
-    ⚠️ Có <strong>{{ $chuaNhap }}</strong> hóa đơn chưa nhập chỉ số điện, nước.
-  </div>
-@else
-  <div class="alert alert-success">
-    Đã nhập đủ hóa đơn
-  </div>
-@endif
+
       <!-- Card -->
       <div class="card">
         <!-- Header -->
@@ -74,7 +84,7 @@
                 <!-- End Datatable Info -->
 
                 <!-- Unfold -->
-                <div class="hs-unfold mr-2">
+                {{-- <div class="hs-unfold mr-2">
                   <a class="js-hs-unfold-invoker btn btn-sm btn-white dropdown-toggle" href="javascript:;" data-hs-unfold-options='{
                        "target": "#usersExportDropdown",
                        "type": "css-animation"
@@ -107,7 +117,7 @@
                       PDF
                     </a>
                   </div>
-                </div>
+                </div> --}}
                 <!-- End Unfold -->
 
                 <!-- Unfold -->
@@ -484,7 +494,7 @@
         <div class="table-responsive datatable-custom">
           <table id="datatable" class="table table-lg table-borderless table-thead-bordered table-nowrap table-align-middle card-table" data-hs-datatables-options='{
                    "columnDefs": [{
-                      "targets": [0, 9],
+                      "targets": [0, 7],
                       "orderable": false
                     }],
                    "order": [],
@@ -506,13 +516,11 @@
                     <label class="custom-control-label" for="datatableCheckAll"></label>
                   </div>
                 </th>
-                <th class="table-column-pl-0">Mã</th>
-                <th>Văn phòng</th>
+                <th class="table-column-pl-0">Mã hóa đơn</th>
                 <th>Tên khách/Hợp đồng</th>
+                <th>Văn phòng</th>
                 <th>Tháng</th>
-                <th>Số điện/nước cũ</th>
-                <th>Số điện mới</th>
-                <th>Số nước mới</th>
+                <th>Tổng tiền</th>
                 <th>Trạng thái</th>
                 <th></th>
               </tr>
@@ -529,25 +537,51 @@
                       </div>
                     </td>
                     <td>{{ $hoadon->ma_hoa_don }}</td>
-                    <td>{{ $cthd->vanphong->ten_van_phong }}
-                      <span class="d-block font-size-sm">{{ $cthd->vanphong->toanha->ten_toa_nha }}</span>
-                    </td>
                     <td class="text-break px-3">{{ $hoadon->hopdong->user->name }}
                       <span class="d-block font-size-sm">Mã hợp đồng: {{ $hoadon->hopdong->ma_hop_dong }}</span>
                     </td>
+                    <td>{{ $cthd->vanphong->ten_van_phong }}
+                      <span class="d-block font-size-sm">{{ $cthd->vanphong->toanha->ten_toa_nha }}</span>
+                    </td>
                     <td class="text-break px-3">{{ $hoadon->thang_nam}}</td>
-                    <td class="text-break px-3">{{ $hoadon->chi_so_dien_cu}} - {{ $hoadon->chi_so_nuoc_cu }}</td>  
-                    <td class="text-break px-3">{{ $hoadon->so_dien }}</td>
-                    <td class="text-break px-3">{{ $hoadon->so_nuoc }}</td>
+                    <td>{{ number_format($hoadon->tong_tien, 0, ',', '.') }}</td>
                     <td class="text-break px-3">
-                      @if ($hoadon->so_dien && $hoadon->so_nuoc)
-                          <span class="legend-indicator bg-success"></span> Đã nhập
-                      @else
-                          <span class="legend-indicator bg-danger"></span> Chưa nhập
-                      @endif
+                      <div>
+                        @if (!$hoadon->so_dien || !$hoadon->so_nuoc)
+                            <span class="badge badge-warning">Chưa nhập</span> 
+                        @else
+                            <span class="badge badge-success">Đã nhập</span> 
+                        @endif
+                      </div>
+                      <div>
+                        @if ($hoadon->trang_thai === 'da thanh toan')
+                            <span class="badge badge-success">Đã thanh toán</span> 
+                        @else
+                            <span class="badge badge-danger">Chưa thanh toán</span> 
+                        @endif
+                      </div>
+                      <div>
+                        @if ($hoadon->so_ngay_qua_han > 0)
+                          <span class="badge badge-danger">Số ngày quá hạn: {{ $hoadon->so_ngay_qua_han }} ngày</span>
+                        @endif
+                      </div>
                     </td>
                     <td class="text-break px-3">
-                    </td>
+                      <div>
+                        <a class="btn btn-sm btn-primary btn-xem-hoadon" title="Xem" data-ma_hoa_don="{{ $hoadon->ma_hoa_don }}">
+                          <i class="tio-visible-outlined"></i>
+                        </a>
+                        @if ($hoadon->so_ngay_qua_han > 0)
+                          <form action="{{ route('admin.hoadon.guimail') }}" method="POST" style="display: inline-block;">
+                              @csrf
+                              <input type="hidden" name="ma_hoa_don" value="{{ $hoadon->ma_hoa_don }}">
+                              <button type="submit" class="btn btn-sm btn-success" title="Gửi mail">
+                                <i class="tio-email"></i>
+                              </button>
+                            </form>
+                        @endif
+                      </div>
+                    </td>                    
                   </tr>
                 @endforeach
               @endforeach
@@ -644,5 +678,38 @@
 
     
     <!-- End Footer -->
+    <!-- HopDong Modal Popup -->
+      <div class="modal fade" id="hoadonModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Chi tiết hóa đơn</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+            </div>
+            <div class="modal-body" id="modalBodyContent">
+              <!-- Nội dung ở đây -->
+              <div class="text-center">Đang tải...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <!-- End HopDong Modal Popup -->
   </main>
+  
 @endsection
+@push('scripts')
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    $(document).on('click', '.btn-xem-hoadon', function () {
+        const id = $(this).data('ma_hoa_don');
+        $('#modalBodyContent').html('<div class="text-center">Đang tải...</div>');
+        $('#hoadonModal').modal('show');
+    
+        $('#modalBodyContent').load(`/admin/hoadon/preview/${id}`, function (response, status, xhr) {
+            if (status === "error") {
+                $('#modalBodyContent').html('<div class="text-danger">Lỗi tải dữ liệu</div>');
+            }
+        });
+    });
+    </script>
+@endpush

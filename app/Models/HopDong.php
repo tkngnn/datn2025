@@ -34,10 +34,11 @@ class HopDong extends Model
         return $this->hasMany(LichSuCoc::class, 'ma_hop_dong');
     }
 
-    public function hoaDonThangTruoc($thangNamHienTai)
+    /*public function hoaDonThangTruoc($thangNamHienTai)
     {
         $thangTruoc = Carbon::parse($thangNamHienTai . '-01')->subMonth()->format('Y-m');
+        \Log::info("$thangTruoc");
         return $this->hoaDons()->where('thang_nam', $thangTruoc)->first();
-    }
+    }*/
 
 }

@@ -5,6 +5,41 @@
     <main id="content" role="main" class="main">
             <!-- Content -->
         <div class="content container-fluid">
+          @if (session('success'))
+            <div id="toastSuccess" class="alert alert-success alert-dismissible fade show"
+                role="alert"
+                style="position: fixed; top: 20px; right: 20px; z-index: 1050; min-width: 300px;">
+              <strong>{{ session('success') }}</strong>
+              <button type="button" class="close" aria-label="Close" onclick="$('#toastSuccess').hide()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+            <script>
+              setTimeout(function() {
+                $('#toastSuccess').fadeOut();
+              }, 7000);
+            </script>
+        @endif
+
+        @if(session('warning'))
+            <div id="toastWarning" class="alert alert-warning alert-dismissible fade show"
+                role="alert"
+                style="position: fixed; top: 80px; right: 20px; z-index: 1050; min-width: 300px; max-width: 400px;">
+              {!! session('warning') !!}
+              <button type="button" class="close" aria-label="Close" onclick="$('#toastWarning').hide()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+            <script>
+              setTimeout(function() {
+                $('#toastWarning').fadeOut();
+              }, 7000);
+            </script>
+        @endif
+
+          
                 <!-- Page Header -->
             <div class="page-header">
                 <div class="row align-items-center">
@@ -72,11 +107,11 @@
                                 <div class="card">
                                     <!-- Table -->
                                     <div class="table-responsive datatable-custom">
-                                      <form method="POST" action="{{ route('admin.chiso.store') }}">
+                                      <form method="POST" action="{{ route('admin.chiso.store') }}" id="formChiSo">
                                         @csrf
                                         <table id="datatable" class="table table-lg table-borderless table-thead-bordered table-nowrap table-align-middle card-table" data-hs-datatables-options='{
                                                 "columnDefs": [{
-                                                    "targets": [-1, 3],
+                                                    "targets": [-1, 4],
                                                     "orderable": false
                                                   }],
                                                 "order": [],
@@ -92,7 +127,8 @@
                                               }'>
                                           <thead class="thead-light">
                                             <tr>
-                                              <th class="table-column-pr-0">Văn phòng</th>
+                                              <th class="table-column-pr-0">Mã</th>
+                                              <th>Văn phòng</th>
                                               <th>Tòa nhà</th>
                                               <th>Tháng</th>
                                               <th>Số điện mới</th>
@@ -109,14 +145,17 @@
                                           
                                               @if ($vanphong)
                                                 <tr>
+                                                  <td>{{ $hoadon->ma_hoa_don }}</td>
                                                   <td>{{ $vanphong->ten_van_phong }}</td>
                                                   <td class="text-break px-3">{{ $vanphong->toanha->ten_toa_nha }}</td>
                                                   <td class="text-break px-3">{{ $hoadon->thang_nam }}</td>
                                                   <td>
-                                                    <input type="number" class="form-control" name="so_dien[{{ $hoadon->ma_hoa_don }}]" id="chiso" step="0.01" min="0" value="{{ old('chi_so_dien_moi.'.$hoadon->id) }}" inputmode="numeric" pattern="[0-9]*" placeholder="Nhập số điện" />
+                                                    <input type="text" class="form-control chiso" name="so_dien[{{ $hoadon->ma_hoa_don }}]" min="0" value="{{ old('chi_so_dien_moi.'.$hoadon->id) }}" placeholder="Nhập số điện" />
+                                                    <span class="d-block font-size-sm">Chỉ số điện cũ: {{ $hoadon->chi_so_dien_cu }}</span>
                                                   </td>
                                                   <td>
-                                                    <input type="number" class="form-control" name="so_nuoc[{{ $hoadon->ma_hoa_don }}]" id="chiso" step="0.01" min="0" value="{{ old('chi_so_nuoc_moi.'.$hoadon->id) }}" inputmode="numeric" pattern="[0-9]*" placeholder="Nhập số nước" />
+                                                    <input type="text" class="form-control chiso" name="so_nuoc[{{ $hoadon->ma_hoa_don }}]" min="0" value="{{ old('chi_so_nuoc_moi.'.$hoadon->id) }}"placeholder="Nhập số nước" />
+                                                    <span class="d-block font-size-sm">Chỉ số nước cũ: {{$hoadon->chi_so_nuoc_cu}}</span>
                                                   </td>
                                                 </tr>
                                               @endif
@@ -204,11 +243,20 @@
         </main>
     </form>
 @endsection
-
+@push('scripts')
     <script>
-       document.getElementById('chiso').addEventListener('input', function (e) {
-        let value = e.target.value.replace(/\D/g, '');
-            e.target.dataset.value = value;
-            e.target.value = value.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-        });
+      document.querySelectorAll('.chiso').forEach(function (input) {
+          input.addEventListener('input', function (e) {
+              let value = e.target.value;
+              value = value.replace(/[^0-9.]/g, '');
+
+              const parts = value.split('.');
+              if (parts.length > 2) {
+                value = parts[0] + '.' + parts[1];
+              }
+
+              e.target.value = value;
+          });
+      });
     </script>
+@endpush

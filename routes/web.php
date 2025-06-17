@@ -73,11 +73,8 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
 
     // Route quản lý hóa đơn
     Route::get('hoadon', [HoaDonController::class, 'index'])->name('hoadon.index');
-    Route::get('hoadon/create', [HoaDonController::class, 'create'])->name('hoadon.create');
-    Route::post('hoadon', [HoaDonController::class, 'store'])->name('hoadon.store');
-    Route::get('hoadon/{id}/edit', [HoaDonController::class, 'edit'])->name('hoadon.edit');
-    Route::put('hoadon/{id}', [HoaDonController::class, 'update'])->name('hoadon.update');
-
+    Route::get('/hoadon/preview/{id}', [HoaDonController::class, 'preview'])->name('hoadon.preview');
+    Route::post('/hoadon/guimail', [HoaDonController::class, 'guiMail'])->name('hoadon.guimail');
 });
 
 Route::get('/dashboard', function () {
