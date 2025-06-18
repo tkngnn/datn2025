@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use App\Models\HopDong;
 use App\Models\HoaDon;
+use App\Models\YeuCauHoTro;
+use App\Models\User;
 use Carbon\Carbon;
 use Barryvdh\DomPDF\Facade\Pdf;
 
@@ -26,6 +28,7 @@ class KTController extends Controller
             ->count();
         return view('admin.kt.index', compact('user','hoaDonChuaThanhToan'));
     }
+
 
     public function DSHopDong()
     {
@@ -65,6 +68,7 @@ class KTController extends Controller
             ->setOptions(['defaultFont' => 'DejaVu Sans']);
         return $pdf->download("hop-dong-{$hopdong->ma_hop_dong}.pdf");
     }
+
 
     public function DSHoaDon()
     {
@@ -129,5 +133,38 @@ class KTController extends Controller
             ->setOptions(['defaultFont' => 'DejaVu Sans']);
         return $pdf->download("hoa-don-{$hoadon->ma_hoa_don}.pdf");
     }
-    
+
+
+    public function DSHoTro()
+    {
+        $user = Auth::user();
+        $hoTros = YeuCauHoTro::where('user_id', $user->id)->get();
+
+        return view('admin.kt.dshotro', compact('hoTros'));
+    }
+
+    public function hotro_create()
+    {
+        $user = Auth::user();
+        $hoTros = YeuCauHoTro::where('user_id', $user->id)->get();
+        
+        return view('admin.kt.hotro_create', compact('hoTros'));
+    }
+    public function hotro_store(Request $request)
+    {
+        $user = Auth::user();
+        $data = $request->validate([
+            'tieu_de' => 'required|string|max:255',
+            'noi_dung' => 'required|string',
+        ]);
+
+        $data['user_id'] = $user->id;
+        $data['thoi_gian_gui'] = now();
+        $data['trang_thai_xu_ly'] = 'chua xu ly';
+        $data['ghi_chu_xu_ly'] = null;
+
+        YeuCauHoTro::create($data);
+
+        return response()->json(['message' => 'Gửi yêu cầu hỗ trợ thành công.']);
+    }
 }

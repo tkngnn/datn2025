@@ -3603,7 +3603,7 @@
                             <!-- Components -->
                             <li class="navbar-vertical-aside-has-menu ">
                                 <a class="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle "
-                                    href="{{ route('admin.hotro.index') }}" title="Apps">
+                                    href="{{ route('kt.hotro') }}" title="Apps">
                                     <i class="tio-apps nav-icon"></i>
                                     <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Hỗ Trợ
                                     </span>
