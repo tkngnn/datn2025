@@ -50,7 +50,7 @@ class KTController extends Controller
         return view('admin.kt.dshoadon', compact('hoaDons'));
     }
 
-    public function preview($id)
+    public function preview_hoadon($id)
     {
         $hoadon = HoaDon::with(['hopdong.chiTietHopDongs.vanphong.toanha', 'hopdong.user','hopdong.hoaDons'])->findOrFail($id);
 

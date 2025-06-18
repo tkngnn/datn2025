@@ -91,7 +91,7 @@ Route::middleware(['auth', 'verified', 'check.role:KT'])->prefix('kt')->name('kt
     Route::get('/dashboard', [KTController::class, 'index'])->name('dashboard');
     Route::get('/hopdong', [KTController::class, 'DSHopDong'])->name('hopdong');
     Route::get('/hoadon', [KTController::class, 'DSHoaDon'])->name('hoadon');
-    Route::get('/hoadon/preview/{id}', [KTController::class, 'preview'])->name('hoadon.preview');
+    Route::get('/hoadon/preview/{id}', [KTController::class, 'preview_hoadon'])->name('hoadon.preview');
     Route::get('/hoadon/export-pdf/{id}', [KTController::class, 'exportPDF'])->name('hoadon.export_pdf');
     Route::get('/hoadon/thanh-toan/{id}', [ThanhToanController::class, 'thanhToan'])->name('hoadon.thanh_toan');
     Route::get('/vnpay/return', [ThanhToanController::class, 'vnpayReturn'])->name('vnpay.return');
