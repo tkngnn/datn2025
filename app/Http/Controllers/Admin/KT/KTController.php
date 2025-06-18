@@ -104,7 +104,7 @@ class KTController extends Controller
         return view('admin.kt.preview_hoadon', compact('hoadon'));
     }
 
-    public function exportPDF($id)
+    public function exportPDF_hoadon($id)
     {
         $hoadon = HoaDon::with(['hopdong.chiTietHopDongs.vanphong.toanha', 'hopdong.user','hopdong.hoaDons'])->findOrFail($id);
 
