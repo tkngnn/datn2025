@@ -41,38 +41,6 @@
                 </div>
                 <!-- End Nav Scroller -->
             </div>
-            <!-- End Page Header -->
-            @if (session('success'))
-                <div class="alert alert-soft-success" role="alert">
-                    <strong>Thành công!</strong> {{ session('success') }}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Đóng">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            @endif
-
-            @if (session('error'))
-                <div class="alert alert-soft-danger" role="alert">
-                    <strong>Lỗi!</strong> {{ session('error') }}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Đóng">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            @endif
-
-            <script>
-                // Sau 5 giây (5000ms), tự động ẩn các alert có class `.alert`
-                setTimeout(function() {
-                    const alerts = document.querySelectorAll('.alert');
-                    alerts.forEach(alert => {
-                        if (alert.id !== 'noDebtMessage') {
-                            alert.classList.remove('show');
-                            alert.classList.add('fade');
-                            setTimeout(() => alert.remove(), 300);
-                        }
-                    });
-                }, 5000);
-            </script>
 
             <!-- Card -->
             <div class="card">
@@ -112,12 +80,12 @@
                                 <!-- End Datatable Info -->
 
                                 <!-- Unfold -->
-                                <div class="hs-unfold mr-2">
+                                {{-- <div class="hs-unfold mr-2">
                                     <a class="js-hs-unfold-invoker btn btn-sm btn-white dropdown-toggle" href="javascript:;"
                                         data-hs-unfold-options='{
-                   "target": "#usersExportDropdown",
-                   "type": "css-animation"
-                 }'>
+                                            "target": "#usersExportDropdown",
+                                            "type": "css-animation"
+                                            }'>
                                         <i class="tio-download-to mr-1"></i> Export
                                     </a>
 
@@ -153,7 +121,7 @@
                                             PDF
                                         </a>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <!-- End Unfold -->
                             </div>
                         </div>
@@ -170,7 +138,7 @@
                         style="width: 100%"
                         data-hs-datatables-options='{
                             "columnDefs": [{
-                                "targets": [0],
+                                "targets": [-1,4],
                                 "orderable": false
                             }],
                             "order": [],
@@ -190,7 +158,7 @@
                                 <th>Tháng năm</th>
                                 <th>Tổng tiền</th>
                                 <th>Trạng thái</th>
-                                <th>Actions</th>
+                                <th></th>
                             </tr>
                         </thead>
 
@@ -198,16 +166,20 @@
                             @foreach ($hoaDons as $hoaDon)
                                 <tr>
                                     <td>#{{ $hoaDon->ma_hoa_don }}
-                                        <span
-                                            class="badge badge-soft-dark ml-2">{{ $hoaDon->hopDong->ma_hop_dong ?? 'Không có' }}</span>
+                                        {{-- <span
+                                            class="badge badge-soft-dark ml-2">{{ $hoaDon->hopDong->ma_hop_dong ?? 'Không có' }}</span> --}}
                                     </td>
                                     <td>{{ $hoaDon->thang_nam }}</td>
                                     <td>{{ number_format($hoaDon->tong_tien, 0, ',', '.') }} đ</td>
                                     <td>
-                                        <span
-                                            class="badge badge-soft-{{ $hoaDon->trang_thai === 'da thanh toan' ? 'success' : 'warning' }}">
-                                            {{ $hoaDon->trang_thai }}
-                                        </span>
+                                        @if ($hoaDon->trang_thai === 'da thanh toan')
+                                            <span class="badge badge-soft-success"> Đã thanh toán
+                                            </span>
+                                        @else
+                                            <span class="badge badge-soft-danger"> Chưa thanh toán
+                                            </span>
+                                        @endif
+                                        
                                     </td>
                                     <td>
                                         <div class="btn-group" role="group" style="gap: 0.5rem;">
@@ -250,11 +222,11 @@
                                 <!-- Select -->
                                 <select id="datatableEntries" class="js-select2-custom"
                                     data-hs-select2-options='{
-                      "minimumResultsForSearch": "Infinity",
-                      "customClass": "custom-select custom-select-sm custom-select-borderless",
-                      "dropdownAutoWidth": true,
-                      "width": true
-                    }'>
+                                    "minimumResultsForSearch": "Infinity",
+                                    "customClass": "custom-select custom-select-sm custom-select-borderless",
+                                    "dropdownAutoWidth": true,
+                                    "width": true
+                                    }'>
                                     <option value="12" selected="">12</option>
                                     <option value="14">14</option>
                                     <option value="16">16</option>
@@ -330,27 +302,25 @@
         </div>
         <!-- End Footer -->
 
-        <!-- HopDong Modal Popup -->
-        <div class="modal fade" id="modalChiTietHopDong" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-scrollable">
-                <div class="modal-content">
-                    <div class="modal-body" id="noiDungHopDong">
-                        <!-- Nội dung sẽ được load qua Ajax -->
-                    </div>
-                    <div class="modal-footer">
-                        <a href="#" class="btn btn-danger btn-tai-pdf">
-                            <i class="bi bi-file-earmark-pdf"></i> Tải PDF
-                        </a>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                    </div>
-                </div>
+        <!-- HoaDon Modal Popup -->
+      <div class="modal fade" id="hoadonModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Chi tiết hóa đơn</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
             </div>
+            <div class="modal-body" id="modalBodyContent">
+              <!-- Nội dung ở đây -->
+              <div class="text-center">Đang tải...</div>
+            </div>
+          </div>
         </div>
-
-        <!-- End HopDong Modal Popup -->
+      </div>
+    <!-- End HoaDon Modal Popup -->
 
         <!-- Thanh Ly Modal -->
-        <div class="modal fade" id="thanhLyModal" tabindex="-1" aria-labelledby="thanhLyModalLabel"
+        {{-- <div class="modal fade" id="thanhLyModal" tabindex="-1" aria-labelledby="thanhLyModalLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -486,13 +456,13 @@
                     </form>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         <!-- End Thanh Ly Modal -->
 
         <!-- Biên Ban Thanh Ly Modal -->
 
-        <div id="modalBienBanThanhLy" class="modal"
+        {{-- <div id="modalBienBanThanhLy" class="modal"
             style="display:none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.5);">
             <div style="background: white; max-width: 800px; margin: 50px auto; padding: 20px; position: relative;">
                 <button id="closeModal" style="position: absolute; top: 10px; right: 10px;">&times;</button>
@@ -501,11 +471,25 @@
                     Đang tải...
                 </div>
             </div>
-        </div>
+        </div> --}}
 
 
         <!-- End Biên Ban Thanh Ly Modal -->
     </main>
 @endsection
 @push('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).on('click', '.btn-xem-hoadon', function () {
+            const id = $(this).data('id');
+            $('#modalBodyContent').html('<div class="text-center">Đang tải...</div>');
+            $('#hoadonModal').modal('show');
+        
+            $('#modalBodyContent').load(`/kt/hoadon/preview/${id}`, function (response, status, xhr) {
+                if (status === "error") {
+                    $('#modalBodyContent').html('<div class="text-danger">Lỗi tải dữ liệu</div>');
+                }
+            });
+        });
+        </script>
 @endpush
