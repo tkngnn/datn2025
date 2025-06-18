@@ -90,6 +90,9 @@ Route::middleware(['auth', 'verified', 'check.role:KT'])->prefix('kt')->name('kt
 
     Route::get('/dashboard', [KTController::class, 'index'])->name('dashboard');
     Route::get('/hopdong', [KTController::class, 'DSHopDong'])->name('hopdong');
+    Route::get('/hopdong/preview/{id}', [KTController::class, 'preview_hopdong'])->name('hopdong.preview');
+    Route::get('/hopdong/export-pdf/{id}', [KTController::class, 'exportPDF_hopdong'])->name('hopdong.export_pdf');
+
     Route::get('/hoadon', [KTController::class, 'DSHoaDon'])->name('hoadon');
     Route::get('/hoadon/preview/{id}', [KTController::class, 'preview_hoadon'])->name('hoadon.preview');
     Route::get('/hoadon/export-pdf/{id}', [KTController::class, 'exportPDF'])->name('hoadon.export_pdf');

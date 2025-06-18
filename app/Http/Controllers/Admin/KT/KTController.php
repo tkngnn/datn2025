@@ -34,6 +34,38 @@ class KTController extends Controller
 
         return view('admin.kt.dshopdong', compact('hopDongs'));
     }
+
+    public function preview_hopdong($id)
+    {
+        $hopdong = HopDong::with(['user', 'chiTietHopDongs.vanPhong.toaNha'])
+            ->where('ma_hop_dong', $id)
+            ->firstOrFail();
+        $chiTiet = $hopdong->chiTietHopDongs->first();
+        $vanPhong = $chiTiet->vanPhong;
+        $toaNha = $vanPhong->toaNha;
+
+        return view('admin.kt.preview_hopdong', compact('hopdong', 'chiTiet', 'vanPhong', 'toaNha'));
+    }
+
+    public function exportPDF_hopdong($id)
+    {
+        $hopdong = HopDong::with(['user', 'chiTietHopDongs.vanPhong.toaNha'])
+            ->where('ma_hop_dong', $id)
+            ->firstOrFail();
+        $chiTiet = $hopdong->chiTietHopDongs->first();
+        $vanPhong = $chiTiet->vanPhong;
+        $toaNha = $vanPhong->toaNha;
+
+        $pdf = Pdf::loadView('admin.kt.preview_hopdong', [
+            'hopdong'=>$hopdong,
+            'chiTiet'=>$chiTiet,
+            'vanPhong'=>$vanPhong,
+            'toaNha'=>$toaNha,
+            'is_pdf' => true])
+            ->setOptions(['defaultFont' => 'DejaVu Sans']);
+        return $pdf->download("hop-dong-{$hopdong->ma_hop_dong}.pdf");
+    }
+
     public function DSHoaDon()
     {
         $user = Auth::user();
