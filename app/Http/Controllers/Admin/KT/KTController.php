@@ -13,9 +13,6 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class KTController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $user = Auth::user();
@@ -79,7 +76,6 @@ class KTController extends Controller
     {
         $hoadon = HoaDon::with(['hopdong.chiTietHopDongs.vanphong.toanha', 'hopdong.user','hopdong.hoaDons'])->findOrFail($id);
 
-        // Tính chỉ số cũ
         $hopdong = $hoadon->hopdong;
         $hoaDonHienTai = $hopdong->hoaDons->where('thang_nam', $hoadon->thang_nam ?? null)->first();
 

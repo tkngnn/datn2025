@@ -89,6 +89,7 @@ Route::middleware(['auth', 'verified', 'check.role:KT'])->prefix('kt')->name('kt
     })->name('dashboard');
 
     Route::get('/dashboard', [KTController::class, 'index'])->name('dashboard');
+    Route::get('/hopdong', [KTController::class, 'DSHopDong'])->name('hopdong');
     Route::get('/hoadon', [KTController::class, 'DSHoaDon'])->name('hoadon');
     Route::get('/hoadon/preview/{id}', [KTController::class, 'preview'])->name('hoadon.preview');
     Route::get('/hoadon/export-pdf/{id}', [KTController::class, 'exportPDF'])->name('hoadon.export_pdf');

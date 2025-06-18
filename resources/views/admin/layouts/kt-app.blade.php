@@ -3582,7 +3582,7 @@
                             <!-- Components -->
                             <li class="navbar-vertical-aside-has-menu ">
                                 <a class="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle "
-                                    href="#" title="Apps">
+                                    href="{{ route('kt.hopdong') }}" title="Apps">
                                     <i class="tio-apps nav-icon"></i>
                                     <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Hợp Đồng
                                     </span>
