@@ -1,5 +1,5 @@
 @extends('admin.layouts.kt-app')
-@section('title', 'Dashboard')
+@section('title', 'hợp đồng')
 @push('styles')
 @endpush
 @section('content')
@@ -10,7 +10,7 @@
             <div class="page-header">
                 <div class="row align-items-center mb-3">
                     <div class="col-sm">
-                        <h1 class="page-header-title">Danh Sách Hóa Đơn <span
+                        <h1 class="page-header-title">Danh Sách Hợp đồng <span
                                 class="badge badge-soft-dark ml-2">{{ $hopDongs->count() }}</span></h1>
                     </div>
 
@@ -34,7 +34,7 @@
                     <!-- Nav -->
                     <ul class="nav nav-tabs page-header-tabs">
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">Tất cả hóa đơn</a>
+                            <a class="nav-link active" href="#">Tất cả hợp đồng</a>
                         </li>
                     </ul>
                     <!-- End Nav -->
