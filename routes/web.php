@@ -16,13 +16,20 @@ use App\Http\Controllers\Admin\KT\KTController;
 use App\Http\Controllers\Admin\KT\ThanhToanController;
 use App\Http\Controllers\User\HomeController;
 
+use App\Http\Controllers\User\VanPhongController as UserVanPhongController;
+
 Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Route::group(['prefix' => 'user'], function () {
+Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
+    
     Route::get('/trang-chu', [HomeController::class, 'index'])->name('user.home');
     Route::get('/danh-sach', [HomeController::class, 'danhsach'])->name('user.danhsach');
+
+    Route::get('/van-phong/{slug}', [UserVanPhongController::class, 'show'])->name('vanphong.chitiet');
+    Route::get('/van-phong/henxem/{slug}', [UserVanPhongController::class, 'henxem'])->name('vanphong.henxem');
+    Route::post('/van-phong/guiyeucau', [UserVanPhongController::class, 'guiyeucau'])->name('vanphong.guiyeucau');
 });
 
 Route::middleware(['auth', 'verified', 'check.role:admin'])->prefix('admin')->name('admin.')->group(function () {

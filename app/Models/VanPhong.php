@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Illuminate\Support\Str;
 
 class VanPhong extends Model implements HasMedia
 {
@@ -25,6 +26,7 @@ class VanPhong extends Model implements HasMedia
         'mo_ta',
         'tien_ich',
         'trang_thai',
+        'slug',
     ];
 
     public function registerMediaCollections(): void
@@ -47,5 +49,38 @@ class VanPhong extends Model implements HasMedia
     public function henXems()
     {
         return $this->hasMany(HenXem::class, 'ma_van_phong');
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($vanphong) {
+            $slug = Str::slug($vanphong->ten_van_phong);
+            $originalSlug = $slug;
+            $count = 1;
+
+            while (VanPhong::where('slug', $slug)->exists()) {
+                $slug = $originalSlug . '-' . $count;
+                $count++;
+            }
+
+            $vanphong->slug = $slug;
+        });
+        
+        static::updating(function ($vanphong) {
+            if ($vanphong->isDirty('ten_van_phong')) {
+                $slug = Str::slug($vanphong->ten_van_phong);
+                $originalSlug = $slug;
+                $count = 1;
+
+                while (VanPhong::where('slug', $slug)->where('ma_van_phong', '!=', $vanphong->ma_van_phong)->exists()) {
+                    $slug = $originalSlug . '-' . $count;
+                    $count++;
+                }
+
+                $vanphong->slug = $slug;
+            }
+        });
     }
 }

@@ -166,8 +166,8 @@
                                                 <label class="input-label">Trạng thái</label>
                                                 <div class="select2-custom">
                                                     <select class="custom-select" name="trang_thai">
-                                                        <option value="Dang su dung"{{ $vanphong->trang_thai == 'Dang su dung' ? 'selected' : '' }}>Đang sử dụng</option>
-                                                        <option value="Dang bao tri"{{ $vanphong->trang_thai == 'Dang bao tri' ? 'selected' : '' }}>Đang bảo trì</option>
+                                                        <option value="Da thue"{{ $vanphong->trang_thai == 'Da thue' ? 'selected' : '' }}>Đã thuê</option>
+                                                        <option value="Dang trong"{{ $vanphong->trang_thai == 'Dang trong' ? 'selected' : '' }}>Đang trống</option>
                                                     </select>
                                                 </div>
                                             </div>
