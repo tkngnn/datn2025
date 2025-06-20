@@ -57,7 +57,7 @@
                                         </div>
                                     </div>
                                     <input id="datatableSearch" type="search" class="form-control"
-                                        placeholder="Search orders" aria-label="Search orders">
+                                        placeholder="Tìm kiếm hóa đơn" aria-label="Tìm kiếm hóa đơn">
                                 </div>
                                 <!-- End Search -->
                             </form>
@@ -165,7 +165,8 @@
                         <tbody>
                             @foreach ($hoaDons as $hoaDon)
                                 <tr>
-                                    <td>#{{ $hoaDon->ma_hoa_don }}
+                                    <td>
+                                        <a href="#">#{{ $hoaDon->ma_hoa_don }}</a>
                                         {{-- <span
                                             class="badge badge-soft-dark ml-2">{{ $hoaDon->hopDong->ma_hop_dong ?? 'Không có' }}</span> --}}
                                     </td>

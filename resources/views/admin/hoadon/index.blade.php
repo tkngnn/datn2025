@@ -61,7 +61,7 @@
                       <i class="tio-search"></i>
                     </div>
                   </div>
-                  <input id="datatableSearch" type="search" class="form-control" placeholder="Search users" aria-label="Search users">
+                  <input id="datatableSearch" type="search" class="form-control" placeholder="Tìm kiếm hóa đơn" aria-label="Tìm kiếm hóa đơn">
                 </div>
                 <!-- End Search -->
               </form>
@@ -511,10 +511,10 @@
             <thead class="thead-light">
               <tr>
                 <th class="table-column-pr-0">
-                  <div class="custom-control custom-checkbox">
+                  {{-- <div class="custom-control custom-checkbox">
                     <input id="datatableCheckAll" type="checkbox" class="custom-control-input">
                     <label class="custom-control-label" for="datatableCheckAll"></label>
-                  </div>
+                  </div> --}}
                 </th>
                 <th class="table-column-pl-0">Mã hóa đơn</th>
                 <th>Tên khách/Hợp đồng</th>
@@ -531,12 +531,14 @@
                 @foreach ($hoadon->hopdong->chiTietHopDongs as $cthd)
                   <tr>
                     <td class="table-column-pr-0">
-                      <div class="custom-control custom-checkbox">
+                      {{-- <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id="usersDataCheck1">
                         <label class="custom-control-label" for="usersDataCheck1"></label>
-                      </div>
+                      </div> --}}
                     </td>
-                    <td>{{ $hoadon->ma_hoa_don }}</td>
+                    <td>
+                      <a href="#">#{{ $hoadon->ma_hoa_don }}</a>
+                    </td>
                     <td class="text-break px-3">{{ $hoadon->hopdong->user->name }}
                       <span class="d-block font-size-sm">Mã hợp đồng: {{ $hoadon->hopdong->ma_hop_dong }}</span>
                     </td>
