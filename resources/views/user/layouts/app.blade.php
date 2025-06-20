@@ -60,35 +60,88 @@
         <div class="main-header">
             <div class="container-fluid container-xl">
                 <div class="d-flex py-3 align-items-center justify-content-between">
-
                     <!-- Logo -->
                     <a href="index.html" class="logo d-flex align-items-center">
                         <!-- Uncomment the line below if you also wish to use an image logo -->
-                        <img src="{{ asset('user/assets/img/bGROUP.png') }}" alt="" loading="lazy"
+                        <img src="{{ asset('user/assets/img/bGROUP_white.png') }}" alt="" loading="lazy"
                             class="logo-img">
                         <h1 class="sitename">BGROUP</h1>
                     </a>
 
                     <!-- Search -->
-                    <form class="search-form desktop-search-form">
+                    {{-- <form class="search-form desktop-search-form">
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="Tìm kiếm...">
                             <button class="btn" type="submit">
                                 <i class="bi bi-search"></i>
                             </button>
                         </div>
-                    </form>
+                    </form> --}}
 
                     <!-- Actions -->
                     <div class="header-actions d-flex align-items-center justify-content-end">
 
                         <!-- Mobile Search Toggle -->
-                        <button class="header-action-btn mobile-search-toggle d-xl-none" type="button"
+                        {{-- <button class="header-action-btn mobile-search-toggle d-xl-none" type="button"
                             data-bs-toggle="collapse" data-bs-target="#mobileSearch" aria-expanded="false"
                             aria-controls="mobileSearch">
                             <i class="bi bi-search"></i>
-                        </button>
+                        </button> --}}
+                        <style>
+                            .contact-box {
+                            display: flex;
+                            align-items: center;
+                            gap: 16px;
+                            font-family: Arial, sans-serif;
+                            }
 
+                            .hotline-btn {
+                            background-color: #0a4db8; /* màu xanh như hình */
+                            color: white;
+                            padding: 10px 20px;
+                            border-radius: 50px;
+                            text-decoration: none;
+                            font-weight: bold;
+                            font-size: 14px;
+                            display: inline-block;
+                            transition: background 0.2s ease;
+                            border: 2px solid transparent;
+                            }
+
+                            .hotline-btn:hover {
+                                background-color: #ffffff;
+                                color: #0a4db8;
+                                border: 2px solid #0a4db8;
+                            }
+
+
+                            .email-link {
+                            display: inline-flex;
+                            align-items: center;
+                            gap: 6px;
+                            color: #666;
+                            text-decoration: none;
+                            font-size: 14px;
+                            text-transform: uppercase;
+                            }
+
+                            .email-link:hover {
+                            color: #0a4db8;
+                            }
+                        </style>
+                        <div class="flex items-center justify-end gap-6 pr-4 py-2 text-sm font-medium">
+
+                            <div class="contact-box">
+                                <a href="tel:0901007226" class="hotline-btn">
+                                  📞 HOTLINE: <strong>0901007226</strong>
+                                </a>
+                              
+                                <a href="mailto:info@niceoffice.com.vn" class="email-link">
+                                  <img src="https://img.icons8.com/ios-filled/20/000000/new-post.png" alt="email icon" />
+                                  info@bgroup.com.vn
+                                </a>
+                              </div>
+                        </div>                        
                         <!-- Account -->
                         <div class="dropdown account-dropdown">
                             <button class="header-action-btn" data-bs-toggle="dropdown">
@@ -100,8 +153,7 @@
                                     <p class="mb-0">Dành cho khách thuê: Truy cập tài khoản &amp; quản lý thuê</p>
                                 </div>
                                 <div class="dropdown-footer">
-                                    <a href="login-register.html" class="btn btn-primary w-100 mb-2">Đăng Nhập</a>
-                                    <a href="login-register.html" class="btn btn-outline-primary w-100">Đăng Ký</a>
+                                    <a href="{{ route('login') }}" class="btn btn-primary w-100 mb-2">Đăng Nhập</a>
                                 </div>
                             </div>
                         </div>
@@ -122,7 +174,7 @@
                     <nav id="navmenu" class="navmenu">
                         <ul>
                             <li><a href="index.html" class="active">TRANG CHỦ</a></li>
-                            <li><a href="about.html">GIỚI THIỆU</a></li>
+                            {{-- <li><a href="about.html">GIỚI THIỆU</a></li> --}}
                             <li class="dropdown"><a href="#"><span>VĂN PHÒNG</span> <i
                                         class="bi bi-chevron-down toggle-dropdown"></i></a>
                                 <ul>
@@ -140,7 +192,7 @@
                                     <li><a href="#">Đà Nẵng</a></li>
                                 </ul>
                             </li>
-                            <li><a href="contact.html">Liên Hệ</a></li>
+                            <li><a href="contact.html">LIÊN HỆ</a></li>
 
                         </ul>
                     </nav>
@@ -173,114 +225,83 @@
         <div class="footer-main">
             <div class="container">
                 <div class="row gy-4">
-                    <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
                         <div class="footer-widget footer-about">
                             <a href="index.html" class="logo">
-                                <img src="{{ asset('user/assets/img/bGROUP.png') }}" alt="Logo" class="logo-img-footer"
+                                <img src="{{ asset('user/assets/img/bGROUP_white.png') }}" alt="Logo" class="logo-img-footer"
                                     loading="lazy">
                                 <span class="sitename">BGROUP</span>
                             </a>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in nibh vehicula,
-                                facilisis magna ut, consectetur lorem.</p>
+                            <p>Không gian lý tưởng – Khởi đầu thành công!</p>
                             <div class="footer-contact mt-4">
                                 <div class="contact-item">
                                     <i class="bi bi-geo-alt"></i>
-                                    <span>123 Fashion Street, New York, NY 10001</span>
+                                    <span>65 Huỳnh Thúc Kháng, Bến Nghé, Quận 1, Hồ Chí Minh 700000</span>
                                 </div>
                                 <div class="contact-item">
                                     <i class="bi bi-telephone"></i>
-                                    <span>+1 (555) 123-4567</span>
+                                    <span>028 3821 2360</span>
                                 </div>
                                 <div class="contact-item">
                                     <i class="bi bi-envelope"></i>
-                                    <span>hello@example.com</span>
+                                    <span>info@bgroup.com.vn</span>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-lg-4 col-md-6 col-sm-6">
-                        <div class="footer-widget">
-                            <h4>Shop</h4>
-                            <ul class="footer-links">
-                                <li><a href="category.html">New Arrivals</a></li>
-                                <li><a href="category.html">Bestsellers</a></li>
-                                <li><a href="category.html">Women's Clothing</a></li>
-                                <li><a href="category.html">Men's Clothing</a></li>
-                                <li><a href="category.html">Accessories</a></li>
-                                <li><a href="category.html">Sale</a></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    {{-- <div class="col-lg-4 col-md-6 col-sm-6">
-                        <div class="footer-widget">
-                            <h4>Support</h4>
-                            <ul class="footer-links">
-                                <li><a href="support.html">Help Center</a></li>
-                                <li><a href="account.html">Order Status</a></li>
-                                <li><a href="shiping-info.html">Shipping Info</a></li>
-                                <li><a href="return-policy.html">Returns &amp; Exchanges</a></li>
-                                <li><a href="#">Size Guide</a></li>
-                                <li><a href="contact.html">Contact Us</a></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-2 col-md-6 col-sm-6">
-                        <div class="footer-widget">
-                            <h4>Company</h4>
-                            <ul class="footer-links">
-                                <li><a href="about.html">About Us</a></li>
-                                <li><a href="about.html">Careers</a></li>
-                                <li><a href="about.html">Press</a></li>
-                                <li><a href="about.html">Affiliates</a></li>
-                                <li><a href="about.html">Responsibility</a></li>
-                                <li><a href="about.html">Investors</a></li>
-                            </ul>
-                        </div>
-                    </div> --}}
-
-                    <div class="col-lg-4 col-md-6 col-sm-6">
-                        <div class="footer-widget">
-                            <h4>Download Our App</h4>
-                            <p>Shop on the go with our mobile app</p>
-                            <div class="app-buttons">
-                                <a href="#" class="app-btn">
-                                    <i class="bi bi-apple"></i>
-                                    <span>App Store</span>
-                                </a>
-                                <a href="#" class="app-btn">
-                                    <i class="bi bi-google-play"></i>
-                                    <span>Google Play</span>
-                                </a>
+                    
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <div class="row gy-4 align-items-stretch">
+                            <!-- Cột bản đồ -->
+                            <div class=" col-md-12 text-center" data-aos="fade-up" data-aos-delay="300">
+                                <div class="footer-widget">
+                                    <iframe
+                                        width="75%"
+                                        height="300"
+                                        frameborder="0"
+                                        style="border:0;"
+                                        referrerpolicy="no-referrer-when-downgrade"
+                                        loading="lazy"
+                                        allowfullscreen
+                                        src="https://www.google.com/maps?q=65+Huỳnh+Thúc+Kháng,+Bến+Nghé,+Quận+1,+Hồ+Chí+Minh+700000&output=embed">
+                                    </iframe>
+                                </div>
                             </div>
-                            <div class="social-links mt-4">
-                                <h5>Follow Us</h5>
-                                <div class="social-icons">
-                                    <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
-                                    <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
-                                    <a href="#" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
-                                    <a href="#" aria-label="TikTok"><i class="bi bi-tiktok"></i></a>
-                                    <a href="#" aria-label="Pinterest"><i class="bi bi-pinterest"></i></a>
-                                    <a href="#" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+                            <!-- Cột mạng xã hội -->
+                            <div class=" col-md-12">
+                                <div class="footer-widget text-center">
+                                    <div class="social-links mt-4">
+                                        <h5 class="mb-3">Follow Us</h5>
+                                        <div class="social-icons d-flex gap-2 flex-wrap justify-content-center">
+                                            <a href="#" aria-label="Facebook"><i class="bi bi-facebook fs-4"></i></a>
+                                            <a href="#" aria-label="Instagram"><i class="bi bi-instagram fs-4"></i></a>
+                                            <a href="#" aria-label="Twitter"><i class="bi bi-twitter-x fs-4"></i></a>
+                                            <a href="#" aria-label="TikTok"><i class="bi bi-tiktok fs-4"></i></a>
+                                            <a href="#" aria-label="Pinterest"><i class="bi bi-pinterest fs-4"></i></a>
+                                            <a href="#" aria-label="YouTube"><i class="bi bi-youtube fs-4"></i></a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                    
+                        
                     </div>
+                    
                 </div>
             </div>
         </div>
 
         <div class="footer-bottom">
             <div class="container">
-                <div class="legal-links">
+                {{-- <div class="legal-links">
                     <a href="tos.html">Terms of Service</a>
                     <a href="privacy.html">Privacy Policy</a>
                     <a href="tos.html">Cookies Settings</a>
-                </div>
+                </div> --}}
                 <div class="copyright text-center">
-                    <p>© <span>Copyright</span> <strong class="sitename">eStore</strong>. All Rights Reserved.</p>
+                    <p>©<strong class="sitename">BGROUP</strong> cùng Kiều Ngân, Thanh Trúc </p>
                 </div>
             </div>
 

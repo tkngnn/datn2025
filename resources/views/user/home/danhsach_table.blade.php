@@ -23,13 +23,21 @@
                     </button> --}}
                     </div>
                     <div class="add-to-cart-container">
-                        <button type="button" class="add-to-cart-btn">Hẹn Xem</button>
+                        {{-- <button  class="add-to-cart-btn">Hẹn Xem</button> --}}
+                        {{-- {{ dd($vp->slug) }} --}}
+                        @if ($vp->slug)
+                            <a class="add-to-cart-btn text-center" type="button" href="{{ route('user.vanphong.henxem', $vp->slug) }}">
+                            Hẹn xem
+                          </a>
+                        @endif
+                         
                     </div>
                 </div>
             </div>
+            @if ($vp->slug)
             <div class="product-content">
                 <div class="product-details">
-                    <h3 class="product-title"><a href="product-details.html">{{ $vp->toaNha->ten_toa_nha }} - Văn
+                    <h3 class="product-title"><a href="{{ route('user.vanphong.chitiet', $vp->slug) }}">{{ $vp->toaNha->ten_toa_nha }} - Văn
                             phòng {{ $vp->ten_van_phong }} - {{ $vp->ma_van_phong }}</a></h3>
                     <div class="product-rating-container">
                         <span class="text-muted">{{ $vp->toaNha->dia_chi }}</span>
@@ -38,10 +46,11 @@
                         <span>Diện tích: {{ $vp->dien_tich }} m²</span>
                     </div>
                     <div class="product-price">
-                        <span>Giá thuê:{{ number_format($vp->gia_thue) }} /m²</span>
+                        <span>Giá thuê: {{ number_format($vp->gia_thue) }} /m²</span>
                     </div>
                 </div>
             </div>
+            @endif
         </div>
     </div>
 @endforeach
