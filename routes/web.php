@@ -25,8 +25,8 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
     
-    Route::get('/trang-chu', [HomeController::class, 'index'])->name('user.home');
-    Route::get('/danh-sach', [HomeController::class, 'danhsach'])->name('user.danhsach');
+    Route::get('/trang-chu', [HomeController::class, 'index'])->name('home');
+    Route::get('/danh-sach', [HomeController::class, 'danhsach'])->name('danhsach');
 
     Route::get('/van-phong/{slug}', [UserVanPhongController::class, 'show'])->name('vanphong.chitiet');
     Route::get('/van-phong/henxem/{slug}', [UserVanPhongController::class, 'henxem'])->name('vanphong.henxem');
