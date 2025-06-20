@@ -16,9 +16,9 @@
 
                     <div class="col-sm-auto">
                         <a class="btn btn-primary" href="{{ route('kt.hotro.create') }}">
-                          <i class="tio-message-add mr-1"></i> Gửi yêu cầu hỗ trợ
+                            <i class="tio-message-add mr-1"></i> Gửi yêu cầu hỗ trợ
                         </a>
-                      </div>
+                    </div>
 
                 </div>
                 <!-- End Row -->
@@ -174,9 +174,11 @@
                                 <tr>
                                     <td>
                                         <a href="#">#{{ $hoTro->ma_yeu_cau }}</a>
-                                        </td>
-                                    <td style="max-width: 300px; white-space: normal; word-break: break-word;">{{$hoTro->tieu_de}}</td>
-                                    <td style="max-width: 300px; white-space: normal; word-break: break-word;">{{$hoTro->noi_dung}}</td>
+                                    </td>
+                                    <td style="max-width: 300px; white-space: normal; word-break: break-word;">
+                                        {{ $hoTro->tieu_de }}</td>
+                                    <td style="max-width: 300px; white-space: normal; word-break: break-word;">
+                                        {{ $hoTro->noi_dung }}</td>
                                     <td>{{ \Carbon\Carbon::parse($hoTro->thoi_gian_gui)->format('d-m-Y') }}</td>
                                     <td>
                                         @if ($hoTro->tinh_trang === 'da xu ly')
@@ -186,9 +188,10 @@
                                             <span class="badge badge-soft-danger"> Chưa xử lý
                                             </span>
                                         @endif
-                                        
-                                    </td>  
-                                    <td style="max-width: 300px; white-space: normal; word-break: break-word;">{{ $hoTro->ghi_chu_xu_ly??'Không có'}}</td>
+
+                                    </td>
+                                    <td style="max-width: 300px; white-space: normal; word-break: break-word;">
+                                        {{ $hoTro->ghi_chu_xu_ly ?? 'Không có' }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -204,7 +207,7 @@
                     <div class="row justify-content-center justify-content-sm-between align-items-sm-center">
                         <div class="col-sm mb-2 mb-sm-0">
                             <div class="d-flex justify-content-center justify-content-sm-start align-items-center">
-                                <span class="mr-2">Showing:</span>
+                                <span class="mr-2">Hiển thị:</span>
 
                                 <!-- Select -->
                                 <select id="datatableEntries" class="js-select2-custom"
@@ -221,7 +224,7 @@
                                 </select>
                                 <!-- End Select -->
 
-                                <span class="text-secondary mr-2">of</span>
+                                <span class="text-secondary mr-2">của</span>
 
                                 <!-- Pagination Quantity -->
                                 <span id="datatableWithPaginationInfoTotalQty"></span>
@@ -243,84 +246,38 @@
         </div>
         <!-- End Content -->
 
-        <!-- Footer -->
-
-        <div class="footer">
-            <div class="row justify-content-between align-items-center">
-                <div class="col">
-                    <p class="font-size-sm mb-0">&copy; Front. <span class="d-none d-sm-inline-block">2020
-                            Htmlstream.</span></p>
-                </div>
-                <div class="col-auto">
-                    <div class="d-flex justify-content-end">
-                        <!-- List Dot -->
-                        <ul class="list-inline list-separator">
-                            <li class="list-inline-item">
-                                <a class="list-separator-link" href="#">FAQ</a>
-                            </li>
-
-                            <li class="list-inline-item">
-                                <a class="list-separator-link" href="#">License</a>
-                            </li>
-
-                            <li class="list-inline-item">
-                                <!-- Keyboard Shortcuts Toggle -->
-                                <div class="hs-unfold">
-                                    <a class="js-hs-unfold-invoker btn btn-icon btn-ghost-secondary rounded-circle"
-                                        href="javascript:;"
-                                        data-hs-unfold-options='{
-                        "target": "#keyboardShortcutsSidebar",
-                        "type": "css-animation",
-                        "animationIn": "fadeInRight",
-                        "animationOut": "fadeOutRight",
-                        "hasOverlay": true,
-                        "smartPositionOff": true
-                       }'>
-                                        <i class="tio-command-key"></i>
-                                    </a>
-                                </div>
-                                <!-- End Keyboard Shortcuts Toggle -->
-                            </li>
-                        </ul>
-                        <!-- End List Dot -->
+        <!-- hoTro Modal Popup -->
+        <div class="modal fade" id="hoTroModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Chi tiết hợp đồng</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                    </div>
+                    <div class="modal-body" id="modalBodyContent">
+                        <!-- Nội dung ở đây -->
+                        <div class="text-center">Đang tải...</div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- End Footer -->
-
-        <!-- hoTro Modal Popup -->
-      <div class="modal fade" id="hoTroModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Chi tiết hợp đồng</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
-            </div>
-            <div class="modal-body" id="modalBodyContent">
-              <!-- Nội dung ở đây -->
-              <div class="text-center">Đang tải...</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    <!-- End hoTro Modal Popup -->
+        <!-- End hoTro Modal Popup -->
 
     </main>
 @endsection
 @push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        $(document).on('click', '.btn-xem-hoTro', function () {
+        $(document).on('click', '.btn-xem-hoTro', function() {
             const id = $(this).data('id');
             $('#modalBodyContent').html('<div class="text-center">Đang tải...</div>');
             $('#hoTroModal').modal('show');
-        
-            $('#modalBodyContent').load(`/kt/hoTro/preview/${id}`, function (response, status, xhr) {
+
+            $('#modalBodyContent').load(`/kt/hoTro/preview/${id}`, function(response, status, xhr) {
                 if (status === "error") {
                     $('#modalBodyContent').html('<div class="text-danger">Lỗi tải dữ liệu</div>');
                 }
             });
         });
-        </script>
+    </script>
 @endpush

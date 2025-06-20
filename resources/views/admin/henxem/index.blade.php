@@ -525,7 +525,7 @@
           <div class="row justify-content-center justify-content-sm-between align-items-sm-center">
             <div class="col-sm mb-2 mb-sm-0">
               <div class="d-flex justify-content-center justify-content-sm-start align-items-center">
-                <span class="mr-2">Showing:</span>
+                <span class="mr-2">Hiển thị:</span>
 
                 <!-- Select -->
                 <select id="datatableEntries" class="js-select2-custom" data-hs-select2-options='{
@@ -540,7 +540,7 @@
                 </select>
                 <!-- End Select -->
 
-                <span class="text-secondary mr-2">of</span>
+                <span class="text-secondary mr-2">của</span>
 
                 <!-- Pagination Quantity -->
                 <span id="datatableWithPaginationInfoTotalQty"></span>

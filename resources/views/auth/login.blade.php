@@ -249,7 +249,7 @@
 
         <div class="container py-5 py-sm-7">
             <a class="d-flex justify-content-center mb-5" href="{{ url('/') }}">
-                <img class="z-index-2" src="assets/svg/logos/logo.svg" alt="Logo" style="width: 8rem;">
+                <img class="z-index-2" src="{{ asset('assets/img/login_logo.png') }}" alt="Logo" style="width: 8rem;">
             </a>
 
             <div class="row justify-content-center">
