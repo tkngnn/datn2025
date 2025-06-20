@@ -109,7 +109,7 @@
               <h1 class="product-title">Văn phòng {{ $vanphong->ten_van_phong }}</h1>
 
               <div class="product-price-container mb-2">
-                <span class="current-price">{{ number_format($vanphong->gia_thue, 0, ',', '.') }} VND</span>
+                <span class="current-price" style="color: red">{{ number_format($vanphong->gia_thue, 0, ',', '.') }}<span style="font-size: 0.75em;">/m²</span></span>
                 {{-- <span class="original-price">$299.99</span>
                 <span class="discount-badge">-17%</span> --}}
                 
@@ -130,6 +130,13 @@
                     {{ $vanphong->dien_tich }} m²
                 </li>
             </ul>
+
+            @if ($vanphong->mo_ta)
+              <hr>
+              <div class="vanphong-description">
+                {!! $vanphong->mo_ta !!}
+              </div>
+            @endif
                    
 
               <!-- Action Buttons -->
@@ -142,7 +149,6 @@
             </div>
           </div>
         </div>
-
         <!-- Product Details Tabs -->
         <div class="row mt-5" data-aos="fade-up">
           <div class="col-12">
@@ -151,34 +157,20 @@
                 <li class="nav-item" role="presentation">
                   <button class="nav-link active" id="description-tab" data-bs-toggle="tab" data-bs-target="#description" type="button" role="tab" aria-controls="description" aria-selected="true">Mô tả</button>
                 </li>
-                <li class="nav-item" role="presentation">
+                {{-- <li class="nav-item" role="presentation">
                   <button class="nav-link" id="specifications-tab" data-bs-toggle="tab" data-bs-target="#specifications" type="button" role="tab" aria-controls="specifications" aria-selected="false">Thông tin chi tiết</button>
-                </li>
+                </li> --}}
               </ul>
               <div class="tab-content" id="productTabsContent">
                 <!-- Description Tab -->
                 <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
                   <div class="product-description">
-                    <h4>Product Overview</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum at lacus congue, suscipit elit nec, tincidunt orci. Phasellus egestas nisi vitae lectus imperdiet venenatis. Suspendisse vulputate quam diam, et consectetur augue condimentum in. Aenean dapibus urna eget nisi pharetra, in iaculis nulla blandit. Praesent at consectetur sem, sed sollicitudin nibh. Ut interdum risus ac nulla placerat aliquet.</p>
+                    {{-- <h4 style="text-decoration: underline;">GIỚI THIỆU VĂN PHÒNG CHO THUÊ {{ strtoupper($vanphong->ten_van_phong) }}</h4>
+                    {!! $vanphong->mo_ta !!}
 
-                    <h4>Key Features</h4>
-                    <ul>
-                      <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit</li>
-                      <li>Vestibulum at lacus congue, suscipit elit nec, tincidunt orci</li>
-                      <li>Phasellus egestas nisi vitae lectus imperdiet venenatis</li>
-                      <li>Suspendisse vulputate quam diam, et consectetur augue condimentum in</li>
-                      <li>Aenean dapibus urna eget nisi pharetra, in iaculis nulla blandit</li>
-                    </ul>
+                    <h4 style="text-decoration: underline;">VỊ TRÍ TÒA NHÀ {{ strtoupper($vanphong->toaNha->ten_toa_nha) }}</h4> --}}
+                    {!! $vanphong->toaNha->mo_ta !!}
 
-                    <h4>What's in the Box</h4>
-                    <ul>
-                      <li>Lorem Ipsum Wireless Headphones</li>
-                      <li>Carrying Case</li>
-                      <li>USB-C Charging Cable</li>
-                      <li>3.5mm Audio Cable</li>
-                      <li>User Manual</li>
-                    </ul>
                   </div>
                 </div>
 
@@ -186,7 +178,7 @@
                 <div class="tab-pane fade" id="specifications" role="tabpanel" aria-labelledby="specifications-tab">
                   <div class="product-specifications">
                     <div class="specs-group">
-                      <h4>Thông tin văn phòng</h4>
+                      <h4 style="text-decoration: underline;">THÔNG TIN VĂN PHÒNG</h4>
                       <div class="specs-table">
                         <div class="specs-row">
                           <div class="specs-label">Tên tòa nhà</div>
@@ -201,45 +193,16 @@
                           <div class="specs-label">Tổng số tầng</div>
                           <div class="specs-value">{{ $vanphong->toaNha->so_tang ?? 'Không rõ tòa nhà' }} tầng</div>
                         </div>
-                        <div class="specs-row">
-                          <div class="specs-label">Driver Size</div>
-                          <div class="specs-value">40mm</div>
-                        </div>
-                        <div class="specs-row">
-                          <div class="specs-label">Frequency Response</div>
-                          <div class="specs-value">20Hz - 20kHz</div>
-                        </div>
-                        <div class="specs-row">
-                          <div class="specs-label">Impedance</div>
-                          <div class="specs-value">32 Ohm</div>
-                        </div>
-                        <div class="specs-row">
-                          <div class="specs-label">Weight</div>
-                          <div class="specs-value">250g</div>
-                        </div>
                       </div>
                     </div>
 
                     <div class="specs-group">
-                      <h4>Features</h4>
-                      <div class="specs-table">
-                        <div class="specs-row">
-                          <div class="specs-label">Noise Cancellation</div>
-                          <div class="specs-value">Active Noise Cancellation (ANC)</div>
-                        </div>
-                        <div class="specs-row">
-                          <div class="specs-label">Controls</div>
-                          <div class="specs-value">Touch controls, Voice assistant</div>
-                        </div>
-                        <div class="specs-row">
-                          <div class="specs-label">Microphone</div>
-                          <div class="specs-value">Dual beamforming microphones</div>
-                        </div>
-                        <div class="specs-row">
-                          <div class="specs-label">Water Resistance</div>
-                          <div class="specs-value">IPX4 (splash resistant)</div>
-                        </div>
-                      </div>
+                      <h4 style="text-decoration: underline;">TIỆN ÍCH</h4>
+                      <ul>
+                        @foreach(explode(',', $vanphong->tien_ich) as $tienIch)
+                          <li>{{ trim($tienIch) }}</li>
+                      @endforeach
+                      </ul>
                     </div>
                   </div>
                 </div>

@@ -310,12 +310,12 @@ h6 {
 }
 
 .header .main-header .logo img {
-  max-height: 32px;
+  max-height: 80px;
   margin-right: 8px;
 }
 
 .header .main-header .logo h1 {
-  font-size: 26px;
+  font-size: 32px;
   margin: 0;
   font-weight: 700;
   color: var(--heading-color);

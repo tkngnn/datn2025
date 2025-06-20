@@ -109,7 +109,7 @@
                             <div class="row mt-3">
                                 <div class="col-12" data-aos="fade-up" data-aos-delay="200">
                                     <div class="active-filters">
-                                        <span class="active-filter-label">Active Filters:</span>
+                                        <span class="active-filter-label">Bộ lọc:</span>
                                         <div class="filter-tags" id="active-filters-list">
                                             {{-- các filter sẽ được thêm bằng JS --}}
                                         </div>
