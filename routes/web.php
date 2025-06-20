@@ -1,8 +1,7 @@
 <?php
 
-use App\Http\Controllers\HenXemController;
-use App\Http\Controllers\KhachHangController;
-//use App\Http\Controllers\VanPhongController;
+use App\Http\Controllers\Admin\HenXemController;
+use App\Http\Controllers\Admin\KhachHangController;
 use App\Http\Controllers\Admin\VanPhongController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -15,6 +14,8 @@ use App\Http\Controllers\Admin\ThongKeController;
 use App\Http\Controllers\Admin\KT\KTController;
 use App\Http\Controllers\Admin\KT\ThanhToanController;
 use App\Http\Controllers\User\HomeController;
+use App\Http\Controllers\Admin\HoaDonController;
+use App\Http\Controllers\Admin\ChiSoController;
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -81,6 +82,17 @@ Route::middleware(['auth', 'verified', 'check.role:admin'])->prefix('admin')->na
     Route::get('thongke', [ThongKeController::class, 'index'])->name('thongke.index');
     Route::get('thongke/doanh-thu-thang', [ThongKeController::class, 'doanhThuThang'])->name('thongke.doanh_thu_thang');
     Route::get('thongke/ty-le-lap-day', [ThongKeController::class, 'tyLeLapDay'])->name('thongke.ty_le_lap_day');
+    // Route quản lý chỉ số
+    Route::get('chiso', [ChiSoController::class, 'index'])->name('chiso.index');
+    Route::get('chiso/create', [ChiSoController::class, 'create'])->name('chiso.create');
+    Route::post('chiso', [ChiSoController::class, 'store'])->name('chiso.store');
+    Route::get('chiso/{id}/edit', [ChiSoController::class, 'edit'])->name('chiso.edit');
+    Route::put('chiso/{id}', [ChiSoController::class, 'update'])->name('chiso.update');
+
+    // Route quản lý hóa đơn
+    Route::get('hoadon', [HoaDonController::class, 'index'])->name('hoadon.index');
+    Route::get('/hoadon/preview/{id}', [HoaDonController::class, 'preview'])->name('hoadon.preview');
+    Route::post('/hoadon/guimail', [HoaDonController::class, 'guiMail'])->name('hoadon.guimail');
 });
 
 Route::middleware(['auth', 'verified', 'check.role:KT'])->prefix('kt')->name('kt.')->group(function () {
