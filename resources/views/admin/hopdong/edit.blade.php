@@ -11,7 +11,7 @@
             <div class="page-header">
                 <div class="row align-items-center">
                     <div class="col-sm">
-                        <h1 class="page-header-title">Chỉnh Sửa Hợp Đồng</h1>
+                        <h1 class="page-header-title">Chỉnh Sửa Hợp Đồng {{ $hopDong->ma_hop_dong }}</h1>
                     </div>
                 </div>
                 @if (session('success'))
@@ -125,19 +125,19 @@
                         <div class="row">
                             <div class="col-md-5">
                                 <label for="khach_thue_id">Tên khách thuê</label>
-                                <select class="form-control" name="khach_thue_id">
+                                <select class="form-control" name="khach_thue_id" id="khach_thue_id">
                                     <option value="{{ $hopDong->user->id }}">{{ $hopDong->user->name }}
                                         ({{ $hopDong->user->so_dien_thoai }})</option>
                                 </select>
                             </div>
                             <div class="col-md-4">
                                 <label for="sdt_khach_thue">Số điện thoại</label>
-                                <input type="text" class="form-control" value="{{ $hopDong->user->so_dien_thoai }}"
-                                    readonly>
+                                <input type="text" id="sdt_khach_thue" class="form-control" name="sdt_khach_thue"
+                                    value="{{ $hopDong->user->so_dien_thoai }}" readonly>
                             </div>
                             <div class="col-md-3">
                                 <label for="dai_dien">Người đại diện</label>
-                                <input type="text" class="form-control" name="dai_dien"
+                                <input type="text" class="form-control" name="dai_dien" id="dai_dien"
                                     value="{{ $hopDong->user->name }}">
                             </div>
                         </div>
@@ -153,12 +153,12 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <label for="tien_thue">Tiền thuê</label>
-                                <input type="number" class="form-control" name="tien_thue"
+                                <input type="number" class="form-control" name="tien_thue" id="tien_thue"
                                     value="{{ $chiTiet->gia_thue }}">
                             </div>
                             <div class="col-md-4">
                                 <label for="chu_ky">Chu kỳ thanh toán</label>
-                                <select name="chu_ky" class="form-control">
+                                <select name="chu_ky" class="form-control" id="chu_ky">
                                     <option value="1" {{ $hopDong->chu_ky == 1 ? 'selected' : '' }}>Hàng tháng
                                     </option>
                                     <option value="3" {{ $hopDong->chu_ky == 3 ? 'selected' : '' }}>3 tháng</option>
@@ -177,7 +177,7 @@
 
                         <div class="form-group mt-3">
                             <label for="tien_coc">Tiền cọc</label>
-                            <input type="number" class="form-control" name="tien_coc"
+                            <input type="number" class="form-control" name="tien_coc" id="tien_coc"
                                 value="{{ $hopDong->tong_tien_coc }}">
                         </div>
                     </div>
@@ -192,17 +192,17 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <label for="gia_dien">Giá điện</label>
-                                <input type="number" class="form-control" name="gia_dien"
+                                <input type="number" class="form-control" name="gia_dien" id="gia_dien"
                                     value="{{ $chiTiet->gia_dien }}">
                             </div>
                             <div class="col-md-4">
                                 <label for="gia_nuoc">Giá nước</label>
-                                <input type="number" class="form-control" name="gia_nuoc"
+                                <input type="number" class="form-control" name="gia_nuoc" id="gia_nuoc"
                                     value="{{ $chiTiet->gia_nuoc }}">
                             </div>
                             <div class="col-md-4">
                                 <label for="dich_vu_khac">Dịch vụ khác</label>
-                                <input type="number" class="form-control" name="dich_vu_khac"
+                                <input type="number" class="form-control" name="dich_vu_khac" id="dich_vu_khac"
                                     value="{{ $chiTiet->dich_vu_khac }}">
                             </div>
                         </div>
@@ -215,8 +215,8 @@
                 </div>
 
                 <div class="text-center mb-5">
-                    <button type="submit" class="btn btn-success">Cập nhật hợp đồng</button>
-                    <a href="{{ route('admin.hopdong.index') }}" class="btn btn-secondary">Hủy</a>
+                    <button type="submit" class="btn btn-primary">Cập nhật hợp đồng</button>
+                    <a href="{{ route('admin.hopdong.index') }}" class="btn btn-danger">Hủy</a>
                 </div>
             </form>
         </div>
@@ -250,8 +250,8 @@
         flatpickr("#ngay_bat_dau_tinh_tien", {
             dateFormat: "Y-m-d"
         });
-
         document.addEventListener('DOMContentLoaded', function() {
+            // Xử lý sự kiện thay đổi tòa nhà và văn phòng
             const toaNhaSelect = document.getElementById('toa_nha_id');
             const vanPhongSelect = document.getElementById('vanphong_id');
 

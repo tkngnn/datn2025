@@ -210,7 +210,7 @@
                 <!-- Nút lưu -->
                 <div class="text-center mb-5">
                     <button type="submit" class="btn btn-primary">Lưu Hợp Đồng</button>
-                    <a href="{{ route('admin.hopdong.index') }}" class="btn btn-secondary">Hủy</a>
+                    <a href="{{ route('admin.hopdong.index') }}" class="btn btn-danger">Hủy</a>
                 </div>
             </form>
         </div>

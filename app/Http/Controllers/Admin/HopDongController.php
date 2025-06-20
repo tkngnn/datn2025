@@ -15,6 +15,10 @@ use App\Models\HopDongThanhLy;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
+use App\Mail\HopDongMoiMail;
 
 
 class HopDongController extends Controller
@@ -127,6 +131,17 @@ class HopDongController extends Controller
             ]);
 
             DB::commit();
+            try {
+                $user = User::findOrFail($validated['khach_thue_id']);
+
+                if ($user->email) {
+                    Mail::to($user->email)->send(new HopDongMoiMail($user, $hopDong));
+                } else {
+                    Log::warning("User {$user->id} không có email để gửi thông báo hợp đồng.");
+                }
+            } catch (\Exception $e) {
+                Log::error("Gửi email thông báo hợp đồng thất bại: " . $e->getMessage());
+            }
 
             return redirect()->route('admin.hopdong.index')->with('success', 'Tạo hợp đồng thành công!');
         } catch (\Exception $e) {
@@ -231,6 +246,17 @@ class HopDongController extends Controller
 
             DB::commit();
 
+            try {
+                $user = User::findOrFail($validated['khach_thue_id']);
+
+                if ($user->email) {
+                    Mail::to($user->email)->send(new HopDongMoiMail($user, $hopDong));
+                } else {
+                    Log::warning("User {$user->id} không có email để gửi thông báo hợp đồng.");
+                }
+            } catch (\Exception $e) {
+                Log::error("Gửi email thông báo hợp đồng thất bại: " . $e->getMessage());
+            }
             return redirect()->route('admin.hopdong.index')->with('success', 'Cập nhật hợp đồng thành công!');
         } catch (\Exception $e) {
             DB::rollBack();

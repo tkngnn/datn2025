@@ -260,13 +260,13 @@
                                 @csrf
 
                                 <div class="text-center mb-5">
-                                    <h1 class="display-4">Sign in</h1>
-                                    <p>Don't have an account yet? <a href="{{ route('register') }}">Sign up here</a></p>
+                                    <h1 class="display-4">Đăng nhập</h1>
+                                    <p>Đăng nhập tài khoản</p>
                                 </div>
 
                                 <!-- Email -->
                                 <div class="js-form-message form-group">
-                                    <label class="input-label" for="email">Your email</label>
+                                    <label class="input-label" for="email">Email của bạn</label>
                                     <input type="email"
                                         class="form-control form-control-lg @error('email') is-invalid @enderror"
                                         name="email" id="email" value="{{ old('email') }}" required autofocus
@@ -282,10 +282,10 @@
                                 <div class="js-form-message form-group">
                                     <label class="input-label" for="password">
                                         <span class="d-flex justify-content-between align-items-center">
-                                            Password
+                                            Mật khẩu
                                             @if (Route::has('password.request'))
                                                 <a class="input-label-secondary"
-                                                    href="{{ route('password.request') }}">Forgot Password?</a>
+                                                    href="{{ route('password.request') }}">Quên mật khẩu?</a>
                                             @endif
                                         </span>
                                     </label>
@@ -320,32 +320,16 @@
                                     <div class="custom-control custom-checkbox">
                                         <input type="checkbox" class="custom-control-input" id="remember"
                                             name="remember" {{ old('remember') ? 'checked' : '' }}>
-                                        <label class="custom-control-label text-muted" for="remember"> Remember
-                                            me</label>
+                                        <label class="custom-control-label text-muted" for="remember"> Ghi nhớ</label>
                                     </div>
                                 </div>
 
                                 <!-- Submit -->
-                                <button type="submit" class="btn btn-lg btn-block btn-primary">Sign in</button>
+                                <button type="submit" class="btn btn-lg btn-block btn-primary">Đăng nhập</button>
                             </form>
                         </div>
                     </div>
 
-                    <div class="text-center">
-                        <small class="text-cap mb-4">Trusted by the world's best teams</small>
-                        <div class="w-85 mx-auto">
-                            <div class="row justify-content-between">
-                                <div class="col"><img class="img-fluid" src="assets/svg/brands/gitlab-gray.svg"
-                                        alt="Gitlab"></div>
-                                <div class="col"><img class="img-fluid" src="assets/svg/brands/fitbit-gray.svg"
-                                        alt="Fitbit"></div>
-                                <div class="col"><img class="img-fluid" src="assets/svg/brands/flow-xo-gray.svg"
-                                        alt="Flow XO"></div>
-                                <div class="col"><img class="img-fluid" src="assets/svg/brands/layar-gray.svg"
-                                        alt="Layar"></div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

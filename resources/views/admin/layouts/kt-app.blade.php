@@ -330,130 +330,7 @@
 
                     <!-- Search Form -->
                     <div class="d-none d-md-block">
-                        <form class="position-relative">
-                            <!-- Input Group -->
-                            <div
-                                class="input-group input-group-merge input-group-borderless input-group-hover-light navbar-input-group">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">
-                                        <i class="tio-search"></i>
-                                    </div>
-                                </div>
-                                <input type="search" class="js-form-search form-control"
-                                    placeholder="Search in front" aria-label="Search in front"
-                                    data-hs-form-search-options='{
-                     "clearIcon": "#clearSearchResultsIcon",
-                     "dropMenuElement": "#searchDropdownMenu",
-                     "dropMenuOffset": 20,
-                     "toggleIconOnFocus": true,
-                     "activeClass": "focus"
-                   }'>
-                                <a class="input-group-append" href="javascript:;">
-                                    <span class="input-group-text">
-                                        <i id="clearSearchResultsIcon" class="tio-clear" style="display: none;"></i>
-                                    </span>
-                                </a>
-                            </div>
-                            <!-- End Input Group -->
-
-                            <!-- Card Search Content -->
-                            <div id="searchDropdownMenu"
-                                class="hs-form-search-menu-content card dropdown-menu dropdown-card overflow-hidden">
-                                <!-- Body -->
-                                <div class="card-body-height py-3">
-                                    <small class="dropdown-header mb-n2">Recent searches</small>
-
-                                    <div class="dropdown-item bg-transparent text-wrap my-2">
-                                        <span class="h4 mr-1">
-                                            <a class="btn btn-xs btn-soft-dark btn-pill" href="index.html">
-                                                Gulp <i class="tio-search ml-1"></i>
-                                            </a>
-                                        </span>
-                                        <span class="h4">
-                                            <a class="btn btn-xs btn-soft-dark btn-pill" href="index.html">
-                                                Notification panel <i class="tio-search ml-1"></i>
-                                            </a>
-                                        </span>
-                                    </div>
-
-                                    <div class="dropdown-divider my-3"></div>
-
-                                    <small class="dropdown-header mb-n2">Tutorials</small>
-
-                                    <a class="dropdown-item my-2" href="index.html">
-                                        <div class="media align-items-center">
-                                            <span class="icon icon-xs icon-soft-dark icon-circle mr-2">
-                                                <i class="tio-tune"></i>
-                                            </span>
-
-                                            <div class="media-body text-truncate">
-                                                <span>How to set up Gulp?</span>
-                                            </div>
-                                        </div>
-                                    </a>
-
-                                    <a class="dropdown-item my-2" href="index.html">
-                                        <div class="media align-items-center">
-                                            <span class="icon icon-xs icon-soft-dark icon-circle mr-2">
-                                                <i class="tio-paint-bucket"></i>
-                                            </span>
-
-                                            <div class="media-body text-truncate">
-                                                <span>How to change theme color?</span>
-                                            </div>
-                                        </div>
-                                    </a>
-
-                                    <div class="dropdown-divider my-3"></div>
-
-                                    <small class="dropdown-header mb-n2">Members</small>
-
-                                    <a class="dropdown-item my-2" href="index.html">
-                                        <div class="media align-items-center">
-                                            <img class="avatar avatar-xs avatar-circle mr-2"
-                                                src="{{ asset('assets/img/160x160/img10.jpg') }}"
-                                                alt="Image Description">
-                                            <div class="media-body text-truncate">
-                                                <span>Amanda Harvey <i class="tio-verified text-primary"
-                                                        data-toggle="tooltip" data-placement="top"
-                                                        title="Top endorsed"></i></span>
-                                            </div>
-                                        </div>
-                                    </a>
-
-                                    <a class="dropdown-item my-2" href="index.html">
-                                        <div class="media align-items-center">
-                                            <img class="avatar avatar-xs avatar-circle mr-2"
-                                                src="{{ asset('assets/img/160x160/img3.jpg') }}"
-                                                alt="Image Description">
-                                            <div class="media-body text-truncate">
-                                                <span>David Harrison</span>
-                                            </div>
-                                        </div>
-                                    </a>
-
-                                    <a class="dropdown-item my-2" href="index.html">
-                                        <div class="media align-items-center">
-                                            <div class="avatar avatar-xs avatar-soft-info avatar-circle mr-2">
-                                                <span class="avatar-initials">A</span>
-                                            </div>
-                                            <div class="media-body text-truncate">
-                                                <span>Anne Richard</span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <!-- End Body -->
-
-                                <!-- Footer -->
-                                <a class="card-footer text-center" href="index.html">
-                                    See all results
-                                    <i class="tio-chevron-right"></i>
-                                </a>
-                                <!-- End Footer -->
-                            </div>
-                            <!-- End Card Search Content -->
-                        </form>
+                        
                     </div>
                     <!-- End Search Form -->
                 </div>
@@ -489,7 +366,7 @@
                  "type": "css-animation"
                }'>
                                     <div class="avatar avatar-sm avatar-circle">
-                                        <img class="avatar-img" src="{{ asset('assets/img/160x160/img6.jpg') }}"
+                                        <img class="avatar-img" src="{{ asset('assets/img/160x160/img1.jpg') }}"
                                             alt="Image Description">
                                         <span class="avatar-status avatar-sm-status avatar-status-success"></span>
                                     </div>
@@ -502,7 +379,7 @@
                                         <div class="media align-items-center">
                                             <div class="avatar avatar-sm avatar-circle mr-2">
                                                 <img class="avatar-img"
-                                                    src="{{ asset('assets/img/160x160/img6.jpg') }}"
+                                                    src="{{ asset('assets/img/160x160/img1.jpg') }}"
                                                     alt="Image Description">
                                             </div>
                                             <div class="media-body">
@@ -517,7 +394,7 @@
                                     <form method="POST" action="{{ route('logout') }}">
                                         @csrf
                                         <button type="submit" class="dropdown-item">
-                                            <span class="text-truncate pr-2" title="Sign out">Sign out</span>
+                                            <span class="text-truncate pr-2" title="Sign out">Đăng xuất</span>
                                         </button>
                                     </form>
                                 </div>
@@ -3575,7 +3452,7 @@
                             <!-- End Dashboards -->
 
                             <li class="nav-item">
-                                <small class="nav-subtitle" title="Pages">Pages</small>
+                                <small class="nav-subtitle" title="Pages">Trang</small>
                                 <small class="tio-more-horizontal nav-subtitle-replacer"></small>
                             </li>
 
@@ -3583,7 +3460,7 @@
                             <li class="navbar-vertical-aside-has-menu ">
                                 <a class="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle "
                                     href="{{ route('kt.hopdong') }}" title="Apps">
-                                    <i class="tio-apps nav-icon"></i>
+                                    <i class="tio-receipt nav-icon"></i>
                                     <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Hợp Đồng
                                     </span>
                                 </a>
@@ -3594,7 +3471,7 @@
                             <li class="navbar-vertical-aside-has-menu ">
                                 <a class="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle "
                                     href="{{ route('kt.hoadon') }}" title="Apps">
-                                    <i class="tio-apps nav-icon"></i>
+                                    <i class="tio-american-express nav-icon"></i>
                                     <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Hóa Đơn
                                     </span>
                                 </a>
@@ -3604,272 +3481,19 @@
                             <li class="navbar-vertical-aside-has-menu ">
                                 <a class="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle "
                                     href="{{ route('kt.hotro') }}" title="Apps">
-                                    <i class="tio-apps nav-icon"></i>
+                                    <i class="tio-support nav-icon"></i>
                                     <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Hỗ Trợ
                                     </span>
                                 </a>
                             </li>
                             <!-- End Components -->
-
-
-
-                            <!-- Front Builder -->
-                            <li class="nav-item nav-footer-item ">
-                                <a class="d-none d-md-flex js-hs-unfold-invoker nav-link nav-link-toggle"
-                                    href="javascript:;"
-                                    data-hs-unfold-options='{
-                                    "target": "#styleSwitcherDropdown",
-                                    "type": "css-animation",
-                                    "animationIn": "fadeInRight",
-                                    "animationOut": "fadeOutRight",
-                                    "hasOverlay": true,
-                                    "smartPositionOff": true
-                                }'>
-                                    <i class="tio-tune nav-icon"></i>
-                                </a>
-                                <a class="d-flex d-md-none nav-link nav-link-toggle" href="javascript:;">
-                                    <i class="tio-tune nav-icon"></i>
-                                </a>
-                            </li>
-                            <!-- End Front Builder -->
-
-                            <!-- Help -->
-                            <li class="navbar-vertical-aside-has-menu nav-footer-item ">
-                                <a class="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle "
-                                    href="javascript:;" title="Help">
-                                    <i class="tio-home-vs-1-outlined nav-icon"></i>
-                                    <span
-                                        class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Help</span>
-                                </a>
-
-                                <ul class="js-navbar-vertical-aside-submenu nav nav-sub">
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#" title="Resources &amp; tutorials">
-                                            <i class="tio-book-outlined dropdown-item-icon"></i> Resources &amp;
-                                            tutorials
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#" title="Keyboard shortcuts">
-                                            <i class="tio-command-key dropdown-item-icon"></i> Keyboard shortcuts
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#" title="Connect other apps">
-                                            <i class="tio-alt dropdown-item-icon"></i> Connect other apps
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#" title="What's new?">
-                                            <i class="tio-gift dropdown-item-icon"></i> What's new?
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#" title="Contact support">
-                                            <i class="tio-chat-outlined dropdown-item-icon"></i> Contact support
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <!-- End Help -->
-
-                            <!-- Language -->
-                            <li class="navbar-vertical-aside-has-menu nav-footer-item ">
-                                <a class="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle "
-                                    href="javascript:;" title="Language">
-                                    <img class="avatar avatar-xss avatar-circle"
-                                        src="{{ asset('assets/vendor/flag-icon-css/flags/1x1/us.svg') }}"
-                                        alt="United States Flag">
-                                    <span
-                                        class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Language</span>
-                                </a>
-
-                                <ul class="js-navbar-vertical-aside-submenu nav nav-sub">
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#" title="English (US)">
-                                            <img class="avatar avatar-xss avatar-circle mr-2"
-                                                src="{{ asset('assets/vendor/flag-icon-css/flags/1x1/us.svg') }}"
-                                                alt="Flag">
-                                            English (US)
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#" title="English (UK)">
-                                            <img class="avatar avatar-xss avatar-circle mr-2"
-                                                src="{{ asset('assets/vendor/flag-icon-css/flags/1x1/gb.svg') }}"
-                                                alt="Flag">
-                                            English (UK)
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#" title="Deutsch">
-                                            <img class="avatar avatar-xss avatar-circle mr-2"
-                                                src="{{ asset('assets/vendor/flag-icon-css/flags/1x1/de.svg') }}"
-                                                alt="Flag">
-                                            Deutsch
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#" title="Dansk">
-                                            <img class="avatar avatar-xss avatar-circle mr-2"
-                                                src="{{ asset('assets/vendor/flag-icon-css/flags/1x1/dk.svg') }}"
-                                                alt="Flag">
-                                            Dansk
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#" title="Italiano">
-                                            <img class="avatar avatar-xss avatar-circle mr-2"
-                                                src="{{ asset('assets/vendor/flag-icon-css/flags/1x1/it.svg') }}"
-                                                alt="Flag">
-                                            Italiano
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#" title="中文 (繁體)">
-                                            <img class="avatar avatar-xss avatar-circle mr-2"
-                                                src="{{ asset('assets/vendor/flag-icon-css/flags/1x1/cn.svg') }}"
-                                                alt="Flag">
-                                            中文 (繁體)
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <!-- End Language -->
                         </ul>
                     </div>
                     <!-- End Content -->
 
                     <!-- Footer -->
                     <div class="navbar-vertical-footer">
-                        <ul class="navbar-vertical-footer-list">
-                            <li class="navbar-vertical-footer-list-item">
-                                <!-- Unfold -->
-                                <div class="hs-unfold">
-                                    <a class="js-hs-unfold-invoker btn btn-icon btn-ghost-secondary rounded-circle"
-                                        href="javascript:;"
-                                        data-hs-unfold-options='{
-                  "target": "#styleSwitcherDropdown",
-                  "type": "css-animation",
-                  "animationIn": "fadeInRight",
-                  "animationOut": "fadeOutRight",
-                  "hasOverlay": true,
-                  "smartPositionOff": true
-                 }'>
-                                        <i class="tio-tune"></i>
-                                    </a>
-                                </div>
-                                <!-- End Unfold -->
-                            </li>
-
-                            <li class="navbar-vertical-footer-list-item">
-                                <!-- Other Links -->
-                                <div class="hs-unfold">
-                                    <a class="js-hs-unfold-invoker btn btn-icon btn-ghost-secondary rounded-circle"
-                                        href="javascript:;"
-                                        data-hs-unfold-options='{
-                  "target": "#otherLinksDropdown",
-                  "type": "css-animation",
-                  "animationIn": "slideInDown",
-                  "hideOnScroll": true
-                 }'>
-                                        <i class="tio-help-outlined"></i>
-                                    </a>
-
-                                    <div id="otherLinksDropdown"
-                                        class="hs-unfold-content dropdown-unfold dropdown-menu navbar-vertical-footer-dropdown">
-                                        <span class="dropdown-header">Help</span>
-                                        <a class="dropdown-item" href="#">
-                                            <i class="tio-book-outlined dropdown-item-icon"></i>
-                                            <span class="text-truncate pr-2"
-                                                title="Resources &amp; tutorials">Resources &amp; tutorials</span>
-                                        </a>
-                                        <a class="dropdown-item" href="#">
-                                            <i class="tio-command-key dropdown-item-icon"></i>
-                                            <span class="text-truncate pr-2" title="Keyboard shortcuts">Keyboard
-                                                shortcuts</span>
-                                        </a>
-                                        <a class="dropdown-item" href="#">
-                                            <i class="tio-alt dropdown-item-icon"></i>
-                                            <span class="text-truncate pr-2" title="Connect other apps">Connect
-                                                other apps</span>
-                                        </a>
-                                        <a class="dropdown-item" href="#">
-                                            <i class="tio-gift dropdown-item-icon"></i>
-                                            <span class="text-truncate pr-2" title="What's new?">What's new?</span>
-                                        </a>
-                                        <div class="dropdown-divider"></div>
-                                        <span class="dropdown-header">Contacts</span>
-                                        <a class="dropdown-item" href="#">
-                                            <i class="tio-chat-outlined dropdown-item-icon"></i>
-                                            <span class="text-truncate pr-2" title="Contact support">Contact
-                                                support</span>
-                                        </a>
-                                    </div>
-                                </div>
-                                <!-- End Other Links -->
-                            </li>
-
-                            <li class="navbar-vertical-footer-list-item">
-                                <!-- Language -->
-                                <div class="hs-unfold">
-                                    <a class="js-hs-unfold-invoker btn btn-icon btn-ghost-secondary rounded-circle"
-                                        href="javascript:;"
-                                        data-hs-unfold-options='{
-                  "target": "#languageDropdown",
-                  "type": "css-animation",
-                  "animationIn": "slideInDown",
-                  "hideOnScroll": true
-                 }'>
-                                        <img class="avatar avatar-xss avatar-circle"
-                                            src="{{ asset('assets/vendor/flag-icon-css/flags/1x1/us.svg') }}"
-                                            alt="United States Flag">
-                                    </a>
-
-                                    <div id="languageDropdown"
-                                        class="hs-unfold-content dropdown-unfold dropdown-menu navbar-vertical-footer-dropdown">
-                                        <span class="dropdown-header">Select language</span>
-                                        <a class="dropdown-item" href="#">
-                                            <img class="avatar avatar-xss avatar-circle mr-2"
-                                                src="{{ asset('assets/vendor/flag-icon-css/flags/1x1/us.svg') }}"
-                                                alt="Flag">
-                                            <span class="text-truncate pr-2" title="English">English (US)</span>
-                                        </a>
-                                        <a class="dropdown-item" href="#">
-                                            <img class="avatar avatar-xss avatar-circle mr-2"
-                                                src="{{ asset('assets/vendor/flag-icon-css/flags/1x1/gb.svg') }}"
-                                                alt="Flag">
-                                            <span class="text-truncate pr-2" title="English">English (UK)</span>
-                                        </a>
-                                        <a class="dropdown-item" href="#">
-                                            <img class="avatar avatar-xss avatar-circle mr-2"
-                                                src="{{ asset('assets/vendor/flag-icon-css/flags/1x1/de.svg') }}"
-                                                alt="Flag">
-                                            <span class="text-truncate pr-2" title="Deutsch">Deutsch</span>
-                                        </a>
-                                        <a class="dropdown-item" href="#">
-                                            <img class="avatar avatar-xss avatar-circle mr-2"
-                                                src="{{ asset('assets/vendor/flag-icon-css/flags/1x1/dk.svg') }}"
-                                                alt="Flag">
-                                            <span class="text-truncate pr-2" title="Dansk">Dansk</span>
-                                        </a>
-                                        <a class="dropdown-item" href="#">
-                                            <img class="avatar avatar-xss avatar-circle mr-2"
-                                                src="{{ asset('assets/vendor/flag-icon-css/flags/1x1/it.svg') }}"
-                                                alt="Flag">
-                                            <span class="text-truncate pr-2" title="Italiano">Italiano</span>
-                                        </a>
-                                        <a class="dropdown-item" href="#">
-                                            <img class="avatar avatar-xss avatar-circle mr-2"
-                                                src="{{ asset('assets/vendor/flag-icon-css/flags/1x1/cn.svg') }}"
-                                                alt="Flag">
-                                            <span class="text-truncate pr-2" title="中文 (繁體)">中文 (繁體)</span>
-                                        </a>
-                                    </div>
-                                </div>
-                                <!-- End Language -->
-                            </li>
-                        </ul>
+                        
                     </div>
                     <!-- End Footer -->
                 </div>

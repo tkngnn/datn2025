@@ -100,7 +100,7 @@
                                     <p class="mb-0">Dành cho khách thuê: Truy cập tài khoản &amp; quản lý thuê</p>
                                 </div>
                                 <div class="dropdown-footer">
-                                    <a href="login-register.html" class="btn btn-primary w-100 mb-2">Đăng Nhập</a>
+                                    <a href="{{ route('login') }}" class="btn btn-primary w-100 mb-2">Đăng Nhập</a>
                                     <a href="login-register.html" class="btn btn-outline-primary w-100">Đăng Ký</a>
                                 </div>
                             </div>

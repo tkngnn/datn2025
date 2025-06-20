@@ -50,43 +50,45 @@
                         </li>
                     </ul>
                     <!-- End Nav -->
+
                 </div>
                 <!-- End Nav Scroller -->
 
-                @if (session('success'))
-                    <div class="alert alert-soft-success" role="alert">
-                        <strong>Thành công!</strong> {{ session('success') }}
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Đóng">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                @endif
 
-                @if (session('error'))
-                    <div class="alert alert-soft-danger" role="alert">
-                        <strong>Lỗi!</strong> {{ session('error') }}
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Đóng">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                @endif
-
-                <script>
-                    // Sau 5 giây (5000ms), tự động ẩn các alert có class `.alert`
-                    setTimeout(function() {
-                        const alerts = document.querySelectorAll('.alert');
-                        alerts.forEach(alert => {
-                            if (alert.id !== 'noDebtMessage') {
-                                alert.classList.remove('show');
-                                alert.classList.add('fade');
-                                setTimeout(() => alert.remove(), 300);
-                            }
-                        });
-                    }, 5000);
-                </script>
             </div>
+            <div id="hopdong-alert-container" class="mt-2"></div>
             <!-- End Page Header -->
+            @if (session('success'))
+                <div class="alert alert-soft-success" role="alert">
+                    <strong>Thành công!</strong> {{ session('success') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Đóng">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
 
+            @if (session('error'))
+                <div class="alert alert-soft-danger" role="alert">
+                    <strong>Lỗi!</strong> {{ session('error') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Đóng">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
+
+            <script>
+                // Sau 5 giây (5000ms), tự động ẩn các alert có class `.alert`
+                setTimeout(function() {
+                    const alerts = document.querySelectorAll('.alert');
+                    alerts.forEach(alert => {
+                        if (alert.id !== 'noDebtMessage') {
+                            alert.classList.remove('show');
+                            alert.classList.add('fade');
+                            setTimeout(() => alert.remove(), 300);
+                        }
+                    });
+                }, 5000);
+            </script>
             <!-- Card -->
             <div class="card">
                 <!-- Header -->
@@ -380,11 +382,19 @@
                                                     <i class="tio-visible-outlined"></i>
                                                 </a>
 
-                                                <a class="btn btn-sm btn-secondary"
+                                                {{-- <a class="btn btn-sm btn-secondary"
                                                     href="{{ route('admin.hopdong.edit', $hopdong->ma_hop_dong) }}"
                                                     data-toggle="tooltip" data-placement="top" title="Chỉnh sửa">
                                                     <i class="tio-edit"></i>
+                                                </a> --}}
+                                                <a class="btn btn-sm btn-secondary btn-edit-hopdong" href="javascript:;"
+                                                    data-id="{{ $hopdong->ma_hop_dong }}"
+                                                    data-da-thanh-ly="{{ $hopdong->da_thanh_ly ? '1' : '0' }}"
+                                                    data-url="{{ route('admin.hopdong.edit', $hopdong->ma_hop_dong) }}"
+                                                    data-toggle="tooltip" data-placement="top" title="Chỉnh sửa">
+                                                    <i class="tio-edit"></i>
                                                 </a>
+
                                                 <a class="btn btn-sm btn-dark"
                                                     href="{{ route('admin.hopdong.export_pdf', $hopdong->ma_hop_dong) }}"
                                                     data-toggle="tooltip" data-placement="top" title="Tải PDF">
@@ -720,6 +730,32 @@
                     .catch(err => {
                         alert('Lỗi khi tải hợp đồng');
                     });
+            });
+        });
+
+        document.querySelectorAll('.btn-edit-hopdong').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const maHopDong = this.getAttribute('data-id');
+                const daThanhLy = this.getAttribute('data-da-thanh-ly');
+                const url = this.getAttribute('data-url');
+
+                // Kiểm tra nếu hợp đồng đã thanh lý
+                if (daThanhLy === '1') {
+                    const alertBox = `
+                        <div class="alert alert-soft-danger alert-dismissible fade show mt-3" role="alert">
+                            <strong>Không thể chỉnh sửa!</strong> Hợp đồng này đã được thanh lý.
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Đóng">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    `;
+                    $('#hopdong-alert-container').html(alertBox);
+                    setTimeout(() => {
+                        $('.alert').alert('close');
+                    }, 5000);
+                    return;
+                }
+                window.location.href = url;
             });
         });
 

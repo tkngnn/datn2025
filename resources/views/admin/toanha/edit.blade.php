@@ -14,32 +14,30 @@
 @endpush
 
 @section('content')
-    <form action="{{ route('admin.toanha.update', $toaNha->ma_toa_nha) }}" method="POST">
-        @csrf
-        @method('PUT')
-        <main id="content" role="main" class="main">
-            <!-- Content -->
-            <div class="content container-fluid">
-                <!-- Page Header -->
-                <div class="page-header">
-                    <div class="row align-items-center">
-                        <div class="col-sm mb-2 mb-sm-0">
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb breadcrumb-no-gutter">
-                                    <li class="breadcrumb-item"><a class="breadcrumb-link"
-                                            href="ecommerce-products.html">Tòa
-                                            Nhà</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Cập Nhật Tòa Nhà</li>
-                                </ol>
-                            </nav>
+    <main id="content" role="main" class="main">
+        <!-- Content -->
+        <div class="content container-fluid">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="row align-items-center">
+                    <div class="col-sm mb-2 mb-sm-0">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb breadcrumb-no-gutter">
+                                <li class="breadcrumb-item"><a class="breadcrumb-link" href="ecommerce-products.html">Tòa
+                                        Nhà</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Cập Nhật Tòa Nhà</li>
+                            </ol>
+                        </nav>
 
-                            <h1 class="page-header-title">Cập Nhật Tòa Nhà</h1>
-                        </div>
+                        <h1 class="page-header-title">Cập Nhật Tòa Nhà</h1>
                     </div>
-                    <!-- End Row -->
                 </div>
-                <!-- End Page Header -->
-
+                <!-- End Row -->
+            </div>
+            <!-- End Page Header -->
+            <form action="{{ route('admin.toanha.update', $toaNha->ma_toa_nha) }}" method="POST">
+                @csrf
+                @method('PUT')
                 <div class="row">
                     <div class="col-lg-12">
                         <!-- Card -->
@@ -169,7 +167,7 @@
                                     <button type="button" class="btn btn-ghost-danger">Delete</button>
                                 </div>
                                 <div class="col-auto">
-                                    <button type="button" class="btn btn-ghost-light mr-2">Hủy</button>
+                                    <button type="button" class="btn btn-ghost-light mr-2" id="btnCancel">Hủy</button>
                                     <button type="button" class="btn btn-primary" id="btnSave">Lưu</button>
                                 </div>
                             </div>
@@ -178,12 +176,12 @@
                     </div>
                     <!-- End Card -->
                 </div>
-            </div>
-            <!-- End Content -->
+        </div>
+        <!-- End Content -->
 
-            <!-- Footer -->
-            <!-- End Footer -->
-        </main>
+        <!-- Footer -->
+        <!-- End Footer -->
+    </main>
     </form>
 @endsection
 
@@ -209,6 +207,9 @@
             const content = quillEditor ? quillEditor.innerHTML : '';
             document.getElementById('hiddenDescription').value = content;
             this.closest('form').submit();
+        });
+        document.getElementById('btnCancel').addEventListener('click', function() {
+            window.location.href = "{{ route('admin.toanha.index') }}";
         });
     </script>
 @endpush
