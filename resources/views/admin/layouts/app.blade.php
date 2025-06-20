@@ -1918,7 +1918,7 @@
                             
 
                             <li class="nav-item">
-                                <small class="nav-subtitle" title="Pages">Pages</small>
+                                <small class="nav-subtitle" title="Pages">Quản lý</small>
                                 <small class="tio-more-horizontal nav-subtitle-replacer"></small>
                             </li>
 

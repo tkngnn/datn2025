@@ -65,42 +65,6 @@
                 </div>
                 <!-- End Datatable Info -->
 
-                <!-- Unfold -->
-                <div class="hs-unfold mr-2">
-                  <a class="js-hs-unfold-invoker btn btn-sm btn-white dropdown-toggle" href="javascript:;" data-hs-unfold-options='{
-                       "target": "#usersExportDropdown",
-                       "type": "css-animation"
-                     }'>
-                    <i class="tio-download-to mr-1"></i> Export
-                  </a>
-
-                  <div id="usersExportDropdown" class="hs-unfold-content dropdown-unfold dropdown-menu dropdown-menu-sm-right">
-                    <span class="dropdown-header">Options</span>
-                    <a id="export-copy" class="dropdown-item" href="javascript:;">
-                      <img class="avatar avatar-xss avatar-4by3 mr-2" src="assets\svg\illustrations\copy.svg" alt="Image Description">
-                      Copy
-                    </a>
-                    <a id="export-print" class="dropdown-item" href="javascript:;">
-                      <img class="avatar avatar-xss avatar-4by3 mr-2" src="assets\svg\illustrations\print.svg" alt="Image Description">
-                      Print
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <span class="dropdown-header">Download options</span>
-                    <a id="export-excel" class="dropdown-item" href="javascript:;">
-                      <img class="avatar avatar-xss avatar-4by3 mr-2" src="assets\svg\brands\excel.svg" alt="Image Description">
-                      Excel
-                    </a>
-                    <a id="export-csv" class="dropdown-item" href="javascript:;">
-                      <img class="avatar avatar-xss avatar-4by3 mr-2" src="assets\svg\components\placeholder-csv-format.svg" alt="Image Description">
-                      .CSV
-                    </a>
-                    <a id="export-pdf" class="dropdown-item" href="javascript:;">
-                      <img class="avatar avatar-xss avatar-4by3 mr-2" src="assets\svg\brands\pdf.svg" alt="Image Description">
-                      PDF
-                    </a>
-                  </div>
-                </div>
-                <!-- End Unfold -->
 
                 <!-- Unfold -->
                 {{-- <div class="hs-unfold">
@@ -597,51 +561,5 @@
       <!-- End Card -->
     </div>
     <!-- End Content -->
-
-    <!-- Footer -->
-    
-      <div class="footer">
-        <div class="row justify-content-between align-items-center">
-          <div class="col">
-            <p class="font-size-sm mb-0">&copy; Front. <span class="d-none d-sm-inline-block">2020 Htmlstream.</span></p>
-          </div>
-          <div class="col-auto">
-            <div class="d-flex justify-content-end">
-              <!-- List Dot -->
-              <ul class="list-inline list-separator">
-                <li class="list-inline-item">
-                  <a class="list-separator-link" href="#">FAQ</a>
-                </li>
-
-                <li class="list-inline-item">
-                  <a class="list-separator-link" href="#">License</a>
-                </li>
-
-                <li class="list-inline-item">
-                  <!-- Keyboard Shortcuts Toggle -->
-                  <div class="hs-unfold">
-                    <a class="js-hs-unfold-invoker btn btn-icon btn-ghost-secondary rounded-circle" href="javascript:;" data-hs-unfold-options='{
-                            "target": "#keyboardShortcutsSidebar",
-                            "type": "css-animation",
-                            "animationIn": "fadeInRight",
-                            "animationOut": "fadeOutRight",
-                            "hasOverlay": true,
-                            "smartPositionOff": true
-                           }'>
-                      <i class="tio-command-key"></i>
-                    </a>
-                  </div>
-                  <!-- End Keyboard Shortcuts Toggle -->
-                </li>
-              </ul>
-              <!-- End List Dot -->
-            </div>
-          </div>
-        </div>
-      </div>
-    
-
-    
-    <!-- End Footer -->
   </main>
 @endsection

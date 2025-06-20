@@ -292,52 +292,6 @@
         </div>
         <!-- End Content -->
 
-        <!-- Footer -->
-
-        <div class="footer">
-            <div class="row justify-content-between align-items-center">
-                <div class="col">
-                    <p class="font-size-sm mb-0">&copy; Front. <span class="d-none d-sm-inline-block">2020
-                            Htmlstream.</span></p>
-                </div>
-                <div class="col-auto">
-                    <div class="d-flex justify-content-end">
-                        <!-- List Dot -->
-                        <ul class="list-inline list-separator">
-                            <li class="list-inline-item">
-                                <a class="list-separator-link" href="#">FAQ</a>
-                            </li>
-
-                            <li class="list-inline-item">
-                                <a class="list-separator-link" href="#">License</a>
-                            </li>
-
-                            <li class="list-inline-item">
-                                <!-- Keyboard Shortcuts Toggle -->
-                                <div class="hs-unfold">
-                                    <a class="js-hs-unfold-invoker btn btn-icon btn-ghost-secondary rounded-circle"
-                                        href="javascript:;"
-                                        data-hs-unfold-options='{
-                            "target": "#keyboardShortcutsSidebar",
-                            "type": "css-animation",
-                            "animationIn": "fadeInRight",
-                            "animationOut": "fadeOutRight",
-                            "hasOverlay": true,
-                            "smartPositionOff": true
-                           }'>
-                                        <i class="tio-command-key"></i>
-                                    </a>
-                                </div>
-                                <!-- End Keyboard Shortcuts Toggle -->
-                            </li>
-                        </ul>
-                        <!-- End List Dot -->
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- End Footer -->
-
         <!-- Modal Xem chi tiết -->
         <!-- Modal Chi tiết Yêu cầu -->
         <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
@@ -362,7 +316,7 @@
 
         <!-- Model chỉnh sửa -->
         <!-- Modal Chỉnh sửa Yêu cầu -->
-        <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+        {{-- <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
 
@@ -378,7 +332,7 @@
                         @csrf
                         @method('PUT')
                         <div class="modal-body" id="editContent">
-                            <!-- Nội dung form chỉnh sửa sẽ được load ở đây bằng JS/AJAX -->
+                            
                             Đang tải form chỉnh sửa...
                         </div>
 
@@ -390,7 +344,7 @@
 
                 </div>
             </div>
-        </div>
+        </div> --}}
         <!-- End Modal Chỉnh sửa -->
         <!-- Modal Chỉnh sửa Yêu cầu -->
         <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
@@ -430,6 +384,7 @@
 @endsection
 @push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/js/bootstrap-select.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         $(document).ready(function() {
             $('.selectpicker').selectpicker();
@@ -445,7 +400,7 @@
                     const id = this.getAttribute('data-id');
                     detailContent.innerHTML = 'Đang tải...';
 
-                    fetch(`/admin/hotro/${id}`) // URL route show chi tiết, dùng GET
+                    fetch(`/admin/hotro/${id}`)
                         .then(response => {
                             if (!response.ok) throw new Error('Network response was not ok');
                             return response.text();
@@ -464,7 +419,10 @@
         });
 
         function openEditModal(id) {
-            $('#editModal').modal('show');
+            // $('#editModal').modal('show');
+            const modalElement = document.getElementById('editModal');
+            const bsModal = new bootstrap.Modal(modalElement);
+            bsModal.show();
             $('#editContent').html('Đang tải...');
 
             $.ajax({
@@ -478,6 +436,7 @@
                     $('#editContent').html('<p class="text-danger">Không thể tải dữ liệu.</p>');
                 }
             });
+
         }
     </script>
 @endpush

@@ -145,14 +145,14 @@
                                         "hasOverlay": true,
                                         "smartPositionOff": true
                                     }'>
-                                    <i class="tio-filter-list mr-1"></i> Filters
+                                    <i class="tio-filter-list mr-1"></i> Lọc
                                 </a>
                             </div>
                             <!-- End Unfold -->
                             <!-- Unfold -->
                             <div class="hs-unfold mr-2">
                                 <a href="{{ url()->current() }}" class="btn btn-outline-secondary ml-2">
-                                    <i class="tio-clear"></i> Reset Filter
+                                    <i class="tio-clear"></i> Đặt lại bộ lọc
                                 </a>
                             </div>
                             <!-- End Unfold -->
@@ -254,14 +254,14 @@
                                                 href="{{ route('admin.toanha.edit', $item->ma_toa_nha) }}">
                                                 <i class="tio-edit"></i>
                                             </a>
-                                            <form action="{{ route('admin.toanha.destroy', $item->ma_toa_nha) }}"
+                                            {{-- <form action="{{ route('admin.toanha.destroy', $item->ma_toa_nha) }}"
                                                 method="POST" onsubmit="return confirm('Xác nhận ẩn tòa nhà này?')">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="btn btn-sm btn-white">
                                                     <i class="tio-delete-outlined"></i>
                                                 </button>
-                                            </form>
+                                            </form> --}}
                                         </div>
                                     </td>
                                 </tr>
@@ -318,51 +318,6 @@
         </div>
         <!-- End Content -->
 
-        <!-- Footer -->
-
-        <div class="footer">
-            <div class="row justify-content-between align-items-center">
-                <div class="col">
-                    <p class="font-size-sm mb-0">&copy; Front. <span class="d-none d-sm-inline-block">2020
-                            Htmlstream.</span></p>
-                </div>
-                <div class="col-auto">
-                    <div class="d-flex justify-content-end">
-                        <!-- List Dot -->
-                        <ul class="list-inline list-separator">
-                            <li class="list-inline-item">
-                                <a class="list-separator-link" href="#">FAQ</a>
-                            </li>
-
-                            <li class="list-inline-item">
-                                <a class="list-separator-link" href="#">License</a>
-                            </li>
-
-                            <li class="list-inline-item">
-                                <!-- Keyboard Shortcuts Toggle -->
-                                <div class="hs-unfold">
-                                    <a class="js-hs-unfold-invoker btn btn-icon btn-ghost-secondary rounded-circle"
-                                        href="javascript:;"
-                                        data-hs-unfold-options='{
-                            "target": "#keyboardShortcutsSidebar",
-                            "type": "css-animation",
-                            "animationIn": "fadeInRight",
-                            "animationOut": "fadeOutRight",
-                            "hasOverlay": true,
-                            "smartPositionOff": true
-                           }'>
-                                        <i class="tio-command-key"></i>
-                                    </a>
-                                </div>
-                                <!-- End Keyboard Shortcuts Toggle -->
-                            </li>
-                        </ul>
-                        <!-- End List Dot -->
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- End Footer -->
     </main>
 @endsection
 
