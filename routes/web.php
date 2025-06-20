@@ -17,13 +17,20 @@ use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\Admin\HoaDonController;
 use App\Http\Controllers\Admin\ChiSoController;
 
+use App\Http\Controllers\User\VanPhongController as UserVanPhongController;
+
 Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Route::group(['prefix' => 'user'], function () {
+Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
+    
     Route::get('/trang-chu', [HomeController::class, 'index'])->name('user.home');
     Route::get('/danh-sach', [HomeController::class, 'danhsach'])->name('user.danhsach');
+
+    Route::get('/van-phong/{slug}', [UserVanPhongController::class, 'show'])->name('vanphong.chitiet');
+    Route::get('/van-phong/henxem/{slug}', [UserVanPhongController::class, 'henxem'])->name('vanphong.henxem');
+    Route::post('/van-phong/guiyeucau', [UserVanPhongController::class, 'guiyeucau'])->name('vanphong.guiyeucau');
 });
 
 Route::middleware(['auth', 'verified', 'check.role:admin'])->prefix('admin')->name('admin.')->group(function () {
@@ -96,10 +103,25 @@ Route::middleware(['auth', 'verified', 'check.role:admin'])->prefix('admin')->na
 });
 
 Route::middleware(['auth', 'verified', 'check.role:KT'])->prefix('kt')->name('kt.')->group(function () {
+    Route::get('/dashboard', function () {
+        return view('admin.kt.index');
+    })->name('dashboard');
+
     Route::get('/dashboard', [KTController::class, 'index'])->name('dashboard');
+    Route::get('/hopdong', [KTController::class, 'DSHopDong'])->name('hopdong');
+    Route::get('/hopdong/preview/{id}', [KTController::class, 'preview_hopdong'])->name('hopdong.preview');
+    Route::get('/hopdong/export-pdf/{id}', [KTController::class, 'exportPDF_hopdong'])->name('hopdong.export_pdf');
+
     Route::get('/hoadon', [KTController::class, 'DSHoaDon'])->name('hoadon');
+    Route::get('/hoadon/preview/{id}', [KTController::class, 'preview_hoadon'])->name('hoadon.preview');
+    Route::get('/hoadon/export-pdf/{id}', [KTController::class, 'exportPDF_hoadon'])->name('hoadon.export_pdf');
     Route::get('/hoadon/thanh-toan/{id}', [ThanhToanController::class, 'thanhToan'])->name('hoadon.thanh_toan');
     Route::get('/vnpay/return', [ThanhToanController::class, 'vnpayReturn'])->name('vnpay.return');
+
+    Route::get('/hotro', [KTController::class, 'DSHoTro'])->name('hotro');
+    Route::get('/hotro/create', [KTController::class, 'hotro_create'])->name('hotro.create');
+    Route::post('/hotro', [KTController::class, 'hotro_store'])->name('hotro.store');
+
 });
 
 
