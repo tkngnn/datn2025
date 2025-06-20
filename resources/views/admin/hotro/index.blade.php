@@ -43,7 +43,7 @@
                                         </div>
                                     </div>
                                     <input id="datatableSearch" type="search" class="form-control"
-                                        placeholder="Search reviews" aria-label="Search reviews">
+                                        placeholder="Tìm kiếm hỗ trợ" aria-label="Tìm kiếm hỗ trợ">
                                 </div>
                                 <!-- End Search -->
                             </form>
@@ -144,12 +144,12 @@
                         <thead class="thead-light">
                             <tr>
                                 <th scope="col" class="table-column-pr-0">
-                                    <div class="custom-control custom-checkbox">
+                                    {{-- <div class="custom-control custom-checkbox">
                                         <input id="datatableCheckAll" type="checkbox" class="custom-control-input">
                                         <label class="custom-control-label" for="datatableCheckAll"></label>
-                                    </div>
+                                    </div> --}}
                                 </th>
-                                <th>Mã</th>
+                                <th>Mã hỗ trợ</th>
                                 <th>Khách hàng</th>
                                 <th>Yêu cầu</th>
                                 <th>Thời gian gửi</th>
@@ -163,14 +163,16 @@
                             @foreach ($yeuCaus as $yeuCau)
                                 <tr>
                                     <td class="table-column-pr-0">
-                                        <div class="custom-control custom-checkbox">
+                                        {{-- <div class="custom-control custom-checkbox">
                                             <input type="checkbox" class="custom-control-input"
                                                 id="yeuCauCheck{{ $yeuCau->ma_yeu_cau }}">
                                             <label class="custom-control-label"
                                                 for="yeuCauCheck{{ $yeuCau->ma_yeu_cau }}"></label>
-                                        </div>
+                                        </div> --}}
                                     </td>
-                                    <td>{{ $yeuCau->ma_yeu_cau }}</td>
+                                    <td>
+                                        <a href="#">#{{ $yeuCau->ma_yeu_cau }}</a>
+                                    </td>
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <div class="avatar avatar-soft-primary avatar-circle">

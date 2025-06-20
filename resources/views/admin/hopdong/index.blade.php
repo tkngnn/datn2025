@@ -150,10 +150,10 @@
                         <thead class="thead-light">
                             <tr>
                                 <th scope="col" class="table-column-pr-0">
-                                    <div class="custom-control custom-checkbox">
+                                    {{-- <div class="custom-control custom-checkbox">
                                         <input id="datatableCheckAll" type="checkbox" class="custom-control-input">
                                         <label class="custom-control-label" for="datatableCheckAll"></label>
-                                    </div>
+                                    </div> --}}
                                 </th>
                                 <th class="table-column-pl-0">Số hợp đồng</th>
                                 <th>Thao tác</th>
@@ -170,12 +170,12 @@
                                 @foreach ($hopdong->chiTietHopDongs as $chiTiet)
                                     <tr>
                                         <td class="table-column-pr-0">
-                                            <div class="custom-control custom-checkbox">
+                                            {{-- <div class="custom-control custom-checkbox">
                                                 <input type="checkbox" class="custom-control-input"
                                                     id="hopdongCheck{{ $hopdong->ma_hop_dong }}">
                                                 <label class="custom-control-label"
                                                     for="hopdongCheck{{ $hopdong->ma_hop_dong }}"></label>
-                                            </div>
+                                            </div> --}}
                                         </td>
                                         <td class="table-column-pl-0">
                                             <a href="#">#{{ $hopdong->ma_hop_dong }}</a>

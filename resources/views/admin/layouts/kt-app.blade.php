@@ -309,9 +309,9 @@
                 <div class="navbar-brand-wrapper">
                     <!-- Logo -->
                     <a class="navbar-brand" href="index.html" aria-label="Front">
-                        <img class="navbar-brand-logo" src="{{ asset('assets/svg/logos/logo.svg') }}"
+                        <img class="navbar-brand-logo" src="{{ asset('assets/img/bGROUP_logo.png') }}"
                             alt="Logo">
-                        <img class="navbar-brand-logo-mini" src="{{ asset('assets/svg/logos/logo-short.svg') }}"
+                        <img class="navbar-brand-logo-mini" src="{{ asset('assets/img/bGROUP_logo.png') }}"
                             alt="Logo">
                     </a>
                     <!-- End Logo -->
@@ -416,7 +416,7 @@
                     <!-- Logo -->
 
                     <a class="navbar-brand" href="index.html" aria-label="Front">
-                        <img class="navbar-brand-logo" src="{{ asset('assets/svg/logos/logo.svg') }}"
+                        <img class="navbar-brand-logo" src="{{ asset('assets/img/bGROUP_logo.png') }}"
                             alt="Logo">
                     </a>
 
@@ -1814,7 +1814,7 @@
                         <div class="navbar-brand-wrapper">
                             <!-- Logo -->
                             <a class="navbar-brand" href="index.html" aria-label="Front">
-                                <img class="navbar-brand-logo" src="{{ asset('assets/svg/logos/logo-white.svg') }}"
+                                <img class="navbar-brand-logo" src="{{ asset('assets/img/bGROUP_logo.png') }}"
                                     alt="Logo">
                             </a>
                             <!-- End Logo -->
@@ -3421,10 +3421,10 @@
 
 
                         <a class="navbar-brand" href="index.html" aria-label="Front">
-                            <img class="navbar-brand-logo" src="{{ asset('assets/svg/logos/logo.svg') }}"
+                            <img class="navbar-brand-logo" src="{{ asset('assets/img/bGROUP_logo.png') }}"
                                 alt="Logo">
                             <img class="navbar-brand-logo-mini"
-                                src="{{ asset('assets/svg/logos/logo-short.svg') }}" alt="Logo">
+                                src="{{ asset('assets/img/bGROUP_logo.png') }}" alt="Logo">
                         </a>
 
                         <!-- End Logo -->
@@ -3441,8 +3441,8 @@
                     <div class="navbar-vertical-content">
                         <ul class="navbar-nav navbar-nav-lg nav-tabs">
                             <!-- Dashboards -->
-                            <li class="navbar-vertical-aside-has-menu show">
-                                <a class="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle active"
+                            <li class="nav-item">
+                                <a class="js-nav-tooltip-link nav-link {{ request()->is('kt/dashboard') ? 'active' : '' }}"
                                     href="javascript:;" title="Dashboards">
                                     <i class="tio-home-vs-1-outlined nav-icon"></i>
                                     <span
@@ -3452,14 +3452,14 @@
                             <!-- End Dashboards -->
 
                             <li class="nav-item">
-                                <small class="nav-subtitle" title="Pages">Trang</small>
+                                <small class="nav-subtitle" title="Trang">Trang</small>
                                 <small class="tio-more-horizontal nav-subtitle-replacer"></small>
                             </li>
 
                             <!-- Components -->
-                            <li class="navbar-vertical-aside-has-menu ">
-                                <a class="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle "
-                                    href="{{ route('kt.hopdong') }}" title="Apps">
+                            <li class="nav-item">
+                                <a class="js-nav-tooltip-link nav-link {{ request()->is('kt/hopdong') ? 'active' : '' }}"
+                                    href="{{ route('kt.hopdong') }}" title="Hợp Đồng">
                                     <i class="tio-receipt nav-icon"></i>
                                     <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Hợp Đồng
                                     </span>
@@ -3468,9 +3468,9 @@
                             <!-- End Components -->
 
                             <!-- Components -->
-                            <li class="navbar-vertical-aside-has-menu ">
-                                <a class="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle "
-                                    href="{{ route('kt.hoadon') }}" title="Apps">
+                            <li class="nav-item">
+                                <a class="js-nav-tooltip-link nav-link {{ request()->is('kt/hoadon') ? 'active' : '' }}"
+                                    href="{{ route('kt.hoadon') }}" title="Hóa Đơn">
                                     <i class="tio-american-express nav-icon"></i>
                                     <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Hóa Đơn
                                     </span>
@@ -3478,9 +3478,9 @@
                             </li>
                             <!-- End Components -->
                             <!-- Components -->
-                            <li class="navbar-vertical-aside-has-menu ">
-                                <a class="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle "
-                                    href="{{ route('kt.hotro') }}" title="Apps">
+                            <li class="nav-item">
+                                <a class="js-nav-tooltip-link nav-link {{ request()->is('kt/hotro') ? 'active' : '' }}"
+                                    href="{{ route('kt.hotro') }}" title="Hỗ Trợ">
                                     <i class="tio-support nav-icon"></i>
                                     <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Hỗ Trợ
                                     </span>
@@ -3509,7 +3509,7 @@
 
 
                     <a class="navbar-brand" href="index.html" aria-label="Front">
-                        <img class="navbar-brand-logo-short" src="{{ asset('assets/svg/logos/logo-short.svg') }}"
+                        <img class="navbar-brand-logo-short" src="{{ asset('assets/img/bGROUP_logo.png') }}"
                             alt="Logo">
                     </a>
 

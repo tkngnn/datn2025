@@ -212,12 +212,13 @@
                         <thead class="thead-light">
                             <tr>
                                 <th scope="col" class="table-column-pr-0">
-                                    <div class="custom-control custom-checkbox">
+                                    {{-- <div class="custom-control custom-checkbox">
                                         <input id="datatableCheckAll" type="checkbox" class="custom-control-input">
                                         <label class="custom-control-label" for="datatableCheckAll"></label>
-                                    </div>
+                                    </div> --}}
                                 </th>
-                                <th class="table-column-pl-0">Tên Tòa Nhà</th>
+                                <th class="table-column-pl-0">Mã tòa nhà</th>
+                                <th>Tên Tòa Nhà</th>
                                 <th>Địa Chỉ</th>
                                 <th>Số Tầng</th>
                                 <th>Trạng Thái</th>
@@ -229,14 +230,17 @@
                             @foreach ($dsToaNha as $item)
                                 <tr>
                                     <td class="table-column-pr-0">
-                                        <div class="custom-control custom-checkbox">
+                                        {{-- <div class="custom-control custom-checkbox">
                                             <input type="checkbox" class="custom-control-input"
                                                 id="check-{{ $item->ma_toa_nha }}">
                                             <label class="custom-control-label"
                                                 for="check-{{ $item->ma_toa_nha }}"></label>
-                                        </div>
+                                        </div> --}}
                                     </td>
                                     <td class="table-column-pl-0">
+                                        <a href="#">#{{ $item->ma_toa_nha }}</a>
+                                    </td>
+                                    <td>
                                         {{ $item->ten_toa_nha }}
                                     </td>
                                     <td>{{ $item->dia_chi }}</td>

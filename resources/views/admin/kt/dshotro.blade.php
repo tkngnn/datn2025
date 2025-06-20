@@ -63,7 +63,7 @@
                                         </div>
                                     </div>
                                     <input id="datatableSearch" type="search" class="form-control"
-                                        placeholder="Search orders" aria-label="Search orders">
+                                        placeholder="Tìm kiếm yêu cầu hỗ trợ" aria-label="Tìm kiếm yêu cầu hỗ trợ">
                                 </div>
                                 <!-- End Search -->
                             </form>
@@ -172,7 +172,9 @@
                         <tbody>
                             @foreach ($hoTros as $hoTro)
                                 <tr>
-                                    <td>#{{ $hoTro->ma_yeu_cau }}</td>
+                                    <td>
+                                        <a href="#">#{{ $hoTro->ma_yeu_cau }}</a>
+                                        </td>
                                     <td style="max-width: 300px; white-space: normal; word-break: break-word;">{{$hoTro->tieu_de}}</td>
                                     <td style="max-width: 300px; white-space: normal; word-break: break-word;">{{$hoTro->noi_dung}}</td>
                                     <td>{{ \Carbon\Carbon::parse($hoTro->thoi_gian_gui)->format('d-m-Y') }}</td>

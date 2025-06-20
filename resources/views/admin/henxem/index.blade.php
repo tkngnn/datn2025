@@ -43,7 +43,7 @@
                       <i class="tio-search"></i>
                     </div>
                   </div>
-                  <input id="datatableSearch" type="search" class="form-control" placeholder="Search users" aria-label="Search users">
+                  <input id="datatableSearch" type="search" class="form-control" placeholder="Tìm kiếm yêu cầu hẹn xem" aria-label="Tìm kiếm yêu cầu hẹn xem">
                 </div>
                 <!-- End Search -->
               </form>
@@ -457,10 +457,10 @@
             <thead class="thead-light">
               <tr>
                 <th class="table-column-pr-0">
-                  <div class="custom-control custom-checkbox">
+                  {{-- <div class="custom-control custom-checkbox">
                     <input id="datatableCheckAll" type="checkbox" class="custom-control-input">
                     <label class="custom-control-label" for="datatableCheckAll"></label>
-                  </div>
+                  </div> --}}
                 </th>
                 <th class="table-column-pl-0">Mã hẹn xem</th>
                 <th>Tên khách</th>
@@ -477,13 +477,15 @@
             <tbody>
               @foreach ($henxems as $henxem)
                 <tr>
-                  <td class="table-column-pr-0">
-                    <div class="custom-control custom-checkbox">
+                  <td >
+                    {{-- <div class="custom-control custom-checkbox">
                       <input type="checkbox" class="custom-control-input" id="usersDataCheck1">
                       <label class="custom-control-label" for="usersDataCheck1"></label>
-                    </div>
+                    </div> --}}
                   </td>
-                  <td>{{ $henxem->ma_hen_xem }}</td>
+                  <td class="table-column-pr-0">
+                    <a href="#">#{{ $henxem->ma_hen_xem }}</a>
+                  </td>
                   <td class="text-break px-3">{{ $henxem->ho_ten }}</td>
                   <td class="text-break px-3">{{ $henxem->email}}</td>
                   <td class="text-break px-3">{{ $henxem->sdt }}</td>

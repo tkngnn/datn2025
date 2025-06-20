@@ -57,7 +57,7 @@
                                         </div>
                                     </div>
                                     <input id="datatableSearch" type="search" class="form-control"
-                                        placeholder="Search orders" aria-label="Search orders">
+                                        placeholder="Tìm kiếm hợp đồng" aria-label="Tìm kiếm hợp đòng">
                                 </div>
                                 <!-- End Search -->
                             </form>
@@ -166,7 +166,9 @@
                         <tbody>
                             @foreach ($hopDongs as $hopDong)
                                 <tr>
-                                    <td>#{{ $hopDong->ma_hop_dong }}</td>
+                                    <td>
+                                        <a href="#">#{{ $hopDong->ma_hop_dong }}</a>
+                                        </td>
                                     <td>{{ \Carbon\Carbon::parse($hopDong->ngay_bat_dau)->format('d-m-Y') }}</td>
                                     <td>{{ \Carbon\Carbon::parse($hopDong->ngay_ket_thuc)->format('d-m-Y') }}</td>
                                     <td>{{ number_format($hopDong->tong_tien_coc, 0, ',', '.') }} đ</td>

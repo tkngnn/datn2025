@@ -43,7 +43,7 @@
                       <i class="tio-search"></i>
                     </div>
                   </div>
-                  <input id="datatableSearch" type="search" class="form-control" placeholder="Search users" aria-label="Search users">
+                  <input id="datatableSearch" type="search" class="form-control" placeholder="Tìm kiếm khách hàng" aria-label="Tìm kiếm khách hàng">
                 </div>
                 <!-- End Search -->
               </form>
@@ -457,10 +457,10 @@
             <thead class="thead-light">
               <tr>
                 <th class="table-column-pr-0">
-                  <div class="custom-control custom-checkbox">
+                  {{-- <div class="custom-control custom-checkbox">
                     <input id="datatableCheckAll" type="checkbox" class="custom-control-input">
                     <label class="custom-control-label" for="datatableCheckAll"></label>
-                  </div>
+                  </div> --}}
                 </th>
                 <th class="table-column-pl-0">Mã khách</th>
                 <th>Tên khách</th>
@@ -478,12 +478,14 @@
               @foreach ($khachhangs as $khachhang)
                 <tr>
                   <td class="table-column-pr-0">
-                    <div class="custom-control custom-checkbox">
+                    {{-- <div class="custom-control custom-checkbox">
                       <input type="checkbox" class="custom-control-input" id="usersDataCheck1">
                       <label class="custom-control-label" for="usersDataCheck1"></label>
-                    </div>
+                    </div> --}}
                   </td>
-                  <td>{{ $khachhang->id }}</td>
+                  <td>
+                    <a href="#">#{{ $khachhang->id }}</a>
+                  </td>
                   <td class="text-break px-3">{{ $khachhang->name }}</td>
                   <td class="text-break px-3">{{ $khachhang->email}}</td>
                   <td class="text-break px-3">{{ $khachhang->cccd }}</td>
