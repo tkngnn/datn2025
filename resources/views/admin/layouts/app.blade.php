@@ -29,9 +29,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js"></script>
 
     <!-- CSS của FilePond -->
-  <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
-  <!-- CSS cho preview hình ảnh -->
-  <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet">
+    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
+    <!-- CSS cho preview hình ảnh -->
+    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
+        rel="stylesheet">
 
 </head>
 
@@ -315,7 +316,7 @@
             <div class="navbar-nav-wrap">
                 <div class="navbar-brand-wrapper">
                     <!-- Logo -->
-                    <a class="navbar-brand" href="index.html" aria-label="Front">
+                    <a class="navbar-brand" href="{{ route('admin.dashboard') }}" aria-label="Front">
                         <img class="navbar-brand-logo" src="{{ asset('assets/img/bGROUP_logo.png') }}"
                             alt="Logo">
                         <img class="navbar-brand-logo-mini" src="{{ asset('assets/img/bGROUP_logo.png') }}"
@@ -332,7 +333,7 @@
                         <i class="tio-last-page navbar-vertical-aside-toggle-full-align"
                             data-template='<div class="tooltip d-none d-sm-block" role="tooltip"><div class="arrow"></div><div class="tooltip-inner"></div></div>'
                             data-toggle="tooltip" data-placement="right" title="Expand"></i>
-                    </button>   
+                    </button>
                     <!-- End Navbar Vertical Toggle -->
 
                     <!-- Search Form -->
@@ -393,6 +394,10 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="{{ route('profile.edit') }}">
+                                        <span class="text-truncate pr-2" title="Profile &amp; account">Tài khoản</span>
+                                    </a>
                                     <div class="dropdown-divider"></div>
                                     <form method="POST" action="{{ route('logout') }}">
                                         @csrf
@@ -463,6 +468,11 @@
                                     </div>
 
                                     <div class="dropdown-divider"></div>
+
+                                    <a class="dropdown-item" href="{{ route('profile.edit') }}">
+                                        <span class="text-truncate pr-2" title="Profile &amp; account">Tài khoản</span>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
                                     <form method="POST" action="{{ route('logout') }}">
                                         @csrf
                                         <button type="submit" class="dropdown-item">
@@ -472,7 +482,7 @@
                                 </div>
                             </div>
                             <!-- End Account -->
-                        </li> 
+                        </li>
 
                         <li class="nav-item">
                             <!-- Toggle -->
@@ -502,8 +512,7 @@
                                 </a>
 
                                 <!-- Dropdown -->
-                                <ul id="navLinkDashboardsDropdown"
-                                    class="hs-sub-menu dropdown-menu dropdown-menu-lg"
+                                <ul id="navLinkDashboardsDropdown" class="hs-sub-menu dropdown-menu dropdown-menu-lg"
                                     aria-labelledby="dashboardsDropdown" style="min-width: 16rem;">
                                     <li>
                                         <a class="dropdown-item" href="index.html">
@@ -727,8 +736,7 @@
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a class="dropdown-item"
-                                                            href="ecommerce-order-details.html">
+                                                        <a class="dropdown-item" href="ecommerce-order-details.html">
                                                             <span
                                                                 class="tio-circle-outlined nav-indicator-icon"></span>
                                                             Order Details
@@ -765,8 +773,7 @@
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a class="dropdown-item"
-                                                            href="ecommerce-add-customers.html">
+                                                        <a class="dropdown-item" href="ecommerce-add-customers.html">
                                                             <span
                                                                 class="tio-circle-outlined nav-indicator-icon"></span>
                                                             Add Customers
@@ -1131,7 +1138,7 @@
                     <div class="navbar-nav-wrap">
                         <div class="navbar-brand-wrapper">
                             <!-- Logo -->
-                            <a class="navbar-brand" href="index.html" aria-label="Front">
+                            <a class="navbar-brand" href="{{ route('admin.dashboard') }}" aria-label="Front">
                                 <img class="navbar-brand-logo" src="{{ asset('assets/img/bGROUP_logo.png') }}"
                                     alt="Logo">
                             </a>
@@ -1180,7 +1187,11 @@
                                                 </div>
                                             </div>
 
-                                            <div class="dropdown-divider"></div>                                         
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="{{ route('profile.edit') }}">
+                                                <span class="text-truncate pr-2" title="Profile">Hồ sơ</span>
+                                            </a>
+                                            <div class="dropdown-divider"></div>
                                             <form method="POST" action="{{ route('logout') }}">
                                                 @csrf
                                                 <button type="submit" class="dropdown-item">
@@ -1303,8 +1314,7 @@
 
                                             <ul id="navLinkPagesDropdownUserProfile"
                                                 class="hs-sub-menu dropdown-menu dropdown-menu-lg"
-                                                aria-labelledby="pagesDropdownUserProfile"
-                                                style="min-width: 16rem;">
+                                                aria-labelledby="pagesDropdownUserProfile" style="min-width: 16rem;">
                                                 <li>
                                                     <a class="dropdown-item" href="user-profile.html">
                                                         <span class="tio-circle-outlined nav-indicator-icon"></span>
@@ -1481,8 +1491,7 @@
                                                         aria-labelledby="pagesDropdownEcommerceSublevel"
                                                         style="min-width: 16rem;">
                                                         <li>
-                                                            <a class="dropdown-item"
-                                                                href="ecommerce-customers.html">
+                                                            <a class="dropdown-item" href="ecommerce-customers.html">
                                                                 <span
                                                                     class="tio-circle-outlined nav-indicator-icon"></span>
                                                                 Customers
@@ -1888,8 +1897,8 @@
                         <a class="navbar-brand" href="{{ route('admin.dashboard') }}" aria-label="Front">
                             <img class="navbar-brand-logo" src="{{ asset('assets/img/bGROUP_logo.png') }}"
                                 alt="Logo">
-                            <img class="navbar-brand-logo-mini"
-                                src="{{ asset('assets/img/bGROUP_logo.png') }}" alt="Logo">
+                            <img class="navbar-brand-logo-mini" src="{{ asset('assets/img/bGROUP_logo.png') }}"
+                                alt="Logo">
                         </a>
 
                         <!-- End Logo -->
@@ -1908,14 +1917,14 @@
                             <!-- Dashboards -->
                             <li class="nav-item">
                                 <a class="js-nav-tooltip-link nav-link {{ request()->is('admin/dashboard') ? 'active' : '' }}"
-                                    href="javascript:;" title="Trang chủ">
+                                    href="{{ route('admin.dashboard') }}" title="Trang chủ">
                                     <i class="tio-home-vs-1-outlined nav-icon"></i>
-                                    <span
-                                        class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Trang chủ</span>
+                                    <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Trang
+                                        chủ</span>
                                 </a>
                             </li>
                             <!-- End Dashboards -->
-                            
+
 
                             <li class="nav-item">
                                 <small class="nav-subtitle" title="Pages">Quản lý</small>
@@ -1924,22 +1933,24 @@
 
                             <!-- Components -->
                             <li class="nav-item ">
-                                <a class="js-nav-tooltip-link nav-link {{ request()->is('admin/toanha') ? 'active' : '' }}" href="{{ route('admin.toanha.index') }}"
-                                    title="Tòa nhà" data-placement="left">
+                                <a class="js-nav-tooltip-link nav-link {{ request()->is('admin/toanha') ? 'active' : '' }}"
+                                    href="{{ route('admin.toanha.index') }}" title="Tòa nhà"
+                                    data-placement="left">
                                     <i class="tio-neighborhood nav-icon"></i>
-                                        </i>
-                                    <span
-                                        class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Tòa nhà</span>
+                                    </i>
+                                    <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Tòa
+                                        nhà</span>
                                 </a>
                             </li>
                             <!-- End Components -->
                             <!-- Văn phòng -->
                             <li class="nav-item ">
-                                <a class="js-nav-tooltip-link nav-link {{ request()->is('admin/vanphong') ? 'active' : '' }}" href="{{ route('admin.vanphong.index') }}"
-                                    title="Văn phòng" data-placement="left">
+                                <a class="js-nav-tooltip-link nav-link {{ request()->is('admin/vanphong') ? 'active' : '' }}"
+                                    href="{{ route('admin.vanphong.index') }}" title="Văn phòng"
+                                    data-placement="left">
                                     <i class="tio-dashboard-vs-outlined nav-icon"></i>
-                                    <span
-                                        class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Văn phòng</span>
+                                    <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Văn
+                                        phòng</span>
                                 </a>
                             </li>
                             <!-- End Văn phòng -->
@@ -1966,21 +1977,25 @@
                                     </li>
                                 </ul>
                             </li> --}}
-                            <li class="navbar-vertical-aside-has-menu {{ request()->is('admin/khachhang*') || request()->is('admin/henxem*') ? 'show' : '' }}">
+                            <li
+                                class="navbar-vertical-aside-has-menu {{ request()->is('admin/khachhang*') || request()->is('admin/henxem*') ? 'show' : '' }}">
                                 <a class="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle {{ request()->is('admin/khachhang*') || request()->is('admin/henxem*') ? 'active' : '' }}"
                                     href="javascript:;" title="Khách hàng">
                                     <i class="tio-user nav-icon"></i>
-                                    <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Khách hàng</span>
+                                    <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Khách
+                                        hàng</span>
                                 </a>
                                 <ul class="js-navbar-vertical-aside-submenu nav nav-sub">
                                     <li class="nav-item">
-                                        <a class="nav-link {{ request()->routeIs('admin.khachhang.*') ? 'active' : '' }}" href="{{ route('admin.khachhang.index') }}" title="Khách hàng">
+                                        <a class="nav-link {{ request()->routeIs('admin.khachhang.*') ? 'active' : '' }}"
+                                            href="{{ route('admin.khachhang.index') }}" title="Khách hàng">
                                             <span class="tio-circle nav-indicator-icon"></span>
                                             <span class="text-truncate">Khách hàng</span>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link {{ request()->routeIs('admin.henxem.*') ? 'active' : '' }}" href="{{ route('admin.henxem.index') }}" title="Khách hẹn xem">
+                                        <a class="nav-link {{ request()->routeIs('admin.henxem.*') ? 'active' : '' }}"
+                                            href="{{ route('admin.henxem.index') }}" title="Khách hẹn xem">
                                             <span class="tio-circle nav-indicator-icon"></span>
                                             <span class="text-truncate">Khách hẹn xem</span>
                                         </a>
@@ -1993,7 +2008,8 @@
                                 <a class="js-nav-tooltip-link nav-link {{ request()->is('admin/hopdong') ? 'active' : '' }}"
                                     href="{{ route('admin.hopdong.index') }}" title="Hợp đồng">
                                     <i class="tio-receipt nav-icon"></i>
-                                    <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Hợp Đồng
+                                    <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Hợp
+                                        Đồng
                                     </span>
                                 </a>
                             </li>
@@ -2024,21 +2040,25 @@
 
                                 </ul>
                             </li> --}}
-                            <li class="navbar-vertical-aside-has-menu {{ request()->is('admin/chiso*') || request()->is('admin/hoadon*') ? 'show' : '' }}">
+                            <li
+                                class="navbar-vertical-aside-has-menu {{ request()->is('admin/chiso*') || request()->is('admin/hoadon*') ? 'show' : '' }}">
                                 <a class="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle {{ request()->is('admin/chiso*') || request()->is('admin/hoadon*') ? 'active' : '' }}"
                                     href="javascript:;" title="Tài chính">
                                     <i class="tio-money nav-icon"></i>
-                                    <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Tài chính</span>
+                                    <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Tài
+                                        chính</span>
                                 </a>
                                 <ul class="js-navbar-vertical-aside-submenu nav nav-sub">
                                     <li class="nav-item">
-                                        <a class="nav-link {{ request()->routeIs('admin.chiso.*') ? 'active' : '' }}" href="{{ route('admin.chiso.index') }}" title="Ghi chỉ sô">
+                                        <a class="nav-link {{ request()->routeIs('admin.chiso.*') ? 'active' : '' }}"
+                                            href="{{ route('admin.chiso.index') }}" title="Ghi chỉ sô">
                                             <span class="tio-circle nav-indicator-icon"></span>
                                             <span class="text-truncate">Ghi chỉ số</span>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link {{ request()->routeIs('admin.hoadon.*') ? 'active' : '' }}" href="{{ route('admin.hoadon.index') }}" title="Hóa đơn">
+                                        <a class="nav-link {{ request()->routeIs('admin.hoadon.*') ? 'active' : '' }}"
+                                            href="{{ route('admin.hoadon.index') }}" title="Hóa đơn">
                                             <span class="tio-circle nav-indicator-icon"></span>
                                             <span class="text-truncate">Hóa đơn</span>
                                         </a>
@@ -2057,8 +2077,8 @@
                             </li>
                             <!-- End Components -->
 
-                             <!-- Components -->
-                             {{-- <li class="navbar-vertical-aside-has-menu ">
+                            <!-- Components -->
+                            {{-- <li class="navbar-vertical-aside-has-menu ">
                                 <a class="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle "
                                     href="javascript:;" title="Thống Kê">
                                     <i class="tio-chart-bar-1 nav-icon"></i>
@@ -2088,13 +2108,15 @@
                                     </li>
                                 </ul>
                             </li> --}}
-                            <li class="navbar-vertical-aside-has-menu {{ request()->is('admin/thongke*') ? 'show' : '' }}">
+                            <li
+                                class="navbar-vertical-aside-has-menu {{ request()->is('admin/thongke*') ? 'show' : '' }}">
                                 <a class="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle {{ request()->is('admin/thongke*') ? 'active' : '' }}"
                                     href="javascript:;" title="Thống Kê">
                                     <i class="tio-chart-bar-1 nav-icon"></i>
-                                    <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Thống Kê</span>
+                                    <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Thống
+                                        Kê</span>
                                 </a>
-                            
+
                                 <ul class="js-navbar-vertical-aside-submenu nav nav-sub">
                                     <li class="nav-item">
                                         <a class="nav-link {{ request()->routeIs('admin.thongke.index') ? 'active' : '' }}"
@@ -2112,7 +2134,8 @@
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link {{ request()->routeIs('admin.thongke.ty_le_lap_day') ? 'active' : '' }}"
-                                            href="{{ route('admin.thongke.ty_le_lap_day') }}" title="Tỷ lệ lắp đầy">
+                                            href="{{ route('admin.thongke.ty_le_lap_day') }}"
+                                            title="Tỷ lệ lắp đầy">
                                             <span class="tio-circle nav-indicator-icon"></span>
                                             <span class="text-truncate">Tỷ lệ lắp đầy</span>
                                         </a>
@@ -2123,11 +2146,11 @@
 
                             <li class="nav-item">
                                 <small class="tio-more-horizontal nav-subtitle-replacer"></small>
-                            </li> 
+                            </li>
                         </ul>
                     </div>
                     <!-- End Content -->
-                  
+
                 </div>
             </div>
         </aside>

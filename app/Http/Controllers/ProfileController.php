@@ -16,8 +16,18 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
+        $user = $request->user();
+        $layout = 'layouts.app';
+
+        if ($user->vai_tro === 'admin') {
+            $layout = 'admin.layouts.app';
+        } elseif ($user->vai_tro === 'KT') { 
+            $layout = 'admin.layouts.kt-app';
+        }
+
         return view('profile.edit', [
-            'user' => $request->user(),
+            'user' => $user,
+            'layout' => $layout 
         ]);
     }
 
