@@ -1,16 +1,17 @@
 @extends('admin.layouts.app')
 @section('title', 'Thêm khách hàng')
 @section('content')
-  <main id="content" role="main" class="main">
-    <!-- Content -->
-    <div class="content container-fluid">
-      <div id="successMessage" class="alert alert-success alert-dismissible fade show" role="alert" style="display:none; position: fixed; top: 20px; right: 20px; z-index: 1050; min-width: 250px;">
-        <strong>Thêm khách hàng thành công</span></strong> 
-        <button type="button" class="close" aria-label="Close" onclick="$('#successMessage').hide()">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      {{-- @if ($errors->any())
+    <main id="content" role="main" class="main">
+        <!-- Content -->
+        <div class="content container-fluid">
+            <div id="successMessage" class="alert alert-success alert-dismissible fade show" role="alert"
+                style="display:none; position: fixed; top: 20px; right: 20px; z-index: 1050; min-width: 250px;">
+                <strong>Thêm khách hàng thành công</span></strong>
+                <button type="button" class="close" aria-label="Close" onclick="$('#successMessage').hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {{-- @if ($errors->any())
   <div class="alert alert-danger">
     <strong>Đã có lỗi xảy ra:</strong>
     <ul>
@@ -20,191 +21,280 @@
     </ul>
   </div>
 @endif --}}
-      
-      <!-- Step Form -->
-      <form action="{{ route('admin.khachhang.store') }}" method="POST" id="formkhachhang" class="js-step-form py-md-5" data-hs-step-form-options='{
+
+            <!-- Step Form -->
+            <form action="{{ route('admin.khachhang.store') }}" method="POST" id="formkhachhang"
+                class="js-step-form py-md-5"
+                data-hs-step-form-options='{
               "progressSelector": "#addUserStepFormProgress",
               "stepsSelector": "#addUserStepFormContent",
               "endSelector": "#addUserFinishBtn",
               "isValidate": false
             }'>
-            @csrf
-        <div class="row justify-content-lg-center">
-          <div class="col-lg-8">
-            <!-- Step -->
-            <!-- End Step -->
+                @csrf
+                <div class="row justify-content-lg-center">
+                    <div class="col-lg-8">
+                        <!-- Step -->
+                        <!-- End Step -->
 
-            <!-- Content Step Form -->
-            <div id="addUserStepFormContent">
-              <!-- Card -->
-              <div id="addUserStepProfile" class="card card-lg active">
-                <!-- Body -->
-                <div class="card-body">
+                        <!-- Content Step Form -->
+                        <div id="addUserStepFormContent">
+                            <!-- Card -->
+                            <div id="addUserStepProfile" class="card card-lg active">
+                                <!-- Body -->
+                                <div class="card-body">
 
-                  <!-- Form Group -->
-                  <!-- Mã khách hàng (không cho nhập) -->
-                  <div class="row form-group">
-                    <label class="col-sm-3 col-form-label input-label">Mã khách hàng</label>
-                    <div class="col-sm-9">
-                      <input type="text" class="form-control" id="id" value="{{ $nextId }}" disabled>
+                                    <!-- Form Group -->
+                                    <!-- Mã khách hàng (không cho nhập) -->
+                                    <div class="row form-group">
+                                        <label class="col-sm-3 col-form-label input-label">Mã khách hàng</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="id"
+                                                value="{{ $nextId }}" disabled>
+                                        </div>
+                                    </div>
+
+                                    <!-- Tên khách hàng -->
+                                    <div class="row form-group">
+                                        <label class="col-sm-3 col-form-label input-label">Tên khách hàng</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" name="name"
+                                                placeholder="Nhập tên khách hàng" value="{{ old('name') }}">
+                                            <span class="text-danger" id="error-name"></span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Email -->
+                                    <div class="row form-group">
+                                        <label class="col-sm-3 col-form-label input-label">Email</label>
+                                        <div class="col-sm-9">
+                                            <div class="input-group">
+                                                <input type="email" class="form-control" name="email" id="email"
+                                                    placeholder="Nhập email" value="{{ old('email') }}">
+                                            </div>
+                                            <span class="text-danger" id="error-email"></span>
+                                        </div>
+                                    </div>
+
+                                    <!-- cccd -->
+                                    <div class="row form-group">
+                                        <label class="col-sm-3 col-form-label input-label">CCCD</label>
+                                        <div class="col-sm-9">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="cccd" id="cccd"
+                                                    placeholder="Nhập cccd" value="{{ old('cccd') }}">
+                                            </div>
+                                            <span class="text-danger" id="error-cccd"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="row form-group">
+                                        <label class="col-sm-3 col-form-label input-label">Password</label>
+                                        <div class="col-sm-9">
+                                            <div class="input-group">
+                                                <span><strong>Password mặc định là số căn cước</strong></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- sdt -->
+                                    <div class="row form-group">
+                                        <label class="col-sm-3 col-form-label input-label">Số điện thoại</label>
+                                        <div class="col-sm-9">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="so_dien_thoai"
+                                                    placeholder="Nhập số điện thoại" value="{{ old('so_dien_thoai') }}">
+                                            </div>
+                                            <span class="text-danger" id="error-so_dien_thoai"></span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Địa chỉ -->
+                                    <div class="row form-group">
+                                        <label class="col-sm-3 col-form-label input-label">Địa chỉ</label>
+                                        <div class="col-sm-9">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="dia_chi"
+                                                    placeholder="Nhập địa chỉ" value="{{ old('dia_chi') }}">
+                                            </div>
+                                            <span class="text-danger" id="error-dia_chi"></span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Vai trò -->
+                                    <div class="row form-group">
+                                        <label class="col-sm-3 col-form-label input-label">Vai trò</label>
+                                        <div class="col-sm-9">
+                                            <div class="select2-custom">
+                                                <select class="custom-select" name="vai_tro">
+                                                    <option value="KH">Khách hàng</option>
+                                                    <option value="Admin">Admin</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Trạng thái -->
+                                    <div class="row form-group">
+                                        <label class="col-sm-3 col-form-label input-label">Trạng thái</label>
+                                        <div class="col-sm-9">
+                                            <div class="select2-custom">
+                                                <select class="custom-select" name="trang_thai">
+                                                    <option value="1">Đang sử dụng</option>
+                                                    <option value="0">Ngừng hoạt động</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End Form Group -->
+                                </div>
+                                <!-- End Body -->
+
+                                <!-- Footer -->
+                                <div class="card-footer d-flex justify-content-end align-items-center">
+                                    <a href="{{ route('admin.khachhang.index') }}" class="btn btn-danger mr-2">
+                                        <i class="tio-chevron-left"></i> Trở về
+                                    </a>
+                                    <button type="submit" class="btn btn-primary">
+                                        Tạo <i class="tio-chevron-right"></i>
+                                    </button>
+                                </div>
+                                <!-- End Footer -->
+                            </div>
+                            <!-- End Card -->
+                        </div>
                     </div>
-                  </div>
-
-                  <!-- Tên khách hàng -->
-                  <div class="row form-group">
-                    <label class="col-sm-3 col-form-label input-label">Tên khách hàng</label>
-                    <div class="col-sm-9">
-                      <input type="text" class="form-control" name="name" placeholder="Nhập tên khách hàng" value="{{ old('name') }}">
-                      <span class="text-danger" id="error-name"></span>
-                    </div>
-                  </div>
-
-                  <!-- Email -->
-                  <div class="row form-group">
-                    <label class="col-sm-3 col-form-label input-label">Email</label>
-                    <div class="col-sm-9">
-                      <div class="input-group">
-                        <input type="email" class="form-control" name="email" placeholder="Nhập email" value="{{ old('email') }}">
-                      </div>
-                      <span class="text-danger" id="error-email"></span>
-                    </div>
-                  </div>
-
-                  <!-- cccd -->
-                  <div class="row form-group">
-                    <label class="col-sm-3 col-form-label input-label">CCCD</label>
-                    <div class="col-sm-9">
-                      <div class="input-group">
-                        <input type="text" class="form-control" name="cccd" id="cccd" placeholder="Nhập cccd" value="{{ old('cccd') }}">
-                      </div>
-                      <span class="text-danger" id="error-cccd"></span>
-                    </div>
-                  </div>
-
-                  <div class="row form-group">
-                    <label class="col-sm-3 col-form-label input-label">Password</label>
-                    <div class="col-sm-9">
-                      <div class="input-group">
-                        <span><strong>Password mặc định là số căn cước</strong></span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- sdt -->
-                  <div class="row form-group">
-                    <label class="col-sm-3 col-form-label input-label">Số điện thoại</label>
-                    <div class="col-sm-9">
-                      <div class="input-group">
-                        <input type="text" class="form-control" name="so_dien_thoai" placeholder="Nhập số điện thoại" value="{{ old('so_dien_thoai') }}">
-                      </div>
-                      <span class="text-danger" id="error-so_dien_thoai"></span>
-                    </div>
-                  </div>
-
-                  <!-- Địa chỉ -->
-                  <div class="row form-group">
-                    <label class="col-sm-3 col-form-label input-label">Địa chỉ</label>
-                    <div class="col-sm-9">
-                      <div class="input-group">
-                        <input type="text" class="form-control" name="dia_chi" placeholder="Nhập địa chỉ" value="{{ old('dia_chi') }}">
-                      </div>
-                      <span class="text-danger" id="error-dia_chi"></span>
-                    </div>
-                  </div>
-
-                  <!-- Vai trò -->
-                  <div class="row form-group">
-                    <label class="col-sm-3 col-form-label input-label">Vai trò</label>
-                    <div class="col-sm-9">
-                      <div class="select2-custom">
-                        <select class="custom-select" name="vai_tro">
-                          <option value="KH">Khách hàng</option>
-                          <option value="Admin">Admin</option>
-                        </select>
-                      </div>  
-                    </div>
-                  </div>
-
-                  <!-- Trạng thái -->
-                  <div class="row form-group">
-                    <label class="col-sm-3 col-form-label input-label">Trạng thái</label>
-                    <div class="col-sm-9">
-                      <div class="select2-custom">
-                        <select class="custom-select" name="trang_thai">
-                          <option value="1">Đang sử dụng</option>
-                          <option value="0">Ngừng hoạt động</option>
-                        </select>
-                      </div>  
-                    </div>
-                  </div>
-                  <!-- End Form Group -->
                 </div>
-                <!-- End Body -->
-
-                <!-- Footer -->
-                <div class="card-footer d-flex justify-content-end align-items-center">
-                  <a href="{{ route('admin.khachhang.index') }}" class="btn btn-danger mr-2">
-                    <i class="tio-chevron-left"></i> Trở về
-                  </a>
-                  <button type="submit" class="btn btn-primary">
-                    Tạo <i class="tio-chevron-right"></i>
-                  </button>                  
-                </div>
-                <!-- End Footer -->
-              </div>
-              <!-- End Card -->
-            </div>
-          </div>
         </div>
-    </div>
-      <script>
-        document.getElementById('cccd').addEventListener('input', function (e) {
-          let value = e.target.value.replace(/\D/g, '');
+        {{-- <script>
+            document.getElementById('cccd').addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
 
-          if (value.length > 12) {
-              value = value.slice(0, 12);
-          }
+                if (value.length > 12) {
+                    value = value.slice(0, 12);
+                }
 
-          e.target.value = value;
-        });
+                e.target.value = value;
+            });
 
-        function translateError(message) {
-          if(message.includes("The name field is required")) return "Vui lòng nhập tên khách hàng";
-          if(message.includes("The email field is required")) return "Vui lòng nhập email";
-          if(message.includes("The cccd field is required")) return "Vui lòng nhập số căn cước";
-          if(message.includes("The email has already been taken.")) return "Email đã được đăng kí";
-          return message;
-        }
-
-        $('#formkhachhang').on('submit', function(e) {
-          e.preventDefault();
-          $('.text-danger').html('');
-
-          $.ajax({
-            url: "{{ route('admin.khachhang.store') }}",
-            method: "POST",
-            data: $(this).serialize(),
-            success: function(response) {
-              $('#formkhachhang')[0].reset();
-              $('#successMessage').fadeIn();
-              $('#id').val(response.nextId);
-
-              setTimeout(function() {
-                $('#successMessage').fadeOut();
-              }, 10000);
-            },
-            error: function(xhr) {
-              if(xhr.status === 422) {
-                const errors = xhr.responseJSON.errors;
-                $.each(errors, function(key, value) {
-                  $('#error-' + key).text(translateError(value[0]));
-                });
-              }
+            function translateError(message) {
+                if (message.includes("The name field is required")) return "Vui lòng nhập tên khách hàng";
+                if (message.includes("The email field is required")) return "Vui lòng nhập email";
+                if (message.includes("The cccd field is required")) return "Vui lòng nhập số căn cước";
+                if (message.includes("The email has already been taken.")) return "Email đã được đăng kí";
+                return message;
             }
-          });
-        });
+
+            $('#formkhachhang').on('submit', function(e) {
+                e.preventDefault();
+                $('.text-danger').html('');
+
+                $.ajax({
+                    url: "{{ route('admin.khachhang.store') }}",
+                    method: "POST",
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        $('#formkhachhang')[0].reset();
+                        $('#successMessage').fadeIn();
+                        $('#id').val(response.nextId);
+
+                        setTimeout(function() {
+                            $('#successMessage').fadeOut();
+                        }, 10000);
+                    },
+                    error: function(xhr) {
+                        if (xhr.status === 422) {
+                            const errors = xhr.responseJSON.errors;
+                            $.each(errors, function(key, value) {
+                                $('#error-' + key).text(translateError(value[0]));
+                            });
+                        }
+                    }
+                });
+            });
+        </script> --}}
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Giới hạn CCCD chỉ 12 số
+                document.getElementById('cccd').addEventListener('input', function(e) {
+                    let value = e.target.value.replace(/\D/g, '');
+                    if (value.length > 12) value = value.slice(0, 12);
+                    e.target.value = value;
+                });
+
+                // Regex kiểm tra email theo chuẩn Gmail
+                const emailInput = document.getElementById('email');
+                const emailError = document.getElementById('error-email');
+                const emailRegex = /^[a-z0-9](\.?[a-z0-9_\-+]){5,}@gmail\.com$/;
+
+                emailInput.addEventListener('input', function() {
+                    const value = emailInput.value.trim();
+
+                    if (!value) {
+                        emailError.innerText = '';
+                        emailInput.classList.remove('is-invalid');
+                        return;
+                    }
+
+                    if (!emailRegex.test(value)) {
+                        emailError.innerText =
+                            'Email phải hợp lệ theo định dạng Gmail (ít nhất 6 ký tự trước @gmail.com)';
+                        emailInput.classList.add('is-invalid');
+                    } else {
+                        emailError.innerText = '';
+                        emailInput.classList.remove('is-invalid');
+                    }
+                });
+
+                function translateError(message) {
+                    if (message.includes("The name field is required")) return "Vui lòng nhập tên khách hàng";
+                    if (message.includes("The email field is required")) return "Vui lòng nhập email";
+                    if (message.includes("The cccd field is required")) return "Vui lòng nhập số căn cước";
+                    if (message.includes("The email has already been taken.")) return "Email đã được đăng kí";
+                    return message;
+                }
+
+                // Xử lý submit form
+                $('#formkhachhang').on('submit', function(e) {
+                    e.preventDefault();
+                    $('.text-danger').html('');
+
+                    const emailValue = emailInput.value.trim();
+
+                    // Ngăn submit nếu email sai định dạng
+                    if (!emailRegex.test(emailValue)) {
+                        emailError.innerText =
+                            'Email phải hợp lệ theo định dạng Gmail (ít nhất 6 ký tự trước @gmail.com)';
+                        emailInput.classList.add('is-invalid');
+                        return;
+                    }
+
+                    $.ajax({
+                        url: "{{ route('admin.khachhang.store') }}",
+                        method: "POST",
+                        data: $(this).serialize(),
+                        success: function(response) {
+                            $('#formkhachhang')[0].reset();
+                            $('#successMessage').fadeIn();
+                            $('#id').val(response.nextId);
+
+                            setTimeout(function() {
+                                $('#successMessage').fadeOut();
+                            }, 10000);
+                        },
+                        error: function(xhr) {
+                            if (xhr.status === 422) {
+                                const errors = xhr.responseJSON.errors;
+                                $.each(errors, function(key, value) {
+                                    $('#error-' + key).text(translateError(value[0]));
+                                });
+                            }
+                        }
+                    });
+                });
+            });
         </script>
-    
-    <!-- End Footer -->
-  </main>
+
+
+    </main>
 @endsection

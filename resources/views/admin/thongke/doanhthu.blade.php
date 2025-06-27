@@ -373,8 +373,5 @@
         });
     </script>
 
-
-
-    {{-- Thêm link load Chart.js (nếu bạn chưa load) --}}
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 @endpush

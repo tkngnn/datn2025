@@ -22,7 +22,7 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center mb-1">
                                 <h2 class="mb-0 mr-2">{{ $totalToaNha }}</h2>
-                                <span class="badge badge-soft-primary">1 tòa nhà</span>
+                                {{-- <span class="badge badge-soft-primary">1 tòa nhà</span> --}}
                             </div>
 
                             <div class="d-flex align-items-center mb-3">
@@ -30,8 +30,12 @@
                             </div>
                             <div class="d-flex gap-2">
                                 <div class="border rounded py-2 text-center flex-fill">
-                                    <div class="h5 mb-0">{{ $totalPhong }}</div>
-                                    <small class="text-dark">Phòng</small>
+                                    <div class="h5 mb-0">{{ $totalPhongDangThue }}</div>
+                                    <small class="text-dark">Phòng đang thuê</small>
+                                </div>
+                                <div class="border rounded py-2 text-center flex-fill">
+                                    <div class="h5 mb-0">{{ $totalPhongConTrong }}</div>
+                                    <small class="text-dark">Phòng còn trống</small>
                                 </div>
                             </div>
 
@@ -44,7 +48,7 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center mb-1">
                                 <h2 class="mb-0 mr-2">{{ $totalKhachThue }}</h2>
-                                <span class="badge badge-soft-primary">1 khách mới</span>
+                                {{-- <span class="badge badge-soft-primary">1 khách mới</span> --}}
                             </div>
 
                             <div class="d-flex align-items-center mb-3">

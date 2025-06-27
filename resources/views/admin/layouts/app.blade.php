@@ -1885,7 +1885,7 @@
                         <!-- Logo -->
 
 
-                        <a class="navbar-brand" href="index.html" aria-label="Front">
+                        <a class="navbar-brand" href="{{ route('admin.dashboard') }}" aria-label="Front">
                             <img class="navbar-brand-logo" src="{{ asset('assets/img/bGROUP_logo.png') }}"
                                 alt="Logo">
                             <img class="navbar-brand-logo-mini"
@@ -1907,7 +1907,7 @@
                         <ul class="navbar-nav navbar-nav-lg nav-tabs">
                             <!-- Dashboards -->
                             <li class="nav-item">
-                                <a class="js-nav-tooltip-link nav-link {{ request()->is('dashboard') ? 'active' : '' }}"
+                                <a class="js-nav-tooltip-link nav-link {{ request()->is('admin/dashboard') ? 'active' : '' }}"
                                     href="javascript:;" title="Trang chủ">
                                     <i class="tio-home-vs-1-outlined nav-icon"></i>
                                     <span

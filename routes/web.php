@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\HenXemController;
 use App\Http\Controllers\Admin\KhachHangController;
 use App\Http\Controllers\Admin\VanPhongController;
@@ -34,9 +35,8 @@ Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
 });
 
 Route::middleware(['auth', 'verified', 'check.role:admin'])->prefix('admin')->name('admin.')->group(function () {
-    Route::get('/dashboard', function () {
-        return view('admin.index');
-    })->name('dashboard');
+    Route::get('/dashboard', [ AdminController::class, 'index'])->name('dashboard');
+
 
     //Route quản lý tòa nhà
     Route::resource('toanha', ToaNhaController::class);

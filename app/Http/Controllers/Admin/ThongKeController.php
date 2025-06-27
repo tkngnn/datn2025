@@ -25,6 +25,8 @@ class ThongKeController extends Controller
         // Tòa nhà
         $totalToaNha = ToaNha::count();
         $totalPhong = VanPhong::count();
+        $totalPhongDangThue = VanPhong::where('trang_thai', 'da thue')->count();
+        $totalPhongConTrong = VanPhong::where('trang_thai', 'dang trong')->count();
 
         // Người dùng (khách thuê)
         $totalKhachThue = User::where('vai_tro', 'KT')->count();
@@ -45,6 +47,8 @@ class ThongKeController extends Controller
         return view('admin.thongke.index', compact(
             'totalToaNha',
             'totalPhong',
+            'totalPhongDangThue',
+            'totalPhongConTrong',
             'totalKhachThue',
             'userActive',
             'totalHopDong',
