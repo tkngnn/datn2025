@@ -21,7 +21,7 @@ use App\Http\Controllers\Admin\ChiSoController;
 use App\Http\Controllers\User\VanPhongController as UserVanPhongController;
 
 Route::get('/', function () {
-    return redirect()->route('user.danhsach');
+    return redirect()->route('user.home');
 });
 
 Route::group(['prefix' => 'user', 'as' => 'user.'], function () {

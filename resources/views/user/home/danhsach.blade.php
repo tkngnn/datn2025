@@ -30,7 +30,7 @@
                                             <div class="input-group">
                                                 <input type="text" name="ten_toa_nha" class="form-control"
                                                     id="productSearch" placeholder="Tìm kiếm tòa nhà..."
-                                                    aria-label="Tìm kiếm tòa nhà">
+                                                    aria-label="Tìm kiếm tòa nhà" value="{{ request('ten_toa_nha') }}">
                                                 <button class="btn search-btn" type="button" aria-label="Search">
                                                     <i class="bi bi-search"></i>
                                                 </button>
@@ -38,7 +38,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-12 col-md-6 col-lg-2">
+                                    <div class="col-12 col-md-6 col-lg-3">
                                         <div class="filter-item">
                                             <label for="areaRange" class="form-label">Diện tích</label>
                                             <select class="form-select" id="areaRange" name="dien_tich">
@@ -52,7 +52,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-12 col-md-6 col-lg-2">
+                                    <div class="col-12 col-md-6 col-lg-3">
                                         <div class="filter-item">
                                             <label for="priceRange" class="form-label">Giá</label>
                                             <select class="form-select" id="priceRange" name="gia_thue">
@@ -78,7 +78,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-12 col-md-6 col-lg-2">
+                                    {{-- <div class="col-12 col-md-6 col-lg-2">
                                         <div class="filter-item">
                                             <label class="form-label">View</label>
                                             <div class="d-flex align-items-center">
@@ -92,18 +92,9 @@
                                                         <i class="bi bi-list-ul"></i>
                                                     </button>
                                                 </div>
-                                                {{-- <div class="items-per-page">
-                                                <select class="form-select" id="itemsPerPage"
-                                                    aria-label="Items per page">
-                                                    <option value="12">12 per page</option>
-                                                    <option value="24">24 per page</option>
-                                                    <option value="48">48 per page</option>
-                                                    <option value="96">96 per page</option>
-                                                </select>
-                                            </div> --}}
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </form>
                             <div class="row mt-3">
@@ -258,7 +249,7 @@
                 });
 
                 if (filters.length > 0) {
-                    html += `<button class="clear-all-btn" type="button">Clear All</button>`;
+                    html += `<button class="clear-all-btn" type="button">Xóa tất cả</button>`;
                 }
 
                 $('#active-filters-list').html(html);
@@ -280,6 +271,7 @@
             // Xóa tất cả filter
             $(document).on('click', '.clear-all-btn', function() {
                 $('#filterForm')[0].reset();
+                $('#filterForm').find('input[name="ten_toa_nha"]').val('');
                 $('#filterForm').trigger('change');
                 filterVanPhong();
             });

@@ -61,7 +61,7 @@
             <div class="container-fluid container-xl">
                 <div class="d-flex py-3 align-items-center justify-content-between">
                     <!-- Logo -->
-                    <a href="index.html" class="logo d-flex align-items-center">
+                    <a href="{{ route('user.home') }}" class="logo d-flex align-items-center">
                         <!-- Uncomment the line below if you also wish to use an image logo -->
                         <img src="{{ asset('user/assets/img/bGROUP_white.png') }}" alt="" loading="lazy"
                             class="logo-img">
@@ -173,9 +173,9 @@
                 <div class="position-relative">
                     <nav id="navmenu" class="navmenu">
                         <ul>
-                            <li><a href="index.html" class="active">TRANG CHỦ</a></li>
+                            <li><a href="{{ route('user.home') }}" class="active">TRANG CHỦ</a></li>
                             {{-- <li><a href="about.html">GIỚI THIỆU</a></li> --}}
-                            <li class="dropdown"><a href="#"><span>VĂN PHÒNG</span> <i
+                            <li class="dropdown"><a href="{{ route('user.danhsach') }}"><span>VĂN PHÒNG</span> <i
                                         class="bi bi-chevron-down toggle-dropdown"></i></a>
                                 <ul>
                                     <li><a href="#">Hà Nội</a></li>
@@ -192,7 +192,7 @@
                                     <li><a href="#">Đà Nẵng</a></li>
                                 </ul>
                             </li>
-                            <li><a href="contact.html">LIÊN HỆ</a></li>
+                            <li><a href="#">LIÊN HỆ</a></li>
 
                         </ul>
                     </nav>
@@ -227,7 +227,7 @@
                 <div class="row gy-4">
                     <div class="col-lg-6 col-md-6 col-sm-12">
                         <div class="footer-widget footer-about">
-                            <a href="index.html" class="logo">
+                            <a href="{{ route('user.home') }}" class="logo">
                                 <img src="{{ asset('user/assets/img/bGROUP_white.png') }}" alt="Logo" class="logo-img-footer"
                                     loading="lazy">
                                 <span class="sitename">BGROUP</span>

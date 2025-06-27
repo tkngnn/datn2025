@@ -8,6 +8,7 @@ use App\Models\VanPhong;
 use App\Models\ToaNha;
 //use Illuminate\Container\Attributes\Log;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class HomeController extends Controller
 {
@@ -16,17 +17,81 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('user.layouts.app');
+        $dsQuanHCM = [
+            'Quận 1',
+            'Quận 2',
+            'Quận 3',
+            'Quận 4',
+            'Quận 5',
+            'Quận 7',
+            'Quận 8',
+            'Quận 10',
+            'Quận 11',
+            'Quận 12',
+            'Quận Phú Nhuận',
+            'Quận Tân Phú',
+            'Quận Bình Thạnh',
+            'Quận Tân Bình',
+            'Quận Gò Vấp',
+            'Thủ Đức',
+        ];
+
+        $dsQuanHN = [
+            'Hoàn Kiếm',
+            'Hai Bà Trưng',
+            'Cầu Giấy',
+            'Nam Từ Liêm',
+            'Ba Đình',
+            'Đống Đa',
+            'Thanh Xuân',
+            'Tây Hồ',
+        ];
+
+        $thongKeHCM = [];
+        $thongKeHN = [];
+
+        foreach ($dsQuanHCM as $quan) {
+            $count = ToaNha::where('dia_chi', 'like', '%' . $quan . '%')->count();
+            $tenFile = Str::slug($quan) . '.jpg';
+            $thongKeHCM[] = [
+                'quan' => $quan,
+                'so_toa_nha' => $count,
+                'hinh_anh' => asset('user/assets/img/index/TPHCM/' . $tenFile),
+            ];
+        }
+
+        foreach ($dsQuanHN as $quan) {
+            $count = ToaNha::where('dia_chi', 'like', '%' . $quan . '%')->count();
+            $tenFile = Str::slug($quan) . '.jpg';
+            $thongKeHN[] = [
+                'quan' => $quan,
+                'so_toa_nha' => $count,
+                'hinh_anh' => asset('user/assets/img/index/HN/' . $tenFile),
+            ];
+        }
+
+        return view('user.home.index', compact('thongKeHCM', 'thongKeHN'));
     }
+
+
 
     public function danhsach(Request $request)
     {
         $query = VanPhong::with(['toaNha', 'media'])
             ->whereRaw("LOWER(TRIM(trang_thai)) = ?", ['dang trong']);
 
-        if ($request->filled('ten_toa_nha')) {
+        /*if ($request->filled('ten_toa_nha')) {
             $query->whereHas('toaNha', function ($q) use ($request) {
                 $q->where('ten_toa_nha', 'like', '%' . $request->ten_toa_nha . '%');
+            });
+        }*/
+
+        if ($request->filled('ten_toa_nha')) {
+            $query->whereHas('toaNha', function ($q) use ($request) {
+                $q->where(function ($subQuery) use ($request) {
+                    $subQuery->where('ten_toa_nha', 'like', '%' . $request->ten_toa_nha . '%')
+                        ->orWhere('dia_chi', 'like', '%' . $request->ten_toa_nha . '%');
+                });
             });
         }
 
