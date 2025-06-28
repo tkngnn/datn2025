@@ -35,15 +35,31 @@ class HopDongController extends Controller
 
         return view('admin.hopdong.index', compact('hopDongs'));
     }     */
-    public function index()
+    public function index(Request $request)
     {
-        $hopDongs = HopDong::with([
+        $query = HopDong::with([
             'user',
             'chiTietHopDongs.vanPhong.toaNha',
             'hoaDons' => function ($query) {
                 $query->where('trang_thai', 'chua thanh toan');
             }
-        ])->orderBy('ngay_ky', 'desc')->get();
+        ]);
+
+        if ($request->filled('nam')) {
+            $query->whereYear('ngay_ky', $request->nam);
+        }
+
+        if ($request->filled('tinh_trang_hop_dong')) {
+            $query->whereIn('tinh_trang', (array) $request->tinh_trang_hop_dong);
+        }
+
+        if ($request->filled('toa_nha')) {
+            $query->whereHas('chiTietHopDongs.vanPhong', function ($q) use ($request) {
+                $q->where('ma_toa_nha', $request->toa_nha);
+            });
+        }
+
+        $hopDongs = $query->orderBy('ngay_ky', 'desc')->get();
 
         $today = Carbon::today();
 
@@ -55,8 +71,9 @@ class HopDongController extends Controller
                 $soNgayConLai >= -7 && $soNgayConLai <= 0
             );
         });
+        $dsToaNha = ToaNha::all();
 
-        return view('admin.hopdong.index', compact('hopDongs', 'hopDongsCanThanhLy'));
+        return view('admin.hopdong.index', compact('hopDongs', 'hopDongsCanThanhLy', 'dsToaNha'));
     }
     /**
      * Show the form for creating a new resource.

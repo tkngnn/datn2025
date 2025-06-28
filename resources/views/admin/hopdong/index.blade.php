@@ -116,24 +116,113 @@
                             </form>
                         </div>
 
-                        <div class="col-lg-6">
-                            <div class="d-sm-flex justify-content-sm-end align-items-sm-center">
-                                <!-- Datatable Info -->
-                                <div id="datatableCounterInfo" class="mr-2 mb-2 mb-sm-0" style="display: none;">
-                                    <div class="d-flex align-items-center">
-                                        <span class="font-size-sm mr-3">
-                                            <span id="datatableCounter">0</span>
-                                            Selected
-                                        </span>
-                                        <a class="btn btn-sm btn-outline-danger" href="javascript:;">
-                                            <i class="tio-delete-outlined"></i> Delete
-                                        </a>
-                                    </div>
-                                </div>
-                                <!-- End Datatable Info -->
+                        <div class="col-auto">
+                            <!-- Unfold -->
+                            <div class="hs-unfold mr-2">
+                                <a class="js-hs-unfold-invoker btn btn-soft-primary btn-sm" href="javascript:;"
+                                    data-hs-unfold-options='{
+                                        "target": "#datatableFilterSidebar",
+                                        "type": "css-animation",
+                                        "animationIn": "fadeInRight",
+                                        "animationOut": "fadeOutRight",
+                                        "hasOverlay": true,
+                                        "smartPositionOff": true
+                                    }'>
+                                    <i class="tio-filter-list mr-1"></i>
+                                </a>
+                            </div>
+                            <!-- End Unfold -->
+                            <!-- Unfold -->
+                            <div class="hs-unfold mr-2">
+                                <a href="{{ url()->current() }}" class="btn btn-soft-secondary btn-sm ml-2">
+                                    <i class="tio-refresh"></i>
+                                </a>
+                            </div>
+                            <!-- End Unfold -->
+                        </div>
 
+
+                        <!-- Sidebar filter -->
+                        <div id="datatableFilterSidebar"
+                            class="hs-unfold-content sidebar sidebar-bordered sidebar-box-shadow">
+                            <div class="card mb-5">
+                                <div class="card-header">
+                                    <h5 class="mb-0">Lọc</h5>
+                                    <a class="js-hs-unfold-invoker btn btn-icon btn-xs btn-ghost-dark ml-2"
+                                        href="javascript:;"
+                                        data-hs-unfold-options='{
+                                        "target": "#datatableFilterSidebar",
+                                        "type": "css-animation",
+                                        "animationIn": "fadeInRight",
+                                        "animationOut": "fadeOutRight",
+                                        "hasOverlay": true,
+                                        "smartPositionOff": true
+                                       }'>
+                                        <i class="tio-clear tio-lg"></i>
+                                    </a>
+                                </div>
+                                <div class="card-body">
+                                    <form method="GET" action="{{ route('admin.hopdong.index') }}">
+
+                                        <div class="form-group">
+                                            <label for="filterYear">Năm ký hợp đồng</label>
+                                            <select name="nam" id="filterYear" class="form-control selectpicker"
+                                                data-live-search="true" title="Chọn năm">
+                                                <option value="">-- Tất cả --</option>
+                                                @for ($y = date('Y'); $y >= 2020; $y--)
+                                                    <option value="{{ $y }}"
+                                                        {{ request('nam') == $y ? 'selected' : '' }}>{{ $y }}
+                                                    </option>
+                                                @endfor
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Trạng thái hợp đồng</label>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="dangThue"
+                                                    name="tinh_trang_hop_dong[]" value="dang thue"
+                                                    {{ in_array('dang thue', (array) request('tinh_trang_hop_dong')) ? 'checked' : '' }}>
+                                                <label class="custom-control-label" for="dangThue">Đang thuê</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="daThanhLy"
+                                                    name="tinh_trang_hop_dong[]" value="da thanh ly"
+                                                    {{ in_array('da thanh ly', (array) request('tinh_trang_hop_dong')) ? 'checked' : '' }}>
+                                                <label class="custom-control-label" for="daThanhLy">Đã thanh lý</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="hetHan"
+                                                    name="tinh_trang_hop_dong[]" value="het han"
+                                                    {{ in_array('het han', (array) request('tinh_trang_hop_dong')) ? 'checked' : '' }}>
+                                                <label class="custom-control-label" for="hetHan">Hết hạn</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="filterToaNha">Tòa nhà</label>
+                                            <select name="toa_nha" id="filterToaNha" class="form-control selectpicker"
+                                                data-live-search="true" title="Chọn tòa nhà">
+                                                <option value="">-- Tất cả --</option>
+                                                @foreach ($dsToaNha as $tn)
+                                                    <option value="{{ $tn->ma_toa_nha }}"
+                                                        {{ request('toa_nha') == $tn->ma_toa_nha ? 'selected' : '' }}>
+                                                        {{ $tn->ten_toa_nha }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary btn-block">Lọc</button>
+                                        </div>
+
+                                    </form>
+
+                                </div>
                             </div>
                         </div>
+                        <!-- End Sidebar filter -->
                     </div>
                     <!-- End Row -->
                 </div>
