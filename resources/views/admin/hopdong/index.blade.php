@@ -3,6 +3,11 @@
 @push('styles')
     <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/css/bootstrap-select.min.css">
+    <style>
+        .font-reset {
+            font-family: inherit !important;
+        }
+    </style>
 @endpush
 @section('content')
 
@@ -74,7 +79,8 @@
                 setTimeout(function() {
                     const alerts = document.querySelectorAll('.alert');
                     alerts.forEach(alert => {
-                        if (alert.id !== 'noDebtMessage') {
+                        if (alert.id !== 'noDebtMessage' || alert.classList.contains(
+                                'tong-hop-dong-can-thanh-ly')) {
                             alert.classList.remove('show');
                             alert.classList.add('fade');
                             setTimeout(() => alert.remove(), 300);
@@ -82,6 +88,13 @@
                     });
                 }, 5000);
             </script>
+
+            @if ($hopDongsCanThanhLy->count())
+                <div class="alert alert-soft-warning tong-hop-dong-can-thanh-ly" role="alert">
+                    <strong>Chú ý!</strong> Có <span class="font-weight-bold">{{ $hopDongsCanThanhLy->count() }}</span>
+                    hợp đồng sắp hết hạn/đã hết hạn cần thanh lý.
+                </div>
+            @endif
             <!-- Card -->
             <div class="card">
                 <!-- Header -->
@@ -156,12 +169,12 @@
                                     </div> --}}
                                 </th>
                                 <th class="table-column-pl-0">Số hợp đồng</th>
-                                <th>Thao tác</th>
                                 <th>Đại diện</th>
-                                <th>Giá thuế</th>
+                                <th>Giá thuê</th>
                                 <th>Ngày bắt đầu</th>
                                 <th>Ngày kết thúc</th>
                                 <th>Trạng thái</th>
+                                <th>Thao tác</th>
                             </tr>
                         </thead>
 
@@ -178,51 +191,29 @@
                                             </div> --}}
                                         </td>
                                         <td class="table-column-pl-0">
-                                            <a href="#">#{{ $hopdong->ma_hop_dong }}</a>
-                                        </td>
-                                        <td>
-                                            <div class="btn-group" role="group" style="gap: 0.5rem;">
-                                                <a class="btn btn-sm btn-primary btn-xem-hopdong" href="javascript:;"
-                                                    data-hopdong='@json($hopdong)'
-                                                    data-chitiet='@json($chiTiet)'
-                                                    data-id="{{ $hopdong->ma_hop_dong }}"
-                                                    data-export-url="{{ route('admin.hopdong.export_pdf', $hopdong->ma_hop_dong) }}"
-                                                    data-toggle="tooltip" data-placement="top" title="Xem">
-                                                    <i class="tio-visible-outlined"></i>
-                                                </a>
+                                            <a class="btn-xem-hopdong" href="javascript:;"
+                                                data-hopdong='@json($hopdong)'
+                                                data-chitiet='@json($chiTiet)'
+                                                data-id="{{ $hopdong->ma_hop_dong }}"
+                                                data-export-url="{{ route('admin.hopdong.export_pdf', $hopdong->ma_hop_dong) }}"
+                                                data-toggle="tooltip" data-placement="top" title="Xem">
+                                                {{ $hopdong->ma_hop_dong }}
+                                                @php
+                                                    $ngayKetThuc = \Carbon\Carbon::parse($hopdong->ngay_ket_thuc);
+                                                    $soNgayConLai = $ngayKetThuc->diffInDays(now(), false);
 
-                                                {{-- <a class="btn btn-sm btn-secondary"
-                                                    href="{{ route('admin.hopdong.edit', $hopdong->ma_hop_dong) }}"
-                                                    data-toggle="tooltip" data-placement="top" title="Chỉnh sửa">
-                                                    <i class="tio-edit"></i>
-                                                </a> --}}
-                                                <a class="btn btn-sm btn-secondary btn-edit-hopdong" href="javascript:;"
-                                                    data-id="{{ $hopdong->ma_hop_dong }}"
-                                                    data-da-thanh-ly="{{ $hopdong->da_thanh_ly ? '1' : '0' }}"
-                                                    data-url="{{ route('admin.hopdong.edit', $hopdong->ma_hop_dong) }}"
-                                                    data-toggle="tooltip" data-placement="top" title="Chỉnh sửa">
-                                                    <i class="tio-edit"></i>
-                                                </a>
+                                                    $isCanhBao =
+                                                        !$hopdong->da_thanh_ly &&
+                                                        ($ngayKetThuc->isPast() || // Đã quá hạn
+                                                            ($soNgayConLai <= 7 && $soNgayConLai >= 0));
+                                                    // Còn 7 ngày hoặc ít hơn
+                                                @endphp
+                                                @if ($isCanhBao)
+                                                    <i class="tio-warning text-warning" data-toggle="tooltip"
+                                                        title="Hợp đồng sắp hết hạn hoặc quá hạn"></i>
+                                                @endif
 
-                                                <a class="btn btn-sm btn-dark"
-                                                    href="{{ route('admin.hopdong.export_pdf', $hopdong->ma_hop_dong) }}"
-                                                    data-toggle="tooltip" data-placement="top" title="Tải PDF">
-                                                    <i class="tio-download-to"></i>
-                                                </a>
-                                                <a href="javascript:;" class="btn btn-sm btn-success btn-thanh-ly"
-                                                    data-hopdong='@json($hopdong)'
-                                                    data-hoadons='@json($hopdong->hoaDons)'
-                                                    data-da-thanh-ly="{{ $hopdong->da_thanh_ly ? '1' : '0' }}"
-                                                    data-toggle="tooltip" data-placement="top" title="Thanh lý"><i
-                                                        class="tio-checkmark-circle"></i>
-                                                </a>
-
-                                                <a class="btn btn-sm btn-danger" href="#" data-toggle="tooltip"
-                                                    data-placement="top" title="Xóa">
-                                                    <i class="tio-delete"></i>
-                                                </a>
-
-                                            </div>
+                                            </a>
                                         </td>
                                         <td>
                                             <div><strong>{{ $hopdong->user->name ?? 'Không có' }}</strong></div>
@@ -260,14 +251,50 @@
                                                 <small class="text-danger">Đã hết hạn</small>
                                             @endif
                                         </td>
-                                        {{-- <td>
-                                            <span
-                                                class="badge badge-soft-{{ $hopdong->tinh_trang == 'dang thue' ? 'success' : 'danger' }}">
-                                                <span
-                                                    class="legend-indicator bg-{{ $hopdong->tinh_trang == 'dang thue' ? 'success' : 'danger' }}"></span>
-                                                {{ $hopdong->tinh_trang }}
-                                            </span>
-                                        </td> --}}
+                                        <td>
+                                            <div class="btn-group" role="group" style="gap: 0.2rem;">
+                                                <a class="btn btn-sm btn-white btn-xem-hopdong" href="javascript:;"
+                                                    data-hopdong='@json($hopdong)'
+                                                    data-chitiet='@json($chiTiet)'
+                                                    data-id="{{ $hopdong->ma_hop_dong }}"
+                                                    data-export-url="{{ route('admin.hopdong.export_pdf', $hopdong->ma_hop_dong) }}"
+                                                    data-toggle="tooltip" data-placement="top" title="Xem">
+                                                    <i class="tio-visible-outlined"></i>
+                                                </a>
+
+                                                {{-- <a class="btn btn-sm btn-secondary"
+                                                    href="{{ route('admin.hopdong.edit', $hopdong->ma_hop_dong) }}"
+                                                    data-toggle="tooltip" data-placement="top" title="Chỉnh sửa">
+                                                    <i class="tio-edit"></i>
+                                                </a> --}}
+                                                <a class="btn btn-sm btn-white btn-edit-hopdong" href="javascript:;"
+                                                    data-id="{{ $hopdong->ma_hop_dong }}"
+                                                    data-da-thanh-ly="{{ $hopdong->da_thanh_ly ? '1' : '0' }}"
+                                                    data-url="{{ route('admin.hopdong.edit', $hopdong->ma_hop_dong) }}"
+                                                    data-toggle="tooltip" data-placement="top" title="Chỉnh sửa">
+                                                    <i class="tio-edit"></i>
+                                                </a>
+
+                                                <a class="btn btn-sm btn-white"
+                                                    href="{{ route('admin.hopdong.export_pdf', $hopdong->ma_hop_dong) }}"
+                                                    data-toggle="tooltip" data-placement="top" title="Tải PDF">
+                                                    <i class="tio-download-to"></i>
+                                                </a>
+                                                <a href="javascript:;" class="btn btn-sm btn-white btn-thanh-ly"
+                                                    data-hopdong='@json($hopdong)'
+                                                    data-hoadons='@json($hopdong->hoaDons)'
+                                                    data-da-thanh-ly="{{ $hopdong->da_thanh_ly ? '1' : '0' }}"
+                                                    data-toggle="tooltip" data-placement="top" title="Thanh lý"><i
+                                                        class="tio-checkmark-circle"></i>
+                                                </a>
+
+                                                <a class="btn btn-sm btn-white" href="#" data-toggle="tooltip"
+                                                    data-placement="top" title="Xóa">
+                                                    <i class="tio-delete"></i>
+                                                </a>
+
+                                            </div>
+                                        </td>
                                     </tr>
                                 @endforeach
                             @endforeach
@@ -326,14 +353,24 @@
         <div class="modal fade" id="modalChiTietHopDong" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-scrollable">
                 <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"></h5>
+                        <button type="button" class="btn btn-icon btn-sm btn-ghost-secondary ms-auto"
+                            data-dismiss="modal" aria-label="Close">
+                            <i class="tio-clear tio-lg"></i>
+                        </button>
+                    </div>
                     <div class="modal-body" id="noiDungHopDong">
                         <!-- Nội dung sẽ được load qua Ajax -->
                     </div>
                     <div class="modal-footer">
                         <a href="#" class="btn btn-danger btn-tai-pdf">
-                            <i class="bi bi-file-earmark-pdf"></i> Tải PDF
+                            <i class="tio-download-to"></i>
                         </a>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                        <button type="button" class="btn btn-primary" onclick="inNoiDungHopDong()">
+                            <i class="tio-print"></i>
+                        </button>
+
                     </div>
                 </div>
             </div>
@@ -350,7 +387,10 @@
                         @csrf
                         <div class="modal-header">
                             <h1 class="modal-title">Biên bản Thanh lý Hợp đồng</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                            <button type="button" class="btn btn-icon btn-sm btn-ghost-secondary" data-dismiss="modal"
+                                aria-label="Close">
+                                <i class="tio-clear tio-lg"></i>
+                            </button>
                         </div>
 
                         <div class="modal-body">
@@ -484,13 +524,41 @@
 
         <!-- Biên Ban Thanh Ly Modal -->
 
-        <div id="modalBienBanThanhLy" class="modal"
+        {{-- <div id="modalBienBanThanhLy" class="modal "
             style="display:none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.5);">
             <div style="background: white; max-width: 800px; margin: 50px auto; padding: 20px; position: relative;">
-                <button id="closeModal" style="position: absolute; top: 10px; right: 10px;">&times;</button>
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <button type="button" class="btn btn-icon btn-sm btn-ghost-secondary ms-auto" data-dismiss="modal"
+                        aria-label="Close">
+                        <i class="tio-clear tio-lg"></i>
+                    </button>
+                </div>
                 <div id="modalContent">
                     <!-- Nội dung biên bản thanh lý sẽ được load vào đây -->
                     Đang tải...
+                </div>
+            </div>
+        </div> --}}
+        <div class="modal fade" id="modalBienBanThanhLy" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"></h5>
+                        <button type="button" class="btn btn-icon btn-sm btn-ghost-secondary ms-auto"
+                            data-dismiss="modal" aria-label="Close">
+                            <i class="tio-clear tio-lg"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="modalContent">
+                        <!-- Nội dung sẽ được load qua Ajax -->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" onclick="inNoiDungBienBan()">
+                            <i class="tio-print"></i>
+                        </button>
+
+                    </div>
                 </div>
             </div>
         </div>
@@ -501,6 +569,7 @@
 @endsection
 @push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/js/bootstrap-select.min.js"></script>
+    <!-- Nếu dùng CDN -->
     <script>
         $(document).ready(function() {
             $('.selectpicker').selectpicker();
@@ -714,5 +783,140 @@
                 });
             });
         });
+
+
+        function inNoiDungHopDong() {
+            const noiDung = document.getElementById("noiDungHopDong").innerHTML;
+            $('#modalChiTietHopDong').modal('hide');
+
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(`
+                <html>
+                <head>
+                    <title>Hợp đồng</title>
+                    <style>
+                        @page {
+                            size: A4;
+                            margin: 2cm 2cm 2cm 2.5cm;
+                        }
+                        body {
+                            font-family: 'Times New Roman', Times, serif;
+                            font-size: 13pt;
+                            line-height: 1.5;
+                            padding: 0;
+                        }
+                        p {
+                            margin: 0 0 8pt 0;
+                        }
+                        ul {
+                            margin: 0 0 8pt 20pt;
+                            padding: 0;
+                        }
+                        li {
+                            margin-bottom: 4pt;
+                        }
+                        .quoc-hieu {
+                            text-align: center;
+                            line-height: 1.5;
+                        }
+                        .quoc-hieu hr {
+                            width: 40%;
+                            border: 1px solid black;
+                            margin: 5px auto;
+                        }
+                        .tieu-de {
+                            text-align: center;
+                            margin-top: 20px;
+                        }
+                        .chu-ky {
+                            display: flex;
+                            justify-content: space-between;
+                            margin-top: 60px;
+                            text-align: center;
+                        }
+                    </style>
+                </head>
+                <body>
+                    ${noiDung}
+                </body>
+                </html>
+            `);
+            printWindow.document.close();
+            printWindow.onload = function() {
+                printWindow.document.activeElement?.blur();
+
+                setTimeout(function() {
+                    printWindow.print();
+                    printWindow.close();
+                }, 200);
+            };
+        }
+
+        function inNoiDungBienBan() {
+            const noiDung = document.getElementById("modalContent").innerHTML;
+            $('#modalBienBanThanhLy').modal('hide');
+
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(`
+                <html>
+                <head>
+                    <title>Biên bản thanh lý</title>
+                    <style>
+                        @page {
+                            size: A4;
+                            margin: 2cm 2cm 2cm 2.5cm;
+                        }
+                        body {
+                            font-family: 'Times New Roman', Times, serif;
+                            font-size: 13pt;
+                            line-height: 1.5;
+                            padding: 0;
+                        }
+                        p {
+                            margin: 0 0 8pt 0;
+                        }
+                        ul {
+                            margin: 0 0 8pt 20pt;
+                            padding: 0;
+                        }
+                        li {
+                            margin-bottom: 4pt;
+                        }
+                            .quoc-hieu {
+                            text-align: center;
+                            line-height: 1.5;
+                        }
+                        .quoc-hieu hr {
+                            width: 40%;
+                            border: 1px solid black;
+                            margin: 5px auto;
+                        }
+                        .tieu-de {
+                            text-align: center;
+                            margin-top: 20px;
+                        }
+                        .chu-ky {
+                            display: flex;
+                            justify-content: space-between;
+                            margin-top: 60px;
+                            text-align: center;
+                        }
+                    </style>
+                </head>
+                <body>
+                    ${noiDung}
+                </body>
+                </html>
+            `);
+            printWindow.document.close();
+            printWindow.onload = function() {
+                printWindow.document.activeElement?.blur();
+
+                setTimeout(function() {
+                    printWindow.print();
+                    printWindow.close();
+                }, 200);
+            };
+        }
     </script>
 @endpush

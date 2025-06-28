@@ -149,7 +149,7 @@
                                         <label class="custom-control-label" for="datatableCheckAll"></label>
                                     </div> --}}
                                 </th>
-                                <th>Mã hỗ trợ</th>
+                                <th>Mã</th>
                                 <th>Khách hàng</th>
                                 <th>Yêu cầu</th>
                                 <th>Thời gian gửi</th>
@@ -190,10 +190,11 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="text-wrap">
-                                        <strong>{{ $yeuCau->tieu_de }}</strong><br>
+                                    <td class="text-break">
+                                        {{-- Hiển thị tiêu đề và nội dung yêu cầu --}}
+                                        <strong class="text-wrap">{{ $yeuCau->tieu_de }}</strong><br>
                                         <span
-                                            class="text-muted">{{ \Illuminate\Support\Str::limit($yeuCau->noi_dung, 100) }}</span>
+                                            class="text-muted text-truncate">{{ \Illuminate\Support\Str::limit($yeuCau->noi_dung, 30) }}</span>
                                     </td>
                                     <td>{{ \Carbon\Carbon::parse($yeuCau->thoi_gian_gui)->format('d/m/Y H:i') }}</td>
                                     <td>
@@ -205,7 +206,7 @@
                                             <span class="badge badge-soft-secondary">{{ $yeuCau->trang_thai_xu_ly }}</span>
                                         @endif
                                     </td>
-                                    <td class="text-wrap">{{ $yeuCau->ghi_chu_xu_ly ?? '-' }}</td>
+                                    <td class="text-truncate" style="max-width: 150px;">{{ $yeuCau->ghi_chu_xu_ly ?? '-' }}</td>
                                     <td>
                                         <div class="hs-unfold">
                                             <a class="js-hs-unfold-invoker btn btn-icon btn-sm btn-ghost-secondary rounded-circle"

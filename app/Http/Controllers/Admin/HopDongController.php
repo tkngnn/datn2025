@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use App\Mail\HopDongMoiMail;
+use Carbon\Carbon;
 
 
 class HopDongController extends Controller
@@ -40,11 +41,22 @@ class HopDongController extends Controller
             'user',
             'chiTietHopDongs.vanPhong.toaNha',
             'hoaDons' => function ($query) {
-                $query->where('trang_thai', 'chua thanh toan'); // hoặc tên field trạng thái đúng của bạn
+                $query->where('trang_thai', 'chua thanh toan');
             }
         ])->orderBy('ngay_ky', 'desc')->get();
 
-        return view('admin.hopdong.index', compact('hopDongs'));
+        $today = Carbon::today();
+
+        $hopDongsCanThanhLy = $hopDongs->filter(function ($hopdong) use ($today) {
+            $ngayKetThuc = Carbon::parse($hopdong->ngay_ket_thuc);
+            $soNgayConLai = $ngayKetThuc->diffInDays($today, false);
+
+            return !$hopdong->da_thanh_ly && (
+                $soNgayConLai >= -7 && $soNgayConLai <= 0
+            );
+        });
+
+        return view('admin.hopdong.index', compact('hopDongs', 'hopDongsCanThanhLy'));
     }
     /**
      * Show the form for creating a new resource.
@@ -304,7 +316,16 @@ class HopDongController extends Controller
         HopDong::where('ma_hop_dong', $maHopDong)->update([
             'da_thanh_ly' => true,
             'tinh_trang' => 'da thanh ly',
+            'ngay_thanh_ly' => $request->ngay_thanh_ly,
         ]);
+
+        $chiTietHopDong = ChiTietHopDong::where('ma_hop_dong', $maHopDong)->first();
+        if ($chiTietHopDong) {
+            $vanPhong = $chiTietHopDong->vanPhong;
+            if ($vanPhong) {
+                $vanPhong->update(['trang_thai' => 'Dang trong']);
+            }
+        }
 
         return redirect()->back()->with('success', 'Đã thanh lý hợp đồng thành công.');
     }

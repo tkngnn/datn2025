@@ -1,24 +1,60 @@
-<div style="font-family: 'Times New Roman', serif; padding: 30px; line-height: 1.8;">
-    <div style="text-align: center;">
+<div class="container" style="font-family: 'Times New Roman', serif; font-size: 13pt; padding: 30px; line-height: 1.5;">
+    <style>
+        @page {
+            size: A4;
+            margin: 2.5cm 2cm 2cm 3cm;
+            /* Trên, phải, dưới, trái */
+        }
+
+        p {
+            margin: 0 0 8pt 0;
+        }
+
+        .quoc-hieu {
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        .quoc-hieu hr {
+            width: 40%;
+            border: 1px solid black;
+            margin: 5px auto;
+        }
+
+        .tieu-de {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .chu-ky {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 60px;
+            text-align: center;
+        }
+    </style>
+    <div style="text-align: center;" class="quoc-hieu">
         <strong>CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</strong><br>
-        <em>Độc lập - Tự do - Hạnh phúc</em><br><br>
-        <strong>BIÊN BẢN THANH LÝ HỢP ĐỒNG</strong><br>
+        <em>Độc lập - Tự do - Hạnh phúc</em>
+        <hr>
+    </div>
+    <div class="tieu-de">
+        <strong style="font-size: 16pt;">BIÊN BẢN THANH LÝ HỢP ĐỒNG</strong><br>
         Số: {{ $hopdong->ma_hop_dong }}/BBTL
     </div>
-
     <br><br>
     <p><strong>Hôm nay, ngày {{ \Carbon\Carbon::parse($thanhLy->ngay_thanh_ly)->format('d') }} tháng
             {{ \Carbon\Carbon::parse($thanhLy->ngay_thanh_ly)->format('m') }} năm
-            {{ \Carbon\Carbon::parse($thanhLy->ngay_thanh_ly)->format('Y') }}, tại [Địa điểm ký], chúng tôi
+            {{ \Carbon\Carbon::parse($thanhLy->ngay_thanh_ly)->format('Y') }}, tại TP.Hồ Chí Minh, chúng tôi
             gồm:</strong>
     </p>
 
     <p><strong>BÊN CHO THUÊ (Bên A):</strong></p>
-    <p>Họ tên / Công ty: [Tên công ty bạn]</p>
-    <p>Địa chỉ: [Địa chỉ công ty]</p>
-    <p>Điện thoại: [Số điện thoại công ty]</p>
-    <p>Đại diện: [Tên đại diện Bên A]</p>
-    <p>Chức vụ: [Chức vụ]</p>
+    <p>Họ tên / Công ty: Công ty BGROUP</p>
+    <p>Địa chỉ: 123 Nguyễn Văn Cừ, Quận 5, TP.HCM</p>
+    <p>Điện thoại: 0909 999 999</p>
+    <p>Đại diện: Nguyễn Văn Anh</p>
+    <p>Chức vụ: Giám đốc</p>
 
     <br>
     <p><strong>BÊN THUÊ (Bên B):</strong></p>
@@ -75,13 +111,14 @@
         quan đến hợp đồng đã thanh lý.
     </p>
 
-    <br><br><br>
-    <div style="display: flex; justify-content: space-between; margin-top: 40px;">
-        <div style="text-align: center;">
-            <strong>ĐẠI DIỆN BÊN A</strong><br>(Ký, ghi rõ họ tên)
+    <div class="chu-ky">
+        <div>
+            <strong>ĐẠI DIỆN BÊN A</strong><br>
+            (Ký, ghi rõ họ tên)<br><br><br><br><br><br><br>
         </div>
-        <div style="text-align: center;">
-            <strong>ĐẠI DIỆN BÊN B</strong><br>(Ký, ghi rõ họ tên)
+        <div>
+            <strong>ĐẠI DIỆN BÊN B</strong><br>
+            (Ký, ghi rõ họ tên)<br><br><br><br><br><br><br>
         </div>
     </div>
 </div>

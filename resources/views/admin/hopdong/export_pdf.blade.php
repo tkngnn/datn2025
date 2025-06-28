@@ -65,15 +65,15 @@
         </p>
         <p><strong>Hôm nay, ngày {{ \Carbon\Carbon::parse($hopdong->ngay_ky)->format('d') }} tháng
                 {{ \Carbon\Carbon::parse($hopdong->ngay_ky)->format('m') }} năm
-                {{ \Carbon\Carbon::parse($hopdong->ngay_ky)->format('Y') }}, tại [Địa điểm ký], chúng tôi gồm:</strong>
+                {{ \Carbon\Carbon::parse($hopdong->ngay_ky)->format('Y') }}, tại TP.Hồ Chí Minh, chúng tôi gồm:</strong>
         </p>
 
         <p><strong>BÊN CHO THUÊ (Bên A):</strong></p>
-        <p>Họ tên / Công ty: [Tên công ty bạn]</p>
-        <p>Địa chỉ: [Địa chỉ công ty]</p>
-        <p>Điện thoại: [Số điện thoại công ty]</p>
-        <p>Đại diện: [Tên đại diện Bên A]</p>
-        <p>Chức vụ: [Chức vụ]</p>
+        <p>Họ tên / Công ty: Công ty BGROUP</p>
+        <p>Địa chỉ: 123 Nguyễn Văn Cừ, Quận 5, TP.HCM</p>
+        <p>Điện thoại: 0909 999 999</p>
+        <p>Đại diện: Nguyễn Văn Anh</p>
+        <p>Chức vụ: Giám đốc</p>
 
         <br>
         <p><strong>BÊN THUÊ (Bên B):</strong></p>
