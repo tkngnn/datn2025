@@ -69,19 +69,30 @@
                                 <!-- End Datatable Info -->
 
                                 <!-- Select -->
-                                <select class="js-select2-custom js-datatable-filter custom-select-sm dropdown-menu-lg-left"
-                                    size="1" style="opacity: 0;" data-target-column-index="5"
-                                    data-hs-select2-options='{
-                          "minimumResultsForSearch": "Infinity",
-                          "customClass": "custom-select custom-select-lg btn-ghost-primary btn-outline-primary",
-                          "dropdownAutoWidth": true,
-                          "width": true,
-                          "placeholder": "Lọc trạng thái"
-                        }'>
-                                    <option value="">All</option>
-                                    <option value="đã xử lý">Đã xử lý</option>
-                                    <option value="chưa xử lý">Chưa xử lý</option>
-                                </select>
+                                <div class="d-flex align-items-center">
+                                    <!-- Dropdown -->
+                                    <select
+                                        class="js-select2-custom js-datatable-filter custom-select-sm dropdown-menu-lg-right"
+                                        size="1" data-target-column-index="5"
+                                        data-hs-select2-options='{
+                                            "minimumResultsForSearch": "Infinity",
+                                            "customClass": "btn btn-soft-primary btn-sm",
+                                            "dropdownAutoWidth": true,
+                                            "width": true,
+                                            "placeholder": "<i class=\"tio-filter-list mr-1\"></i>"
+                                        }'>
+                                        <option value="">All</option>
+                                        <option value="đã xử lý">Đã xử lý</option>
+                                        <option value="chưa xử lý">Chưa xử lý</option>
+                                    </select>
+
+                                    <!-- Nút Reset -->
+                                    <button type="button" class="btn btn-sm btn-soft-secondary ml-2"
+                                        onclick="resetSelectFilter()" title="Reset lọc">
+                                        <i class="tio-refresh"></i>
+                                    </button>
+                                </div>
+
                                 <!-- End Select -->
                             </div>
                         </div>
@@ -206,7 +217,8 @@
                                             <span class="badge badge-soft-secondary">{{ $yeuCau->trang_thai_xu_ly }}</span>
                                         @endif
                                     </td>
-                                    <td class="text-truncate" style="max-width: 150px;">{{ $yeuCau->ghi_chu_xu_ly ?? '-' }}</td>
+                                    <td class="text-truncate" style="max-width: 150px;">{{ $yeuCau->ghi_chu_xu_ly ?? '-' }}
+                                    </td>
                                     <td>
                                         <div class="hs-unfold">
                                             <a class="js-hs-unfold-invoker btn btn-icon btn-sm btn-ghost-secondary rounded-circle"
@@ -440,6 +452,13 @@
                 }
             });
 
+        }
+
+        function resetSelectFilter() {
+            const select = document.querySelector('.js-select2-custom[data-target-column-index="5"]');
+            if (select) {
+                $(select).val('').trigger('change');
+            }
         }
     </script>
 @endpush

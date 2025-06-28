@@ -355,10 +355,19 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title"></h5>
-                        <button type="button" class="btn btn-icon btn-sm btn-ghost-secondary ms-auto"
-                            data-dismiss="modal" aria-label="Close">
+                        <a class="js-hs-unfold-invoker btn btn-icon btn-xs btn-ghost-dark ml-2" href="javascript:;"
+                            data-hs-unfold-options='{
+                                "target": "#datatableFilterSidebar",
+                                "type": "css-animation",
+                                "animationIn": "fadeInRight",
+                                "animationOut": "fadeOutRight",
+                                "hasOverlay": true,
+                                "smartPositionOff": true
+                            }'
+                            data-hs-unfold-target="#datatableFilterSidebar" data-hs-unfold-invoker>
                             <i class="tio-clear tio-lg"></i>
-                        </button>
+                        </a>
+
                     </div>
                     <div class="modal-body" id="noiDungHopDong">
                         <!-- Nội dung sẽ được load qua Ajax -->

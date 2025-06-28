@@ -186,6 +186,7 @@ class ThongKeController extends Controller
         $dsToaNha = $maToaNha
             ? ToaNha::where('ma_toa_nha', $maToaNha)->get()
             : ToaNha::all();
+        $dsToaNhaCB = ToaNha::all();
 
         $result = [];
 
@@ -216,6 +217,6 @@ class ThongKeController extends Controller
             ];
         }
 
-        return view('admin.thongke.tylelapday', compact('result', 'month', 'year', 'dsToaNha', 'maToaNha'));
+        return view('admin.thongke.tylelapday', compact('result', 'month', 'year', 'dsToaNha', 'maToaNha', 'dsToaNhaCB'));
     }
 }

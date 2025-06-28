@@ -136,7 +136,7 @@
                         <div class="col-auto">
                             <!-- Unfold -->
                             <div class="hs-unfold mr-2">
-                                <a class="js-hs-unfold-invoker btn btn-white" href="javascript:;"
+                                <a class="js-hs-unfold-invoker btn btn-soft-primary btn-sm" href="javascript:;"
                                     data-hs-unfold-options='{
                                         "target": "#datatableFilterSidebar",
                                         "type": "css-animation",
@@ -145,14 +145,14 @@
                                         "hasOverlay": true,
                                         "smartPositionOff": true
                                     }'>
-                                    <i class="tio-filter-list mr-1"></i> Lọc
+                                    <i class="tio-filter-list mr-1"></i>
                                 </a>
                             </div>
                             <!-- End Unfold -->
                             <!-- Unfold -->
                             <div class="hs-unfold mr-2">
-                                <a href="{{ url()->current() }}" class="btn btn-outline-secondary ml-2">
-                                    <i class="tio-clear"></i> Đặt lại bộ lọc
+                                <a href="{{ url()->current() }}" class="btn btn-soft-secondary btn-sm ml-2">
+                                    <i class="tio-refresh"></i>
                                 </a>
                             </div>
                             <!-- End Unfold -->
@@ -165,6 +165,16 @@
                             <div class="card mb-5">
                                 <div class="card-header">
                                     <h5 class="mb-0">Lọc theo trạng thái</h5>
+                                    <a class="js-hs-unfold-invoker btn btn-icon btn-xs btn-ghost-dark ml-2" href="javascript:;" data-hs-unfold-options='{
+                                        "target": "#datatableFilterSidebar",
+                                        "type": "css-animation",
+                                        "animationIn": "fadeInRight",
+                                        "animationOut": "fadeOutRight",
+                                        "hasOverlay": true,
+                                        "smartPositionOff": true
+                                       }'>
+                                    <i class="tio-clear tio-lg"></i>
+                                  </a>
                                 </div>
                                 <div class="card-body">
                                     <form method="GET" action="{{ route('admin.toanha.index') }}">
