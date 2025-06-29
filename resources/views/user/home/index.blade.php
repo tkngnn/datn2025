@@ -20,7 +20,7 @@
                         <div class="hero-cta">
                             <a href="{{ route('user.danhsach') }}" class="btn btn-primary">Tìm kiếm <i
                                     class="bi bi-search"></i></a>
-                            <a href="#" class="btn btn-outline-secondary">Liên hệ ngay</a>
+                            <a href="{{ route('user.lienhe') }}" class="btn btn-outline-secondary">Liên hệ ngay</a>
                         </div>
 
                         <div class="hero-features">
