@@ -245,12 +245,17 @@ class HopDongController extends Controller
             'tinh_trang' => 'required|string',
         ]);
 
+        //dd ($id);
+        //dd($validated); // Xem cấu trúc có gì sai
+
+
         Log::info('Validated Data:', $validated);
 
         DB::beginTransaction();
         try {
             // 2. TÌM HỢP ĐỒNG THEO ID
             $hopDong = HopDong::findOrFail($id);
+            //dd ($hopDong->ma_hop_dong);
 
             // 3. CẬP NHẬT HỢP ĐỒNG
             $hopDong->update([
@@ -260,17 +265,15 @@ class HopDongController extends Controller
                 'tong_tien_coc' => $validated['tien_coc'],
                 'tinh_trang' => $validated['tinh_trang'],
             ]);
-
-            $chiTiet = ChiTietHopDong::where('ma_hop_dong', $hopDong->ma_hop_dong)->firstOrFail();
-
             $vanPhong = VanPhong::findOrFail($validated['vanphong_id']);
-
-            $chiTiet->update([
-                'gia_thue' => $validated['tien_thue'],
-                'gia_dien' => $validated['gia_dien'],
-                'gia_nuoc' => $validated['gia_nuoc'],
-                'dich_vu_khac' => $validated['dich_vu_khac'] ?? 0,
-            ]);
+            ChiTietHopDong::where('ma_hop_dong', $hopDong->ma_hop_dong)
+                ->where('ma_van_phong', $validated['vanphong_id'])
+                ->update([
+                    'gia_thue' => $validated['tien_thue'],
+                    'gia_dien' => $validated['gia_dien'],
+                    'gia_nuoc' => $validated['gia_nuoc'],
+                    'dich_vu_khac' => $validated['dich_vu_khac'] ?? 0,
+                ]);
 
 
             DB::commit();

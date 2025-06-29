@@ -12,5 +12,5 @@
 
     Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi.
     Trân trọng,
-    {{ config('app.name') }}
+    BQL Tòa nhà
 </x-mail::message>

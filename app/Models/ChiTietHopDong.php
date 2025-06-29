@@ -11,7 +11,7 @@ class ChiTietHopDong extends Model
 
     protected $table = 'chi_tiet_hop_dong';
     public $incrementing = false;
-    protected $primaryKey = ['ma_hop_dong', 'ma_van_phong'];
+    //protected $primaryKey = ['ma_hop_dong', 'ma_van_phong'];
     protected $fillable = ['ma_hop_dong', 'ma_van_phong', 'dien_tich', 'gia_thue', 'gia_dien', 'gia_nuoc', 'dich_vu_khac'];
 
     public function hopDong()

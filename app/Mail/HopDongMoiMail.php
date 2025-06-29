@@ -8,6 +8,8 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use App\Models\HopDong;
+use App\Models\User;
 
 class HopDongMoiMail extends Mailable
 {
@@ -19,12 +21,11 @@ class HopDongMoiMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct($user, $hopDong)
+    public function __construct(User $user, HopDong $hopDong)
     {
         $this->user = $user;
         $this->hopDong = $hopDong;
     }
-
     /**
      * Get the message envelope.
      */
@@ -38,15 +39,14 @@ class HopDongMoiMail extends Mailable
     /**
      * Get the message content definition.
      */
-    public function content(): Content
+    public function build()
     {
-        return new Content(
-            view: 'admin.emails.hopdongmoi', // Make sure this path is correct
-            with: [
+        return $this->subject('Thông báo hợp đồng thuê văn phòng')
+            ->view('admin.emails.hopdongmoi')
+            ->with([
                 'user' => $this->user,
                 'hopDong' => $this->hopDong,
-            ],
-        );
+            ]);
     }
 
     /**
