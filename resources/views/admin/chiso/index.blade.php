@@ -2,27 +2,23 @@
 @section('title', 'Ghi chỉ số')
 @section('content')
     <main id="content" role="main" class="main">
+        @php
+      $dangLoc = request()->has('ma_toa_nha') ||
+        request()->has('thang_nam') ||
+        request()->has('trang_thai');
+    @endphp
         <!-- Content -->
         <div class="content container-fluid">
             <!-- Page Header -->
             <div class="page-header">
                 <div class="row align-items-end">
                     <div class="col-sm mb-2 mb-sm-0">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb breadcrumb-no-gutter">
-                                <li class="breadcrumb-item"><a class="breadcrumb-link" href="javascript:;">Trang chủ</a></li>
-                                <li class="breadcrumb-item"><a class="breadcrumb-link" href="javascript:;">Ghi chỉ số</a>
-                                </li>
-                                <li class="breadcrumb-item active" aria-current="page">Tổng quan</li>
-                            </ol>
-                        </nav>
-
                         <h1 class="page-header-title">Ghi chỉ số</h1>
                     </div>
 
                     <div class="col-sm-auto">
                         <a class="btn btn-primary" href="{{ route('admin.chiso.create') }}">
-                            <i class="tio-user-add mr-1"></i> Ghi chỉ số
+                            <i class="tio-user-add mr-1"></i> Ghi điện nước
                         </a>
                     </div>
                 </div>
@@ -59,69 +55,103 @@
                             </form>
                         </div>
 
-                        <div class="col-sm-6">
-                            <div class="d-sm-flex justify-content-sm-end align-items-sm-center">
-                                <!-- Datatable Info -->
-                                <div id="datatableCounterInfo" class="mr-2 mb-2 mb-sm-0" style="display: none;">
-                                    <div class="d-flex align-items-center">
-                                        <span class="font-size-sm mr-3">
-                                            <span id="datatableCounter">0</span>
-                                            Selected
-                                        </span>
-                                        <a class="btn btn-sm btn-outline-danger" href="javascript:;">
-                                            <i class="tio-delete-outlined"></i> Delete
-                                        </a>
-                                    </div>
-                                </div>
-                                <!-- End Datatable Info -->
+                        {{-- Tag nội dung đang lọc --}}
+                        @if ($dangLoc)
+                        <div class="hs-unfold mr-2">
+                        <div class="d-flex flex-wrap gap-2">
+                            <label class="font-weight-bold mr-1 mt-2">Bộ lọc: </label>
+                            @if(request('ma_toa_nha'))
+                            <span class="badge badge-soft-primary" style="padding: .8rem .8rem;">
+                                {{ $dsToaNha->firstWhere('ma_toa_nha', request('ma_toa_nha'))?->ten_toa_nha ?? 'Không rõ' }}
+                            </span>
+                            @endif
 
-                                <!-- Unfold -->
-                                <div class="hs-unfold mr-2">
-                                    <a class="js-hs-unfold-invoker btn btn-sm btn-white dropdown-toggle" href="javascript:;"
-                                        data-hs-unfold-options='{
-                       "target": "#usersExportDropdown",
-                       "type": "css-animation"
-                     }'>
-                                        <i class="tio-download-to mr-1"></i> Export
-                                    </a>
+                            @if(request('thang_nam'))
+                            <span class="badge badge-soft-secondary" style="padding: .8rem .8rem;">
+                                {{ \Carbon\Carbon::parse(request('thang_nam'))->format('m/Y') }}
+                            </span>
+                            @endif
 
-                                    <div id="usersExportDropdown"
-                                        class="hs-unfold-content dropdown-unfold dropdown-menu dropdown-menu-sm-right">
-                                        <span class="dropdown-header">Options</span>
-                                        <a id="export-copy" class="dropdown-item" href="javascript:;">
-                                            <img class="avatar avatar-xss avatar-4by3 mr-2"
-                                                src="assets\svg\illustrations\copy.svg" alt="Image Description">
-                                            Copy
-                                        </a>
-                                        <a id="export-print" class="dropdown-item" href="javascript:;">
-                                            <img class="avatar avatar-xss avatar-4by3 mr-2"
-                                                src="assets\svg\illustrations\print.svg" alt="Image Description">
-                                            Print
-                                        </a>
-                                        <div class="dropdown-divider"></div>
-                                        <span class="dropdown-header">Download options</span>
-                                        <a id="export-excel" class="dropdown-item" href="javascript:;">
-                                            <img class="avatar avatar-xss avatar-4by3 mr-2"
-                                                src="assets\svg\brands\excel.svg" alt="Image Description">
-                                            Excel
-                                        </a>
-                                        <a id="export-csv" class="dropdown-item" href="javascript:;">
-                                            <img class="avatar avatar-xss avatar-4by3 mr-2"
-                                                src="assets\svg\components\placeholder-csv-format.svg"
-                                                alt="Image Description">
-                                            .CSV
-                                        </a>
-                                        <a id="export-pdf" class="dropdown-item" href="javascript:;">
-                                            <img class="avatar avatar-xss avatar-4by3 mr-2" src="assets\svg\brands\pdf.svg"
-                                                alt="Image Description">
-                                            PDF
-                                        </a>
-                                    </div>
-                                </div>
-                                <!-- End Unfold -->
-
-                            </div>
+                            @if(request('trang_thai'))
+                            <span class="badge badge-soft-warning" style="padding: .8rem .8rem;">
+                                {{ request('trang_thai') == 'da nhap' ? 'Đã nhập' : 'Chưa nhập' }}
+                            </span>
+                            @endif
                         </div>
+                        </div>
+                    @endif
+                    <div class="col-auto">
+                    <!-- Unfold -->
+                    <div class="hs-unfold mr-2">
+                        <a class="js-hs-unfold-invoker btn btn-soft-primary" href="javascript:;"
+                            data-hs-unfold-options='{
+                                "target": "#datatableFilterSidebar",
+                                "type": "css-animation",
+                                "animationIn": "fadeInRight",
+                                "animationOut": "fadeOutRight",
+                                "hasOverlay": true,
+                                "smartPositionOff": true
+                            }'>
+                            <i class="tio-filter-list mr-1"></i>
+                        </a>
+                    </div>
+                    
+                    <!-- End Unfold -->
+                    <!-- Unfold -->
+                    @if ($dangLoc)
+                        <div class="hs-unfold mr-2">
+                            <a href="{{ url()->current() }}" class="btn btn-outline-secondary ml-2">
+                                <i class="tio-clear"></i> Đặt lại bộ lọc
+                            </a>
+                        </div>
+                        @endif
+                    <!-- End Unfold -->
+                    </div>
+
+                    <!-- Sidebar filter -->
+                    <div id="datatableFilterSidebar" class="hs-unfold-content sidebar sidebar-bordered sidebar-box-shadow">
+                    <div class="card mb-5">
+                        <div class="card-header">
+                        <h5 class="mb-0">Bộ lọc</h5>
+                        </div>
+                        <div class="card-body">
+                        <form method="GET" action="{{ route('admin.chiso.index') }}">
+                            {{-- Tòa nhà --}}
+                            <div class="form-group">
+                            <label for="ma_toa_nha">Tòa nhà</label>
+                            <select name="ma_toa_nha" id="ma_toa_nha" class="form-control selectpicker" data-live-search="true" title="Chọn tòa nhà">
+                                <option value="">-- Tất cả --</option>
+                                @foreach($dsToaNha as $toaNha)
+                                <option value="{{ $toaNha->ma_toa_nha }}" {{ request('ma_toa_nha') == $toaNha->ma_toa_nha ? 'selected' : '' }}>
+                                    {{ $toaNha->ten_toa_nha }}
+                                </option>
+                                @endforeach
+                            </select>
+                            </div>
+
+                            {{-- Tháng năm --}}
+                            <div class="form-group">
+                            <label for="thang_nam">Tháng năm</label>
+                            <input type="month" name="thang_nam" id="thang_nam" class="form-control"
+                                    value="{{ request('thang_nam') }}">
+                            </div>
+
+                            {{-- Trạng thái --}}
+                            <div class="form-group">
+                            <label for="trang_thai">Trạng thái</label>
+                            <select name="trang_thai" id="trang_thai" class="form-control selectpicker" data-live-search="true" title="Chọn trạng thái">
+                                <option value="">-- Tất cả --</option>
+                                <option value="da nhap" {{ request('trang_thai') == 'da nhap' ? 'selected' : '' }}>Đã nhập</option>
+                                <option value="chua nhap" {{ request('trang_thai') == 'chua nhap' ? 'selected' : '' }}>Chưa nhập</option>
+                            </select>
+                            </div>
+                    
+                            <button type="submit" class="btn btn-primary btn-block mt-3">Lọc</button>
+                        </form>
+                        </div>
+                    </div>
+                    </div> 
+
                     </div>
                     <!-- End Row -->
                 </div>
@@ -155,7 +185,7 @@
                     <label class="custom-control-label" for="datatableCheckAll"></label>
                   </div> --}}
                                 </th>
-                                <th class="table-column-pl-0">Mã yêu cầu</th>
+                                <th class="table-column-pl-0">Mã hóa đơn</th>
                                 <th>Văn phòng</th>
                                 <th>Tên khách/Hợp đồng</th>
                                 <th>Tháng</th>
@@ -178,7 +208,7 @@
                       </div> --}}
                                         </td>
                                         <td>
-                                            <a href="#">#{{ $hoadon->ma_hoa_don }}</a>
+                                            <a href="#">{{ $hoadon->ma_hoa_don }}</a>
                                         </td>
                                         <td>{{ $cthd->vanphong->ten_van_phong }}
                                             <span
@@ -189,10 +219,10 @@
                                                 {{ $hoadon->hopdong->ma_hop_dong }}</span>
                                         </td>
                                         <td class="text-break px-3">{{ $hoadon->thang_nam }}</td>
-                                        <td class="text-break px-3">{{ $hoadon->chi_so_dien_cu }} -
+                                        <td class="text-break px-3 text-center">{{ $hoadon->chi_so_dien_cu }} -
                                             {{ $hoadon->chi_so_nuoc_cu }}</td>
-                                        <td class="text-break px-3">{{ $hoadon->so_dien }}</td>
-                                        <td class="text-break px-3">{{ $hoadon->so_nuoc }}</td>
+                                        <td class="text-break px-3 text-center">{{ $hoadon->so_dien }}</td>
+                                        <td class="text-break px-3 text-center">{{ $hoadon->so_nuoc }}</td>
                                         <td class="text-break px-3">
                                             @if ($hoadon->so_dien && $hoadon->so_nuoc)
                                                 <span class="legend-indicator bg-success"></span> Đã nhập

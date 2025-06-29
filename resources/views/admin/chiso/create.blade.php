@@ -3,6 +3,10 @@
 
 @section('content')
     <main id="content" role="main" class="main">
+      @php
+      $dangLoc = request()->has('ma_toa_nha') ||
+        request()->has('thang_nam');
+    @endphp
             <!-- Content -->
         <div class="content container-fluid">
           @if (session('success'))
@@ -45,7 +49,7 @@
                 <div class="row align-items-center">
                     <div class="col-sm mb-2 mb-sm-0">
                         <nav aria-label="breadcrumb"></nav>
-                        <h1 class="page-header-title">Nhập chỉ số</h1>
+                        <h1 class="page-header-title">Nhập điện nước</h1>
                     </div>
                 </div>
                     <!-- End Row -->
@@ -58,47 +62,88 @@
                         <div class="card mb-3 mb-lg-5">
                             <!-- Header -->
                             <div class="card-header">
-                                <h4 class="card-header-title">Lọc</h4>
-                            </div>
-                            <!-- End Header -->
-
-                            <!-- Body -->
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <!-- Form Group -->
-                                        <div class="form-group">
-                                            <label for="addressLabel" class="input-label">Tên văn phòng</label>
-                                            <input type="text" class="form-control" name="name" id="name" aria-label="Nhập địa chỉ">
-                                        </div>
-                                        <!-- End Form Group -->
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <!-- Form Group -->
-                                        <div class="form-group">
-                                            <label for="floorLabel" class="input-label">Tòa nhà</label>
-                                            <select class="js-select2-custom custom-select" name="toa_nha" id="statusLabel">
-                                                @foreach ($toanhas as $toanha)
-                                                    <option value="{{ $toanha->ma_toa_nha }}">{{ $toanha->ten_toa_nha }}</option>
-                                                @endforeach
-                                                
-                                            </select>
-                                        </div>
-                                        <!-- End Form Group -->
-                                    </div>
-                                </div>
-                                <!-- End Row -->
-
-
-                            </div>
-                            <!-- Body -->
-                        </div>
-                        <!-- End Card -->
-                        <!-- Card -->
-                        <div class="card mb-3 mb-lg-5">
-                            <!-- Header -->
-                            <div class="card-header">
                                 <h4 class="card-header-title">Nhập chỉ số</h4>
+                                
+                                @if ($dangLoc)
+                                  <div class="hs-unfold mr-2">
+                                    <div class="d-flex flex-wrap gap-2">
+                                      <label class="font-weight-bold mr-1 mt-2">Bộ lọc: </label>
+                    
+                                      @if(request('ma_toa_nha'))
+                                        <span class="badge badge-soft-primary" style="padding: .8rem .8rem;">
+                                          {{ $toanhas->firstWhere('ma_toa_nha', request('ma_toa_nha'))?->ten_toa_nha ?? 'Không rõ' }}
+                                        </span>
+                                      @endif
+
+                                      @if(request('thang_nam'))
+                                      <span class="badge badge-soft-secondary" style="padding: .8rem .8rem;">
+                                        {{ \Carbon\Carbon::parse(request('thang_nam'))->format('m/Y') }}
+                                      </span>
+                                    @endif
+                                    </div>
+                                  </div>
+                                @endif
+                    
+                                <div class="col-auto">
+                                  <!-- Unfold -->
+                                  <div class="hs-unfold mr-2">
+                                      <a class="js-hs-unfold-invoker btn btn-soft-primary" href="javascript:;"title="Lọc"
+                                          data-hs-unfold-options='{
+                                              "target": "#datatableFilterSidebar",
+                                              "type": "css-animation",
+                                              "animationIn": "fadeInRight",
+                                              "animationOut": "fadeOutRight",
+                                              "hasOverlay": true,
+                                              "smartPositionOff": true
+                                          }'>
+                                          <i class="tio-filter-list mr-1"></i>
+                                      </a>
+                                  </div>
+                                  
+                                  <!-- End Unfold -->
+                                  <!-- Unfold -->
+                                  {{-- @if ($dangLoc)
+                                    <div class="hs-unfold mr-2">
+                                        <a href="{{ url()->current() }}" class="btn btn-outline-secondary ml-2">
+                                            <i class="tio-clear"></i> Đặt lại bộ lọc
+                                        </a>
+                                    </div>
+                                    @endif --}}
+                                  <!-- End Unfold -->
+                              </div>
+                    
+                              <div id="datatableFilterSidebar" class="hs-unfold-content sidebar sidebar-bordered sidebar-box-shadow">
+                                <div class="card mb-5">
+                                  <div class="card-header">
+                                    <h5 class="mb-0">Bộ lọc</h5>
+                                  </div>
+                                  <div class="card-body">
+                                    <form method="GET" action="{{ route('admin.chiso.create') }}">
+                                      {{-- Tòa nhà --}}
+                                      <div class="form-group">
+                                        <label for="ma_toa_nha">Tòa nhà</label>
+                                        <select name="ma_toa_nha" id="ma_toa_nha" class="form-control selectpicker" data-live-search="true" title="Chọn tòa nhà">
+                                          <option value="">-- Tất cả --</option>
+                                          @foreach ($toanhas as $toa)
+                                            <option value="{{ $toa->ma_toa_nha }}" {{ request('ma_toa_nha') == $toa->ma_toa_nha ? 'selected' : '' }}>
+                                              {{ $toa->ten_toa_nha }}
+                                            </option>
+                                          @endforeach
+                                        </select>
+                                      </div>
+                                    
+                                      {{-- Tháng năm --}}
+                                      <div class="form-group">
+                                        <label for="thang_nam">Tháng - Năm</label>
+                                        <input type="month" name="thang_nam" id="thang_nam" class="form-control"
+                                               value="{{ request('thang_nam') }}">
+                                      </div>
+                                    
+                                      <button type="submit" class="btn btn-primary btn-block mt-3">Lọc</button>
+                                    </form>                                    
+                                  </div>
+                                </div>
+                              </div>     
                             </div>
                             <!-- End Header -->
 
@@ -145,7 +190,7 @@
                                           
                                               @if ($vanphong)
                                                 <tr>
-                                                  <td>{{ $hoadon->ma_hoa_don }}</td>
+                                                  <td><a href="#">{{ $hoadon->ma_hoa_don }}</a></td>
                                                   <td>{{ $vanphong->ten_van_phong }}</td>
                                                   <td class="text-break px-3">{{ $vanphong->toanha->ten_toa_nha }}</td>
                                                   <td class="text-break px-3">{{ $hoadon->thang_nam }}</td>

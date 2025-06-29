@@ -4,6 +4,9 @@
 @endpush
 @section('content')
     <main id="content" role="main" class="main">
+        @php
+      $dangLoc = request()->has('trang_thai');
+    @endphp
         <!-- Content -->
         <div class="content container-fluid">
             <!-- Page Header -->
@@ -69,68 +72,73 @@
                             </form>
                         </div>
 
-                        <div class="col-lg-6">
-                            <div class="d-sm-flex justify-content-sm-end align-items-sm-center">
-                                <!-- Datatable Info -->
-                                <div id="datatableCounterInfo" class="mr-2 mb-2 mb-sm-0" style="display: none;">
-                                    <div class="d-flex align-items-center">
-                                        <span class="font-size-sm mr-3">
-                                            <span id="datatableCounter">0</span>
-                                            Selected
-                                        </span>
-                                        <a class="btn btn-sm btn-outline-danger" href="javascript:;">
-                                            <i class="tio-delete-outlined"></i> Delete
-                                        </a>
-                                    </div>
-                                </div>
-                                <!-- End Datatable Info -->
+                        {{-- Tag nội dung đang lọc --}}
+                        @if ($dangLoc)
+                        <div class="hs-unfold mr-2">
+                            <div class="d-flex flex-wrap gap-2">
+                            <label class="font-weight-bold mr-1 mt-2">Bộ lọc: </label>
 
-                                <!-- Unfold -->
-                                {{-- <div class="hs-unfold mr-2">
-                                    <a class="js-hs-unfold-invoker btn btn-sm btn-white dropdown-toggle" href="javascript:;"
-                                        data-hs-unfold-options='{
-                                            "target": "#usersExportDropdown",
-                                            "type": "css-animation"
-                                            }'>
-                                        <i class="tio-download-to mr-1"></i> Export
-                                    </a>
-
-                                    <div id="usersExportDropdown"
-                                        class="hs-unfold-content dropdown-unfold dropdown-menu dropdown-menu-sm-right">
-                                        <span class="dropdown-header">Options</span>
-                                        <a id="export-copy" class="dropdown-item" href="javascript:;">
-                                            <img class="avatar avatar-xss avatar-4by3 mr-2"
-                                                src="assets\svg\illustrations\copy.svg" alt="Image Description">
-                                            Copy
-                                        </a>
-                                        <a id="export-print" class="dropdown-item" href="javascript:;">
-                                            <img class="avatar avatar-xss avatar-4by3 mr-2"
-                                                src="assets\svg\illustrations\print.svg" alt="Image Description">
-                                            Print
-                                        </a>
-                                        <div class="dropdown-divider"></div>
-                                        <span class="dropdown-header">Download options</span>
-                                        <a id="export-excel" class="dropdown-item" href="javascript:;">
-                                            <img class="avatar avatar-xss avatar-4by3 mr-2"
-                                                src="assets\svg\brands\excel.svg" alt="Image Description">
-                                            Excel
-                                        </a>
-                                        <a id="export-csv" class="dropdown-item" href="javascript:;">
-                                            <img class="avatar avatar-xss avatar-4by3 mr-2"
-                                                src="assets\svg\components\placeholder-csv-format.svg"
-                                                alt="Image Description">
-                                            .CSV
-                                        </a>
-                                        <a id="export-pdf" class="dropdown-item" href="javascript:;">
-                                            <img class="avatar avatar-xss avatar-4by3 mr-2" src="assets\svg\brands\pdf.svg"
-                                                alt="Image Description">
-                                            PDF
-                                        </a>
-                                    </div>
-                                </div> --}}
-                                <!-- End Unfold -->
+                            @if(request('trang_thai'))
+                                <span class="badge badge-soft-warning" style="padding: .8rem .8rem;">
+                                {{ request('trang_thai') == 'da xu ly' ? 'Đã xử lý' : 'Chưa xử lý' }}
+                                </span>
+                            @endif
                             </div>
                         </div>
+                        @endif
+
+                        <div class="col-auto">
+                            <!-- Unfold -->
+                            <div class="hs-unfold mr-2">
+                                <a class="js-hs-unfold-invoker btn btn-soft-primary" href="javascript:;"title="Lọc"
+                                    data-hs-unfold-options='{
+                                        "target": "#datatableFilterSidebar",
+                                        "type": "css-animation",
+                                        "animationIn": "fadeInRight",
+                                        "animationOut": "fadeOutRight",
+                                        "hasOverlay": true,
+                                        "smartPositionOff": true
+                                    }'>
+                                    <i class="tio-filter-list mr-1"></i>
+                                </a>
+                            </div>
+                        
+                            <!-- End Unfold -->
+                            <!-- Unfold -->
+                            @if ($dangLoc)
+                            <div class="hs-unfold mr-2">
+                                <a href="{{ url()->current() }}" class="btn btn-outline-secondary ml-2">
+                                    <i class="tio-clear"></i> Đặt lại bộ lọc
+                                </a>
+                            </div>
+                            @endif
+                            <!-- End Unfold -->
+                        </div>
+
+
+                        <!-- Sidebar filter -->
+                        <div id="datatableFilterSidebar" class="hs-unfold-content sidebar sidebar-bordered sidebar-box-shadow">
+                            <div class="card mb-5">
+                                <div class="card-header">
+                                <h5 class="mb-0">Bộ lọc</h5>
+                                </div>
+                                <div class="card-body">
+                                <form method="GET" action="{{ route('kt.hotro') }}">
+                                    {{-- Trạng thái --}}
+                                    <div class="form-group">
+                                    <label for="trang_thai">Trạng thái</label>
+                                    <select name="trang_thai" id="trang_thai" class="form-control selectpicker" data-live-search="true" title="Chọn trạng thái">
+                                        <option value="">-- Tất cả --</option>
+                                        <option value="da xu ly" {{ request('trang_thai') == 'da xu ly' ? 'selected' : '' }}>Đã xử lý</option>
+                                        <option value="chua xu ly" {{ request('trang_thai') == 'chua xu ly' ? 'selected' : '' }}>Chưa xử lý</option>
+                                    </select>
+                                    </div>
+                            
+                                    <button type="submit" class="btn btn-primary btn-block mt-3">Lọc</button>
+                                </form>
+                                </div>
+                            </div>
+                        </div>   
                     </div>
                     <!-- End Row -->
                 </div>
@@ -173,7 +181,7 @@
                             @foreach ($hoTros as $hoTro)
                                 <tr>
                                     <td>
-                                        <a href="#">#{{ $hoTro->ma_yeu_cau }}</a>
+                                        <a href="#">{{ $hoTro->ma_yeu_cau }}</a>
                                     </td>
                                     <td style="max-width: 300px; white-space: normal; word-break: break-word;">
                                         {{ $hoTro->tieu_de }}</td>
@@ -181,7 +189,7 @@
                                         {{ $hoTro->noi_dung }}</td>
                                     <td>{{ \Carbon\Carbon::parse($hoTro->thoi_gian_gui)->format('d-m-Y') }}</td>
                                     <td>
-                                        @if ($hoTro->tinh_trang === 'da xu ly')
+                                        @if ($hoTro->trang_thai_xu_ly === 'da xu ly')
                                             <span class="badge badge-soft-success"> Đã xử lý
                                             </span>
                                         @else

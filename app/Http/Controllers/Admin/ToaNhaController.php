@@ -13,8 +13,8 @@ class ToaNhaController extends Controller
      */
     public function index(Request $request)
     {
-        $query = ToaNha::query();
-
+        $query = ToaNha::withCount('vanPhongs');
+        
         if ($request->filled('trang_thai')) {
             $query->where('trang_thai', $request->trang_thai);
         }
@@ -110,4 +110,11 @@ class ToaNhaController extends Controller
         $toaNha->delete(); // Thực hiện soft delete
         return redirect()->route('admin.toanha.index')->with('success', 'Đã cập nhật trạng thái xóa.');
     }
+
+    public function preview($id)
+    {
+        $toaNha = ToaNha::findOrFail($id);
+        return view('admin.toanha.preview_toanha', compact('toaNha'));
+    }
+
 }

@@ -9,11 +9,40 @@ use Illuminate\Http\Request;
 
 class VanPhongController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $vanphongs = VanPhong::with('toanha')->get();
-        return view('admin.vanphong.index', compact('vanphongs'));
+        $query = VanPhong::with('toaNha');
+
+        if ($request->filled('ma_toa_nha')) {
+            $query->where('ma_toa_nha', $request->ma_toa_nha);
+        }
+
+        if ($request->filled('trang_thai')) {
+            $query->where('trang_thai', $request->trang_thai);
+        }
+
+        if ($request->filled('dien_tich_min')) {
+            $query->where('dien_tich', '>=', $request->dien_tich_min);
+        }
+
+        if ($request->filled('dien_tich_max')) {
+            $query->where('dien_tich', '<=', $request->dien_tich_max);
+        }
+
+        if ($request->filled('gia_thue_min')) {
+            $query->where('gia_thue', '>=', $request->gia_thue_min);
+        }
+
+        if ($request->filled('gia_thue_max')) {
+            $query->where('gia_thue', '<=', $request->gia_thue_max);
+        }
+
+        $vanphongs = $query->get();
+        $dsToaNha = ToaNha::orderBy('ten_toa_nha')->get();
+
+        return view('admin.vanphong.index', compact('vanphongs', 'dsToaNha'));
     }
+
 
     public function create()
     {
@@ -99,5 +128,11 @@ class VanPhongController extends Controller
             'success' => 'Cập nhật văn phòng thành công',
             'data' => $vanphong,
         ]);
+    }
+
+    public function preview($id)
+    {
+        $vanphong = VanPhong::with('toanha')->findOrFail($id);
+        return view('admin.vanphong.preview_vanphong', compact('vanphong'));
     }
 }

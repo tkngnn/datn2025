@@ -136,7 +136,7 @@
                         <div class="col-auto">
                             <!-- Unfold -->
                             <div class="hs-unfold mr-2">
-                                <a class="js-hs-unfold-invoker btn btn-white" href="javascript:;"
+                                <a class="js-hs-unfold-invoker btn btn-white" href="javascript:;" title="Lọc"
                                     data-hs-unfold-options='{
                                         "target": "#datatableFilterSidebar",
                                         "type": "css-animation",
@@ -145,7 +145,7 @@
                                         "hasOverlay": true,
                                         "smartPositionOff": true
                                     }'>
-                                    <i class="tio-filter-list mr-1"></i> Lọc
+                                    <i class="tio-filter-list mr-1"></i>
                                 </a>
                             </div>
                             <!-- End Unfold -->
@@ -199,7 +199,7 @@
                     <table id="datatable"
                         class="table table-borderless table-thead-bordered table-nowrap table-align-middle card-table"
                         data-hs-datatables-options='{
-                           "columnDefs": [{"targets": [0, 5], "width": "5%", "orderable": false}],
+                           "columnDefs": [{"targets": [0, 7], "width": "5%", "orderable": false}],
                            "order": [],
                            "info": {"totalQty": "#datatableWithPaginationInfoTotalQty"},
                            "search": "#datatableSearch",
@@ -221,6 +221,7 @@
                                 <th>Tên Tòa Nhà</th>
                                 <th>Địa Chỉ</th>
                                 <th>Số Tầng</th>
+                                <th>Số Văn Phòng</th>
                                 <th>Trạng Thái</th>
                                 <th>Hành Động</th>
                             </tr>
@@ -238,13 +239,22 @@
                                         </div> --}}
                                     </td>
                                     <td class="table-column-pl-0">
-                                        <a href="#">#{{ $item->ma_toa_nha }}</a>
+                                        <a href="javascript:;" 
+                                           class="btn-xem-toanha"
+                                           data-id="{{ $item->ma_toa_nha }}">
+                                            {{ $item->ma_toa_nha }}
+                                        </a>
                                     </td>
                                     <td>
-                                        {{ $item->ten_toa_nha }}
-                                    </td>
-                                    <td>{{ $item->dia_chi }}</td>
-                                    <td>{{ $item->so_tang }}</td>
+                                        <a href="javascript:;" 
+                                           class="btn-xem-toanha text-body"
+                                           data-id="{{ $item->ma_toa_nha }}">
+                                            {{ $item->ten_toa_nha }}
+                                        </a>
+                                    </td>                                                                       
+                                    <td style="max-width: 300px; white-space: normal; word-break: break-word;">{{ $item->dia_chi }}</td>
+                                    <td >{{ $item->so_tang }}</td>
+                                    <td><a href="{{ route('admin.vanphong.index', ['ma_toa_nha' => $item->ma_toa_nha]) }}" title="Xem danh sách văn phòng của tòa nhà" class="text-body">{{ $item->van_phongs_count }}</a></td>
                                     <td>
                                         @if ($item->trang_thai === 'hoat dong')
                                             <span class="badge badge-success">Hoạt động</span>
@@ -253,11 +263,14 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <div class="btn-group">
+                                        <div class="text-break px-3">
                                             <a class="btn btn-sm btn-white"
                                                 href="{{ route('admin.toanha.edit', $item->ma_toa_nha) }}">
                                                 <i class="tio-edit"></i>
                                             </a>
+                                            <a href="{{ route('admin.vanphong.index', ['ma_toa_nha' => $item->ma_toa_nha]) }}" class="btn btn-sm btn-primary" title="Xem danh sách văn phòng của tòa nhà">
+                                                <i class="tio-visible-outlined"></i>
+                                              </a>
                                             {{-- <form action="{{ route('admin.toanha.destroy', $item->ma_toa_nha) }}"
                                                 method="POST" onsubmit="return confirm('Xác nhận ẩn tòa nhà này?')">
                                                 @csrf
@@ -321,16 +334,45 @@
             <!-- End Card -->
         </div>
         <!-- End Content -->
-
+        <!-- ToaNha Modal Popup -->
+        <div class="modal fade" id="toaNhaModal" tabindex="-1" aria-labelledby="toaNhaModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title"></h5>
+                  <button type="button" class="btn btn-close btn-sm btn-ghost-secondary" data-bs-dismiss="modal" aria-label="Đóng">
+                    <i class="tio-clear tio-lg"></i>
+                  </button>
+                </div>
+                <div class="modal-body" id="toaNhaModalContent">
+                  <div class="text-center">Đang tải...</div>
+                </div>
+              </div>
+            </div>
+          </div>          
+        <!-- End ToaNha Modal Popup --> 
     </main>
 @endsection
 
 @push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/js/bootstrap-select.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         $(document).ready(function() {
             // Initialize Bootstrap Select
             $('.selectpicker').selectpicker();
+        });
+
+        $(document).on('click', '.btn-xem-toanha', function () {
+            const id = $(this).data('id');
+            $('#toaNhaModalContent').html('<div class="text-center">Đang tải...</div>');
+            $('#toaNhaModal').modal('show');
+
+            $('#toaNhaModalContent').load(`/admin/toanha/preview/${id}`, function (response, status, xhr) {
+                if (status === "error") {
+                    $('#toaNhaModalContent').html('<div class="text-danger">Không thể tải thông tin tòa nhà.</div>');
+                }
+            });
         });
     </script>
 @endpush

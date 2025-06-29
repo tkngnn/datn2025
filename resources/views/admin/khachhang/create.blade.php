@@ -118,8 +118,8 @@
                     <div class="col-sm-9">
                       <div class="select2-custom">
                         <select class="custom-select" name="vai_tro">
-                          <option value="KH">Khách hàng</option>
-                          <option value="Admin">Admin</option>
+                          <option value="KT">Khách thuê</option>
+                          <option value="admin">Admin</option>
                         </select>
                       </div>  
                     </div>

@@ -10,9 +10,20 @@ use App\Models\KhachHang;
 
 class KhachHangController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $khachhangs = KhachHang::all();
+        $query = KhachHang::query();
+
+        if ($request->filled('vai_tro')) {
+            $query->where('vai_tro', $request->vai_tro);
+        }
+
+        if ($request->filled('trang_thai')) {
+            $query->where('trang_thai', $request->trang_thai);
+        }
+
+        $khachhangs = $query->get();
+
         return view('admin.khachhang.index', compact('khachhangs'));
     }
 
