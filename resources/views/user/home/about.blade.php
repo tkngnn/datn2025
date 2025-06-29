@@ -10,7 +10,7 @@
         <h1 class="mb-2 mb-lg-0">Giới thiệu về BGROUP</h1>
         <nav class="breadcrumbs">
           <ol>
-            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html">Trang chủ</a></li>
             <li class="current">Giới thiệu về chúng tôi</li>
           </ol>
         </nav>
@@ -85,10 +85,10 @@
           <div class="row align-items-center">
             <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
               <div class="avatars d-flex align-items-center">
-                <img src="assets/img/person/person-m-2.webp" alt="Avatar 1" class="rounded-circle" loading="lazy">
-                <img src="assets/img/person/person-m-3.webp" alt="Avatar 2" class="rounded-circle" loading="lazy">
-                <img src="assets/img/person/person-f-5.webp" alt="Avatar 3" class="rounded-circle" loading="lazy">
-                <img src="assets/img/person/person-m-5.webp" alt="Avatar 4" class="rounded-circle" loading="lazy">
+                <img src="{{ asset('user/assets/img/about/user3.jpg') }}" alt="Avatar 1" class="rounded-circle" loading="lazy">
+                <img src="{{ asset('user/assets/img/about/user4.jpg') }}" alt="Avatar 1" class="rounded-circle" loading="lazy">
+                <img src="{{ asset('user/assets/img/about/user3.jpg') }}" alt="Avatar 1" class="rounded-circle" loading="lazy">
+                <img src="{{ asset('user/assets/img/about/user4.jpg') }}" alt="Avatar 1" class="rounded-circle" loading="lazy">
               </div>
             </div>
       
@@ -123,14 +123,14 @@
                 <div class="quote-pattern">
                   <i class="bi bi-quote"></i>
                 </div>
-                <p>Bgroup đã giúp chúng tôi hoàn tất thủ tục pháp lý mở công ty nhanh chóng và đúng quy định. Dịch vụ tận tâm, hỗ trợ chuyên nghiệp.</p>
+                <p>Quy trình đăng ký địa chỉ kinh doanh và hỗ trợ pháp lý tại Bgroup thật sự nhanh gọn và rõ ràng. Tôi cảm thấy rất an tâm khi đồng hành cùng họ.</p>
                 <div class="client-info">
                   <div class="client-image">
-                    <img src="assets/img/person/person-f-7.webp" alt="Client">
+                    <img src="{{ asset('user/assets/img/about/user2.jpg') }}" alt="Client">
                   </div>
                   <div class="client-details">
-                    <h3>Nguyễn Thị Mai</h3>
-                    <span class="position">CEO Công ty TNHH MaiTech</span>
+                    <h3>Hoàng Thị Ngọc</h3>
+                    <span class="position">Giám đốc Công ty Luật HN Legal</span>
                   </div>
                 </div>
               </div>
@@ -141,14 +141,14 @@
                 <div class="quote-pattern">
                   <i class="bi bi-quote"></i>
                 </div>
-                <p>Không gian văn phòng tại Bgroup rất chuyên nghiệp, đầy đủ tiện nghi, giúp chúng tôi xây dựng hình ảnh uy tín trong mắt đối tác.</p>
+                <p>Chúng tôi rất hài lòng với môi trường làm việc tại Bgroup – không gian yên tĩnh, hiện đại và dịch vụ hỗ trợ kịp thời mọi lúc.</p>
                 <div class="client-info">
                   <div class="client-image">
-                    <img src="assets/img/person/person-m-7.webp" alt="Client">
+                    <img src="{{ asset('user/assets/img/about/user1.jpg') }}" alt="Client">
                   </div>
                   <div class="client-details">
-                    <h3>Trần Văn Hùng</h3>
-                    <span class="position">Giám đốc VinaGreen</span>
+                    <h3>Nguyễn Văn Long</h3>
+                    <span class="position">Trưởng phòng R&D - NextStep Labs</span>
                   </div>
                 </div>
               </div>
@@ -159,14 +159,14 @@
                 <div class="quote-pattern">
                   <i class="bi bi-quote"></i>
                 </div>
-                <p>Nhờ sự hỗ trợ pháp lý từ Bgroup, doanh nghiệp của chúng tôi đã tiết kiệm được nhiều thời gian và chi phí trong quá trình hoạt động.</p>
+                <p>Việc thuê văn phòng tại Bgroup đã góp phần nâng tầm hình ảnh thương hiệu của chúng tôi. Đội ngũ hỗ trợ luôn chuyên nghiệp và thân thiện.</p>
                 <div class="client-info">
                   <div class="client-image">
-                    <img src="assets/img/person/person-f-8.webp" alt="Client">
+                    <img src="{{ asset('user/assets/img/about/user2.jpg') }}" alt="Client">
                   </div>
                   <div class="client-details">
-                    <h3>Phạm Hồng Ánh</h3>
-                    <span class="position">Founder StartUp GoBiz</span>
+                    <h3>Phạm Tuấn Kiệt</h3>
+                    <span class="position">Giám đốc điều hành CodaHub</span>
                   </div>
                 </div>
               </div>
@@ -177,58 +177,59 @@
                 <div class="quote-pattern">
                   <i class="bi bi-quote"></i>
                 </div>
-                <p>Chúng tôi chọn Bgroup vì sự chuyên nghiệp và minh bạch trong dịch vụ. Từ tư vấn, hợp đồng đến hậu mãi đều rất hài lòng.</p>
+                <p>Tôi đánh giá cao phong cách làm việc minh bạch, chi tiết trong hợp đồng và sự hỗ trợ tận tâm từ đội ngũ Bgroup ngay từ ngày đầu làm việc.</p>
                 <div class="client-info">
                   <div class="client-image">
-                    <img src="assets/img/person/person-m-8.webp" alt="Client">
+                    <img src="{{ asset('user/assets/img/about/user1.jpg') }}" alt="Client">
                   </div>
                   <div class="client-details">
-                    <h3>Lê Minh Tuấn</h3>
-                    <span class="position">Quản lý Công ty M&A Solutions</span>
+                    <h3>Trịnh Lê Phương</h3>
+                    <span class="position">Quản lý Nhân sự - Orion Studio</span>
                   </div>
                 </div>
               </div>
             </div>
-
-            <div class="testimonial-item highlight" data-aos="fade-up" data-aos-delay="100">
-                <div class="testimonial-content">
-                  <div class="quote-pattern">
-                    <i class="bi bi-quote"></i>
+      
+            <div class="testimonial-item highlight" data-aos="fade-up" data-aos-delay="400">
+              <div class="testimonial-content">
+                <div class="quote-pattern">
+                  <i class="bi bi-quote"></i>
+                </div>
+                <p>Từ không gian đến dịch vụ đều vượt kỳ vọng. Bgroup là lựa chọn lý tưởng cho các startup cần sự chuyên nghiệp nhưng linh hoạt.</p>
+                <div class="client-info">
+                  <div class="client-image">
+                    <img src="{{ asset('user/assets/img/about/user1.jpg') }}" alt="Client">
                   </div>
-                  <p>Không gian văn phòng tại Bgroup rất chuyên nghiệp, đầy đủ tiện nghi, giúp chúng tôi xây dựng hình ảnh uy tín trong mắt đối tác.</p>
-                  <div class="client-info">
-                    <div class="client-image">
-                      <img src="assets/img/person/person-m-7.webp" alt="Client">
-                    </div>
-                    <div class="client-details">
-                      <h3>Trần Văn Hùng</h3>
-                      <span class="position">Giám đốc điều hành GLO Consulting</span>
-                    </div>
+                  <div class="client-details">
+                    <h3>Lưu Thảo Nhi</h3>
+                    <span class="position">Founder AhaCommerce</span>
                   </div>
                 </div>
               </div>
-
-              <div class="testimonial-item " data-aos="fade-up" data-aos-delay="100">
-                <div class="testimonial-content">
-                  <div class="quote-pattern">
-                    <i class="bi bi-quote"></i>
+            </div>
+      
+            <div class="testimonial-item" data-aos="fade-up" data-aos-delay="500">
+              <div class="testimonial-content">
+                <div class="quote-pattern">
+                  <i class="bi bi-quote"></i>
+                </div>
+                <p>Sau hơn 6 tháng hoạt động tại đây, chúng tôi hoàn toàn hài lòng với chất lượng dịch vụ, hệ thống an ninh và sự hỗ trợ kỹ thuật của tòa nhà.</p>
+                <div class="client-info">
+                  <div class="client-image">
+                    <img src="{{ asset('user/assets/img/about/user2.jpg') }}" alt="Client">
                   </div>
-                  <p>Không gian văn phòng tại Bgroup rất chuyên nghiệp, đầy đủ tiện nghi, giúp chúng tôi xây dựng hình ảnh uy tín trong mắt đối tác.</p>
-                  <div class="client-info">
-                    <div class="client-image">
-                      <img src="assets/img/person/person-m-7.webp" alt="Client">
-                    </div>
-                    <div class="client-details">
-                      <h3>Trần Văn Hùng</h3>
-                      <span class="position">CEO AlphaTech Việt Nam</span>
-                    </div>
+                  <div class="client-details">
+                    <h3>Đặng Quốc Dũng</h3>
+                    <span class="position">COO Công ty TNHH DevFlex</span>
                   </div>
                 </div>
               </div>
+            </div>
       
           </div>
         </div>
       </section>
+      
       
 
   </main>

@@ -38,6 +38,7 @@
             font-weight: bold;
             margin-left: 10px;
         }
+
         .logo-img-footer {
             width: 100px;
             height: auto;
@@ -89,23 +90,24 @@
                         </button> --}}
                         <style>
                             .contact-box {
-                            display: flex;
-                            align-items: center;
-                            gap: 16px;
-                            font-family: Arial, sans-serif;
+                                display: flex;
+                                align-items: center;
+                                gap: 16px;
+                                font-family: Arial, sans-serif;
                             }
 
                             .hotline-btn {
-                            background-color: #0a4db8; /* màu xanh như hình */
-                            color: white;
-                            padding: 10px 20px;
-                            border-radius: 50px;
-                            text-decoration: none;
-                            font-weight: bold;
-                            font-size: 14px;
-                            display: inline-block;
-                            transition: background 0.2s ease;
-                            border: 2px solid transparent;
+                                background-color: #0a4db8;
+                                /* màu xanh như hình */
+                                color: white;
+                                padding: 10px 20px;
+                                border-radius: 50px;
+                                text-decoration: none;
+                                font-weight: bold;
+                                font-size: 14px;
+                                display: inline-block;
+                                transition: background 0.2s ease;
+                                border: 2px solid transparent;
                             }
 
                             .hotline-btn:hover {
@@ -116,20 +118,20 @@
 
 
                             .email-link {
-                            display: inline-flex;
-                            align-items: center;
-                            gap: 6px;
-                            color: #666;
-                            text-decoration: none;
-                            font-size: 14px;
-                            text-transform: uppercase;
+                                display: inline-flex;
+                                align-items: center;
+                                gap: 6px;
+                                color: #666;
+                                text-decoration: none;
+                                font-size: 14px;
+                                text-transform: uppercase;
                             }
 
                             .email-link:hover {
-                            color: #0a4db8;
+                                color: #0a4db8;
                             }
                         </style>
-                                       
+
                         <!-- Account -->
                         <div class="dropdown account-dropdown">
                             <button class="header-action-btn" data-bs-toggle="dropdown">
@@ -161,27 +163,18 @@
                 <div class="position-relative">
                     <nav id="navmenu" class="navmenu">
                         <ul>
-                            <li><a href="{{ route('user.home') }}" class="{{ Request::is('/') ? 'active' : '' }}">TRANG CHỦ</a></li>
+                            <li><a href="{{ route('user.home') }}"
+                                    class="{{ Request::is('user/trang-chu') ? 'active' : '' }}">TRANG CHỦ</a></li>
                             {{-- <li><a href="about.html">GIỚI THIỆU</a></li> --}}
-                            <li class="dropdown"><a href="{{ route('user.danhsach') }}"><span>VĂN PHÒNG</span> <i
-                                        class="bi bi-chevron-down toggle-dropdown"></i></a>
-                                <ul>
-                                    <li><a href="#">Hà Nội</a></li>
-                                    <li class="dropdown"><a href="#" class="{{ Request::is('/') ? 'active' : '' }}"><span>TP. Hồ Chí Minh</span> <i
-                                                class="bi bi-chevron-down toggle-dropdown"></i></a>
-                                        <ul>
-                                            <li><a href="#">Quận 1</a></li>
-                                            <li><a href="#">Quận 2</a></li>
-                                            <li><a href="#">Quận 3</a></li>
-                                            <li><a href="#">Quận 4</a></li>
-                                            <li><a href="#">Quận 5</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#">Đà Nẵng</a></li>
-                                </ul>
+                            <li class="dropdown"><a href="{{ route('user.danhsach') }}"
+                                    class="{{ Request::is('user/danh-sach') ? 'active' : '' }}"><span>VĂN PHÒNG</span>
+                                </a>
                             </li>
-                            <li><a href="{{ route('user.lienhe') }}" class="{{ Request::is('user/lienhe') ? 'active' : '' }}">LIÊN HỆ</a></li>
-                            <li><a href="{{ route('user.about') }}" class="{{ Request::is('user/about') ? 'active' : '' }}">GIỚI THIỆU VỀ BGROUP</a></li>
+                            <li><a href="{{ route('user.lienhe') }}"
+                                    class="{{ Request::is('user/lienhe') ? 'active' : '' }}">LIÊN HỆ</a></li>
+                            <li><a href="{{ route('user.about') }}"
+                                    class="{{ Request::is('user/about') ? 'active' : '' }}">GIỚI THIỆU VỀ BGROUP</a>
+                            </li>
 
                         </ul>
                     </nav>
@@ -217,46 +210,48 @@
                     <div class="col-lg-6 col-md-6 col-sm-12">
                         <div class="footer-widget footer-about">
                             <a href="{{ route('user.home') }}" class="logo">
-                                <img src="{{ asset('user/assets/img/bGROUP_white.png') }}" alt="Logo" class="logo-img-footer"
-                                    loading="lazy">
+                                <img src="{{ asset('user/assets/img/bGROUP_white.png') }}" alt="Logo"
+                                    class="logo-img-footer" loading="lazy">
                                 <span class="sitename">BGROUP</span>
                             </a>
-                            <p style="font-size: 120%; color:#1d3b6f" data-text-color="primary">Không gian lý tưởng – Khởi đầu thành công!</p>
-                            <span><i class="bi bi-geo-alt"></i> 65 Huỳnh Thúc Kháng, Bến Nghé, Quận 1, Hồ Chí Minh 700000</span>
+                            <p style="font-size: 120%; color:#1d3b6f" data-text-color="primary">Không gian lý tưởng –
+                                Khởi đầu thành công!</p>
+                            <span><i class="bi bi-geo-alt"></i> 65 Huỳnh Thúc Kháng, Bến Nghé, Quận 1, Hồ Chí Minh
+                                700000</span>
                         </div>
                     </div>
 
                     <div class="col-lg-3 col-md-6 col-sm-6">
                         <div class="footer-widget">
-                          <h4>THÔNG TIN LIÊN HỆ</h4>
-                          <div class="footer-contact mt-4">
-                            <ul class="footer-links">
-                              <li>
-                                <a href="tel:02838212360">
-                                  <i class="bi bi-telephone"></i>
-                                  <span>028 3821 2360</span>
-                                </a>
-                              </li>
-                              <li>
-                                <a href="mailto:info@bgroup.com.vn">
-                                  <i class="bi bi-envelope"></i>
-                                  <span>info@bgroup.com.vn</span>
-                                </a>
-                              </li>
-                            </ul>
-                          </div>
+                            <h4>THÔNG TIN LIÊN HỆ</h4>
+                            <div class="footer-contact mt-4">
+                                <ul class="footer-links">
+                                    <li>
+                                        <a href="tel:02838212360">
+                                            <i class="bi bi-telephone"></i>
+                                            <span>028 3821 2360</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="mailto:info@bgroup.com.vn">
+                                            <i class="bi bi-envelope"></i>
+                                            <span>info@bgroup.com.vn</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                      </div>
-                      
-                      <div class="col-lg-3 col-md-6 col-sm-6">
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 col-sm-6">
                         <div class="footer-widget">
-                          <h4>HỖ TRỢ KHÁCH HÀNG</h4>
-                          <ul class="footer-links">
-                            <li><a href="{{ route('user.about') }}">Giới thiệu về BGROUP</a></li>
-                            <li><a href="{{ route('user.lienhe') }}">Liên hệ</a></li>
-                          </ul>
+                            <h4>HỖ TRỢ KHÁCH HÀNG</h4>
+                            <ul class="footer-links">
+                                <li><a href="{{ route('user.about') }}">Giới thiệu về BGROUP</a></li>
+                                <li><a href="{{ route('user.lienhe') }}">Liên hệ</a></li>
+                            </ul>
                         </div>
-                      </div>                      
+                    </div>
 
                     {{-- <div class="col-lg-6 col-md-6 col-sm-12">
                         <div class="row gy-4 align-items-stretch">
@@ -295,7 +290,7 @@
                     
                         
                     </div> --}}
-                    
+
                 </div>
             </div>
         </div>
