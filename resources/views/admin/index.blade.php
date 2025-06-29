@@ -188,7 +188,7 @@
                                         {{ $khachhang->dia_chi }}
                                     </td>
                                     <td class="text-break px-3">
-                                        @if ($khachhang->vai_tro === 'Admin')
+                                        @if ($khachhang->vai_tro === 'admin')
                                             Admin
                                         @else
                                             Khách hàng

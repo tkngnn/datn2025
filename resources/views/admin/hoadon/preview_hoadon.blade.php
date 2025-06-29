@@ -161,11 +161,17 @@
         </tr>
 
         <tr>
+            <td>Tiền dịch vụ khác</td>
+            <td colspan="4"></td>
+            <td class="right">{{ number_format($hoadon->hopdong->chiTietHopDongs->first()->dich_vu_khac) }}</td>
+        </tr>
+
+        <tr>
             <td>Tiền thuê văn phòng</td>
             <td colspan="4"></td>
             <td class="right">{{ number_format($hoadon->tien_thue) }}</td>
         </tr>
-        
+
         <tr>
             <td colspan="5" class="right">Thuế VAT (10%)</td>
             <td class="right">

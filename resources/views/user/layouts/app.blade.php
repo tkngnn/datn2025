@@ -210,7 +210,7 @@
                     <div class="col-lg-6 col-md-6 col-sm-12">
                         <div class="footer-widget footer-about">
                             <a href="{{ route('user.home') }}" class="logo">
-                                <img src="{{ asset('user/assets/img/bGROUP_white.png') }}" alt="Logo"
+                                <img src="{{ asset('assets/img/login_logo.png') }}" alt="Logo"
                                     class="logo-img-footer" loading="lazy">
                                 <span class="sitename">BGROUP</span>
                             </a>

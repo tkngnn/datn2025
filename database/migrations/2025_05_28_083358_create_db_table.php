@@ -100,12 +100,12 @@ return new class extends Migration
             $table->id('ma_hoa_don');
             $table->unsignedBigInteger('ma_hop_dong');
             $table->string('thang_nam', 7);
-            $table->integer('so_dien');
-            $table->integer('so_nuoc');
-            $table->decimal('tien_dien', 18, 2);
-            $table->decimal('tien_nuoc', 18, 2);
+            $table->integer('so_dien')->nullable();
+            $table->integer('so_nuoc')->nullable();
+            $table->decimal('tien_dien', 18, 2)->nullable();
+            $table->decimal('tien_nuoc', 18, 2)->nullable();
             $table->decimal('tien_thue', 18, 2);
-            $table->decimal('tong_tien', 18, 2);
+            $table->decimal('tong_tien', 18, 2)->nullable();
             $table->string('trang_thai', 50);
             $table->foreign('ma_hop_dong')->references('ma_hop_dong')->on('hop_dong')->onDelete('cascade');
             $table->timestamps();

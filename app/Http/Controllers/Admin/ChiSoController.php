@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\HoaDonSendMailer;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Log;
 
 use App\Models\HopDong;
 use App\Models\VanPhong;
@@ -156,7 +157,8 @@ class ChiSoController extends Controller
 
             $tienDien = $dienTieuThu * $donGiaDien;
             $tienNuoc = $nuocTieuThu * $donGiaNuoc;
-            $tongThanhToan = ($tienDien + $tienNuoc + $tienThue)* 1.1;
+            $tienDichVuKhac= $chiTiet->dich_vu_khac ?? 0;
+            $tongThanhToan = ($tienDien + $tienNuoc + $tienThue + $tienDichVuKhac) * 1.1;
 
             $hoaDon->update([
                 'so_dien' => $soDien,
@@ -171,7 +173,7 @@ class ChiSoController extends Controller
                 ($today->day > 5 && $thangNamCuaHoaDon <= $thangTruoc) ||
                 ($today->day < $cuoiThang && $thangNamCuaHoaDon === $thangNay ) 
             ){
-                \Log::info("Truyền vào Mailer HĐ #$maHoaDon | điện cũ: $soDienCu | nước cũ: $soNuocCu");
+                Log::info("Truyền vào Mailer HĐ #$maHoaDon | điện cũ: $soDienCu | nước cũ: $soNuocCu");
                 Mail::to($hoaDon->hopdong->user->email)->send(new HoaDonSendMailer($hoaDon, $soDienCu, $soNuocCu));
             }
             

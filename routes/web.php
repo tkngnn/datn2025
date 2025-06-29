@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\KT\ThanhToanController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\Admin\HoaDonController;
 use App\Http\Controllers\Admin\ChiSoController;
+use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\User\VanPhongController as UserVanPhongController;
 
@@ -113,9 +114,6 @@ Route::middleware(['auth', 'verified', 'check.role:admin'])->prefix('admin')->na
 });
 
 Route::middleware(['auth', 'verified', 'check.role:KT'])->prefix('kt')->name('kt.')->group(function () {
-    Route::get('/dashboard', function () {
-        return view('admin.kt.index');
-    })->name('dashboard');
 
     Route::get('/dashboard', [KTController::class, 'index'])->name('dashboard');
     Route::get('/hopdong', [KTController::class, 'DSHopDong'])->name('hopdong');
@@ -138,7 +136,14 @@ Route::middleware(['auth', 'verified', 'check.role:KT'])->prefix('kt')->name('kt
 
 
 Route::get('/dashboard', function () {
-    return view('admin.index');
+    $user = Auth::user();
+
+    if ($user->vai_tro === 'admin') {
+        return redirect()->route('admin.dashboard');
+    } elseif ($user->vai_tro === 'KT') {
+        return redirect()->route('kt.dashboard');
+    }
+    abort(403, 'Không có quyền truy cập');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

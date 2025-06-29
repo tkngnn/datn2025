@@ -38,21 +38,23 @@
             </div>
             @if ($vp->slug)
                 <div class="product-content">
-                    <div class="product-details">
-                        <h3 class="product-title"><a
-                                href="{{ route('user.vanphong.chitiet', $vp->slug) }}">{{ $vp->toaNha->ten_toa_nha }} -
+                    <a href="{{ route('user.vanphong.chitiet', $vp->slug) }}">
+                        <div class="product-details">
+                            <h3 class="product-title">{{ $vp->toaNha->ten_toa_nha }}
+                                -
                                 Văn
-                                phòng {{ $vp->ten_van_phong }} - {{ $vp->ma_van_phong }}</a></h3>
-                        <div class="product-rating-container">
-                            <span class="text-muted">{{ $vp->toaNha->dia_chi }}</span>
+                                phòng {{ $vp->ten_van_phong }} - {{ $vp->ma_van_phong }}</h3>
+                            <div class="product-rating-container">
+                                <span class="text-muted">{{ $vp->toaNha->dia_chi }}</span>
+                            </div>
+                            <div class="product-price">
+                                <span>Diện tích: {{ $vp->dien_tich }} m²</span>
+                            </div>
+                            <div class="product-price">
+                                <span>Giá thuê: {{ number_format($vp->gia_thue) }} /m²</span>
+                            </div>
                         </div>
-                        <div class="product-price">
-                            <span>Diện tích: {{ $vp->dien_tich }} m²</span>
-                        </div>
-                        <div class="product-price">
-                            <span>Giá thuê: {{ number_format($vp->gia_thue) }} /m²</span>
-                        </div>
-                    </div>
+                    </a>
                 </div>
             @endif
         </div>

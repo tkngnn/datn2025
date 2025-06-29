@@ -1914,7 +1914,7 @@
                             <!-- Dashboards -->
                             <li class="nav-item">
                                 <a class="js-nav-tooltip-link nav-link {{ request()->is('kt/dashboard') ? 'active' : '' }}"
-                                    href="javascript:;" title="Dashboards">
+                                    href="{{ route('kt.dashboard') }}" title="Dashboards">
                                     <i class="tio-home-vs-1-outlined nav-icon"></i>
                                     <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Trang
                                         chủ</span>
