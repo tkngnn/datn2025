@@ -33,22 +33,8 @@
       <div class="page-header">
         <div class="row align-items-end">
           <div class="col-sm mb-2 mb-sm-0">
-            <nav aria-label="breadcrumb">
-              <ol class="breadcrumb breadcrumb-no-gutter">
-                <li class="breadcrumb-item"><a class="breadcrumb-link" href="javascript:;">Trang chủ</a></li>
-                <li class="breadcrumb-item"><a class="breadcrumb-link" href="javascript:;">Hóa đơn</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Tổng quan</li>
-              </ol>
-            </nav>
-
             <h1 class="page-header-title">Hóa đơn</h1>
           </div>
-
-          {{-- <div class="col-sm-auto">
-            <a class="btn btn-primary" href="{{ route('admin.chiso.create') }}">
-              <i class="tio-user-add mr-1"></i> Ghi chỉ số
-            </a>
-          </div> --}}
         </div>
         <!-- End Row -->
       </div>
@@ -135,7 +121,7 @@
             @if ($dangLoc)
               <div class="hs-unfold mr-2">
                   <a href="{{ url()->current() }}" class="btn btn-outline-secondary ml-2">
-                      <i class="tio-clear"></i> Đặt lại bộ lọc
+                      <i class="tio-refresh"></i>
                   </a>
               </div>
               @endif
@@ -150,7 +136,7 @@
               </div>
               <div class="card-body">
                 <form method="GET" action="{{ route('admin.hoadon.index') }}">
-                  {{-- Tòa nhà --}}
+
                   <div class="form-group">
                     <label for="ma_toa_nha">Tòa nhà</label>
                     <select name="ma_toa_nha" id="ma_toa_nha" class="form-control selectpicker" data-live-search="true" title="Chọn tòa nhà">
@@ -163,7 +149,6 @@
                     </select>
                   </div>
           
-                  {{-- Tiền --}}
                   <div class="form-group">
                     <label>Tiền</label>
                     <div class="input-group">
@@ -172,14 +157,12 @@
                     </div>
                   </div>
 
-                  {{-- Tháng năm --}}
                   <div class="form-group">
                     <label for="thang_nam">Tháng năm</label>
                     <input type="month" name="thang_nam" id="thang_nam" class="form-control"
                           value="{{ request('thang_nam') }}">
                   </div>
 
-                  {{-- Trạng thái --}}
                   <div class="form-group">
                     <label for="trang_thai">Trạng thái</label>
                     <select name="trang_thai" id="trang_thai" class="form-control selectpicker" data-live-search="true" title="Chọn trạng thái">
@@ -221,10 +204,6 @@
             <thead class="thead-light">
               <tr>
                 <th class="table-column-pr-0">
-                  {{-- <div class="custom-control custom-checkbox">
-                    <input id="datatableCheckAll" type="checkbox" class="custom-control-input">
-                    <label class="custom-control-label" for="datatableCheckAll"></label>
-                  </div> --}}
                 </th>
                 <th class="table-column-pl-0">Mã hóa đơn</th>
                 <th>Tên khách/Hợp đồng</th>
@@ -241,10 +220,6 @@
                 @foreach ($hoadon->hopdong->chiTietHopDongs as $cthd)
                   <tr>
                     <td class="table-column-pr-0">
-                      {{-- <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="usersDataCheck1">
-                        <label class="custom-control-label" for="usersDataCheck1"></label>
-                      </div> --}}
                     </td>
                     <td>
                       <a href="javascript:;" class="btn-xem-hoadon" title="Xem" data-ma_hoa_don="{{ $hoadon->ma_hoa_don }}">{{ $hoadon->ma_hoa_don }}</a>
@@ -258,13 +233,6 @@
                     <td class="text-break px-3">{{ $hoadon->thang_nam}}</td>
                     <td>{{ number_format($hoadon->tong_tien, 0, ',', '.') }}</td>
                     <td class="text-break px-3">
-                      {{-- <div>
-                        @if (!$hoadon->so_dien || !$hoadon->so_nuoc)
-                            <span class="badge badge-warning">Chưa nhập</span> 
-                        @else
-                            <span class="badge badge-success">Đã nhập</span> 
-                        @endif
-                      </div> --}}
                       <div>
                         @if ($hoadon->trang_thai === 'da thanh toan')
                             <span class="badge badge-success">Đã thanh toán</span> 
@@ -280,14 +248,14 @@
                     </td>
                     <td class="text-break px-3">
                       <div>
-                        <a class="btn btn-sm btn-primary btn-xem-hoadon" title="Xem" data-ma_hoa_don="{{ $hoadon->ma_hoa_don }}">
+                        <a class="btn btn-sm btn-soft-primary btn-xem-hoadon" title="Xem" data-ma_hoa_don="{{ $hoadon->ma_hoa_don }}">
                           <i class="tio-visible-outlined"></i>
                         </a>
                         @if ($hoadon->so_ngay_qua_han > 0)
                           <form action="{{ route('admin.hoadon.guimail') }}" method="POST" style="display: inline-block;">
                               @csrf
                               <input type="hidden" name="ma_hoa_don" value="{{ $hoadon->ma_hoa_don }}">
-                              <button type="submit" class="btn btn-sm btn-success" title="Gửi mail">
+                              <button type="submit" class="btn btn-sm btn-soft-success" title="Gửi mail">
                                 <i class="tio-email"></i>
                               </button>
                             </form>
@@ -356,7 +324,6 @@
               </button>
             </div>
             <div class="modal-body" id="modalBodyContent">
-              <!-- Nội dung ở đây -->
               <div class="text-center">Đang tải...</div>
             </div>
           </div>

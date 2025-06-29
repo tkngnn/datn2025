@@ -1955,31 +1955,7 @@
                                 </a>
                             </li>
                             <!-- End Văn phòng -->
-                            <!-- Khách hàng -->
-                            {{-- <li class="navbar-vertical-aside-has-menu ">
-                                <a class="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle "
-                                    href="javascript:;" title="Khách hàng">
-                                    <i class="tio-user nav-icon"></i>
-                                    <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Khách hàng</span>
-                                </a>
-
-                                <ul class="js-navbar-vertical-aside-submenu nav nav-sub">
-                                    <li class="nav-item">
-                                        <a class="nav-link {{ request()->is('admin/khachhang') ? 'active' : '' }}" href="{{ route('admin.khachhang.index') }}" title="Khách hàng">
-                                            <span class="tio-circle nav-indicator-icon"></span>
-                                            <span class="text-truncate">Khách hàng</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link {{ request()->is('admin/henxem') ? 'active' : '' }}" href="{{ route('admin.henxem.index') }}" title="Khách hẹn xem">
-                                            <span class="tio-circle nav-indicator-icon"></span>
-                                            <span class="text-truncate">Khách hẹn xem</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li> --}}
-                            <li
-                                class="navbar-vertical-aside-has-menu {{ request()->is('admin/khachhang*') || request()->is('admin/henxem*') ? 'show' : '' }}">
+                            <li class="navbar-vertical-aside-has-menu {{ request()->is('admin/khachhang*') || request()->is('admin/henxem*') ? 'show' : '' }}">
                                 <a class="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle {{ request()->is('admin/khachhang*') || request()->is('admin/henxem*') ? 'active' : '' }}"
                                     href="javascript:;" title="Khách hàng">
                                     <i class="tio-user nav-icon"></i>
@@ -2013,32 +1989,7 @@
                                 </a>
                             </li>
                             <!-- End Components -->
-                            <!-- Components -->
-                            {{-- <li class="navbar-vertical-aside-has-menu ">
-                                <a class="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle "
-                                    href="javascript:;" title="Tài chính">
-                                    <i class="tio-money nav-icon"></i>
-                                    <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Tài chính
-                                    </span>
-                                </a>
-
-                                <ul class="js-navbar-vertical-aside-submenu nav nav-sub">
-                                    <li class="nav-item">
-                                         <a class="nav-link " href="{{ route('admin.chiso.index') }}"
-                                            title="Ghi chỉ số">
-                                            <span class="tio-circle nav-indicator-icon"></span>
-                                            <span class="text-truncate">Ghi chỉ số</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link " href="{{ route('admin.hoadon.index') }}" title="Hóa đơn"> 
-                                            <span class="tio-circle nav-indicator-icon"></span>
-                                            <span class="text-truncate">Hóa đơn</span>
-                                        </a>
-                                    </li>
-
-                                </ul>
-                            </li> --}}
+                           
                             <li
                                 class="navbar-vertical-aside-has-menu {{ request()->is('admin/chiso*') || request()->is('admin/hoadon*') ? 'show' : '' }}">
                                 <a class="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle {{ request()->is('admin/chiso*') || request()->is('admin/hoadon*') ? 'active' : '' }}"
@@ -2075,37 +2026,6 @@
                             </li>
                             <!-- End Components -->
 
-                            <!-- Components -->
-                            {{-- <li class="navbar-vertical-aside-has-menu ">
-                                <a class="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle "
-                                    href="javascript:;" title="Thống Kê">
-                                    <i class="tio-chart-bar-1 nav-icon"></i>
-                                    <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Thống Kê
-                                    </span>
-                                </a>
-
-                                <ul class="js-navbar-vertical-aside-submenu nav nav-sub">
-                                    <li class="nav-item">
-                                        <a class="nav-link " href="{{ route('admin.thongke.index') }}"
-                                            title="Thống kê">
-                                            <span class="tio-circle nav-indicator-icon"></span>
-                                            <span class="text-truncate">Thống kê</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link " href="{{ route('admin.thongke.doanh_thu_thang') }}" title="Doanh thu">
-                                            <span class="tio-circle nav-indicator-icon"></span>
-                                            <span class="text-truncate">Doanh thu</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link " href="{{ route('admin.thongke.ty_le_lap_day') }}" title="Tỷ lệ lắp đầy">
-                                            <span class="tio-circle nav-indicator-icon"></span>
-                                            <span class="text-truncate">Tỷ lệ lắp đầy</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li> --}}
                             <li
                                 class="navbar-vertical-aside-has-menu {{ request()->is('admin/thongke*') ? 'show' : '' }}">
                                 <a class="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle {{ request()->is('admin/thongke*') ? 'active' : '' }}"
@@ -2799,7 +2719,7 @@
     <!-- End Navbar Vertical -->
 
     <!-- ========== MAIN CONTENT ========== -->
-    @yield('content') <!-- Nơi trang con sẽ inject nội dung -->
+    @yield('content') 
     <!-- ========== END MAIN CONTENT ========== -->
 
     <!-- ========== SECONDARY CONTENTS ========== -->

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\HoaDonSendMailer;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Log;
 
 use App\Models\HoaDon;
 use App\Models\ToaNha;
@@ -26,12 +27,10 @@ class HoaDonController extends Controller
             });
         }
 
-        // Lọc theo tháng năm
         if ($request->filled('thang_nam')) {
             $query->where('thang_nam', $request->thang_nam);
         }
 
-        // Lọc theo tiền
         if ($request->filled('gia_thue_min')) {
             $query->where('tong_tien', '>=', (float) str_replace(',', '', $request->gia_thue_min));
         }
@@ -40,7 +39,6 @@ class HoaDonController extends Controller
             $query->where('tong_tien', '<=', (float) str_replace(',', '', $request->gia_thue_max));
         }
 
-        // Lọc theo trạng thái
         if ($request->filled('trang_thai')) {
             $query->where('trang_thai', $request->trang_thai);
         }
@@ -97,7 +95,7 @@ class HoaDonController extends Controller
         ])->findOrFail($request->ma_hoa_don);
 
         $thangTruoc = Carbon::parse($hoadon->thang_nam . '-01')->subMonth()->format('Y-m');
-        \Log::info("$thangTruoc");
+        Log::info("$thangTruoc");
         $hoaDonTruoc = HoaDon::where('ma_hop_dong', $hoadon->ma_hop_dong)
                             ->where('thang_nam', $thangTruoc)
                             ->first();
@@ -106,7 +104,7 @@ class HoaDonController extends Controller
         $soNuocCu = $hoaDonTruoc?->so_nuoc ?? 0;
 
         Mail::to($hoadon->hopdong->user->email)->send(new HoaDonSendMailer($hoadon, $soDienCu, $soNuocCu));
-        \Log::info("Đã gửi mail đến {$hoadon->hopdong->user->email}");
+        Log::info("Đã gửi mail đến {$hoadon->hopdong->user->email}");
 
         return back()->with('success', "Đã gửi hóa đơn #{$request->ma_hoa_don} cho khách thuê {$hoadon->hopdong->user->name}.");
         }
@@ -134,7 +132,6 @@ class HoaDonController extends Controller
                 $hoadon->chi_so_nuoc_cu = 0;
             }
 
-            // Tạo PDF
             $pdf = Pdf::loadView('admin.hoadon.pdf_hoadon', compact('hoadon'));
 
             return $pdf->download("hoa-don-{$hoadon->ma_hoa_don}.pdf");

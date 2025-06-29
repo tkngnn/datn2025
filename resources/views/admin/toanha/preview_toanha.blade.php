@@ -42,19 +42,19 @@
     }
 
     .custom-attributes i.bi-hash {
-        color: #dc3545; /* đỏ */
+        color: #dc3545; 
     }
 
     .custom-attributes i.bi-geo-alt-fill {
-        color: #0d6efd; /* xanh dương */
+        color: #0d6efd; 
     }
 
     .custom-attributes i.bi-building {
-        color: #198754; /* xanh lá */
+        color: #198754; 
     }
 
     .custom-attributes i.bi-layers {
-        color: #fd7e14; /* cam */
+        color: #fd7e14; 
     }
 
     .vanphong-description {

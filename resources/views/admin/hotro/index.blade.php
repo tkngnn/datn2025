@@ -160,7 +160,7 @@
                                 <th>Thời gian gửi</th>
                                 <th>Trạng thái</th>
                                 <th>Ghi chú</th>
-                                <th>Hành động</th>
+                                <th>Thao tác</th>
                             </tr>
                         </thead>
 
@@ -211,14 +211,14 @@
                                     </td>
                                     <td>
                                         <div class="btn-group" role="group" style="gap: 0.2rem;">
-                                            <a class="btn btn-sm btn-white btn-view-detail" href="javascript:;"
+                                            <a class="btn btn-sm btn-soft-primary btn-view-detail" href="javascript:;"
                                                 data-id="{{ $yeuCau->ma_yeu_cau }}" data-toggle="tooltip"
                                                 data-placement="top" title="Xem chi tiết">
                                                 <i class="tio-visible-outlined"></i>
                                             </a>
 
                                             @if ($yeuCau->trang_thai_xu_ly === 'chua xu ly')
-                                                <a class="btn btn-sm btn-white" href="javascript:void(0);"
+                                                <a class="btn btn-sm btn-soft-dark" href="javascript:void(0);"
                                                     onclick="openEditModal({{ $yeuCau->ma_yeu_cau }})"
                                                     data-toggle="tooltip" data-placement="top" title="Sửa">
                                                     <i class="tio-edit"></i>
@@ -231,7 +231,7 @@
                                                 style="display: inline;">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button class="btn btn-sm btn-white" type="submit" data-toggle="tooltip"
+                                                <button class="btn btn-sm btn-soft-danger" type="submit" data-toggle="tooltip"
                                                     data-placement="top" title="Xóa">
                                                     <i class="tio-delete"></i>
                                                 </button>
@@ -333,8 +333,8 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-white" data-bs-dismiss="modal">Hủy</button>
-                            <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Hủy</button>
+                            <button type="submit" class="btn btn-primary">Lưu</button>
                         </div>
                     </form>
 

@@ -11,8 +11,8 @@
         <h1 class="mb-2 mb-lg-0">Liên hệ</h1>
         <nav class="breadcrumbs">
           <ol>
-            <li><a href="index.html">Trang chủ</a></li>
-            <li class="current">Liên hệ</li>
+            <li><a href="{{ route('user.home') }}">Trang chủ</a></li>
+            <li class="active"><a href="#">Liên hệ</a></li>
           </ol>
         </nav>
       </div>

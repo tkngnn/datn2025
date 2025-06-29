@@ -30,7 +30,7 @@
 }
 .swiper-slide {
   flex-shrink: 0;
-  width: auto; /* hoặc fixed size nếu muốn */
+  width: auto; 
   max-width: 80px;
   height: auto;
   padding: 4px;
@@ -46,10 +46,8 @@
 
 <div class="invoice-box">
   <div class="row">
-    <!-- Hình ảnh -->
     <div class="col-lg-6 mb-5 mb-lg-0">
       <div class="product-images">
-        <!-- Ảnh chính -->
         <div class="main-image-container mb-3 text-center">
           <img src="{{ $vanphong->getFirstMediaUrl('anh_van_phong') }}"
                alt="Ảnh chính"
@@ -58,7 +56,6 @@
                style="max-height: 300px; object-fit: contain;">
         </div>
 
-        <!-- Thumbnails -->
         <div class="product-thumbnails">
           <div class="swiper product-thumbnails-slider init-swiper">
             <script type="application/json" class="swiper-config">
@@ -95,7 +92,6 @@
       </div>
     </div>
 
-    <!-- Thông tin -->
     <div class="col-lg-6">
       <h1 style="color: #2d465e">Văn phòng: {{ $vanphong->ten_van_phong }}</h1>
       <p style="font-size: x-large; color:red">

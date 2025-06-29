@@ -66,40 +66,30 @@ class User extends Authenticatable
     {
         return $this->vai_tro === 'KT';
     }
-    /**
-     * Quan hệ: Một người dùng có nhiều hợp đồng.
-     */
+    
     public function hopDongs(): HasMany
     {
         return $this->hasMany(HopDong::class, 'user_id');
     }
 
-    /**
-     * Quan hệ: Một người dùng có nhiều yêu cầu hỗ trợ.
-     */
+   
     public function yeuCauHoTros(): HasMany
     {
         return $this->hasMany(YeuCauHoTro::class, 'user_id');
     }
 
-    /**
-     * Nếu muốn lấy tất cả hóa đơn thông qua các hợp đồng.
-     */
     public function hoaDons()
     {
         return $this->hasManyThrough(
             HoaDon::class,
             HopDong::class,
-            'user_id',         // Khóa ngoại trên bảng hop_dong
-            'ma_hop_dong',     // Khóa ngoại trên bảng hoa_don
-            'id',              // Khóa chính bảng users
-            'ma_hop_dong'      // Khóa chính bảng hop_dong
+            'user_id',
+            'ma_hop_dong',
+            'id',              
+            'ma_hop_dong'   
         );
     }
 
-    /**
-     * Nếu muốn lấy tất cả lịch sử cọc thông qua hợp đồng.
-     */
     public function lichSuCocs()
     {
         return $this->hasManyThrough(

@@ -17,20 +17,12 @@
       <div class="page-header">
         <div class="row align-items-end">
           <div class="col-sm mb-2 mb-sm-0">
-            <nav aria-label="breadcrumb">
-              <ol class="breadcrumb breadcrumb-no-gutter">
-                <li class="breadcrumb-item"><a class="breadcrumb-link" href="javascript:;">Trang chủ</a></li>
-                <li class="breadcrumb-item"><a class="breadcrumb-link" href="javascript:;">Văn phòng</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Tổng quan</li>
-              </ol>
-            </nav>
-
             <h1 class="page-header-title">Văn phòng</h1>
           </div>
 
           <div class="col-sm-auto">
-            <a class="btn btn-primary" href="{{ route('admin.vanphong.create') }}">
-              <i class="tio-user-add mr-1"></i> Thêm văn phòng
+            <a class="btn btn-primary" href="{{ route('admin.vanphong.create') }}" title="Thêm văn phòng">
+              <i class="tio-add"></i>
             </a>
           </div>
         </div>
@@ -57,7 +49,6 @@
                 <!-- End Search -->
               </form>
             </div>
-              {{-- Tag nội dung đang lọc --}}
               @if ($dangLoc)
                 <div class="hs-unfold mr-2">
                   <div class="d-flex flex-wrap gap-2">
@@ -127,7 +118,6 @@
               </div>
               <div class="card-body">
                 <form method="GET" action="{{ route('admin.vanphong.index') }}">
-                  {{-- Tòa nhà --}}
                   <div class="form-group">
                     <label for="ma_toa_nha">Tòa nhà</label>
                     <select name="ma_toa_nha" id="ma_toa_nha" class="form-control selectpicker" data-live-search="true" title="Chọn tòa nhà">
@@ -140,7 +130,6 @@
                     </select>
                   </div>
           
-                  {{-- Diện tích --}}
                   <div class="form-group">
                     <label>Diện tích (m²)</label>
                     <div class="input-group">
@@ -149,7 +138,6 @@
                     </div>
                   </div>
           
-                  {{-- Giá thuê --}}
                   <div class="form-group">
                     <label>Giá thuê (VND/m²)</label>
                     <div class="input-group">
@@ -158,7 +146,6 @@
                     </div>
                   </div>
           
-                  {{-- Trạng thái --}}
                   <div class="form-group">
                     <label for="trang_thai">Trạng thái</label>
                     <select name="trang_thai" id="trang_thai" class="form-control selectpicker" data-live-search="true" title="Chọn trạng thái">
@@ -201,10 +188,6 @@
             <thead class="thead-light">
               <tr>
                 <th class="table-column-pr-0">
-                  {{-- <div class="custom-control custom-checkbox">
-                    <input id="datatableCheckAll" type="checkbox" class="custom-control-input">
-                    <label class="custom-control-label" for="datatableCheckAll"></label>
-                  </div> --}}
                 </th>
                 <th class="table-column-pl-0">Mã văn phòng</th>
                 <th>Tên văn phòng</th>
@@ -220,10 +203,6 @@
               @foreach ($vanphongs as $vanphong)
                 <tr>
                   <td class="table-column-pr-0">
-                    {{-- <div class="custom-control custom-checkbox">
-                      <input type="checkbox" class="custom-control-input" id="usersDataCheck1">
-                      <label class="custom-control-label" for="usersDataCheck1"></label>
-                    </div> --}}
                   </td>
                   <td>
                     <a href="javascript:;" 
@@ -251,7 +230,7 @@
                   </td>
                   <td>
                     <div>
-                      <a class="btn btn-sm btn-white" href="{{ route('admin.vanphong.edit', $vanphong->ma_van_phong) }}" title="Sửa">
+                      <a class="btn btn-sm btn-soft-dark" href="{{ route('admin.vanphong.edit', $vanphong->ma_van_phong) }}" title="Sửa">
                         <i class="tio-edit"></i>
                       </a>
                     </div>

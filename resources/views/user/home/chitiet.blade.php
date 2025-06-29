@@ -32,8 +32,9 @@
         <h1 class="mb-2 mb-lg-0">Trang chi tiết</h1>
         <nav class="breadcrumbs">
           <ol>
-            <li><a href="index.html">Trang chủ</a></li>
-            <li class="current">Trang chi tiết</li>
+            <li><a href="{{ route('user.home') }}">Trang chủ</a></li>
+            <li><a href="{{ route('user.danhsach') }}">Văn phòng</a></li>
+            <li class="active"><a href="#">{{ $vanphong->ten_van_phong }}</a></li>
           </ol>
         </nav>
       </div>

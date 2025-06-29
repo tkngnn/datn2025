@@ -4,20 +4,18 @@
 @endpush
 @section('content')
 <main class="main">
-    <!-- Page Title -->
     <div class="page-title light-background">
       <div class="container d-lg-flex justify-content-between align-items-center">
         <h1 class="mb-2 mb-lg-0">Giới thiệu về BGROUP</h1>
         <nav class="breadcrumbs">
           <ol>
-            <li><a href="index.html">Trang chủ</a></li>
-            <li class="current">Giới thiệu về chúng tôi</li>
+            <li><a href="{{ route('user.home') }}">Trang chủ</a></li>
+            <li class="active"><a href="#">Giới thiệu về chúng tôi</a></li>
           </ol>
         </nav>
       </div>
-    </div><!-- End Page Title -->
+    </div>
 
-    <!-- About 2 Section -->
     <section id="about-2" class="about-2 section">
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
@@ -66,19 +64,9 @@
               </div>
             </div>
           </div>          
-
-        {{-- <div class="row mt-5">
-          <div class="col-lg-12" data-aos="zoom-in" data-aos-delay="200">
-            <div class="video-box">
-              <img src="assets/img/about/about-wide-1.webp" class="img-fluid" alt="Video Thumbnail">
-              <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="glightbox pulsating-play-btn"></a>
-            </div>
-          </div>
-        </div> --}}
-
       </div>
 
-    </section><!-- /About 2 Section -->
+    </section>
 
     <section id="stats" class="stats section">
         <div class="container" data-aos="fade-up" data-aos-delay="100">

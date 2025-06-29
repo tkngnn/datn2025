@@ -32,7 +32,6 @@
 
     @stack('styles')
     <style>
-        /* Custom styles can be added here */
         .sitename {
             font-size: 1.5rem;
             font-weight: bold;
@@ -68,26 +67,8 @@
                             class="logo-img">
                         <h1 class="sitename">BGROUP</h1>
                     </a>
-
-                    <!-- Search -->
-                    {{-- <form class="search-form desktop-search-form">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Tìm kiếm...">
-                            <button class="btn" type="submit">
-                                <i class="bi bi-search"></i>
-                            </button>
-                        </div>
-                    </form> --}}
-
                     <!-- Actions -->
                     <div class="header-actions d-flex align-items-center justify-content-end">
-
-                        <!-- Mobile Search Toggle -->
-                        {{-- <button class="header-action-btn mobile-search-toggle d-xl-none" type="button"
-                            data-bs-toggle="collapse" data-bs-target="#mobileSearch" aria-expanded="false"
-                            aria-controls="mobileSearch">
-                            <i class="bi bi-search"></i>
-                        </button> --}}
                         <style>
                             .contact-box {
                                 display: flex;
@@ -98,7 +79,6 @@
 
                             .hotline-btn {
                                 background-color: #0a4db8;
-                                /* màu xanh như hình */
                                 color: white;
                                 padding: 10px 20px;
                                 border-radius: 50px;
@@ -132,7 +112,6 @@
                             }
                         </style>
 
-                        <!-- Account -->
                         <div class="dropdown account-dropdown">
                             <button class="header-action-btn" data-bs-toggle="dropdown">
                                 <i class="bi bi-person"></i>
@@ -147,9 +126,6 @@
                                 </div>
                             </div>
                         </div>
-
-
-                        <!-- Mobile Navigation Toggle -->
                         <i class="mobile-nav-toggle d-xl-none bi bi-list me-0"></i>
 
                     </div>
@@ -165,7 +141,6 @@
                         <ul>
                             <li><a href="{{ route('user.home') }}"
                                     class="{{ Request::is('user/trang-chu') ? 'active' : '' }}">TRANG CHỦ</a></li>
-                            {{-- <li><a href="about.html">GIỚI THIỆU</a></li> --}}
                             <li class="dropdown"><a href="{{ route('user.danhsach') }}"
                                     class="{{ Request::is('user/danh-sach') ? 'active' : '' }}"><span>VĂN PHÒNG</span>
                                 </a>
@@ -252,56 +227,12 @@
                             </ul>
                         </div>
                     </div>
-
-                    {{-- <div class="col-lg-6 col-md-6 col-sm-12">
-                        <div class="row gy-4 align-items-stretch">
-                            <!-- Cột bản đồ -->
-                            <div class=" col-md-12 text-center" data-aos="fade-up" data-aos-delay="300">
-                                <div class="footer-widget">
-                                    <iframe
-                                        width="75%"
-                                        height="300"
-                                        frameborder="0"
-                                        style="border:0;"
-                                        referrerpolicy="no-referrer-when-downgrade"
-                                        loading="lazy"
-                                        allowfullscreen
-                                        src="https://www.google.com/maps?q=65+Huỳnh+Thúc+Kháng,+Bến+Nghé,+Quận+1,+Hồ+Chí+Minh+700000&output=embed">
-                                    </iframe>
-                                </div>
-                            </div>
-                            <!-- Cột mạng xã hội -->
-                            <div class=" col-md-12">
-                                <div class="footer-widget text-center">
-                                    <div class="social-links mt-4">
-                                        <h5 class="mb-3">Follow Us</h5>
-                                        <div class="social-icons d-flex gap-2 flex-wrap justify-content-center">
-                                            <a href="#" aria-label="Facebook"><i class="bi bi-facebook fs-4"></i></a>
-                                            <a href="#" aria-label="Instagram"><i class="bi bi-instagram fs-4"></i></a>
-                                            <a href="#" aria-label="Twitter"><i class="bi bi-twitter-x fs-4"></i></a>
-                                            <a href="#" aria-label="TikTok"><i class="bi bi-tiktok fs-4"></i></a>
-                                            <a href="#" aria-label="Pinterest"><i class="bi bi-pinterest fs-4"></i></a>
-                                            <a href="#" aria-label="YouTube"><i class="bi bi-youtube fs-4"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    
-                        
-                    </div> --}}
-
                 </div>
             </div>
         </div>
 
         <div class="footer-bottom" style="background-color:#ffff">
             <div class="container">
-                {{-- <div class="legal-links">
-                    <a href="tos.html">Terms of Service</a>
-                    <a href="privacy.html">Privacy Policy</a>
-                    <a href="tos.html">Cookies Settings</a>
-                </div> --}}
                 <div class="copyright text-center">
                     <p>©<strong class="sitename">BGROUP</strong> Copyright 2025</p>
                 </div>

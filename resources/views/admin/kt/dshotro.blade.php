@@ -108,7 +108,7 @@
                             @if ($dangLoc)
                             <div class="hs-unfold mr-2">
                                 <a href="{{ url()->current() }}" class="btn btn-outline-secondary ml-2">
-                                    <i class="tio-clear"></i> Đặt lại bộ lọc
+                                    <i class="tio-refresh"></i> 
                                 </a>
                             </div>
                             @endif
@@ -263,7 +263,6 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
                     </div>
                     <div class="modal-body" id="modalBodyContent">
-                        <!-- Nội dung ở đây -->
                         <div class="text-center">Đang tải...</div>
                     </div>
                 </div>

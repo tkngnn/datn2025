@@ -33,14 +33,12 @@
                 @endif
 
                 <script>
-                    // Sau 5 giây (5000ms), tự động ẩn các alert có class `.alert`
                     setTimeout(function() {
                         const alerts = document.querySelectorAll('.alert');
                         alerts.forEach(alert => {
-                            // Sử dụng Bootstrap class để fade out
                             alert.classList.remove('show');
                             alert.classList.add('fade');
-                            setTimeout(() => alert.remove(), 300); // Xóa khỏi DOM sau khi fade xong
+                            setTimeout(() => alert.remove(), 300); 
                         });
                     }, 5000);
                 </script>
@@ -49,7 +47,6 @@
                 @csrf
                 @method('PUT')
 
-                <!-- PHẦN 1: THÔNG TIN CHUNG -->
                 <div class="card mb-4">
                     <div class="card-header">
                         <h4 class="text-primary">1. Thông Tin Chung</h4>
@@ -116,7 +113,6 @@
                     </div>
                 </div>
 
-                <!-- PHẦN 2: KHÁCH THUÊ -->
                 <div class="card mb-4">
                     <div class="card-header">
                         <h4 class="text-primary">2. Khách Thuê</h4>
@@ -144,7 +140,6 @@
                     </div>
                 </div>
 
-                <!-- PHẦN 3: TIỀN THUÊ & CỌC -->
                 <div class="card mb-4">
                     <div class="card-header">
                         <h4 class="text-primary">3. Tiền Thuê & Cọc</h4>
@@ -183,7 +178,6 @@
                     </div>
                 </div>
 
-                <!-- PHẦN 4: CHI TIẾT -->
                 <div class="card mb-5">
                     <div class="card-header">
                         <h4 class="text-primary">4. Chi Tiết</h4>
@@ -215,8 +209,8 @@
                 </div>
 
                 <div class="text-center mb-5">
-                    <button type="submit" class="btn btn-primary">Cập nhật hợp đồng</button>
                     <a href="{{ route('admin.hopdong.index') }}" class="btn btn-danger">Hủy</a>
+                    <button type="submit" class="btn btn-primary">Lưu</button>
                 </div>
             </form>
         </div>
@@ -251,7 +245,6 @@
             dateFormat: "Y-m-d"
         });
         document.addEventListener('DOMContentLoaded', function() {
-            // Xử lý sự kiện thay đổi tòa nhà và văn phòng
             const toaNhaSelect = document.getElementById('toa_nha_id');
             const vanPhongSelect = document.getElementById('vanphong_id');
 

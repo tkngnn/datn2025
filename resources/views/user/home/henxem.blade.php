@@ -7,24 +7,14 @@
     <button type="button" class="btn-close btn-sm" aria-label="Close" onclick="$('#successMessage').hide()">
     </button>
   </div>
-{{-- @if ($errors->any())
-  <div class="alert alert-danger">
-    <strong>Đã có lỗi xảy ra:</strong>
-    <ul>
-      @foreach ($errors->all() as $error)
-        <li>{{ $error }}</li>
-      @endforeach
-    </ul>
-  </div>
-@endif --}}
     <!-- Page Title -->
     <div class="page-title light-background">
       <div class="container d-lg-flex justify-content-between align-items-center">
         <h1 class="mb-2 mb-lg-0">Hẹn xem</h1>
         <nav class="breadcrumbs">
           <ol>
-            <li><a href="index.html">Trang chủ</a></li>
-            <li class="current">Trang hẹn xem</li>
+            <li><a href="{{ route('user.home') }}">Trang chủ</a></li>
+            <li class="active"><a href="#">Trang hẹn xem</a></li>
           </ol>
         </nav>
       </div>

@@ -54,12 +54,10 @@
 
     .header-center {
         width: 65%;
-        /* text-align: center; */
     }
 
     .header-center p {
         margin: 0;
-        /* font-style: italic; */
     }
 
     h2.invoice-title {

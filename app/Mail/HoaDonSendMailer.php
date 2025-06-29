@@ -10,6 +10,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 
 class HoaDonSendMailer extends Mailable
 {
@@ -28,8 +29,8 @@ class HoaDonSendMailer extends Mailable
 
     public function build()
     {
-        \Log::info("Điện cũ: " . $this->soDienCu);
-        \Log::info("Nước cũ: " . $this->soNuocCu);
+        Log::info("Điện cũ: " . $this->soDienCu);
+        Log::info("Nước cũ: " . $this->soNuocCu);
         return $this->subject("Hóa đơn tháng {$this->hoadon->thang_nam}")
                     ->view('admin.emails.hoadon')
                     ->with([

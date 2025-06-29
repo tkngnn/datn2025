@@ -24,7 +24,6 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center mb-1">
                                 <h2 class="mb-0 mr-2">{{ $totalToaNha }}</h2>
-                                {{-- <span class="badge badge-soft-primary">1 tòa nhà</span> --}}
                             </div>
 
                             <div class="d-flex align-items-center mb-3">
@@ -51,7 +50,6 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center mb-1">
                                 <h2 class="mb-0 mr-2">{{ $totalKhachThue }}</h2>
-                                {{-- <span class="badge badge-soft-primary">1 khách mới</span> --}}
                             </div>
 
                             <div class="d-flex align-items-center mb-3">
@@ -172,10 +170,6 @@
                             @foreach ($khachhangs as $khachhang)
                                 <tr>
                                     <td class="table-column-pr-0">
-                                        {{-- <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="usersDataCheck1">
-                        <label class="custom-control-label" for="usersDataCheck1"></label>
-                      </div> --}}
                                     </td>
                                     <td>
                                         <a href="#">#{{ $khachhang->id }}</a>
@@ -287,17 +281,14 @@
             const tienThu = [{{ $doanhThuHienTai->tien_thu }}];
             const dichVuPhu = [{{ $doanhThuHienTai->dich_vu_phu }}];
 
-            // Tính tổng doanh thu
             const tongDoanhThu = tienCoc.map((val, idx) => val + tienThu[idx] + dichVuPhu[idx]);
             console.log(labels, tienCoc, tienThu, dichVuPhu, tongDoanhThu);
 
-            // Kiểm tra dữ liệu
             if (!labels || labels.length === 0) {
                 console.error('Không có dữ liệu để hiển thị biểu đồ');
                 return;
             }
 
-            // Khởi tạo Chart.js
             const ctx = document.getElementById('doanhThuChart').getContext('2d');
 
             try {
@@ -361,12 +352,12 @@
                             }
                         },
                         interaction: {
-                            mode: 'index', // khi rê chuột vào một điểm trên trục x, hiện tooltip của tất cả các dataset cùng tháng đó
-                            intersect: false // cho phép hover trong khoảng giữa các điểm vẫn hiện tooltip
+                            mode: 'index', 
+                            intersect: false 
                         },
                         plugins: {
                             tooltip: {
-                                mode: 'index', // tooltip hiện cùng lúc các dữ liệu theo index (tháng)
+                                mode: 'index', 
                                 intersect: false,
                                 callbacks: {
                                     label: function(context) {

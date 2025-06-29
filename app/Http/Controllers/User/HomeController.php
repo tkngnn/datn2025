@@ -80,12 +80,6 @@ class HomeController extends Controller
         $query = VanPhong::with(['toaNha', 'media'])
             ->whereRaw("LOWER(TRIM(trang_thai)) = ?", ['dang trong']);
 
-        /*if ($request->filled('ten_toa_nha')) {
-            $query->whereHas('toaNha', function ($q) use ($request) {
-                $q->where('ten_toa_nha', 'like', '%' . $request->ten_toa_nha . '%');
-            });
-        }*/
-
         if ($request->filled('ten_toa_nha')) {
             $query->whereHas('toaNha', function ($q) use ($request) {
                 $q->where(function ($subQuery) use ($request) {
@@ -118,7 +112,6 @@ class HomeController extends Controller
             }
         }
 
-        // Filter theo giá thuê
         if ($request->filled('gia_thue')) {
             switch ($request->gia_thue) {
                 case '1000-2000':
@@ -142,7 +135,6 @@ class HomeController extends Controller
             }
         }
 
-        // Sắp xếp
         if ($request->filled('sap_xep')) {
             if ($request->sap_xep == 'asc') {
                 $query->orderBy('gia_thue', 'asc');

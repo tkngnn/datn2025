@@ -34,7 +34,6 @@
                 <div class="card-body">
 
                   <!-- Form Group -->
-                  <!-- Mã khách hàng (không cho nhập) -->
                   <div class="row form-group">
                     <label class="col-sm-3 col-form-label input-label">Mã khách hàng</label>
                     <div class="col-sm-9">
@@ -42,7 +41,6 @@
                     </div>
                   </div>
 
-                  <!-- Tên khách hàng -->
                   <div class="row form-group">
                     <label class="col-sm-3 col-form-label input-label">Tên khách hàng</label>
                     <div class="col-sm-9">
@@ -51,7 +49,6 @@
                     </div>
                   </div>
 
-                  <!-- Email -->
                   <div class="row form-group">
                     <label class="col-sm-3 col-form-label input-label">Email</label>
                     <div class="col-sm-9">
@@ -62,7 +59,6 @@
                     </div>
                   </div>
 
-                  <!-- cccd -->
                   <div class="row form-group">
                     <label class="col-sm-3 col-form-label input-label">CCCD</label>
                     <div class="col-sm-9">
@@ -89,7 +85,6 @@
                     </div>
                   </div>
 
-                  <!-- sdt -->
                   <div class="row form-group">
                     <label class="col-sm-3 col-form-label input-label">Số điện thoại</label>
                     <div class="col-sm-9">
@@ -100,7 +95,6 @@
                     </div>
                   </div>
 
-                  <!-- Địa chỉ -->
                   <div class="row form-group">
                     <label class="col-sm-3 col-form-label input-label">Địa chỉ</label>
                     <div class="col-sm-9">
@@ -111,7 +105,6 @@
                     </div>
                   </div>
 
-                  <!-- Vai trò -->
                   <div class="row form-group">
                     <label class="col-sm-3 col-form-label input-label">Vai trò</label>
                     <div class="col-sm-9">
@@ -124,7 +117,6 @@
                     </div>
                   </div>
 
-                  <!-- Trạng thái -->
                   <div class="row form-group">
                     <label class="col-sm-3 col-form-label input-label">Trạng thái</label>
                     <div class="col-sm-9">
@@ -143,10 +135,10 @@
                 <!-- Footer -->
                 <div class="card-footer d-flex justify-content-end align-items-center">
                   <a href="{{ route('admin.khachhang.index') }}" class="btn btn-danger mr-2">
-                    <i class="tio-chevron-left"></i> Trở về
+                    Hủy
                   </a>
                   <button type="submit" class="btn btn-primary">
-                    Tạo <i class="tio-chevron-right"></i>
+                    Lưu
                   </button>                  
                 </div>
                 <!-- End Footer -->

@@ -68,7 +68,6 @@
                             </form>
                         </div>
 
-                          {{-- Tag nội dung đang lọc --}}
                           @if ($dangLoc)
                             <div class="hs-unfold mr-2">
                               <div class="d-flex flex-wrap gap-2">
@@ -107,7 +106,7 @@
                           @if ($dangLoc)
                             <div class="hs-unfold mr-2">
                                 <a href="{{ url()->current() }}" class="btn btn-outline-secondary ml-2">
-                                    <i class="tio-clear"></i> Đặt lại bộ lọc
+                                    <i class="tio-refresh"></i> 
                                 </a>
                             </div>
                             @endif
@@ -185,7 +184,7 @@
                                 <th>Ngày kết thúc</th>
                                 <th>Tổng tiền cọc</th>
                                 <th>Trạng thái</th>
-                                <th></th>
+                                <th>Thao tác</th>
                             </tr>
                         </thead>
 
@@ -214,8 +213,7 @@
                                     </td>
                                     <td>
                                         <div class="btn-group" role="group" style="gap: 0.5rem;">
-                                            <!-- Nút Xem luôn hiện -->
-                                            <a class="btn btn-sm btn-primary btn-xem-hopdong" href="javascript:;"
+                                            <a class="btn btn-sm btn-soft-primary btn-xem-hopdong" href="javascript:;"
                                                 data-hoadon='@json($hopDong)'
                                                 data-id="{{ $hopDong->ma_hop_dong }}"
                                                 data-export-url="{{ route('kt.hopdong', $hopDong->ma_hop_dong) }}"
@@ -289,7 +287,6 @@
                 </button>
               </div>
             <div class="modal-body" id="modalBodyContent">
-              <!-- Nội dung ở đây -->
               <div class="text-center">Đang tải...</div>
             </div>
           </div>

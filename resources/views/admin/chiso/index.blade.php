@@ -13,12 +13,12 @@
             <div class="page-header">
                 <div class="row align-items-end">
                     <div class="col-sm mb-2 mb-sm-0">
-                        <h1 class="page-header-title">Ghi chỉ số</h1>
+                        <h1 class="page-header-title">Ghi điện nước</h1>
                     </div>
 
                     <div class="col-sm-auto">
-                        <a class="btn btn-primary" href="{{ route('admin.chiso.create') }}">
-                            <i class="tio-user-add mr-1"></i> Ghi điện nước
+                        <a class="btn btn-primary" href="{{ route('admin.chiso.create') }}" title="Ghi chỉ số điện nước">
+                            <i class="tio-add"></i>
                         </a>
                     </div>
                 </div>

@@ -26,15 +26,7 @@ class HopDongController extends Controller
 {
     /**
      * Display a listing of the resource.
-
-    public function index()
-    {
-        $hopDongs = HopDong::with(['user', 'chiTietHopDongs.vanPhong.toaNha'])
-            ->orderBy('ngay_ky', 'desc')
-            ->get();
-
-        return view('admin.hopdong.index', compact('hopDongs'));
-    }     */
+    */
     public function index(Request $request)
     {
         $query = HopDong::with([
@@ -92,7 +84,6 @@ class HopDongController extends Controller
      */
     public function store(Request $request)
     {
-        // 1. VALIDATION
         $validated = $request->validate([
             'toa_nha_id' => 'required|exists:toa_nha,ma_toa_nha',
             'vanphong_id' => 'required|exists:van_phong,ma_van_phong',
@@ -118,7 +109,6 @@ class HopDongController extends Controller
 
         DB::beginTransaction();
         try {
-            // 2. TẠO HỢP ĐỒNG
             $hopDong = HopDong::create([
                 'user_id' => $validated['khach_thue_id'],
                 'ngay_ky' => $validated['ngay_ky'],
@@ -129,10 +119,8 @@ class HopDongController extends Controller
                 'ghi_chu_thanh_ly' => $validated['ghi_chu'] ?? null,
             ]);
 
-            // 3. LẤY DIỆN TÍCH VĂN PHÒNG
             $vanPhong = VanPhong::findOrFail($validated['vanphong_id']);
 
-            // 4. CHI TIẾT HỢP ĐỒNG
             ChiTietHopDong::create([
                 'ma_hop_dong' => $hopDong->ma_hop_dong,
                 'ma_van_phong' => $validated['vanphong_id'],
@@ -143,7 +131,6 @@ class HopDongController extends Controller
                 'dich_vu_khac' => $validated['dich_vu_khac'] ?? 0,
             ]);
 
-            // 5. LỊCH SỬ CỌC
             LichSuCoc::create([
                 'ma_hop_dong' => $hopDong->ma_hop_dong,
                 'so_tien' => $validated['tien_coc'],
@@ -154,7 +141,6 @@ class HopDongController extends Controller
                 'ghi_chu' => 'Cọc ban đầu khi ký hợp đồng'
             ]);
 
-            // 6. CẬP NHẬT TRẠNG THÁI VĂN PHÒNG
             $vanPhong->update([
                 'trang_thai' => 'da thue'
             ]);
@@ -220,7 +206,6 @@ class HopDongController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        // 1. VALIDATION
         $validated = $request->validate([
             'toa_nha_id' => 'required|exists:toa_nha,ma_toa_nha',
             'vanphong_id' => 'required|exists:van_phong,ma_van_phong',
@@ -245,19 +230,11 @@ class HopDongController extends Controller
             'tinh_trang' => 'required|string',
         ]);
 
-        //dd ($id);
-        //dd($validated); // Xem cấu trúc có gì sai
-
-
         Log::info('Validated Data:', $validated);
 
         DB::beginTransaction();
         try {
-            // 2. TÌM HỢP ĐỒNG THEO ID
             $hopDong = HopDong::findOrFail($id);
-            //dd ($hopDong->ma_hop_dong);
-
-            // 3. CẬP NHẬT HỢP ĐỒNG
             $hopDong->update([
                 'user_id' => $validated['khach_thue_id'],
                 'ngay_bat_dau' => $validated['ngay_bat_dau'],

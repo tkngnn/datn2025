@@ -7,6 +7,7 @@ use App\Models\HoaDon;
 use Illuminate\Support\Carbon;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Support\Facades\Log;
 
 class HoaDonHangThang implements ShouldQueue
 {
@@ -15,7 +16,6 @@ class HoaDonHangThang implements ShouldQueue
     public function handle(): void
     {
         $today = Carbon::now();
-        //$today = Carbon::create(2025, 6, 30);
         $thangNam = $today->format('Y-m');
         $dauThang = $today->copy()->startOfMonth();
         $cuoiThang = $today->copy()->endOfMonth();
@@ -24,9 +24,9 @@ class HoaDonHangThang implements ShouldQueue
         }
 
         $hopDongs = HopDong::with('chiTietHopDongs')
-                    ->where('tinh_trang', 'dang thue')
-                    ->orderBy('ma_hop_dong')
-                    ->get();
+            ->where('tinh_trang', 'dang thue')
+            ->orderBy('ma_hop_dong')
+            ->get();
 
         foreach ($hopDongs as $hopdong) {
             $ngayBatDau = Carbon::parse($hopdong->ngay_bat_dau);
@@ -48,12 +48,12 @@ class HoaDonHangThang implements ShouldQueue
                 }
             }
 
-            \Log::info("Hóa đơn số: {$hopdong->ma_hoa_don}");
-            \Log::info("Ngày thuê: {$ngayThue}");
+            Log::info("Hóa đơn số: {$hopdong->ma_hoa_don}");
+            Log::info("Ngày thuê: {$ngayThue}");
 
             if ($canTaoHoaDon) {
                 $tienThue = floor(($giaThue / 30) * $ngayThue);
-                \Log::info("Tiền thuê: {$tienThue}");
+                Log::info("Tiền thuê: {$tienThue}");
                 $hoaDon = HoaDon::firstOrCreate(
                     ['ma_hop_dong' => $hopdong->ma_hop_dong, 'thang_nam' => $thangNam],
                     [
@@ -66,7 +66,5 @@ class HoaDonHangThang implements ShouldQueue
                 );
             }
         }
-
-        
     }
 }

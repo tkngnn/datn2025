@@ -17,7 +17,8 @@
                     </div>
 
                     <div class="col-sm-auto">
-                        <a class="btn btn-primary" href="{{ route('admin.toanha.create') }}">Tạo tòa nhà</a>
+                        <a class="btn btn-primary" href="{{ route('admin.toanha.create') }}" title="Tạo tòa nhà"><i
+                                class="tio-add"></i></a>
                     </div>
                 </div>
                 <!-- End Row -->
@@ -67,14 +68,12 @@
             @endif
 
             <script>
-                // Sau 5 giây (5000ms), tự động ẩn các alert có class `.alert`
                 setTimeout(function() {
                     const alerts = document.querySelectorAll('.alert');
                     alerts.forEach(alert => {
-                        // Sử dụng Bootstrap class để fade out
                         alert.classList.remove('show');
                         alert.classList.add('fade');
-                        setTimeout(() => alert.remove(), 300); // Xóa khỏi DOM sau khi fade xong
+                        setTimeout(() => alert.remove(), 300);
                     });
                 }, 5000);
             </script>
@@ -164,8 +163,10 @@
                             class="hs-unfold-content sidebar sidebar-bordered sidebar-box-shadow">
                             <div class="card mb-5">
                                 <div class="card-header">
-                                    <h5 class="mb-0">Lọc theo trạng thái</h5>
-                                    <a class="js-hs-unfold-invoker btn btn-icon btn-xs btn-ghost-dark ml-2" href="javascript:;" data-hs-unfold-options='{
+                                    <h5 class="mb-0">Bộ lọc</h5>
+                                    <a class="js-hs-unfold-invoker btn btn-icon btn-xs btn-ghost-dark ml-2"
+                                        href="javascript:;"
+                                        data-hs-unfold-options='{
                                         "target": "#datatableFilterSidebar",
                                         "type": "css-animation",
                                         "animationIn": "fadeInRight",
@@ -173,8 +174,8 @@
                                         "hasOverlay": true,
                                         "smartPositionOff": true
                                        }'>
-                                    <i class="tio-clear tio-lg"></i>
-                                  </a>
+                                        <i class="tio-clear tio-lg"></i>
+                                    </a>
                                 </div>
                                 <div class="card-body">
                                     <form method="GET" action="{{ route('admin.toanha.index') }}">
@@ -222,10 +223,6 @@
                         <thead class="thead-light">
                             <tr>
                                 <th scope="col" class="table-column-pr-0">
-                                    {{-- <div class="custom-control custom-checkbox">
-                                        <input id="datatableCheckAll" type="checkbox" class="custom-control-input">
-                                        <label class="custom-control-label" for="datatableCheckAll"></label>
-                                    </div> --}}
                                 </th>
                                 <th class="table-column-pl-0">Mã tòa nhà</th>
                                 <th>Tên Tòa Nhà</th>
@@ -233,7 +230,7 @@
                                 <th>Số Tầng</th>
                                 <th>Số Văn Phòng</th>
                                 <th>Trạng Thái</th>
-                                <th>Hành Động</th>
+                                <th>Thao Tác</th>
                             </tr>
                         </thead>
 
@@ -241,30 +238,24 @@
                             @foreach ($dsToaNha as $item)
                                 <tr>
                                     <td class="table-column-pr-0">
-                                        {{-- <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input"
-                                                id="check-{{ $item->ma_toa_nha }}">
-                                            <label class="custom-control-label"
-                                                for="check-{{ $item->ma_toa_nha }}"></label>
-                                        </div> --}}
                                     </td>
                                     <td class="table-column-pl-0">
-                                        <a href="javascript:;" 
-                                           class="btn-xem-toanha"
-                                           data-id="{{ $item->ma_toa_nha }}">
+                                        <a href="javascript:;" class="btn-xem-toanha" data-id="{{ $item->ma_toa_nha }}">
                                             {{ $item->ma_toa_nha }}
                                         </a>
                                     </td>
                                     <td>
-                                        <a href="javascript:;" 
-                                           class="btn-xem-toanha text-body"
-                                           data-id="{{ $item->ma_toa_nha }}">
+                                        <a href="javascript:;" class="btn-xem-toanha text-body"
+                                            data-id="{{ $item->ma_toa_nha }}">
                                             {{ $item->ten_toa_nha }}
                                         </a>
-                                    </td>                                                                       
-                                    <td style="max-width: 300px; white-space: normal; word-break: break-word;">{{ $item->dia_chi }}</td>
-                                    <td >{{ $item->so_tang }}</td>
-                                    <td><a href="{{ route('admin.vanphong.index', ['ma_toa_nha' => $item->ma_toa_nha]) }}" title="Xem danh sách văn phòng của tòa nhà" class="text-body">{{ $item->van_phongs_count }}</a></td>
+                                    </td>
+                                    <td style="max-width: 300px; white-space: normal; word-break: break-word;">
+                                        {{ $item->dia_chi }}</td>
+                                    <td>{{ $item->so_tang }}</td>
+                                    <td><a href="{{ route('admin.vanphong.index', ['ma_toa_nha' => $item->ma_toa_nha]) }}"
+                                            title="Xem danh sách văn phòng của tòa nhà"
+                                            class="text-body">{{ $item->van_phongs_count }}</a></td>
                                     <td>
                                         @if ($item->trang_thai === 'hoat dong')
                                             <span class="badge badge-success">Hoạt động</span>
@@ -274,21 +265,16 @@
                                     </td>
                                     <td>
                                         <div class="text-break px-3">
-                                            <a class="btn btn-sm btn-white"
+                                            <a href="{{ route('admin.vanphong.index', ['ma_toa_nha' => $item->ma_toa_nha]) }}"
+                                                class="btn btn-sm btn-soft-primary"
+                                                title="Xem danh sách văn phòng của tòa nhà">
+                                                <i class="tio-visible-outlined"></i>
+                                            </a>
+                                            <a class="btn btn-sm btn-soft-dark"
                                                 href="{{ route('admin.toanha.edit', $item->ma_toa_nha) }}">
                                                 <i class="tio-edit"></i>
                                             </a>
-                                            <a href="{{ route('admin.vanphong.index', ['ma_toa_nha' => $item->ma_toa_nha]) }}" class="btn btn-sm btn-primary" title="Xem danh sách văn phòng của tòa nhà">
-                                                <i class="tio-visible-outlined"></i>
-                                              </a>
-                                            {{-- <form action="{{ route('admin.toanha.destroy', $item->ma_toa_nha) }}"
-                                                method="POST" onsubmit="return confirm('Xác nhận ẩn tòa nhà này?')">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="btn btn-sm btn-white">
-                                                    <i class="tio-delete-outlined"></i>
-                                                </button>
-                                            </form> --}}
+
                                         </div>
                                     </td>
                                 </tr>
@@ -347,20 +333,21 @@
         <!-- ToaNha Modal Popup -->
         <div class="modal fade" id="toaNhaModal" tabindex="-1" aria-labelledby="toaNhaModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title"></h5>
-                  <button type="button" class="btn btn-close btn-sm btn-ghost-secondary" data-bs-dismiss="modal" aria-label="Đóng">
-                    <i class="tio-clear tio-lg"></i>
-                  </button>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"></h5>
+                        <button type="button" class="btn btn-close btn-sm btn-ghost-secondary" data-bs-dismiss="modal"
+                            aria-label="Đóng">
+                            <i class="tio-clear tio-lg"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="toaNhaModalContent">
+                        <div class="text-center">Đang tải...</div>
+                    </div>
                 </div>
-                <div class="modal-body" id="toaNhaModalContent">
-                  <div class="text-center">Đang tải...</div>
-                </div>
-              </div>
             </div>
-          </div>          
-        <!-- End ToaNha Modal Popup --> 
+        </div>
+        <!-- End ToaNha Modal Popup -->
     </main>
 @endsection
 
@@ -369,18 +356,18 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         $(document).ready(function() {
-            // Initialize Bootstrap Select
             $('.selectpicker').selectpicker();
         });
 
-        $(document).on('click', '.btn-xem-toanha', function () {
+        $(document).on('click', '.btn-xem-toanha', function() {
             const id = $(this).data('id');
             $('#toaNhaModalContent').html('<div class="text-center">Đang tải...</div>');
             $('#toaNhaModal').modal('show');
 
-            $('#toaNhaModalContent').load(`/admin/toanha/preview/${id}`, function (response, status, xhr) {
+            $('#toaNhaModalContent').load(`/admin/toanha/preview/${id}`, function(response, status, xhr) {
                 if (status === "error") {
-                    $('#toaNhaModalContent').html('<div class="text-danger">Không thể tải thông tin tòa nhà.</div>');
+                    $('#toaNhaModalContent').html(
+                        '<div class="text-danger">Không thể tải thông tin tòa nhà.</div>');
                 }
             });
         });

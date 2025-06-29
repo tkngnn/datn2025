@@ -82,7 +82,6 @@ class VanPhongController extends Controller
 
     public function edit($ma_van_phong)
     {
-        //dd($ma_van_phong);
         $vanphong = VanPhong::with('media')->findOrFail($ma_van_phong);
         $toanhas = ToaNha::all();
         return view('admin.vanphong.edit', compact('vanphong', 'toanhas'));

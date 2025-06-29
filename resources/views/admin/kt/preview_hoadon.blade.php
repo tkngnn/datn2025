@@ -54,12 +54,10 @@
 
     .header-center {
         width: 65%;
-        /* text-align: center; */
     }
 
     .header-center p {
         margin: 0;
-        /* font-style: italic; */
     }
 
     h2.invoice-title {
@@ -77,12 +75,7 @@
         .btn, .btn * {
             display: none !important;
         }
-        /* body, html {
-            margin: 0;
-            padding: 0;
-        } */
         .invoice-box {
-            /* width: 800px; */
             font-family: 'Times New Roman', Times, serif;
             color: #000;
             background-color: #fff;

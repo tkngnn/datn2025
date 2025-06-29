@@ -70,7 +70,6 @@
                             </form>
                         </div>
 
-                        {{-- Tag nội dung đang lọc --}}
                         @if ($dangLoc)
                         <div class="hs-unfold mr-2">
                         <div class="d-flex flex-wrap gap-2">
@@ -114,7 +113,7 @@
                                 "hasOverlay": true,
                                 "smartPositionOff": true
                             }'>
-                            <i class="tio-filter-list mr-1"></i> Lọc
+                            <i class="tio-filter-list mr-1"></i>
                         </a>
                     </div>
                     
@@ -123,7 +122,7 @@
                     @if ($dangLoc)
                         <div class="hs-unfold mr-2">
                             <a href="{{ url()->current() }}" class="btn btn-outline-secondary ml-2">
-                                <i class="tio-clear"></i> Đặt lại bộ lọc
+                                <i class="tio-refresh"></i>
                             </a>
                         </div>
                         @endif
@@ -138,7 +137,6 @@
                         </div>
                         <div class="card-body">
                         <form method="GET" action="{{ route('kt.hoadon') }}">
-                            {{-- Tòa nhà --}}
                             <div class="form-group">
                             <label for="ma_toa_nha">Tòa nhà</label>
                             <select name="ma_toa_nha" id="ma_toa_nha" class="form-control selectpicker" data-live-search="true" title="Chọn tòa nhà">
@@ -151,7 +149,6 @@
                             </select>
                             </div>
                     
-                            {{-- Tiền --}}
                             <div class="form-group">
                             <label>Tiền</label>
                             <div class="input-group">
@@ -160,14 +157,12 @@
                             </div>
                             </div>
 
-                            {{-- Tháng năm --}}
                             <div class="form-group">
                             <label for="thang_nam">Tháng năm</label>
                             <input type="month" name="thang_nam" id="thang_nam" class="form-control"
                                     value="{{ request('thang_nam') }}">
                             </div>
 
-                            {{-- Trạng thái --}}
                             <div class="form-group">
                             <label for="trang_thai">Trạng thái</label>
                             <select name="trang_thai" id="trang_thai" class="form-control selectpicker" data-live-search="true" title="Chọn trạng thái">
@@ -216,7 +211,7 @@
                                 <th>Tháng năm</th>
                                 <th>Tổng tiền</th>
                                 <th>Trạng thái</th>
-                                <th></th>
+                                <th>Thao tác</th>
                             </tr>
                         </thead>
 
@@ -230,8 +225,6 @@
                                                 data-export-url="{{ route('kt.hoadon', $hoaDon->ma_hoa_don) }}"
                                                 data-toggle="tooltip" data-placement="top" title="Xem">
                                                 {{ $hoaDon->ma_hoa_don }}</a>
-                                        {{-- <span
-                                            class="badge badge-soft-dark ml-2">{{ $hoaDon->hopDong->ma_hop_dong ?? 'Không có' }}</span> --}}
                                     </td>
                                     <td>{{ $hoaDon->thang_nam }}</td>
                                     <td>{{ number_format($hoaDon->tong_tien, 0, ',', '.') }} đ</td>
@@ -247,8 +240,7 @@
                                     </td>
                                     <td>
                                         <div class="btn-group" role="group" style="gap: 0.5rem;">
-                                            <!-- Nút Xem luôn hiện -->
-                                            <a class="btn btn-sm btn-primary btn-xem-hoadon" href="javascript:;"
+                                            <a class="btn btn-sm btn-soft-primary btn-xem-hoadon" href="javascript:;"
                                                 data-hoadon='@json($hoaDon)'
                                                 data-id="{{ $hoaDon->ma_hoa_don }}"
                                                 data-export-url="{{ route('kt.hoadon', $hoaDon->ma_hoa_don) }}"
@@ -256,9 +248,8 @@
                                                 <i class="tio-visible-outlined"></i>
                                             </a>
 
-                                            <!-- Nút Thanh toán chỉ hiện khi trạng thái chưa thanh toán -->
                                             @if ($hoaDon->trang_thai !== 'da thanh toan')
-                                                <a class="btn btn-sm btn-success btn-thanh-toan"
+                                                <a class="btn btn-sm btn-soft-info btn-thanh-toan"
                                                     href="{{ route('kt.hoadon.thanh_toan', $hoaDon->ma_hoa_don) }}"
                                                     data-toggle="tooltip" data-placement="top" title="Thanh toán">
                                                     <i class="tio-checkmark-circle"></i>
@@ -338,163 +329,6 @@
         </div>
       </div>
     <!-- End HoaDon Modal Popup -->
-
-        <!-- Thanh Ly Modal -->
-        {{-- <div class="modal fade" id="thanhLyModal" tabindex="-1" aria-labelledby="thanhLyModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <form method="POST" id="formThanhLy" action="">
-                        @csrf
-                        <div class="modal-header">
-                            <h1 class="modal-title">Biên bản Thanh lý Hợp đồng</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
-                        </div>
-
-                        <div class="modal-body">
-                            <h2 class="text-primary">1. Thông tin hợp đồng</h2>
-                            <input type="hidden" name="ma_hop_dong" id="maHopDong">
-                            <input type="hidden" name="tong_no" id="inputTongNo" value="0">
-                            <input type="hidden" name="phi_phat" id="inputPhiPhat" value="0">
-                            <input type="hidden" name="hoan_tra_coc" id="inputHoanTraCoc" value="0">
-                            <input type="hidden" name="tong_cong" id="inputTongCong" value="0">
-
-                            <table class="table table-bordered rounded shadow-sm">
-                                <tbody>
-                                    <tr>
-                                        <th class="w-50">Đại diện:</th>
-                                        <td><span id="daiDien"></span></td>
-                                    </tr>
-                                    <tr>
-                                        <th>Ngày khách vào:</th>
-                                        <td><span id="ngayBatDau"></span></td>
-                                    </tr>
-                                    <tr>
-                                        <th>Hạn hợp đồng:</th>
-                                        <td><span id="ngayKetThuc"></span></td>
-                                    </tr>
-                                    <tr>
-                                        <th>Tiền đặt cọc:</th>
-                                        <td><span id="tienDatCoc"></span></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div class="mb-2">
-                                <label>Lý do thanh lý:</label>
-
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">
-                                            <input type="radio" name="ly_do" id="lyDo1" value="Khách rời phòng"
-                                                required aria-label="Radio button for Khách rời phòng">
-                                        </div>
-                                    </div>
-                                    <input type="text" class="form-control" value="Khách rời phòng"
-                                        aria-label="Text input with radio button 1" readonly>
-                                </div>
-
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">
-                                            <input type="radio" name="ly_do" id="lyDo2" value="Khách bỏ cọc"
-                                                required aria-label="Radio button for Khách bỏ cọc">
-                                        </div>
-                                    </div>
-                                    <input type="text" class="form-control" value="Khách bỏ cọc"
-                                        aria-label="Text input with radio button 2" readonly>
-                                </div>
-                            </div>
-                            <div class="mb-2">
-                                <label>Ngày chuyển đi:</label>
-                                <input type="date" name="ngay_thanh_ly" class="form-control" required>
-                            </div>
-
-                            <div id="thongTinCongNo">
-                                <h2 class="mt-4 text-primary">2. Công nợ khách hàng</h2>
-                                <div id="hoaDonTableContainer">
-                                    <table class="table table-bordered" id="hoaDonTable">
-                                        <thead>
-                                            <tr>
-                                                <th>Mã hóa đơn</th>
-                                                <th>Số tiền (VNĐ)</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <!-- JS sẽ đổ dữ liệu vào đây -->
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <p id="noDebtMessage" class="alert alert-soft-primary">Khách hàng không còn nợ khoản
-                                    tiền
-                                    nào.
-                                </p>
-
-
-
-                                <h2 class="mt-4 text-primary">3. Hoàn cọc và phí phạt</h2>
-                                <div class="row g-3">
-                                    <div class="col-md-6">
-                                        <label>Hoàn trả cọc:</label>
-                                        <input type="number" name="hoan_tra_coc" id="hoanTraCoc" class="form-control"
-                                            value="">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label>Phí phạt:</label>
-                                        <input type="number" name="phi_phat" id="phiPhat" class="form-control"
-                                            value="0">
-                                    </div>
-                                </div>
-
-                                <h2 class="mt-4 text-primary">4. Tổng hợp</h2>
-                                <table class="table table-bordered text-dark">
-                                    <tbody>
-                                        <tr>
-                                            <th class="w-50">Tổng tiền khách nợ: (1)</th>
-                                            <td><span id="tongNo" class="text-end">0</span></td>
-                                        </tr>
-                                        <tr>
-                                            <th>Tổng phí phạt: (2)</th>
-                                            <td><span id="tongPhiPhat">0</span></td>
-                                        </tr>
-                                        <tr>
-                                            <th>Hoàn cọc: (3)</th>
-                                            <td><span id="hoanCoc">0</span></td>
-                                        </tr>
-                                        <tr>
-                                            <th class="fw-bold">Tổng cộng: (4) = (1) + (2) - (3)</th>
-                                            <td class="fw-bold text-danger"><span id="tongCong">0</span></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-danger">Xác nhận Thanh lý</button>
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div> --}}
-
-        <!-- End Thanh Ly Modal -->
-
-        <!-- Biên Ban Thanh Ly Modal -->
-
-        {{-- <div id="modalBienBanThanhLy" class="modal"
-            style="display:none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.5);">
-            <div style="background: white; max-width: 800px; margin: 50px auto; padding: 20px; position: relative;">
-                <button id="closeModal" style="position: absolute; top: 10px; right: 10px;">&times;</button>
-                <div id="modalContent">
-                    <!-- Nội dung biên bản thanh lý sẽ được load vào đây -->
-                    Đang tải...
-                </div>
-            </div>
-        </div> --}}
-
-
-        <!-- End Biên Ban Thanh Ly Modal -->
     </main>
 @endsection
 @push('scripts')

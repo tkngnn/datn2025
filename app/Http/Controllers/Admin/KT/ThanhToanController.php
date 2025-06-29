@@ -24,12 +24,11 @@ class ThanhToanController extends Controller
         $vnp_Url = env('VNPAY_URL');
         $vnp_Returnurl = env('VNPAY_RETURN_URL');
 
-        // Kiểm tra tồn tại các biến môi trường
         if (empty($vnp_TmnCode) || empty($vnp_HashSecret)) {
             throw new \Exception('Cấu hình VNPay chưa đầy đủ');
         }
 
-        $vnp_TxnRef = $hoaDon->ma_hoa_don . '_' . time(); // Mã giao dịch
+        $vnp_TxnRef = $hoaDon->ma_hoa_don . '_' . time(); 
         $vnp_OrderInfo = 'Thanh toan hoa don #' . $hoaDon->ma_hoa_don;
         $vnp_OrderType = 'billpayment';
         $vnp_Amount = (int)($hoaDon->tong_tien * 100);
@@ -52,10 +51,8 @@ class ThanhToanController extends Controller
             "vnp_TxnRef" => $vnp_TxnRef
         );
 
-        // Sắp xếp theo key
         ksort($inputData);
 
-        // Tạo query và hash data
         $query = "";
         $i = 0;
         $hashdata = "";
@@ -75,7 +72,6 @@ class ThanhToanController extends Controller
             $vnpSecureHash =   hash_hmac('sha512', $hashdata, $vnp_HashSecret); //  
             $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
         }
-        // Log dữ liệu gửi đi để debug
         Log::info('VNPay Payment URL: ', [
             'inputData' => $inputData,
             'hashData' => $hashdata,
@@ -115,24 +111,20 @@ class ThanhToanController extends Controller
         $secureHash = hash_hmac('sha512', $hashData, $vnp_HashSecret);
 
         if ($secureHash === $vnp_SecureHash) {
-            // Kiểm tra mã phản hồi từ VNPAY
             if ($inputData['vnp_ResponseCode'] == '00') {
-                // Lấy mã giao dịch và mã hóa đơn
                 $txnRef = $inputData['vnp_TxnRef'];
                 $hoaDon = HoaDon::where('ma_hoa_don', $txnRef)->first();
 
                 if ($hoaDon && $hoaDon->trang_thai !== 'da thanh toan') {
-                    // Cập nhật trạng thái hóa đơn
                     $hoaDon->trang_thai = 'da thanh toan';
                     $hoaDon->save();
 
                     $this->sendPaymentSuccess($hoaDon->ma_hoa_don);
 
-                    // Lưu thông tin vào bảng thanh_toan
                     ThanhToan::create([
                         'ma_hoa_don' => $hoaDon->ma_hoa_don,
                         'ma_giao_dich' => $inputData['vnp_TransactionNo'] ?? '',
-                        'so_tien' => $inputData['vnp_Amount'] / 100, // VNPAY trả về x100 lần
+                        'so_tien' => $inputData['vnp_Amount'] / 100, 
                         'phuong_thuc' => $inputData['vnp_CardType'] ?? 'VNPAY',
                         'trang_thai' => 'thanh cong',
                         'thoi_gian' => Carbon::now(),
@@ -143,7 +135,6 @@ class ThanhToanController extends Controller
 
                 return redirect()->route('kt.hoadon')->with('success', 'Thanh toán thành công!');
             } else {
-                // ❗ Lưu giao dịch thất bại
                 ThanhToan::create([
                     'ma_hoa_don' => $inputData['vnp_TxnRef'],
                     'ma_giao_dich' => $inputData['vnp_TransactionNo'] ?? '',

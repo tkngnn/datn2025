@@ -27,7 +27,6 @@ class TNVPController extends Controller
             ->first();
 
         Log::info('Lấy chi tiết văn phòng: ' . $vanPhongId, ['vanPhong' => $vanPhong]);
-        // giả sử bạn có thêm 3 cột: gia_dien, gia_nuoc, dich_vu_khac trong bảng van_phong
         return response()->json([
             'ma_van_phong' => $vanPhong->ma_van_phong,
             'dien_tich' => $vanPhong->dien_tich,

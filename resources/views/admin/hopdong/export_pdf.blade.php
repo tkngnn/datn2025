@@ -141,8 +141,6 @@
 
         <br><br>
 
-        <!-- ... tiếp tục các phần khác của hợp đồng ... -->
-
         <div class="signature-section">
             <div style="float: left; width: 40%; text-align: center;">
                 <strong>ĐẠI DIỆN BÊN A</strong><br>

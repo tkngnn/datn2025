@@ -101,12 +101,10 @@ class KTController extends Controller
                 });
             }
 
-            // Lọc theo tháng năm
             if ($request->filled('thang_nam')) {
                 $query->where('thang_nam', $request->thang_nam);
             }
 
-            // Lọc theo tiền
             if ($request->filled('gia_thue_min')) {
                 $query->where('tong_tien', '>=', (float) str_replace(',', '', $request->gia_thue_min));
             }
@@ -115,12 +113,10 @@ class KTController extends Controller
                 $query->where('tong_tien', '<=', (float) str_replace(',', '', $request->gia_thue_max));
             }
 
-            // Lọc theo trạng thái
             if ($request->filled('trang_thai')) {
                 $query->where('trang_thai', $request->trang_thai);
             }
-            /*->orderByRaw("CASE WHEN trang_thai = 'chua thanh toan' THEN 0 ELSE 1 END") 
-            ->orderByDesc('thang_nam')*/
+            
             $hoaDons=$query->get();
 
             $dsToaNha=ToaNha::all();

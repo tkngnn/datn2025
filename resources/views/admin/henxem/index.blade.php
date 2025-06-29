@@ -27,22 +27,8 @@
       <div class="page-header">
         <div class="row align-items-end">
           <div class="col-sm mb-2 mb-sm-0">
-            <nav aria-label="breadcrumb">
-              <ol class="breadcrumb breadcrumb-no-gutter">
-                <li class="breadcrumb-item"><a class="breadcrumb-link" href="javascript:;">Trang chủ</a></li>
-                <li class="breadcrumb-item"><a class="breadcrumb-link" href="javascript:;">Hẹn xem</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Tổng quan</li>
-              </ol>
-            </nav>
-
             <h1 class="page-header-title">Hẹn xem</h1>
           </div>
-
-          {{-- <div class="col-sm-auto">
-            <a class="btn btn-primary" href="{{ route('admin.henxem.create') }}">
-              <i class="tio-user-add mr-1"></i> Thêm khách hàng
-            </a>
-          </div> --}}
         </div>
         <!-- End Row -->
       </div>
@@ -104,7 +90,7 @@
                 @if ($dangLoc)
                 <div class="hs-unfold mr-2">
                     <a href="{{ url()->current() }}" class="btn btn-outline-secondary ml-2">
-                        <i class="tio-clear"></i> Đặt lại bộ lọc
+                        <i class="tio-refresh"></i>
                     </a>
                 </div>
                 @endif
@@ -120,7 +106,6 @@
                     </div>
                     <div class="card-body">
                     <form method="GET" action="{{ route('admin.henxem.index') }}">
-                        {{-- Trạng thái --}}
                         <div class="form-group">
                         <label for="trang_thai">Trạng thái</label>
                         <select name="trang_thai" id="trang_thai" class="form-control selectpicker" data-live-search="true" title="Chọn trạng thái">
@@ -162,10 +147,6 @@
             <thead class="thead-light">
               <tr>
                 <th class="table-column-pr-0">
-                  {{-- <div class="custom-control custom-checkbox">
-                    <input id="datatableCheckAll" type="checkbox" class="custom-control-input">
-                    <label class="custom-control-label" for="datatableCheckAll"></label>
-                  </div> --}}
                 </th>
                 <th class="table-column-pl-0">Mã hẹn xem</th>
                 <th>Tên khách/Email</th>
@@ -182,10 +163,6 @@
               @foreach ($henxems as $henxem)
                 <tr>
                   <td >
-                    {{-- <div class="custom-control custom-checkbox">
-                      <input type="checkbox" class="custom-control-input" id="usersDataCheck1">
-                      <label class="custom-control-label" for="usersDataCheck1"></label>
-                    </div> --}}
                   </td>
                   <td class="table-column-pr-0">
                     <a href="#">#{{ $henxem->ma_hen_xem }}</a>
@@ -212,7 +189,7 @@
                         <form action="{{ route('admin.henxem.update', $henxem->ma_hen_xem) }}" method="POST" onsubmit="return confirm('Bạn có chắc đã hoàn thành lịch hẹn này?');">
                           @csrf
                           @method('PUT')
-                          <button class="btn btn-sm btn-white" type="submit" title="Xác nhận đã xử lý">
+                          <button class="btn btn-sm btn-soft-dark" type="submit" title="Xác nhận đã xử lý">
                             <i class="tio-edit"></i>
                           </button>
                         </form>

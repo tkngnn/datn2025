@@ -29,17 +29,6 @@
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                {{-- @if ($errors->any())
-  <div class="alert alert-danger">
-    <strong>Đã có lỗi xảy ra:</strong>
-    <ul>
-      @foreach ($errors->all() as $error)
-        <li>{{ $error }}</li>
-      @endforeach
-    </ul>
-  </div>
-@endif --}}
-
                     <!-- Page Header -->
                 <div class="page-header">
                     <div class="row align-items-center">

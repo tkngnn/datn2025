@@ -22,23 +22,19 @@ class ThongKeController extends Controller
 
     public function index()
     {
-        // Tòa nhà
         $totalToaNha = ToaNha::count();
         $totalPhong = VanPhong::count();
         $totalPhongDangThue = VanPhong::where('trang_thai', 'da thue')->count();
         $totalPhongConTrong = VanPhong::where('trang_thai', 'dang trong')->count();
 
-        // Người dùng (khách thuê)
         $totalKhachThue = User::where('vai_tro', 'KT')->count();
         $userActive = User::where('vai_tro', 'KT')->where('trang_thai', true)->count();
 
-        // Hợp đồng
         $totalHopDong = HopDong::count();
         $hopDongHieuLuc = HopDong::where('tinh_trang', 'dang thue')->count();
         $hopDongDaThanhLy = HopDong::where('tinh_trang', 'da thanh ly')->count();
         $hopDongMoi = HopDong::where('created_at', '>=', now()->subDays(7))->count();
 
-        // Hóa đơn
         $totalHoaDon = HoaDon::count();
         $hoaDonChuaTT = HoaDon::where('trang_thai', 'chua thanh toan')->count();
         $hoaDonDaTT = HoaDon::where('trang_thai', 'da thanh toan')->count();
@@ -64,13 +60,10 @@ class ThongKeController extends Controller
 
     public function doanhThuThang(Request $request)
     {
-        // Lấy năm lọc, mặc định là năm hiện tại
         $year = $request->input('nam', date('Y'));
 
-        // Lấy tòa nhà lọc, mặc định là tất cả (rỗng)
         $toaNha = $request->input('toa_nha', '');
 
-        // Lấy danh sách tòa nhà
         $dsToaNha = DB::table('toa_nha')->get();
 
         $query = DB::table('hop_dong as hd')
@@ -96,7 +89,6 @@ class ThongKeController extends Controller
             ->get()
             ->keyBy('thang');
 
-        // mảng chứa tất cả các tháng trong năm
         $allMonths = [];
         for ($i = 1; $i <= 12; $i++) {
             $month = sprintf('%04d-%02d', $year, $i);
@@ -108,64 +100,17 @@ class ThongKeController extends Controller
             ];
         }
 
-        // Gộp dữ liệu 
         foreach ($reportData as $month => $data) {
             $allMonths[$month] = $data;
         }
 
-        // Sắp xếp lại theo thứ tự tháng tăng dần
         ksort($allMonths);
 
-        // Chuyển thành collection 
         $report = collect(array_values($allMonths));
 
-        // Trả về view, truyền dữ liệu
         return view('admin.thongke.doanhthu', compact('report', 'year', 'dsToaNha', 'toaNha'));
     }
 
-    /*public function tyLeLapDay(Request $request)
-    {
-        // Lấy tháng và năm từ request, nếu không có thì lấy tháng và năm hiện tại
-        $month = $request->input('thang', date('m'));
-        $year = $request->input('nam', date('Y'));
-
-        // Lấy mã tòa nhà từ request, nếu không có thì lấy tất cả
-        $maToaNha = $request->input('toa_nha', '');
-        $dsToaNha = $maToaNha
-            ? ToaNha::where('ma_toa_nha', $maToaNha)->get()
-            : ToaNha::all();
-
-        $result = [];
-
-        $startOfMonth = Carbon::createFromDate($year, $month, 1)->startOfMonth();
-        $endOfMonth = Carbon::createFromDate($year, $month, 1)->endOfMonth();
-
-        foreach ($dsToaNha as $toaNha) {
-            // Tổng diện tích
-            $dienTichTong = VanPhong::where('ma_toa_nha', $toaNha->ma_toa_nha)->sum('dien_tich');
-
-            // Tổng diện tích văn phòng trong tòa nhà đang thuê
-            $dienTichThue = ChiTietHopDong::join('hop_dong', 'chi_tiet_hop_dong.ma_hop_dong', '=', 'hop_dong.ma_hop_dong')
-                ->join('van_phong', 'chi_tiet_hop_dong.ma_van_phong', '=', 'van_phong.ma_van_phong')
-                ->where('van_phong.ma_toa_nha', $toaNha->ma_toa_nha)
-                ->where('hop_dong.tinh_trang', 'dang thue')
-                ->whereDate('hop_dong.ngay_bat_dau', '<=', $endOfMonth)
-                ->where(function ($query) use ($startOfMonth) {
-                    $query->whereNull('hop_dong.ngay_ket_thuc')
-                        ->orWhereDate('hop_dong.ngay_ket_thuc', '>=', $startOfMonth);
-                })
-                ->sum('chi_tiet_hop_dong.dien_tich');
-
-            $tyLe = $dienTichTong > 0 ? ($dienTichThue / $dienTichTong) * 100 : 0;
-
-            $result[] = [
-                'toa_nha' => $toaNha->ten_toa_nha,
-                'ty_le_lap_day' => round($tyLe, 2),
-            ];
-        }
-
-        return view('admin.thongke.tylelapday', compact('result', 'month', 'year', 'dsToaNha', 'maToaNha'));
-    }*/
     public function tyLeLapDay(Request $request)
     {
         $thangYear = $request->input('thang_year', date('m/Y'));
@@ -182,7 +127,6 @@ class ThongKeController extends Controller
 
         $maToaNha = $request->input('toa_nha', '');
 
-        // Lấy danh sách tòa nhà theo mã hoặc tất cả
         $dsToaNha = $maToaNha
             ? ToaNha::where('ma_toa_nha', $maToaNha)->get()
             : ToaNha::all();

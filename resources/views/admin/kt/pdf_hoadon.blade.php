@@ -2,7 +2,6 @@
     .invoice-box {
         max-width: 800px;
         margin: auto;
-        /* padding: 30px; */
         font-size: 14px;
         line-height: 22px;
         font-family: 'DejaVu Sans', sans-serif;
@@ -54,12 +53,10 @@
 
     .header-center {
         width: 65%;
-        /* text-align: center; */
     }
 
     .header-center p {
         margin: 0;
-        /* font-style: italic; */
     }
 
     h2.invoice-title {
@@ -89,16 +86,6 @@
 
 <div class="invoice-box">
     <!-- Header -->
-    {{-- <div class="header-box">
-        <div class="header-left">
-            <img src="{{ public_path('/assets/img/bGROUP_logo.png') }}" alt="Logo Công ty">
-        </div>
-        <div class="header-center">
-            <p>Địa chỉ: 65 Huỳnh Thúc Kháng, Bến Nghé, Quận 1, Hồ Chí Minh 700000</p>
-            <p>Điện thoại: 028 3821 2360</p>
-            <p>Email: info@bgroup.com.vn</p>
-        </div>
-    </div> --}}
     <table class="no-border" style="width: 100%;">
         <tr>
             <td style="width: 35%; border:#fff">

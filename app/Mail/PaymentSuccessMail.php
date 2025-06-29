@@ -30,7 +30,7 @@ class PaymentSuccessMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Payment Success Mail',
+            subject: 'Thanh toán thành công',
         );
     }
 

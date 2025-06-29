@@ -17,7 +17,6 @@
             </div>
             <form action="{{ route('admin.hopdong.store') }}" method="POST">
                 @csrf
-                <!-- PHẦN 1: THÔNG TIN CHUNG -->
                 <div class="card mb-4">
                     <div class="card-header">
                         <h4 class="text-primary">1. Thông Tin Chung</h4>
@@ -41,7 +40,6 @@
                                     <label for="vanphong_id">Phòng</label>
                                     <select class="form-control" name="vanphong_id" id="vanphong_id">
                                         <option value="">-- Chọn phòng --</option>
-                                        {{-- Văn phòng sẽ được load bằng JavaScript --}}
                                     </select>
                                 </div>
                             </div>
@@ -82,13 +80,9 @@
                     </div>
                 </div>
 
-                <!-- PHẦN 2: KHÁCH THUÊ -->
                 <div class="card mb-4">
                     <div class="card-header">
                         <h4 class="text-primary">2. Khách Thuê</h4>
-                        <a class="btn btn-sm btn-primary" href="#">
-                            <i class="tio-user-add"></i>
-                        </a>
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -121,7 +115,6 @@
                     </div>
                 </div>
 
-                <!-- PHẦN 3: TIỀN THUÊ & CỌC -->
                 <div class="card mb-4">
                     <div class="card-header">
                         <h4 class="text-primary">3. Tiền Thuê & Cọc</h4>
@@ -163,7 +156,6 @@
                     </div>
                 </div>
 
-                <!-- PHẦN 4: CHI TIẾT -->
                 <div class="card mb-5">
                     <div class="card-header">
                         <h4 class="text-primary">4. Chi Tiết</h4>
@@ -207,9 +199,8 @@
                     </div>
                 </div>
 
-                <!-- Nút lưu -->
                 <div class="text-center mb-5">
-                    <button type="submit" class="btn btn-primary">Lưu Hợp Đồng</button>
+                    <button type="submit" class="btn btn-primary">Lưu</button>
                     <a href="{{ route('admin.hopdong.index') }}" class="btn btn-danger">Hủy</a>
                 </div>
             </form>

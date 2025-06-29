@@ -22,7 +22,6 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center mb-1">
                                 <h2 class="mb-0 mr-2">{{ $totalToaNha }}</h2>
-                                {{-- <span class="badge badge-soft-primary">1 tòa nhà</span> --}}
                             </div>
 
                             <div class="d-flex align-items-center mb-3">
@@ -48,7 +47,6 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center mb-1">
                                 <h2 class="mb-0 mr-2">{{ $totalKhachThue }}</h2>
-                                {{-- <span class="badge badge-soft-primary">1 khách mới</span> --}}
                             </div>
 
                             <div class="d-flex align-items-center mb-3">

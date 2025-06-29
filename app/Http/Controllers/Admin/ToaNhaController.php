@@ -107,7 +107,7 @@ class ToaNhaController extends Controller
     {
         $toaNha = ToaNha::findOrFail($id);
         $toaNha->update(['trang_thai' => 'khong hoat dong']);
-        $toaNha->delete(); // Thực hiện soft delete
+        $toaNha->delete(); 
         return redirect()->route('admin.toanha.index')->with('success', 'Đã cập nhật trạng thái xóa.');
     }
 

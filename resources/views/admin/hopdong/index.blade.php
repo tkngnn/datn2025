@@ -22,7 +22,9 @@
                                 class="badge badge-soft-dark ml-2">{{ $hopDongs->count() }}</span></h1>
                     </div>
                     <div class="col-sm-auto">
-                        <a class="btn btn-primary" href="{{ route('admin.hopdong.create') }}">Thêm hợp đồng</a>
+                        <a class="btn btn-primary" href="{{ route('admin.hopdong.create') }}" title="Thêm hợp đồng">
+                            <i class="tio-add"></i>
+                        </a>
                     </div>
                 </div>
                 <!-- End Row -->
@@ -109,7 +111,7 @@
                                         </div>
                                     </div>
                                     <input id="datatableSearch" type="search" class="form-control"
-                                        placeholder="Search orders" aria-label="Search orders">
+                                        placeholder="Tìm kiếm hợp đồng" aria-label="Search orders">
                                 </div>
                                 <!-- End Search -->
                             </form>
@@ -330,7 +332,7 @@
                                         </td>
                                         <td>
                                             <div class="btn-group" role="group" style="gap: 0.2rem;">
-                                                <a class="btn btn-sm btn-white btn-xem-hopdong" href="javascript:;"
+                                                <a class="btn btn-sm btn-soft-primary btn-xem-hopdong" href="javascript:;"
                                                     data-hopdong='@json($hopdong)'
                                                     data-chitiet='@json($chiTiet)'
                                                     data-id="{{ $hopdong->ma_hop_dong }}"
@@ -338,7 +340,7 @@
                                                     data-toggle="tooltip" data-placement="top" title="Xem">
                                                     <i class="tio-visible-outlined"></i>
                                                 </a>
-                                                <a class="btn btn-sm btn-white btn-edit-hopdong" href="javascript:;"
+                                                <a class="btn btn-sm btn-soft-dark btn-edit-hopdong" href="javascript:;"
                                                     data-id="{{ $hopdong->ma_hop_dong }}"
                                                     data-da-thanh-ly="{{ $hopdong->da_thanh_ly ? '1' : '0' }}"
                                                     data-url="{{ route('admin.hopdong.edit', $hopdong->ma_hop_dong) }}"
@@ -346,24 +348,18 @@
                                                     <i class="tio-edit"></i>
                                                 </a>
 
-                                                <a class="btn btn-sm btn-white"
+                                                <a class="btn btn-sm btn-soft-danger"
                                                     href="{{ route('admin.hopdong.export_pdf', $hopdong->ma_hop_dong) }}"
                                                     data-toggle="tooltip" data-placement="top" title="Tải PDF">
                                                     <i class="tio-download-to"></i>
                                                 </a>
-                                                <a href="javascript:;" class="btn btn-sm btn-white btn-thanh-ly"
+                                                <a href="javascript:;" class="btn btn-sm btn-soft-warning btn-thanh-ly"
                                                     data-hopdong='@json($hopdong)'
                                                     data-hoadons='@json($hopdong->hoaDons)'
                                                     data-da-thanh-ly="{{ $hopdong->da_thanh_ly ? '1' : '0' }}"
                                                     data-toggle="tooltip" data-placement="top" title="Thanh lý"><i
                                                         class="tio-checkmark-circle"></i>
                                                 </a>
-
-                                                <a class="btn btn-sm btn-white" href="#" data-toggle="tooltip"
-                                                    data-placement="top" title="Xóa">
-                                                    <i class="tio-delete"></i>
-                                                </a>
-
                                             </div>
                                         </td>
                                     </tr>
@@ -581,8 +577,8 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-danger">Xác nhận Thanh lý</button>
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Hủy</button>
+                            <button type="submit" class="btn btn-primary">Thanh lý</button>
                         </div>
                     </form>
                 </div>

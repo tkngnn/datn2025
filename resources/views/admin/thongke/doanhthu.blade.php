@@ -16,7 +16,6 @@
                 <form method="GET" action="{{ route('admin.thongke.doanh_thu_thang') }}">
                     <div class="row">
                         <div class="col-sm-4 ">
-                            {{-- <label for="toa_nha" class="mr-2">Tòa nhà:</label> --}}
                             <select name="toa_nha" id="toa_nha" class="form-control mr-3">
                                 <option value="">-- Tòa Nhà --</option>
                                 @foreach ($dsToaNha as $tn)
@@ -28,7 +27,6 @@
                             </select>
                         </div>
                         <div class="col-sm-4">
-                            {{-- <label for="nam" class="mr-2">Năm:</label> --}}
                             <select name="nam" id="nam" class="form-control mr-3">
                                 @for ($i = date('Y'); $i >= 2020; $i--)
                                     <option value="{{ $i }}"
@@ -37,9 +35,14 @@
                                 @endfor
                             </select>
                         </div>
+                        
                         <div class="col-sm-2">
-                            {{-- <label for="filter" class="mr-2">Lọc</label> --}}
-                            <button type="submit" class="btn btn-primary form-control mr-3" name ="filter">Lọc</button>
+                            <button type="submit" class="btn btn-primary" name ="filter"><i
+                                    class="tio-filter-outlined"></i>
+                            </button>
+                            <a href="{{ route('admin.thongke.doanh_thu_thang') }}" class="btn btn-white" title="Reset bộ lọc">
+                                <i class="tio-refresh"></i>
+                            </a>
                         </div>
                     </div>
                 </form>
@@ -87,197 +90,22 @@
 @endsection
 
 @push('scripts')
-    {{-- <script>
-        // Lấy dữ liệu từ Blade
-        const labels = @json($report->map(fn($item) => date('m/Y', strtotime($item->thang))));
-        const tienCoc = @json($report->pluck('tien_coc'));
-        const tienThu = @json($report->pluck('tien_thu'));
-        const dichVuPhu = @json($report->pluck('dich_vu_phu'));
-
-        // Tính tổng doanh thu
-        const tongDoanhThu = tienCoc.map((val, idx) => val + tienThu[idx] + dichVuPhu[idx]);
-
-        // Khởi tạo Chart.js
-        const ctx = document.getElementById('doanhThuChart').getContext('2d');
-        const doanhThuChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [{
-                        label: 'Tiền cọc',
-                        data: tienCoc,
-                        backgroundColor: 'rgba(54, 162, 235, 0.7)'
-                    },
-                    {
-                        label: 'Tiền thuê',
-                        data: tienThu,
-                        backgroundColor: 'rgba(255, 206, 86, 0.7)'
-                    },
-                    {
-                        label: 'Dịch vụ phụ',
-                        data: dichVuPhu,
-                        backgroundColor: 'rgba(75, 192, 192, 0.7)'
-                    },
-                    {
-                        label: 'Tổng doanh thu',
-                        data: tongDoanhThu,
-                        backgroundColor: 'rgba(255, 99, 132, 0.7)'
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Số tiền (VNĐ)'
-                        }
-                    },
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Tháng'
-                        }
-                    }
-                },
-                plugins: {
-                    tooltip: {
-                        mode: 'index',
-                        intersect: false,
-                        callbacks: {
-                            label: function(context) {
-                                return context.dataset.label + ': ' + context.parsed.y.toLocaleString('vi-VN') +
-                                    ' VNĐ';
-                            }
-                        }
-                    },
-                    legend: {
-                        position: 'top'
-                    }
-                }
-            }
-        });
-    </script> --}}
-
-    {{-- <script>
-        // Lấy dữ liệu từ Blade
-        const labels = @json($report->map(fn($item) => date('m/Y', strtotime($item->thang))));
-        const tienCoc = @json($report->pluck('tien_coc'));
-        const tienThu = @json($report->pluck('tien_thu'));
-        const dichVuPhu = @json($report->pluck('dich_vu_phu'));
-
-
-
-        // Tính tổng doanh thu
-        const tongDoanhThu = tienCoc.map((val, idx) => val + tienThu[idx] + dichVuPhu[idx]);
-        console.log(labels, tienCoc, tienThu, dichVuPhu, tongDoanhThu);
-
-        // Khởi tạo Chart.js
-        const ctx = document.getElementById('doanhThuChart').getContext('2d');
-        const doanhThuChart = new Chart(ctx, {
-            data: {
-                labels: labels,
-                datasets: [{
-                        label: 'Tiền cọc',
-                        data: tienCoc,
-                        backgroundColor: 'rgba(54, 162, 235, 0.7)',
-                        type: 'bar'
-                    },
-                    {
-                        label: 'Tiền thuê',
-                        data: tienThu,
-                        backgroundColor: 'rgba(255, 206, 86, 0.7)',
-                        type: 'bar'
-                    },
-                    {
-                        label: 'Dịch vụ phụ',
-                        data: dichVuPhu,
-                        backgroundColor: 'rgba(75, 192, 192, 0.7)',
-                        type: 'bar'
-                    },
-                    {
-                        label: 'Tổng doanh thu',
-                        data: tongDoanhThu,
-                        borderColor: 'rgba(255, 99, 132, 1)',
-                        backgroundColor: 'rgba(255, 99, 132, 0.1)',
-                        type: 'line',
-                        fill: false,
-                        tension: 0.4,
-                        pointBackgroundColor: 'rgba(255, 99, 132, 1)',
-                        yAxisID: 'y1',
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Số tiền (VNĐ)'
-                        }
-                    },
-                    y1: {
-                        beginAtZero: true,
-                        position: 'right',
-                        grid: {
-                            drawOnChartArea: false
-                        },
-                        title: {
-                            display: true,
-                            text: 'Tổng doanh thu'
-                        }
-                    },
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Tháng'
-                        }
-                    }
-                },
-                plugins: {
-                    tooltip: {
-                        mode: 'index',
-                        intersect: false,
-                        callbacks: {
-                            label: function(context) {
-                                return context.dataset.label + ': ' + context.parsed.y.toLocaleString('vi-VN') +
-                                    ' VNĐ';
-                            }
-                        }
-                    },
-                    legend: {
-                        position: 'top'
-                    }
-                }
-            }
-        });
-    </script> --}}
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Lấy dữ liệu từ Blade
             const labels = @json($report->map(fn($item) => date('m/Y', strtotime($item->thang))));
             const tienCoc = @json($report->pluck('tien_coc')->map(fn($x) => (float) $x)->toArray());
             const tienThu = @json($report->pluck('tien_thu')->map(fn($x) => (float) $x)->toArray());
             const dichVuPhu = @json($report->pluck('dich_vu_phu')->map(fn($x) => (float) $x)->toArray());
 
-
-            // Tính tổng doanh thu
             const tongDoanhThu = tienCoc.map((val, idx) => val + tienThu[idx] + dichVuPhu[idx]);
 
             console.log(labels, tienCoc, tienThu, dichVuPhu, tongDoanhThu);
 
-            // Kiểm tra dữ liệu
             if (!labels || labels.length === 0) {
                 console.error('Không có dữ liệu để hiển thị biểu đồ');
                 return;
             }
 
-            // Khởi tạo Chart.js
             const ctx = document.getElementById('doanhThuChart').getContext('2d');
 
             try {
@@ -341,12 +169,12 @@
                             }
                         },
                         interaction: {
-                            mode: 'index', // khi rê chuột vào một điểm trên trục x, hiện tooltip của tất cả các dataset cùng tháng đó
-                            intersect: false // cho phép hover trong khoảng giữa các điểm vẫn hiện tooltip
+                            mode: 'index', 
+                            intersect: false 
                         },
                         plugins: {
                             tooltip: {
-                                mode: 'index', // tooltip hiện cùng lúc các dữ liệu theo index (tháng)
+                                mode: 'index', 
                                 intersect: false,
                                 callbacks: {
                                     label: function(context) {

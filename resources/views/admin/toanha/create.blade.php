@@ -21,14 +21,6 @@
             <div class="page-header">
                 <div class="row align-items-center">
                     <div class="col-sm mb-2 mb-sm-0">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb breadcrumb-no-gutter">
-                                <li class="breadcrumb-item"><a class="breadcrumb-link" href="ecommerce-products.html">Tòa
-                                        Nhà</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Tạo Tòa Nhà</li>
-                            </ol>
-                        </nav>
-
                         <h1 class="page-header-title">Tạo Tòa Nhà</h1>
                     </div>
                 </div>
@@ -114,16 +106,6 @@
                                 <!-- Hidden input to store Quill HTML -->
                                 <input type="hidden" name="mo_ta" id="hiddenDescription">
 
-
-                                <!-- Quill -->
-                                {{-- <div class="quill-custom">
-                                    <div class="js-quill" style="min-height: 15rem;"
-                                        data-hs-quill-options='{
-                        "placeholder": "Type your description..."
-                       }'>
-                                    </div>
-                                </div> --}}
-
                                 <div class="quill-custom">
                                     <div class="js-quill" style="min-height: 25rem;"
                                         data-hs-quill-options='{
@@ -156,10 +138,9 @@
                         <div class="card-body">
                             <div class="row justify-content-center justify-content-sm-between">
                                 <div class="col">
-                                    <button type="button" class="btn btn-ghost-danger">Delete</button>
                                 </div>
                                 <div class="col-auto">
-                                    <button type="button" class="btn btn-ghost-light mr-2" id="btnCancel">Hủy</button>
+                                    <button type="button" class="btn btn-danger" id="btnCancel">Hủy</button>
                                     <button type="button" class="btn btn-primary" id="btnSave">Lưu</button>
                                 </div>
                             </div>

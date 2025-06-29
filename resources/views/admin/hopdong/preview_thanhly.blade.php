@@ -3,7 +3,6 @@
         @page {
             size: A4;
             margin: 2.5cm 2cm 2cm 3cm;
-            /* Trên, phải, dưới, trái */
         }
 
         p {

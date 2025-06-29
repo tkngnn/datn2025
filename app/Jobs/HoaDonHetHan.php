@@ -7,6 +7,7 @@ use App\Models\HoaDon;
 use Illuminate\Support\Carbon;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Support\Facades\Log;
 
 class HoaDonHetHan implements ShouldQueue
 {
@@ -15,7 +16,6 @@ class HoaDonHetHan implements ShouldQueue
     public function handle(): void
     {
         $today = Carbon::now();
-        //$today = Carbon::create(2025, 6, 13);
         $thangNam = $today->format('Y-m');
         $dauThang = $today->copy()->startOfMonth();
         $cuoiThang = $today->copy()->endOfMonth();
@@ -36,7 +36,7 @@ class HoaDonHetHan implements ShouldQueue
             $canTaoHoaDon = false;
             $ngayThue = 30;
             $soNgayConLai = (int) $today->diffInDays($ngayKetThuc,false);
-            \Log::info("HĐ {$hopdong->ma_hop_dong} - Ngày còn lại: {$soNgayConLai}");
+            Log::info("HĐ {$hopdong->ma_hop_dong} - Ngày còn lại: {$soNgayConLai}");
 
             if (
                 $ngayKetThuc->between($dauThang, $cuoiThang) &&
@@ -48,7 +48,7 @@ class HoaDonHetHan implements ShouldQueue
 
             if ($canTaoHoaDon) {
                 $tienThue = floor(($giaThue / 30) * $ngayThue);
-                \Log::info("Tiền thuê: {$tienThue}");
+                Log::info("Tiền thuê: {$tienThue}");
                 $hoaDon = HoaDon::firstOrCreate(
                     ['ma_hop_dong' => $hopdong->ma_hop_dong, 'thang_nam' => $thangNam],
                     [

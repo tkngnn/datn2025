@@ -11,20 +11,12 @@
       <div class="page-header">
         <div class="row align-items-end">
           <div class="col-sm mb-2 mb-sm-0">
-            <nav aria-label="breadcrumb">
-              <ol class="breadcrumb breadcrumb-no-gutter">
-                <li class="breadcrumb-item"><a class="breadcrumb-link" href="javascript:;">Trang chủ</a></li>
-                <li class="breadcrumb-item"><a class="breadcrumb-link" href="javascript:;">Khách hàng</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Tổng quan</li>
-              </ol>
-            </nav>
-
             <h1 class="page-header-title">Khách hàng</h1>
           </div>
 
           <div class="col-sm-auto">
-            <a class="btn btn-primary" href="{{ route('admin.khachhang.create') }}">
-              <i class="tio-user-add mr-1"></i> Thêm khách hàng
+            <a class="btn btn-primary" href="{{ route('admin.khachhang.create') }}" title="Thêm khách hàng">
+              <i class="tio-add"></i>
             </a>
           </div>
         </div>
@@ -97,7 +89,7 @@
               @if ($dangLoc)
                 <div class="hs-unfold mr-2">
                     <a href="{{ url()->current() }}" class="btn btn-outline-secondary ml-2">
-                        <i class="tio-clear"></i> Đặt lại bộ lọc
+                        <i class="tio-refresh"></i>
                     </a>
                 </div>
                 @endif
@@ -163,10 +155,6 @@
             <thead class="thead-light">
               <tr>
                 <th class="table-column-pr-0">
-                  {{-- <div class="custom-control custom-checkbox">
-                    <input id="datatableCheckAll" type="checkbox" class="custom-control-input">
-                    <label class="custom-control-label" for="datatableCheckAll"></label>
-                  </div> --}}
                 </th>
                 <th class="table-column-pl-0">Mã khách</th>
                 <th>Tên khách/Email</th>
@@ -183,10 +171,6 @@
               @foreach ($khachhangs as $khachhang)
                 <tr>
                   <td class="table-column-pr-0">
-                    {{-- <div class="custom-control custom-checkbox">
-                      <input type="checkbox" class="custom-control-input" id="usersDataCheck1">
-                      <label class="custom-control-label" for="usersDataCheck1"></label>
-                    </div> --}}
                   </td>
                   <td>
                     <a href="#">#{{ $khachhang->id }}</a>
@@ -215,7 +199,7 @@
                   </td>
                   <td>
                     <div>
-                      <a class="btn btn-sm btn-white" href="{{ route('admin.khachhang.edit',$khachhang->id) }}" title="Sửa">
+                      <a class="btn btn-sm btn-soft-dark" href="{{ route('admin.khachhang.edit',$khachhang->id) }}" title="Sửa">
                         <i class="tio-edit"></i>
                       </a>
                     </div>

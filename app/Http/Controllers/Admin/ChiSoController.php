@@ -28,12 +28,10 @@ class ChiSoController extends Controller
             });
         }
 
-        // Lọc theo tháng năm
         if ($request->filled('thang_nam')) {
             $query->where('thang_nam', $request->thang_nam);
         }
 
-        // Lọc theo trạng thái
         if ($request->filled('trang_thai') && $request->trang_thai == 'da nhap') {
                 $query->whereNotNull('so_dien')->whereNotNull('so_nuoc');
         }
@@ -108,12 +106,10 @@ class ChiSoController extends Controller
 
     public function store(Request $request)
     {
-        //  dd($request->all());
         $dsSoDien = $request->input('so_dien', []);
         $dsSoNuoc = $request->input('so_nuoc', []);
         $chiSoLoi = [];
         $chiSoThanhCong = 0;
-        //$today = Carbon::now();
         $today = Carbon::create(2025, 6, 10);
         $thangNay=$today->copy()->format('Y-m');
         $thangTruoc=$today->copy()->subMonth()->format('Y-m');

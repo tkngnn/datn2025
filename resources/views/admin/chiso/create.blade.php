@@ -99,17 +99,6 @@
                                           <i class="tio-filter-list mr-1"></i>
                                       </a>
                                   </div>
-                                  
-                                  <!-- End Unfold -->
-                                  <!-- Unfold -->
-                                  {{-- @if ($dangLoc)
-                                    <div class="hs-unfold mr-2">
-                                        <a href="{{ url()->current() }}" class="btn btn-outline-secondary ml-2">
-                                            <i class="tio-clear"></i> Đặt lại bộ lọc
-                                        </a>
-                                    </div>
-                                    @endif --}}
-                                  <!-- End Unfold -->
                               </div>
                     
                               <div id="datatableFilterSidebar" class="hs-unfold-content sidebar sidebar-bordered sidebar-box-shadow">
@@ -216,7 +205,7 @@
                                         <div class="row justify-content-center justify-content-sm-between align-items-sm-center">
                                           <div class="col-sm mb-2 mb-sm-0">
                                             <div class="d-flex justify-content-center justify-content-sm-start align-items-center">
-                                              <span class="mr-2">Showing:</span>
+                                              <span class="mr-2">Hiển thị:</span>
                               
                                               <!-- Select -->
                                               <select id="datatableEntries" class="js-select2-custom" data-hs-select2-options='{
@@ -230,9 +219,9 @@
                                                 <option value="20">20</option>
                                               </select>
                                               <!-- End Select -->
-                              
-                                              <span class="text-secondary mr-2">of</span>
-                              
+
+                                              <span class="text-secondary mr-2">của</span>
+
                                               <!-- Pagination Quantity -->
                                               <span id="datatableWithPaginationInfoTotalQty"></span>
                                             </div>
@@ -269,7 +258,7 @@
                                   </div>
                                   <div class="col-auto">
                                     <a href="{{ route('admin.chiso.index') }}" class="btn btn-danger mr-2">
-                                      <i class="tio-chevron-left"></i> Trở về
+                                      <i class="tio-chevron-left"></i>
                                     </a>
                                       <button type="submit" class="btn btn-primary">Lưu</button>
                                   </div>
