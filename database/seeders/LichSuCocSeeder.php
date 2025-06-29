@@ -10,7 +10,7 @@ class LichSuCocSeeder extends Seeder
 {
     public function run(): void
     {
-        DB::table('lich_su_coc')->insert([
+        /*DB::table('lich_su_coc')->insert([
             [
                 'ma_hop_dong' => 1,
                 'so_tien' => 45000000.00,
@@ -71,6 +71,6 @@ class LichSuCocSeeder extends Seeder
                 'updated_at' => now(),
                 'deleted_at' => null,
             ],
-        ]);
+        ]);*/
     }
 }

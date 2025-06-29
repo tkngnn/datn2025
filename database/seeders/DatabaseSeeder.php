@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             ThanhToanSeeder::class,
             YeuCauHoTroSeeder::class,
             LichSuCocSeeder::class,
+            ThanhLySeeder::class,
         ]);
     }
 }
