@@ -2,10 +2,10 @@
     .invoice-box {
         max-width: 800px;
         margin: auto;
-        padding: 30px;
+        /* padding: 30px; */
         font-size: 14px;
         line-height: 22px;
-        font-family: 'Times New Roman', Times, serif;
+        font-family: 'DejaVu Sans', sans-serif;
         color: #000;
         background-color: #fff;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
@@ -89,16 +89,31 @@
 
 <div class="invoice-box">
     <!-- Header -->
-    <div class="header-box">
+    {{-- <div class="header-box">
         <div class="header-left">
-            <img src="{{ asset('/assets/img/bGROUP_logo.png') }}" alt="Logo Công ty">
+            <img src="{{ public_path('/assets/img/bGROUP_logo.png') }}" alt="Logo Công ty">
         </div>
         <div class="header-center">
             <p>Địa chỉ: 65 Huỳnh Thúc Kháng, Bến Nghé, Quận 1, Hồ Chí Minh 700000</p>
             <p>Điện thoại: 028 3821 2360</p>
             <p>Email: info@bgroup.com.vn</p>
         </div>
-    </div>
+    </div> --}}
+    <table class="no-border" style="width: 100%;">
+        <tr>
+            <td style="width: 35%; border:#fff">
+                <img src="{{ public_path('/assets/img/bGROUP_logo.png') }}" alt="Logo Công ty" style="height: 80px;">
+            </td>
+            <td style="width: 65%; text-align: left; border:#fff">
+                <p style="margin: 0; line-height: 1.4;">
+                    Địa chỉ: 65 Huỳnh Thúc Kháng, Bến Nghé, Quận 1, Hồ Chí Minh 700000<br>
+                    Điện thoại: 028 3821 2360<br>
+                    Email: info@bgroup.com.vn
+                </p>
+            </td>
+        </tr>
+    </table>
+    
     <hr>
     <h2 class="invoice-title">HÓA ĐƠN THANH TOÁN</h2>
     <p class="invoice-month"><strong>Tháng {{ \Carbon\Carbon::parse($hoadon->thang_nam)->format('m/Y') }}</strong></p>
@@ -134,10 +149,10 @@
 
         <tr>
             <td>Điện (kWh)</td>
-            <td class="center">{{ $soDienCu }}</td>
+            <td class="center">{{ $hoadon->chi_so_dien_cu }}</td>
             <td class="center">{{ $hoadon->so_dien }}</td>
             <td class="center">
-                {{ $hoadon->so_dien ? $hoadon->so_dien - $soDienCu : '' }}
+                {{ $hoadon->so_dien ? $hoadon->so_dien - $hoadon->chi_so_dien_cu : '' }}
             </td>
             <td class="right">{{ number_format($hoadon->hopdong->chiTietHopDongs->first()->gia_dien) }}</td>
             <td class="right">{{ number_format($hoadon->tien_dien) }}</td>
@@ -145,10 +160,10 @@
 
         <tr>
             <td>Nước (m³)</td>
-            <td class="center">{{ $soNuocCu }}</td>
+            <td class="center">{{ $hoadon->chi_so_nuoc_cu }}</td>
             <td class="center">{{ $hoadon->so_nuoc }}</td>
             <td class="center">
-                {{ $hoadon->so_nuoc ? $hoadon->so_nuoc - $soNuocCu : '' }}
+                {{ $hoadon->so_nuoc ? $hoadon->so_nuoc - $hoadon->chi_so_nuoc_cu : '' }}
             </td>
             <td class="right">{{ number_format($hoadon->hopdong->chiTietHopDongs->first()->gia_nuoc) }}</td>
             <td class="right">{{ number_format($hoadon->tien_nuoc) }}</td>
@@ -178,7 +193,6 @@
         
     </table>
 
-    <br><br>
 
     <p><strong>Trạng thái:</strong>
         {{ $hoadon->trang_thai === 'da thanh toan' ? 'ĐÃ THANH TOÁN' : 'CHƯA THANH TOÁN' }}
@@ -187,8 +201,8 @@
     <br><br>
     <table class="no-border">
         <tr>
-            <td class="center" style="border:#fff"><strong>Người lập</strong><br>(Ký, ghi rõ họ tên)<br><br><br><br><br><br></td>
-            <td class="center" style="border:#fff"><strong>Khách hàng</strong><br>(Ký, ghi rõ họ tên)<br><br><br><br><br><br></td>
+            <td class="center" style="border:#fff"><strong>Người lập</strong><br>(Ký, ghi rõ họ tên)</td>
+            <td class="center" style="border:#fff"><strong>Khách hàng</strong><br>(Ký, ghi rõ họ tên)</td>
         </tr>
     </table>
 </div>

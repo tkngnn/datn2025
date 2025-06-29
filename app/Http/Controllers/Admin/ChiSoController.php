@@ -18,9 +18,30 @@ use App\Models\HoaDon;
 
 class ChiSoController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $hoadons = HoaDon::with(['hopdong.chiTietHopDongs.vanphong.toanha', 'hopdong.user','hopdong.hoaDons'])->get();
+        $query = HoaDon::with(['hopdong.chiTietHopDongs.vanphong.toanha', 'hopdong.user','hopdong.hoaDons']);
+        if ($request->filled('ma_toa_nha')) {
+            $query->whereHas('hopdong.chiTietHopDongs.vanphong.toanha', function ($q) use ($request) {
+                $q->where('ma_toa_nha', $request->ma_toa_nha);
+            });
+        }
+
+        // Lọc theo tháng năm
+        if ($request->filled('thang_nam')) {
+            $query->where('thang_nam', $request->thang_nam);
+        }
+
+        // Lọc theo trạng thái
+        if ($request->filled('trang_thai') && $request->trang_thai == 'da nhap') {
+                $query->whereNotNull('so_dien')->whereNotNull('so_nuoc');
+        }
+
+        if ($request->filled('trang_thai') && $request->trang_thai == 'chua nhap') {
+                $query->whereNull('so_dien')->whereNull('so_nuoc');
+        }
+
+        $hoadons = $query->get();
         $chuaNhap=0;
 
         foreach ($hoadons as $hoadon) {
@@ -45,20 +66,30 @@ class ChiSoController extends Controller
                 }
             }
         }
+        $dsToaNha=ToaNha::all();
 
-        return view('admin.chiso.index', compact('hoadons','chuaNhap'));
+        return view('admin.chiso.index', compact('hoadons','chuaNhap','dsToaNha'));
     }
 
-    public function create()
+    public function create(Request $request)
     {
         $toanhas = ToaNha::all();
-        $hoadons = HoaDon::whereNull('so_dien')
+        $query = HoaDon::whereNull('so_dien')
         ->whereNull('so_nuoc')
         ->with([
             'hopdong.user',
             'hopdong.chiTietHopDongs.vanphong.toanha'
-        ])
-        ->get();
+        ]);
+        if ($request->filled('ma_toa_nha')) {
+            $query->whereHas('hopdong.chiTietHopDongs.vanphong.toanha', function ($q) use ($request) {
+                $q->where('ma_toa_nha', $request->ma_toa_nha);
+            });
+        }
+        if ($request->filled('thang_nam')) {
+            $query->where('thang_nam', $request->thang_nam);
+        }
+        $hoadons = $query->get();
+
         foreach($hoadons as $hoadon){
             $thangNamCuaHoaDon = $hoadon->thang_nam;
             $thangNamTruoc = Carbon::parse($thangNamCuaHoaDon . '-01')->subMonth()->format('Y-m');
@@ -110,6 +141,9 @@ class ChiSoController extends Controller
                 continue;
             }   
 
+            $soDien = ceil($soDien);
+            $soNuoc = ceil($soNuoc);
+
             $chiTiet = $hoaDon->hopdong->chiTietHopDongs->first();
             if (!$chiTiet) continue;
 
@@ -122,7 +156,7 @@ class ChiSoController extends Controller
 
             $tienDien = $dienTieuThu * $donGiaDien;
             $tienNuoc = $nuocTieuThu * $donGiaNuoc;
-            $tongThanhToan = $tienDien + $tienNuoc + $tienThue;
+            $tongThanhToan = ($tienDien + $tienNuoc + $tienThue)* 1.1;
 
             $hoaDon->update([
                 'so_dien' => $soDien,

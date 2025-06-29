@@ -164,6 +164,96 @@
                             <!-- End Card -->
                         </div>
                     </div>
+                  </div>
+
+                  <!-- Tên khách hàng -->
+                  <div class="row form-group">
+                    <label class="col-sm-3 col-form-label input-label">Tên khách hàng</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" name="name" placeholder="Nhập tên khách hàng" value="{{ old('name') }}">
+                      <span class="text-danger" id="error-name"></span>
+                    </div>
+                  </div>
+
+                  <!-- Email -->
+                  <div class="row form-group">
+                    <label class="col-sm-3 col-form-label input-label">Email</label>
+                    <div class="col-sm-9">
+                      <div class="input-group">
+                        <input type="email" class="form-control" name="email" placeholder="Nhập email" value="{{ old('email') }}">
+                      </div>
+                      <span class="text-danger" id="error-email"></span>
+                    </div>
+                  </div>
+
+                  <!-- cccd -->
+                  <div class="row form-group">
+                    <label class="col-sm-3 col-form-label input-label">CCCD</label>
+                    <div class="col-sm-9">
+                      <div class="input-group">
+                        <input type="text" class="form-control" name="cccd" id="cccd" placeholder="Nhập cccd" value="{{ old('cccd') }}">
+                      </div>
+                      <span class="text-danger" id="error-cccd"></span>
+                    </div>
+                  </div>
+
+                  <div class="row form-group">
+                    <label class="col-sm-3 col-form-label input-label">Password</label>
+                    <div class="col-sm-9">
+                      <div class="input-group">
+                        <span><strong>Password mặc định là số căn cước</strong></span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- sdt -->
+                  <div class="row form-group">
+                    <label class="col-sm-3 col-form-label input-label">Số điện thoại</label>
+                    <div class="col-sm-9">
+                      <div class="input-group">
+                        <input type="text" class="form-control" name="so_dien_thoai" placeholder="Nhập số điện thoại" value="{{ old('so_dien_thoai') }}">
+                      </div>
+                      <span class="text-danger" id="error-so_dien_thoai"></span>
+                    </div>
+                  </div>
+
+                  <!-- Địa chỉ -->
+                  <div class="row form-group">
+                    <label class="col-sm-3 col-form-label input-label">Địa chỉ</label>
+                    <div class="col-sm-9">
+                      <div class="input-group">
+                        <input type="text" class="form-control" name="dia_chi" placeholder="Nhập địa chỉ" value="{{ old('dia_chi') }}">
+                      </div>
+                      <span class="text-danger" id="error-dia_chi"></span>
+                    </div>
+                  </div>
+
+                  <!-- Vai trò -->
+                  <div class="row form-group">
+                    <label class="col-sm-3 col-form-label input-label">Vai trò</label>
+                    <div class="col-sm-9">
+                      <div class="select2-custom">
+                        <select class="custom-select" name="vai_tro">
+                          <option value="KT">Khách thuê</option>
+                          <option value="admin">Admin</option>
+                        </select>
+                      </div>  
+                    </div>
+                  </div>
+
+                  <!-- Trạng thái -->
+                  <div class="row form-group">
+                    <label class="col-sm-3 col-form-label input-label">Trạng thái</label>
+                    <div class="col-sm-9">
+                      <div class="select2-custom">
+                        <select class="custom-select" name="trang_thai">
+                          <option value="1">Đang sử dụng</option>
+                          <option value="0">Ngừng hoạt động</option>
+                        </select>
+                      </div>  
+                    </div>
+                  </div>
+                  <!-- End Form Group -->
                 </div>
         </div>
         {{-- <script>

@@ -10,6 +10,7 @@ use App\Models\HopDong;
 use App\Models\HoaDon;
 use App\Models\YeuCauHoTro;
 use App\Models\User;
+use App\Models\ToaNha;
 use Carbon\Carbon;
 use Barryvdh\DomPDF\Facade\Pdf;
 
@@ -30,13 +31,28 @@ class KTController extends Controller
     }
 
 
-    public function DSHopDong()
+    public function DSHopDong(Request $request)
     {
         $user = Auth::user();
-        $hopDongs = HopDong::where('user_id', $user->id)->get();
 
-        return view('admin.kt.dshopdong', compact('hopDongs'));
+        $query = HopDong::where('user_id', $user->id);
+
+        if ($request->filled('ma_toa_nha')) {
+            $query->whereHas('chiTietHopDongs.vanphong.toanha', function ($q) use ($request) {
+                $q->where('ma_toa_nha', $request->ma_toa_nha);
+            });
+        }
+
+        if ($request->filled('trang_thai')) {
+            $query->where('tinh_trang', $request->trang_thai);
+        }
+
+        $hopDongs = $query->get();
+        $dsToaNha = ToaNha::all();
+
+        return view('admin.kt.dshopdong', compact('hopDongs', 'dsToaNha'));
     }
+
 
     public function preview_hopdong($id)
     {
@@ -70,20 +86,46 @@ class KTController extends Controller
     }
 
 
-    public function DSHoaDon()
+    public function DSHoaDon(Request $request)
     {
         $user = Auth::user();
 
-        $hoaDons = HoaDon::whereHas('hopDong', function ($query) use ($user) {
+        $query = HoaDon::whereHas('hopDong', function ($query) use ($user) {
             $query->where('user_id', $user->id);
         })
             ->whereNotNull("so_dien")
-            ->whereNotNull("so_nuoc")
+            ->whereNotNull("so_nuoc");
+            if ($request->filled('ma_toa_nha')) {
+                $query->whereHas('hopdong.chiTietHopDongs.vanphong.toanha', function ($q) use ($request) {
+                    $q->where('ma_toa_nha', $request->ma_toa_nha);
+                });
+            }
+
+            // Lọc theo tháng năm
+            if ($request->filled('thang_nam')) {
+                $query->where('thang_nam', $request->thang_nam);
+            }
+
+            // Lọc theo tiền
+            if ($request->filled('gia_thue_min')) {
+                $query->where('tong_tien', '>=', (float) str_replace(',', '', $request->gia_thue_min));
+            }
+
+            if ($request->filled('gia_thue_max')) {
+                $query->where('tong_tien', '<=', (float) str_replace(',', '', $request->gia_thue_max));
+            }
+
+            // Lọc theo trạng thái
+            if ($request->filled('trang_thai')) {
+                $query->where('trang_thai', $request->trang_thai);
+            }
             /*->orderByRaw("CASE WHEN trang_thai = 'chua thanh toan' THEN 0 ELSE 1 END") 
             ->orderByDesc('thang_nam')*/
-            ->get();
+            $hoaDons=$query->get();
 
-        return view('admin.kt.dshoadon', compact('hoaDons'));
+            $dsToaNha=ToaNha::all();
+
+        return view('admin.kt.dshoadon', compact('hoaDons','dsToaNha'));
     }
 
     public function preview_hoadon($id)
@@ -127,18 +169,19 @@ class KTController extends Controller
             $hoadon->chi_so_nuoc_cu = 0;
         }
 
-        $pdf = Pdf::loadView('admin.kt.preview_hoadon', [
-            'hoadon'=>$hoadon,
-            'is_pdf' => true])
-            ->setOptions(['defaultFont' => 'DejaVu Sans']);
+        $pdf = Pdf::loadView('admin.kt.pdf_hoadon', compact('hoadon'));
         return $pdf->download("hoa-don-{$hoadon->ma_hoa_don}.pdf");
     }
 
 
-    public function DSHoTro()
+    public function DSHoTro(Request $request)
     {
         $user = Auth::user();
-        $hoTros = YeuCauHoTro::where('user_id', $user->id)->get();
+        $query = YeuCauHoTro::where('user_id', $user->id);
+        if ($request->filled('trang_thai')) {
+                $query->where('trang_thai_xu_ly', $request->trang_thai);
+            }
+        $hoTros=$query->get();
 
         return view('admin.kt.dshotro', compact('hoTros'));
     }

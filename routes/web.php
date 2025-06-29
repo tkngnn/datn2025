@@ -32,6 +32,12 @@ Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
     Route::get('/van-phong/{slug}', [UserVanPhongController::class, 'show'])->name('vanphong.chitiet');
     Route::get('/van-phong/henxem/{slug}', [UserVanPhongController::class, 'henxem'])->name('vanphong.henxem');
     Route::post('/van-phong/guiyeucau', [UserVanPhongController::class, 'guiyeucau'])->name('vanphong.guiyeucau');
+    Route::get('/lienhe', function () {
+        return view('user.home.lienhe');
+    })->name('lienhe');
+    Route::get('/about', function () {
+        return view('user.home.about');
+    })->name('about');
 });
 
 Route::middleware(['auth', 'verified', 'check.role:admin'])->prefix('admin')->name('admin.')->group(function () {
@@ -40,6 +46,7 @@ Route::middleware(['auth', 'verified', 'check.role:admin'])->prefix('admin')->na
 
     //Route quản lý tòa nhà
     Route::resource('toanha', ToaNhaController::class);
+    Route::get('/toanha/preview/{id}', [ToaNhaController::class, 'preview'])->name('toanha.preview');
 
     //Route quản lý hợp đồng
     Route::resource('hopdong', HopDongController::class);
@@ -67,6 +74,7 @@ Route::middleware(['auth', 'verified', 'check.role:admin'])->prefix('admin')->na
     Route::post('vanphong', [VanPhongController::class, 'store'])->name('vanphong.store');
     Route::get('vanphong/{ma_van_phong}/edit', [VanPhongController::class, 'edit'])->name('vanphong.edit');
     Route::put('vanphong/{ma_van_phong}', [VanPhongController::class, 'update'])->name('vanphong.update');
+    Route::get('vanphong/preview/{id}', [VanPhongController::class, 'preview'])->name('vanphong.preview');
 
     //Route quản lý khách hàng
     Route::get('khachhang', [KhachHangController::class, 'index'])->name('khachhang.index');
@@ -100,6 +108,8 @@ Route::middleware(['auth', 'verified', 'check.role:admin'])->prefix('admin')->na
     Route::get('hoadon', [HoaDonController::class, 'index'])->name('hoadon.index');
     Route::get('/hoadon/preview/{id}', [HoaDonController::class, 'preview'])->name('hoadon.preview');
     Route::post('/hoadon/guimail', [HoaDonController::class, 'guiMail'])->name('hoadon.guimail');
+    Route::get('/admin/hoadon/{id}/pdf', [HoaDonController::class, 'downloadPDF'])->name('hoadon.downloadPDF');
+
 });
 
 Route::middleware(['auth', 'verified', 'check.role:KT'])->prefix('kt')->name('kt.')->group(function () {

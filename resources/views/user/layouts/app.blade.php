@@ -129,19 +129,7 @@
                             color: #0a4db8;
                             }
                         </style>
-                        <div class="flex items-center justify-end gap-6 pr-4 py-2 text-sm font-medium">
-
-                            <div class="contact-box">
-                                <a href="tel:0901007226" class="hotline-btn">
-                                  📞 HOTLINE: <strong>0901007226</strong>
-                                </a>
-                              
-                                <a href="mailto:info@niceoffice.com.vn" class="email-link">
-                                  <img src="https://img.icons8.com/ios-filled/20/000000/new-post.png" alt="email icon" />
-                                  info@bgroup.com.vn
-                                </a>
-                              </div>
-                        </div>                        
+                                       
                         <!-- Account -->
                         <div class="dropdown account-dropdown">
                             <button class="header-action-btn" data-bs-toggle="dropdown">
@@ -173,13 +161,13 @@
                 <div class="position-relative">
                     <nav id="navmenu" class="navmenu">
                         <ul>
-                            <li><a href="{{ route('user.home') }}" class="active">TRANG CHỦ</a></li>
+                            <li><a href="{{ route('user.home') }}" class="{{ Request::is('/') ? 'active' : '' }}">TRANG CHỦ</a></li>
                             {{-- <li><a href="about.html">GIỚI THIỆU</a></li> --}}
                             <li class="dropdown"><a href="{{ route('user.danhsach') }}"><span>VĂN PHÒNG</span> <i
                                         class="bi bi-chevron-down toggle-dropdown"></i></a>
                                 <ul>
                                     <li><a href="#">Hà Nội</a></li>
-                                    <li class="dropdown"><a href="#"><span>TP. Hồ Chí Minh</span> <i
+                                    <li class="dropdown"><a href="#" class="{{ Request::is('/') ? 'active' : '' }}"><span>TP. Hồ Chí Minh</span> <i
                                                 class="bi bi-chevron-down toggle-dropdown"></i></a>
                                         <ul>
                                             <li><a href="#">Quận 1</a></li>
@@ -192,7 +180,8 @@
                                     <li><a href="#">Đà Nẵng</a></li>
                                 </ul>
                             </li>
-                            <li><a href="#">LIÊN HỆ</a></li>
+                            <li><a href="{{ route('user.lienhe') }}" class="{{ Request::is('user/lienhe') ? 'active' : '' }}">LIÊN HỆ</a></li>
+                            <li><a href="{{ route('user.about') }}" class="{{ Request::is('user/about') ? 'active' : '' }}">GIỚI THIỆU VỀ BGROUP</a></li>
 
                         </ul>
                     </nav>
@@ -222,7 +211,7 @@
     </main>
 
     <footer id="footer" class="footer">
-        <div class="footer-main">
+        <div class="footer-main" style="background-color:color-mix(in srgb, var(--accent-color), transparent 95%)">
             <div class="container">
                 <div class="row gy-4">
                     <div class="col-lg-6 col-md-6 col-sm-12">
@@ -232,26 +221,44 @@
                                     loading="lazy">
                                 <span class="sitename">BGROUP</span>
                             </a>
-                            <p>Không gian lý tưởng – Khởi đầu thành công!</p>
-                            <div class="footer-contact mt-4">
-                                <div class="contact-item">
-                                    <i class="bi bi-geo-alt"></i>
-                                    <span>65 Huỳnh Thúc Kháng, Bến Nghé, Quận 1, Hồ Chí Minh 700000</span>
-                                </div>
-                                <div class="contact-item">
-                                    <i class="bi bi-telephone"></i>
-                                    <span>028 3821 2360</span>
-                                </div>
-                                <div class="contact-item">
-                                    <i class="bi bi-envelope"></i>
-                                    <span>info@bgroup.com.vn</span>
-                                </div>
-                            </div>
+                            <p style="font-size: 120%; color:#1d3b6f" data-text-color="primary">Không gian lý tưởng – Khởi đầu thành công!</p>
+                            <span><i class="bi bi-geo-alt"></i> 65 Huỳnh Thúc Kháng, Bến Nghé, Quận 1, Hồ Chí Minh 700000</span>
                         </div>
                     </div>
 
-                    
-                    <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="col-lg-3 col-md-6 col-sm-6">
+                        <div class="footer-widget">
+                          <h4>THÔNG TIN LIÊN HỆ</h4>
+                          <div class="footer-contact mt-4">
+                            <ul class="footer-links">
+                              <li>
+                                <a href="tel:02838212360">
+                                  <i class="bi bi-telephone"></i>
+                                  <span>028 3821 2360</span>
+                                </a>
+                              </li>
+                              <li>
+                                <a href="mailto:info@bgroup.com.vn">
+                                  <i class="bi bi-envelope"></i>
+                                  <span>info@bgroup.com.vn</span>
+                                </a>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div class="col-lg-3 col-md-6 col-sm-6">
+                        <div class="footer-widget">
+                          <h4>HỖ TRỢ KHÁCH HÀNG</h4>
+                          <ul class="footer-links">
+                            <li><a href="{{ route('user.about') }}">Giới thiệu về BGROUP</a></li>
+                            <li><a href="{{ route('user.lienhe') }}">Liên hệ</a></li>
+                          </ul>
+                        </div>
+                      </div>                      
+
+                    {{-- <div class="col-lg-6 col-md-6 col-sm-12">
                         <div class="row gy-4 align-items-stretch">
                             <!-- Cột bản đồ -->
                             <div class=" col-md-12 text-center" data-aos="fade-up" data-aos-delay="300">
@@ -287,13 +294,13 @@
                         </div>
                     
                         
-                    </div>
+                    </div> --}}
                     
                 </div>
             </div>
         </div>
 
-        <div class="footer-bottom">
+        <div class="footer-bottom" style="background-color:#ffff">
             <div class="container">
                 {{-- <div class="legal-links">
                     <a href="tos.html">Terms of Service</a>
@@ -301,7 +308,7 @@
                     <a href="tos.html">Cookies Settings</a>
                 </div> --}}
                 <div class="copyright text-center">
-                    <p>©<strong class="sitename">BGROUP</strong> cùng Kiều Ngân, Thanh Trúc </p>
+                    <p>©<strong class="sitename">BGROUP</strong> Copyright 2025</p>
                 </div>
             </div>
 

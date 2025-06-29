@@ -175,7 +175,7 @@
                 </div>
 
                 <!-- Specifications Tab -->
-                <div class="tab-pane fade" id="specifications" role="tabpanel" aria-labelledby="specifications-tab">
+                {{-- <div class="tab-pane fade" id="specifications" role="tabpanel" aria-labelledby="specifications-tab">
                   <div class="product-specifications">
                     <div class="specs-group">
                       <h4 style="text-decoration: underline;">THÔNG TIN VĂN PHÒNG</h4>
@@ -205,7 +205,7 @@
                       </ul>
                     </div>
                   </div>
-                </div>
+                </div> --}}
 
               </div>
             </div>

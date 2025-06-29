@@ -14,12 +14,13 @@
 
     <!-- Font -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- CSS Implementing Plugins -->
     <link rel="stylesheet" href="{{ asset('assets/css/vendor.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendor/icon-set/style.css') }}">
-
-
+    <link href="{{ asset('user/assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
 
     <!-- CSS Front Template -->
     <link rel="stylesheet" href="{{ asset('assets/css/theme.min.css?v=1.0') }}">
@@ -27,6 +28,7 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js"></script>
+    <script src="{{ asset('user/assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
 
     <!-- CSS của FilePond -->
     <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
@@ -1945,9 +1947,8 @@
                             <!-- End Components -->
                             <!-- Văn phòng -->
                             <li class="nav-item ">
-                                <a class="js-nav-tooltip-link nav-link {{ request()->is('admin/vanphong') ? 'active' : '' }}"
-                                    href="{{ route('admin.vanphong.index') }}" title="Văn phòng"
-                                    data-placement="left">
+                                <a class="js-nav-tooltip-link nav-link {{ request()->is('admin/vanphong') ? 'active' : '' }}" href="{{ route('admin.vanphong.index') }} "
+                                    title="Tất cả văn phòng" data-placement="left">
                                     <i class="tio-dashboard-vs-outlined nav-icon"></i>
                                     <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Văn
                                         phòng</span>
@@ -1987,17 +1988,15 @@
                                 </a>
                                 <ul class="js-navbar-vertical-aside-submenu nav nav-sub">
                                     <li class="nav-item">
-                                        <a class="nav-link {{ request()->routeIs('admin.khachhang.*') ? 'active' : '' }}"
-                                            href="{{ route('admin.khachhang.index') }}" title="Khách hàng">
+                                        <a class="nav-link {{ request()->routeIs('admin.khachhang.*') ? 'active' : '' }}" href="{{ route('admin.khachhang.index') }}" title="Danh sách khách hàng">
                                             <span class="tio-circle nav-indicator-icon"></span>
                                             <span class="text-truncate">Khách hàng</span>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link {{ request()->routeIs('admin.henxem.*') ? 'active' : '' }}"
-                                            href="{{ route('admin.henxem.index') }}" title="Khách hẹn xem">
+                                        <a class="nav-link {{ request()->routeIs('admin.henxem.*') ? 'active' : '' }}" href="{{ route('admin.henxem.index') }}" title="Khách đặt lịch hẹn xem phòng">
                                             <span class="tio-circle nav-indicator-icon"></span>
-                                            <span class="text-truncate">Khách hẹn xem</span>
+                                            <span class="text-truncate">Khách hẹn xem phòng</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -2043,17 +2042,16 @@
                             <li
                                 class="navbar-vertical-aside-has-menu {{ request()->is('admin/chiso*') || request()->is('admin/hoadon*') ? 'show' : '' }}">
                                 <a class="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle {{ request()->is('admin/chiso*') || request()->is('admin/hoadon*') ? 'active' : '' }}"
-                                    href="javascript:;" title="Tài chính">
+                                    href="javascript:;" title="Tiền thuê">
                                     <i class="tio-money nav-icon"></i>
-                                    <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Tài
-                                        chính</span>
+                                    <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Tiền thuê</span>
                                 </a>
                                 <ul class="js-navbar-vertical-aside-submenu nav nav-sub">
                                     <li class="nav-item">
                                         <a class="nav-link {{ request()->routeIs('admin.chiso.*') ? 'active' : '' }}"
                                             href="{{ route('admin.chiso.index') }}" title="Ghi chỉ sô">
                                             <span class="tio-circle nav-indicator-icon"></span>
-                                            <span class="text-truncate">Ghi chỉ số</span>
+                                            <span class="text-truncate">Ghi điện - nước</span>
                                         </a>
                                     </li>
                                     <li class="nav-item">
@@ -4037,7 +4035,7 @@
                 language: {
                     zeroRecords: '<div class="text-center p-4">' +
                         '<img class="mb-3" src="{{ asset('assets/svg/illustrations/sorry.svg') }}" alt="Image Description" style="width: 7rem;">' +
-                        '<p class="mb-0">No data to show</p>' +
+                        '<p class="mb-0">Không có dữ liệu</p>' +
                         '</div>'
                 }
             });
