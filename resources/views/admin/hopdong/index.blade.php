@@ -75,7 +75,6 @@
             @endif
 
             <script>
-                // Sau 5 giây (5000ms), tự động ẩn các alert có class `.alert`
                 setTimeout(function() {
                     const alerts = document.querySelectorAll('.alert');
                     alerts.forEach(alert => {
@@ -252,10 +251,6 @@
                         <thead class="thead-light">
                             <tr>
                                 <th scope="col" class="table-column-pr-0">
-                                    {{-- <div class="custom-control custom-checkbox">
-                                        <input id="datatableCheckAll" type="checkbox" class="custom-control-input">
-                                        <label class="custom-control-label" for="datatableCheckAll"></label>
-                                    </div> --}}
                                 </th>
                                 <th class="table-column-pl-0">Số hợp đồng</th>
                                 <th>Đại diện</th>
@@ -272,12 +267,6 @@
                                 @foreach ($hopdong->chiTietHopDongs as $chiTiet)
                                     <tr>
                                         <td class="table-column-pr-0">
-                                            {{-- <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input"
-                                                    id="hopdongCheck{{ $hopdong->ma_hop_dong }}">
-                                                <label class="custom-control-label"
-                                                    for="hopdongCheck{{ $hopdong->ma_hop_dong }}"></label>
-                                            </div> --}}
                                         </td>
                                         <td class="table-column-pl-0">
                                             <a class="btn-xem-hopdong" href="javascript:;"
@@ -293,9 +282,8 @@
 
                                                     $isCanhBao =
                                                         !$hopdong->da_thanh_ly &&
-                                                        ($ngayKetThuc->isPast() || // Đã quá hạn
+                                                        ($ngayKetThuc->isPast() ||
                                                             ($soNgayConLai <= 7 && $soNgayConLai >= 0));
-                                                    // Còn 7 ngày hoặc ít hơn
                                                 @endphp
                                                 @if ($isCanhBao)
                                                     <i class="tio-warning text-warning" data-toggle="tooltip"
@@ -350,12 +338,6 @@
                                                     data-toggle="tooltip" data-placement="top" title="Xem">
                                                     <i class="tio-visible-outlined"></i>
                                                 </a>
-
-                                                {{-- <a class="btn btn-sm btn-secondary"
-                                                    href="{{ route('admin.hopdong.edit', $hopdong->ma_hop_dong) }}"
-                                                    data-toggle="tooltip" data-placement="top" title="Chỉnh sửa">
-                                                    <i class="tio-edit"></i>
-                                                </a> --}}
                                                 <a class="btn btn-sm btn-white btn-edit-hopdong" href="javascript:;"
                                                     data-id="{{ $hopdong->ma_hop_dong }}"
                                                     data-da-thanh-ly="{{ $hopdong->da_thanh_ly ? '1' : '0' }}"
@@ -443,23 +425,13 @@
             <div class="modal-dialog modal-lg modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title"></h5>
-                        <a class="js-hs-unfold-invoker btn btn-icon btn-xs btn-ghost-dark ml-2" href="javascript:;"
-                            data-hs-unfold-options='{
-                                "target": "#datatableFilterSidebar",
-                                "type": "css-animation",
-                                "animationIn": "fadeInRight",
-                                "animationOut": "fadeOutRight",
-                                "hasOverlay": true,
-                                "smartPositionOff": true
-                            }'
-                            data-hs-unfold-target="#datatableFilterSidebar" data-hs-unfold-invoker>
+                        <h1 class="modal-title"></h1>
+                        <button type="button" class="btn btn-icon btn-sm btn-ghost-secondary" data-dismiss="modal"
+                            aria-label="Close">
                             <i class="tio-clear tio-lg"></i>
-                        </a>
-
+                        </button>
                     </div>
                     <div class="modal-body" id="noiDungHopDong">
-                        <!-- Nội dung sẽ được load qua Ajax -->
                     </div>
                     <div class="modal-footer">
                         <a href="#" class="btn btn-danger btn-tai-pdf">
@@ -560,7 +532,6 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <!-- JS sẽ đổ dữ liệu vào đây -->
                                         </tbody>
                                     </table>
                                 </div>
@@ -621,23 +592,6 @@
         <!-- End Thanh Ly Modal -->
 
         <!-- Biên Ban Thanh Ly Modal -->
-
-        {{-- <div id="modalBienBanThanhLy" class="modal "
-            style="display:none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.5);">
-            <div style="background: white; max-width: 800px; margin: 50px auto; padding: 20px; position: relative;">
-                <div class="modal-header">
-                    <h5 class="modal-title"></h5>
-                    <button type="button" class="btn btn-icon btn-sm btn-ghost-secondary ms-auto" data-dismiss="modal"
-                        aria-label="Close">
-                        <i class="tio-clear tio-lg"></i>
-                    </button>
-                </div>
-                <div id="modalContent">
-                    <!-- Nội dung biên bản thanh lý sẽ được load vào đây -->
-                    Đang tải...
-                </div>
-            </div>
-        </div> --}}
         <div class="modal fade" id="modalBienBanThanhLy" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-scrollable">
                 <div class="modal-content">
@@ -649,7 +603,6 @@
                         </button>
                     </div>
                     <div class="modal-body" id="modalContent">
-                        <!-- Nội dung sẽ được load qua Ajax -->
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" onclick="inNoiDungBienBan()">
@@ -667,7 +620,6 @@
 @endsection
 @push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/js/bootstrap-select.min.js"></script>
-    <!-- Nếu dùng CDN -->
     <script>
         $(document).ready(function() {
             $('.selectpicker').selectpicker();
@@ -694,8 +646,6 @@
                 const maHopDong = this.getAttribute('data-id');
                 const daThanhLy = this.getAttribute('data-da-thanh-ly');
                 const url = this.getAttribute('data-url');
-
-                // Kiểm tra nếu hợp đồng đã thanh lý
                 if (daThanhLy === '1') {
                     const alertBox = `
                         <div class="alert alert-soft-danger alert-dismissible fade show mt-3" role="alert">
@@ -717,18 +667,14 @@
 
         document.querySelectorAll('.btn-thanh-ly').forEach(btn => {
             btn.addEventListener('click', function() {
-                // Lấy dữ liệu hợp đồng từ data attribute
                 const hopdong = JSON.parse(this.getAttribute('data-hopdong'));
                 const hoaDons = JSON.parse(this.getAttribute('data-hoadons'));
                 const daThanhLy = this.getAttribute('data-da-thanh-ly');
 
-                // Kiểm tra nếu hợp đồng đã thanh lý
                 if (daThanhLy === '1') {
-                    // Khởi tạo modal Bootstrap
                     const modal = new bootstrap.Modal(document.getElementById('modalBienBanThanhLy'));
                     const modalContent = document.getElementById('modalContent');
 
-                    // Load nội dung biên bản thanh lý
                     fetch(`/admin/hopdong/${hopdong.ma_hop_dong}/bien-ban-thanh-ly`)
                         .then(response => {
                             if (!response.ok) throw new Error('Không tải được nội dung');
@@ -736,21 +682,18 @@
                         })
                         .then(html => {
                             modalContent.innerHTML = html;
-                            modal.show(); // Hiển thị modal sau khi load xong nội dung
+                            modal.show();
                         })
                         .catch(error => {
                             modalContent.innerHTML =
                                 `<p class="text-danger">Lỗi khi tải nội dung: ${error.message}</p>`;
                             modal.show();
                         });
-                    // Không hiện modal form thanh lý, thoát luôn
                     return;
                 } else {
-                    // Cập nhật form action (thay bằng route hoặc url đúng của bạn)
                     document.getElementById('formThanhLy').action =
                         `/admin/hopdong/thanhly/${hopdong.ma_hop_dong}`;
 
-                    // Điền các giá trị vào modal
                     document.getElementById('maHopDong').value = hopdong.ma_hop_dong;
                     document.getElementById('daiDien').innerText = hopdong.user.name;
                     document.getElementById('ngayBatDau').innerText = new Date(hopdong.ngay_bat_dau)
@@ -763,9 +706,8 @@
                     }).format(hopdong.tong_tien_coc);
                     document.getElementById('hoanTraCoc').value = hopdong.tong_tien_coc;
 
-                    // Xử lý bảng công nợ
                     const tbody = document.querySelector('#hoaDonTable tbody');
-                    tbody.innerHTML = ''; // Clear cũ
+                    tbody.innerHTML = '';
                     if (hoaDons.length > 0) {
                         console.log('hoaDons:', hoaDons);
                         document.getElementById('hoaDonTableContainer').classList.remove('d-none');
@@ -786,9 +728,7 @@
                         document.getElementById('noDebtMessage').classList.remove('d-none');
                     }
 
-                    //Tổng hợp công nợ
                     let tongNo = hoaDons.reduce((sum, hd) => {
-                        // Chuyển chuỗi sang số thập phân
                         const tien = parseFloat(hd.tong_tien);
                         return sum + (isNaN(tien) ? 0 : tien);
                     }, 0);
@@ -797,12 +737,10 @@
                         currency: 'VND'
                     }).format(tongNo);
 
-                    // Hàm cập nhật tổng cộng
                     function capNhatTongCong() {
 
                         const lyDo = document.querySelector('input[name="ly_do"]:checked')?.value;
                         if (lyDo === 'Khách bỏ cọc') {
-                            // Reset hết về 0
                             document.getElementById('tongPhiPhat').innerText = '0 ₫';
                             document.getElementById('hoanCoc').innerText = '0 ₫';
                             document.getElementById('tongCong').innerText = '0 ₫';
@@ -812,16 +750,13 @@
                             document.getElementById('inputHoanTraCoc').value = 0;
                             document.getElementById('inputTongCong').value = 0;
 
-                            return; // Không tính toán nữa
+                            return;
                         }
-                        // Lấy các giá trị số từ input, nếu rỗng thì mặc định 0
                         const phiPhat = Number(document.getElementById('phiPhat').value) || 0;
                         const hoanCoc = Number(document.getElementById('hoanTraCoc').value) || 0;
 
-                        // Tính tổng cộng: (1) + (2) - (3)
                         let tongCong = tongNo + phiPhat - hoanCoc;
 
-                        // Cập nhật giao diện (định dạng tiền)
                         document.getElementById('tongPhiPhat').innerText = new Intl.NumberFormat('vi-VN', {
                             style: 'currency',
                             currency: 'VND'
@@ -832,7 +767,6 @@
                             currency: 'VND'
                         }).format(hoanCoc);
 
-                        // Cập nhật tổng cộng
                         document.getElementById('tongCong').innerText = new Intl.NumberFormat('vi-VN', {
                             style: 'currency',
                             currency: 'VND'
@@ -844,14 +778,11 @@
                         document.getElementById('inputTongCong').value = tongCong;
                     }
 
-                    // Gọi 1 lần lúc mở modal
                     capNhatTongCong();
 
-                    // Lắng nghe thay đổi input phí phạt, hoàn cọc nếu cần tính lại
                     document.getElementById('phiPhat').addEventListener('input', capNhatTongCong);
                     document.getElementById('hoanTraCoc').addEventListener('input', capNhatTongCong);
 
-                    // Hiển thị modal
                     var thanhLyModal = new bootstrap.Modal(document.getElementById('thanhLyModal'));
                     thanhLyModal.show();
                 }
@@ -868,14 +799,12 @@
                     if (this.value === 'Khách bỏ cọc') {
                         thongTinCongNo.classList.add('d-none');
 
-                        // Reset giá trị nếu bỏ cọc
                         document.getElementById('inputTongNo').value = 0;
                         document.getElementById('inputPhiPhat').value = 0;
                         document.getElementById('inputHoanTraCoc').value = 0;
                         document.getElementById('inputTongCong').value = 0;
                     } else {
                         thongTinCongNo.classList.remove('d-none');
-                        // Cập nhật lại tổng cộng
                         capNhatTongCong();
                     }
                 });

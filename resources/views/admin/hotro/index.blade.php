@@ -86,7 +86,6 @@
                                         <option value="chưa xử lý">Chưa xử lý</option>
                                     </select>
 
-                                    <!-- Nút Reset -->
                                     <button type="button" class="btn btn-sm btn-soft-secondary ml-2"
                                         onclick="resetSelectFilter()" title="Reset lọc">
                                         <i class="tio-refresh"></i>
@@ -120,7 +119,6 @@
                 @endif
 
                 <script>
-                    // Sau 5 giây (5000ms), tự động ẩn các alert có class `.alert`
                     setTimeout(function() {
                         const alerts = document.querySelectorAll('.alert');
                         alerts.forEach(alert => {
@@ -155,10 +153,6 @@
                         <thead class="thead-light">
                             <tr>
                                 <th scope="col" class="table-column-pr-0">
-                                    {{-- <div class="custom-control custom-checkbox">
-                                        <input id="datatableCheckAll" type="checkbox" class="custom-control-input">
-                                        <label class="custom-control-label" for="datatableCheckAll"></label>
-                                    </div> --}}
                                 </th>
                                 <th>Mã</th>
                                 <th>Khách hàng</th>
@@ -174,15 +168,12 @@
                             @foreach ($yeuCaus as $yeuCau)
                                 <tr>
                                     <td class="table-column-pr-0">
-                                        {{-- <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input"
-                                                id="yeuCauCheck{{ $yeuCau->ma_yeu_cau }}">
-                                            <label class="custom-control-label"
-                                                for="yeuCauCheck{{ $yeuCau->ma_yeu_cau }}"></label>
-                                        </div> --}}
                                     </td>
                                     <td>
-                                        <a href="#">#{{ $yeuCau->ma_yeu_cau }}</a>
+                                        <a class="btn-view-detail" href="javascript:;" data-id="{{ $yeuCau->ma_yeu_cau }}"
+                                            data-toggle="tooltip" data-placement="top" title="Xem chi tiết">
+                                            {{ $yeuCau->ma_yeu_cau }}
+                                        </a>
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center">
@@ -202,7 +193,6 @@
                                         </div>
                                     </td>
                                     <td class="text-break">
-                                        {{-- Hiển thị tiêu đề và nội dung yêu cầu --}}
                                         <strong class="text-wrap">{{ $yeuCau->tieu_de }}</strong><br>
                                         <span
                                             class="text-muted text-truncate">{{ \Illuminate\Support\Str::limit($yeuCau->noi_dung, 30) }}</span>
@@ -220,39 +210,32 @@
                                     <td class="text-truncate" style="max-width: 150px;">{{ $yeuCau->ghi_chu_xu_ly ?? '-' }}
                                     </td>
                                     <td>
-                                        <div class="hs-unfold">
-                                            <a class="js-hs-unfold-invoker btn btn-icon btn-sm btn-ghost-secondary rounded-circle"
-                                                href="javascript:;"
-                                                data-hs-unfold-options='{
-                                                    "target": "#actionDropdown{{ $yeuCau->ma_yeu_cau }}",
-                                                    "type": "css-animation"
-                                                }'>
-                                                <i class="tio-more-horizontal"></i>
+                                        <div class="btn-group" role="group" style="gap: 0.2rem;">
+                                            <a class="btn btn-sm btn-white btn-view-detail" href="javascript:;"
+                                                data-id="{{ $yeuCau->ma_yeu_cau }}" data-toggle="tooltip"
+                                                data-placement="top" title="Xem chi tiết">
+                                                <i class="tio-visible-outlined"></i>
                                             </a>
 
-                                            <div id="actionDropdown{{ $yeuCau->ma_yeu_cau }}"
-                                                class="hs-unfold-content dropdown-unfold dropdown-menu dropdown-menu-right mt-1">
-                                                <a href="javascript:;" class="dropdown-item btn-view-detail"
-                                                    data-id="{{ $yeuCau->ma_yeu_cau }}">
-                                                    <i class="tio-visible dropdown-item-icon"></i> Xem chi tiết
+                                            @if ($yeuCau->trang_thai_xu_ly === 'chua xu ly')
+                                                <a class="btn btn-sm btn-white" href="javascript:void(0);"
+                                                    onclick="openEditModal({{ $yeuCau->ma_yeu_cau }})"
+                                                    data-toggle="tooltip" data-placement="top" title="Sửa">
+                                                    <i class="tio-edit"></i>
                                                 </a>
-                                                @if ($yeuCau->trang_thai_xu_ly === 'chua xu ly')
-                                                    {{-- Chỉ hiện nếu chưa xử lý --}}
-                                                    <a class="dropdown-item" href="javascript:void(0);"
-                                                        onclick="openEditModal({{ $yeuCau->ma_yeu_cau }})">
-                                                        <i class="tio-edit dropdown-item-icon"></i> Sửa (popup)
-                                                    </a>
-                                                @endif
-                                                <form action="{{ route('admin.hotro.destroy', $yeuCau->ma_yeu_cau) }}"
-                                                    method="POST"
-                                                    onsubmit="return confirm('Bạn có chắc chắn muốn xóa yêu cầu này không?')">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button class="dropdown-item" type="submit">
-                                                        <i class="tio-delete-outlined dropdown-item-icon"></i> Xóa
-                                                    </button>
-                                                </form>
-                                            </div>
+                                            @endif
+
+                                            <form action="{{ route('admin.hotro.destroy', $yeuCau->ma_yeu_cau) }}"
+                                                method="POST"
+                                                onsubmit="return confirm('Bạn có chắc chắn muốn xóa yêu cầu này không?')"
+                                                style="display: inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="btn btn-sm btn-white" type="submit" data-toggle="tooltip"
+                                                    data-placement="top" title="Xóa">
+                                                    <i class="tio-delete"></i>
+                                                </button>
+                                            </form>
                                         </div>
                                     </td>
                                 </tr>
@@ -321,7 +304,6 @@
                     </div>
 
                     <div class="modal-body">
-                        <!-- Nội dung chi tiết sẽ load vào đây -->
                         <div id="detailContent">Đang tải...</div>
                     </div>
                 </div>
@@ -329,38 +311,7 @@
         </div>
         <!-- End Modal Chi tiết Yêu cầu -->
 
-        <!-- Model chỉnh sửa -->
-        <!-- Modal Chỉnh sửa Yêu cầu -->
-        {{-- <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
 
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="editModalLabel">Chỉnh sửa yêu cầu</h5>
-                        <button type="button" class="btn btn-icon btn-xs btn-ghost-dark" data-bs-dismiss="modal"
-                            aria-label="Close">
-                            <i class="tio-clear tio-lg"></i>
-                        </button>
-                    </div>
-
-                    <form id="editForm" method="POST">
-                        @csrf
-                        @method('PUT')
-                        <div class="modal-body" id="editContent">
-                            
-                            Đang tải form chỉnh sửa...
-                        </div>
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-white" data-bs-dismiss="modal">Hủy</button>
-                            <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
-                        </div>
-                    </form>
-
-                </div>
-            </div>
-        </div> --}}
-        <!-- End Modal Chỉnh sửa -->
         <!-- Modal Chỉnh sửa Yêu cầu -->
         <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
@@ -378,7 +329,6 @@
                         @csrf
                         @method('PUT')
                         <div class="modal-body" id="editContent">
-                            <!-- Nội dung form chỉnh sửa sẽ được load ở đây bằng JS/AJAX -->
                             Đang tải form chỉnh sửa...
                         </div>
 
@@ -434,18 +384,17 @@
         });
 
         function openEditModal(id) {
-            // $('#editModal').modal('show');
             const modalElement = document.getElementById('editModal');
             const bsModal = new bootstrap.Modal(modalElement);
             bsModal.show();
             $('#editContent').html('Đang tải...');
 
             $.ajax({
-                url: `/admin/hotro/${id}/edit`, // route trả về view partial form
+                url: `/admin/hotro/${id}/edit`,
                 type: 'GET',
                 success: function(response) {
-                    $('#editContent').html(response); // đổ form vào modal
-                    $('#editForm').attr('action', `/admin/hotro/${id}`); // cập nhật action của form
+                    $('#editContent').html(response);
+                    $('#editForm').attr('action', `/admin/hotro/${id}`);
                 },
                 error: function() {
                     $('#editContent').html('<p class="text-danger">Không thể tải dữ liệu.</p>');
