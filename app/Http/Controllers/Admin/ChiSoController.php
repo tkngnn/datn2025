@@ -6,7 +6,7 @@ use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\HoaDonSendMailer;
+use App\Mail\HoaDonQueuedMailer;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Log;
 
@@ -130,6 +130,11 @@ class ChiSoController extends Controller
             $hoaDonTruoc = HoaDon::where('ma_hop_dong', $hoaDon->ma_hop_dong)
             ->where('thang_nam', $thangNamTruoc)->first();
 
+            if ($hoaDonTruoc && (is_null($hoaDonTruoc->so_dien) || is_null($hoaDonTruoc->so_nuoc))) {
+                $chiSoLoi[] = "Hóa đơn #$maHoaDon không có chỉ số cũ";
+                continue;            
+            }
+
             $soDienCu = $hoaDonTruoc?->so_dien ?? 0;
             $soNuocCu = $hoaDonTruoc?->so_nuoc ?? 0;
 
@@ -170,7 +175,7 @@ class ChiSoController extends Controller
                 ($today->day < $cuoiThang && $thangNamCuaHoaDon === $thangNay ) 
             ){
                 Log::info("Truyền vào Mailer HĐ #$maHoaDon | điện cũ: $soDienCu | nước cũ: $soNuocCu");
-                Mail::to($hoaDon->hopdong->user->email)->send(new HoaDonSendMailer($hoaDon, $soDienCu, $soNuocCu));
+                Mail::to($hoaDon->hopdong->user->email)->queue(new HoaDonQueuedMailer($hoaDon, $soDienCu, $soNuocCu));
             }
             
         }
