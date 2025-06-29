@@ -107,7 +107,7 @@
     </section>
 
 
-    <section class="districts-slider py-5">
+    <section class="districts-slider py-5 districts-section-hcm">
         <div class="container">
             <h2 class="section-title text-center mb-5">Văn phòng tại TP.HCM</h2>
             <div class="swiper districtsSwiperHCM">
@@ -166,7 +166,7 @@
     <style>
         .office-hero {
             padding: 80px 0;
-            background-color: #f8f9fa;
+            background-color: color-mix(in srgb, var(--accent-color), transparent 95%);
         }
 
         .office-hero .promo-badge {
@@ -308,6 +308,10 @@
     </style>
 
     <style>
+        .districts-section-hcm {
+            background-color: color-mix(in srgb, var(--accent-color), transparent 95%);
+        }
+
         .districts-section {
             background-color: #fff;
         }
@@ -376,6 +380,10 @@
             position: relative;
         }
 
+        .districts-section-hcm {
+            background-color: color-mix(in srgb, var(--accent-color), transparent 95%);
+        }
+
         .section-title {
             font-size: 2rem;
             font-weight: 700;
@@ -405,14 +413,12 @@
             font-weight: 500;
         }
 
-        /* Swiper custom styles */
         .swiper {
             padding: 20px 0;
         }
 
         .swiper-slide {
             width: auto !important;
-            /* Cho phép slide co giãn theo nội dung */
         }
 
         .swiper-button-next,
@@ -440,16 +446,13 @@
             background: #0d6efd;
         }
 
-        /* Fix khoảng trắng cho cả hai swiper */
         .districtsSwiperHCM,
         .districtsSwiperHN {
             overflow: hidden;
             padding: 20px 0 30px;
-            /* Thêm padding dưới cho scrollbar */
             position: relative;
         }
 
-        /* Sửa scrollbar */
         .districtsSwiperHCM .swiper-scrollbar,
         .districtsSwiperHN .swiper-scrollbar {
             position: absolute;
@@ -468,14 +471,11 @@
             border-radius: 4px;
         }
 
-        /* Điều chỉnh slide */
         .swiper-slide {
             width: auto;
             margin-right: 15px;
-            /* Thay thế spaceBetween bằng margin */
         }
 
-        /* Container không padding ngang */
         .districts-slider .container {
             padding-left: 0;
             padding-right: 0;
@@ -487,7 +487,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const swiperHCM = new Swiper('.districtsSwiperHCM', {
-                
+
                 freeMode: true,
                 grabCursor: true,
                 navigation: {
