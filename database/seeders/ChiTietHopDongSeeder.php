@@ -74,7 +74,7 @@ class ChiTietHopDongSeeder extends Seeder
             [
                 'ma_hop_dong' => 6,
                 'ma_van_phong' => 11,
-                'dien_tich' => 384,
+                'dien_tich' => 84,
                 'gia_thue' => 280320000,
                 'gia_dien' => 6000,
                 'gia_nuoc' => 30000,

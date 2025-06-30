@@ -55,7 +55,27 @@
                 </form>
 
             </div>
+            <div class="card mb-3 mb-lg-5">
+                <div class="mt-5 card-header">
+                    <h5 class="mb-3 card-header-title">
+                        @if ($maToaNha)
+                            Biểu đồ lắp đầy - {{ $result[0]['toa_nha'] }}
+                        @else
+                            Tỷ lệ lắp đầy giữa các tòa nhà
+                        @endif
+                    </h5>
 
+                </div>
+                <div class="card-body text-center">
+                    @if ($maToaNha)
+                        <canvas id="tyLeLapDayChart" class="c hartjs-custom mx-auto"style="width: 300px; height: 100px;"></canvas>
+                    @else
+                        <canvas id="tyLeLapDayChart" class="chartjs-custom mx-auto" style="width: 100%; height: 400px;"></canvas>
+                    @endif
+                </div>
+                
+
+            </div>
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -72,23 +92,6 @@
                     @endforeach
                 </tbody>
             </table>
-
-            <div class="card mb-3 mb-lg-5">
-                <div class="mt-5 card-header">
-                    <h5 class="mb-3 card-header-title">
-                        @if ($maToaNha)
-                            Biểu đồ lắp đầy - {{ $result[0]['toa_nha'] }}
-                        @else
-                            Tỷ lệ lắp đầy giữa các tòa nhà
-                        @endif
-                    </h5>
-
-                </div>
-                <div class="card-body">
-                    <canvas id="tyLeLapDayChart" class="chartjs-custom mx-auto" style="max-height: 200rem;"></canvas>
-                </div>
-
-            </div>
 
         </div>
     </main>

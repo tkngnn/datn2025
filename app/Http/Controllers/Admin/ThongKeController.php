@@ -122,7 +122,7 @@ class ThongKeController extends Controller
             $month = date('m');
             $year = date('Y');
         }
-        
+
         Log::info("Tháng: $month, Năm: $year");
 
         $maToaNha = $request->input('toa_nha', '');
@@ -151,7 +151,13 @@ class ThongKeController extends Controller
                     $query->whereNull('hop_dong.ngay_ket_thuc')
                         ->orWhereDate('hop_dong.ngay_ket_thuc', '>=', $startOfMonth);
                 })
-                ->sum('chi_tiet_hop_dong.dien_tich');
+                ->groupBy('chi_tiet_hop_dong.ma_van_phong')
+                ->selectRaw('MAX(chi_tiet_hop_dong.dien_tich) as dien_tich')
+                ->pluck('dien_tich')
+                ->sum();
+
+            Log::info("Toà nhà: $toaNha->ten_toa_nha - Tổng: $dienTichTong m² - Đang thuê: $dienTichThue m²");
+
 
             $tyLe = $dienTichTong > 0 ? ($dienTichThue / $dienTichTong) * 100 : 0;
 

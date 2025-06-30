@@ -143,7 +143,7 @@ class HomeController extends Controller
             }
         }
 
-        $danhSachVanPhong = $query->paginate(12);
+        $danhSachVanPhong = $query->paginate(8);
 
         if ($request->ajax()) {
             return response()->json([
