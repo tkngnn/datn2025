@@ -82,7 +82,16 @@
 
                     @if(request('trang_thai'))
                       <span class="badge badge-soft-warning" style="padding: .8rem .8rem;">
-                        Trạng thái: {{ request('trang_thai') == 'Dang trong' ? 'Đang trống' : 'Đã thuê' }}
+                        Trạng thái: 
+                          @if (request('trang_thai') == 'dang trong')
+                          Đang trống
+                          @elseif (request('trang_thai') == 'dang xem')
+                          Đang xem
+                          @elseif (request('trang_thai') == 'het han hop dong')
+                          Hết hạn
+                          @else
+                            Đang thuê
+                          @endif
                       </span>
                     @endif
                   </div>
@@ -159,6 +168,8 @@
                         <option value="">-- Tất cả --</option>
                         <option value="dang trong" {{ request('trang_thai') == 'dang trong' ? 'selected' : '' }}>Đang trống</option>
                         <option value="da thue" {{ request('trang_thai') == 'da thue' ? 'selected' : '' }}>Đã thuê</option>
+                        <option value="dang xem" {{ request('trang_thai') == 'dang xem' ? 'selected' : '' }}>Đang xem</option>
+                        <option value="het han hop dong" {{ request('trang_thai') == 'het han hop dong' ? 'selected' : '' }}>Hết hạn hợp đồng</option>
                       </select>
                     </div>
                   @endif
@@ -226,7 +237,9 @@
                       {{ $vanphong->ten_van_phong }}
                     </a>
                   </td>
-                  <td>{{ $vanphong->toanha->ten_toa_nha ?? 'Chưa có' }}</td>
+                  <td>
+                    <a href="javascript:;" class="btn-xem-toanha text-body" data-idtoanha="{{ $vanphong->toanha->ma_toa_nha }}">
+                      {{ $vanphong->toanha->ten_toa_nha ?? 'Chưa có' }}</a></td>
                   <td>{{ $vanphong->dien_tich }} m²</td>
                   <td>{{ number_format($vanphong->gia_thue, 0, ',', '.') }}</td>
                   <td>
@@ -313,6 +326,24 @@
       </div>
     </div>          
   <!-- End VanPhong Modal Popup --> 
+  <!-- ToaNha Modal Popup -->
+<div class="modal fade" id="toaNhaModal" tabindex="-1" aria-labelledby="toaNhaModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title"></h5>
+              <button type="button" class="btn btn-close btn-sm btn-ghost-secondary" data-bs-dismiss="modal"
+                  aria-label="Đóng">
+                  <i class="tio-clear tio-lg"></i>
+              </button>
+          </div>
+          <div class="modal-body" id="toaNhaModalContent">
+              <div class="text-center">Đang tải...</div>
+          </div>
+      </div>
+  </div>
+</div>
+<!-- End ToaNha Modal Popup -->
   </main>
 @endsection
 @push('scripts')
@@ -350,5 +381,17 @@ $(document).on('click', '.btn-xem-vanphong', function () {
     }
   });
 });
+$(document).on('click', '.btn-xem-toanha', function() {
+            const idtoanha = $(this).data('idtoanha');
+            $('#toaNhaModalContent').html('<div class="text-center">Đang tải...</div>');
+            $('#toaNhaModal').modal('show');
+
+            $('#toaNhaModalContent').load(`/admin/toanha/preview/${idtoanha}`, function(response, status, xhr) {
+                if (status === "error") {
+                    $('#toaNhaModalContent').html(
+                        '<div class="text-danger">Không thể tải thông tin tòa nhà.</div>');
+                }
+            });
+        });
 </script>
 @endpush

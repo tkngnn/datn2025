@@ -227,7 +227,9 @@
                       {{ $henxem->vanphong->ten_van_phong }}
                     </a>
                   </td>
-                  <td>{{ $henxem->vanphong->toanha->ten_toa_nha ?? 'Chưa có' }}</td>
+                  <td>
+                    <a href="javascript:;" class="d-block btn-xem-toanha text-body" data-idtoanha="{{ $henxem->vanphong->toanha->ma_toa_nha }}">
+                      {{ $henxem->vanphong->toanha->ten_toa_nha ?? 'Chưa có' }}</a></td>
                     <td class="text-break px-3">{{ $henxem->ho_ten }}
                       <span class="d-block font-size-sm">{{ $henxem->email}}</span>
                         <small class="badge badge-danger">{{ $henxem->thongbao }}</small>
@@ -331,6 +333,24 @@
       </div>
     </div>          
   <!-- End VanPhong Modal Popup --> 
+  <!-- ToaNha Modal Popup -->
+<div class="modal fade" id="toaNhaModal" tabindex="-1" aria-labelledby="toaNhaModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title"></h5>
+              <button type="button" class="btn btn-close btn-sm btn-ghost-secondary" data-bs-dismiss="modal"
+                  aria-label="Đóng">
+                  <i class="tio-clear tio-lg"></i>
+              </button>
+          </div>
+          <div class="modal-body" id="toaNhaModalContent">
+              <div class="text-center">Đang tải...</div>
+          </div>
+      </div>
+  </div>
+</div>
+<!-- End ToaNha Modal Popup -->
   </main>
 @endsection
 @push('scripts')
@@ -368,6 +388,19 @@ $(document).on('click', '.btn-xem-vanphong', function () {
     }
   });
 });
+
+$(document).on('click', '.btn-xem-toanha', function() {
+            const idtoanha = $(this).data('idtoanha');
+            $('#toaNhaModalContent').html('<div class="text-center">Đang tải...</div>');
+            $('#toaNhaModal').modal('show');
+
+            $('#toaNhaModalContent').load(`/admin/toanha/preview/${idtoanha}`, function(response, status, xhr) {
+                if (status === "error") {
+                    $('#toaNhaModalContent').html(
+                        '<div class="text-danger">Không thể tải thông tin tòa nhà.</div>');
+                }
+            });
+        });
 
 document.addEventListener('DOMContentLoaded', function () {
         const params = new URLSearchParams(window.location.search);

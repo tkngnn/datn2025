@@ -213,11 +213,11 @@
                         @endif
                       </form>
                   
-                      @if ($henxem->trang_thai !== "da huy" && $henxem->trang_thai !== "da xu ly")
+                      @if ($henxem->trang_thai !== "da huy" && $henxem->trang_thai !== "da xu ly" && $henxem->trang_thai !== "chua xu ly")
                         <a class="btn btn-sm btn-soft-success" 
                         @if ($henxem->thongbao)
                           href="{{ route('admin.henxem.khachdadangki',$henxem->ma_hen_xem) }}" title="Tạo hợp đồng với khách hàng">
-                          <i class="tio-checkmark-circle"></i>
+                          <i class="tio-file-text"></i>
                           @else
                           href="{{ route('admin.khachhang.create.henxem', $henxem->ma_hen_xem) }}" title="Tạo tài khoản khách hàng">
                           <i class="tio-add"></i>
