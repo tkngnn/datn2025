@@ -389,6 +389,7 @@
                                                 <img class="avatar-img"
                                                     src="{{ asset('assets/img/160x160/img1.jpg') }}"
                                                     alt="Image Description">
+                                                {{-- <i class="tio-account-circle avatar-img"></i> --}}
                                             </div>
                                             <div class="media-body">
                                                 <span class="card-title h5">{{ Auth::user()->name }}</span>
@@ -398,9 +399,16 @@
                                     </div>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="{{ route('profile.edit') }}">
-                                        <span class="text-truncate pr-2" title="Profile &amp; account">Tài khoản</span>
+                                        <span class="text-truncate pr-2" title="Profile &amp; account">Tài
+                                            khoản</span>
                                     </a>
+
                                     <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="{{ route('user.home') }}">
+                                        <span class="text-truncate pr-2" title="Trang người dùng">Trang người
+                                            dùng</span>
+                                    </a>
+
                                     <form method="POST" action="{{ route('logout') }}">
                                         @csrf
                                         <button type="submit" class="dropdown-item">
@@ -472,9 +480,14 @@
                                     <div class="dropdown-divider"></div>
 
                                     <a class="dropdown-item" href="{{ route('profile.edit') }}">
-                                        <span class="text-truncate pr-2" title="Profile &amp; account">Tài khoản</span>
+                                        <span class="text-truncate pr-2" title="Profile &amp; account">Tài
+                                            khoản</span>
                                     </a>
                                     <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="{{ route('user.home') }}">
+                                        <span class="text-truncate pr-2" title="Trang người dùng">Trang người
+                                            dùng</span>
+                                    </a>
                                     <form method="POST" action="{{ route('logout') }}">
                                         @csrf
                                         <button type="submit" class="dropdown-item">
@@ -1191,9 +1204,13 @@
 
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" href="{{ route('profile.edit') }}">
-                                                <span class="text-truncate pr-2" title="Profile">Hồ sơ</span>
+                                                <span class="text-truncate pr-2" title="Profile">Tài khoản</span>
                                             </a>
                                             <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="{{ route('user.home') }}">
+                                                <span class="text-truncate pr-2" title="Trang người dùng">Trang người
+                                                    dùng</span>
+                                            </a>
                                             <form method="POST" action="{{ route('logout') }}">
                                                 @csrf
                                                 <button type="submit" class="dropdown-item">
@@ -1947,15 +1964,17 @@
                             <!-- End Components -->
                             <!-- Văn phòng -->
                             <li class="nav-item ">
-                                <a class="js-nav-tooltip-link nav-link {{ request()->is('admin/vanphong') ? 'active' : '' }}" href="{{ route('admin.vanphong.index') }} "
-                                    title="Tất cả văn phòng" data-placement="left">
+                                <a class="js-nav-tooltip-link nav-link {{ request()->is('admin/vanphong') ? 'active' : '' }}"
+                                    href="{{ route('admin.vanphong.index') }} " title="Tất cả văn phòng"
+                                    data-placement="left">
                                     <i class="tio-dashboard-vs-outlined nav-icon"></i>
                                     <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Văn
                                         phòng</span>
                                 </a>
                             </li>
                             <!-- End Văn phòng -->
-                            <li class="navbar-vertical-aside-has-menu {{ request()->is('admin/khachhang*') || request()->is('admin/henxem*') ? 'show' : '' }}">
+                            <li
+                                class="navbar-vertical-aside-has-menu {{ request()->is('admin/khachhang*') || request()->is('admin/henxem*') ? 'show' : '' }}">
                                 <a class="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle {{ request()->is('admin/khachhang*') || request()->is('admin/henxem*') ? 'active' : '' }}"
                                     href="javascript:;" title="Khách hàng">
                                     <i class="tio-user nav-icon"></i>
@@ -1964,13 +1983,17 @@
                                 </a>
                                 <ul class="js-navbar-vertical-aside-submenu nav nav-sub">
                                     <li class="nav-item">
-                                        <a class="nav-link {{ request()->routeIs('admin.khachhang.*') ? 'active' : '' }}" href="{{ route('admin.khachhang.index') }}" title="Danh sách khách hàng">
+                                        <a class="nav-link {{ request()->routeIs('admin.khachhang.*') ? 'active' : '' }}"
+                                            href="{{ route('admin.khachhang.index') }}"
+                                            title="Danh sách khách hàng">
                                             <span class="tio-circle nav-indicator-icon"></span>
                                             <span class="text-truncate">Khách hàng</span>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link {{ request()->routeIs('admin.henxem.*') ? 'active' : '' }}" href="{{ route('admin.henxem.index') }}" title="Khách đặt lịch hẹn xem phòng">
+                                        <a class="nav-link {{ request()->routeIs('admin.henxem.*') ? 'active' : '' }}"
+                                            href="{{ route('admin.henxem.index') }}"
+                                            title="Khách đặt lịch hẹn xem phòng">
                                             <span class="tio-circle nav-indicator-icon"></span>
                                             <span class="text-truncate">Khách hẹn xem phòng</span>
                                         </a>
@@ -1989,13 +2012,14 @@
                                 </a>
                             </li>
                             <!-- End Components -->
-                           
+
                             <li
                                 class="navbar-vertical-aside-has-menu {{ request()->is('admin/chiso*') || request()->is('admin/hoadon*') ? 'show' : '' }}">
                                 <a class="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle {{ request()->is('admin/chiso*') || request()->is('admin/hoadon*') ? 'active' : '' }}"
                                     href="javascript:;" title="Tiền thuê">
                                     <i class="tio-money nav-icon"></i>
-                                    <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Tiền thuê</span>
+                                    <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Tiền
+                                        thuê</span>
                                 </a>
                                 <ul class="js-navbar-vertical-aside-submenu nav nav-sub">
                                     <li class="nav-item">
@@ -2719,7 +2743,7 @@
     <!-- End Navbar Vertical -->
 
     <!-- ========== MAIN CONTENT ========== -->
-    @yield('content') 
+    @yield('content')
     <!-- ========== END MAIN CONTENT ========== -->
 
     <!-- ========== SECONDARY CONTENTS ========== -->

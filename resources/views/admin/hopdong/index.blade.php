@@ -297,10 +297,10 @@
                                         <td>
                                             <div><strong>{{ $hopdong->user->name ?? 'Không có' }}</strong></div>
                                             <div>Tòa Nhà: {{ $chiTiet->vanPhong->toaNha->ten_toa_nha ?? 'Không có' }}</div>
-                                            <div>Phòng: {{ $chiTiet->vanPhong->ma_van_phong ?? 'Không có' }}</div>
+                                            <div>Phòng: {{ $chiTiet->vanPhong->ma_van_phong ?? 'Không có' }} - {{$chiTiet->vanPhong->ten_van_phong ?? 'Không có'}}</div>
                                         </td>
                                         <td>
-                                            {{ number_format($chiTiet->gia_thue, 0, ',', '.') }} đ
+                                            {{ number_format($chiTiet->gia_thue, 0, ',', '.') }} VNĐ
                                         </td>
                                         <td>{{ \Carbon\Carbon::parse($hopdong->ngay_bat_dau)->format('d/m/Y') }}</td>
                                         <td>{{ \Carbon\Carbon::parse($hopdong->ngay_ket_thuc)->format('d/m/Y') }}</td>
@@ -313,11 +313,22 @@
                                                     : 0;
                                         @endphp
                                         <td>
-                                            <span
-                                                class="badge badge-soft-{{ $hopdong->tinh_trang == 'dang thue' ? 'success' : 'danger' }}">
-                                                <span
-                                                    class="legend-indicator bg-{{ $hopdong->tinh_trang == 'dang thue' ? 'success' : 'danger' }}"></span>
-                                                {{ $hopdong->tinh_trang == 'dang thue' ? 'Đang thuê' : 'Đã thanh lý' }}
+                                            @php
+                                                $map = [
+                                                    'dang thue' => ['label' => 'Đang thuê', 'color' => 'success'],
+                                                    'da thanh ly' => ['label' => 'Đã thanh lý', 'color' => 'danger'],
+                                                    'het han' => ['label' => 'Hết hạn', 'color' => 'warning'],
+                                                ];
+
+                                                $status = $map[$hopdong->tinh_trang] ?? [
+                                                    'label' => 'Không xác định',
+                                                    'color' => 'secondary',
+                                                ];
+                                            @endphp
+
+                                            <span class="badge badge-soft-{{ $status['color'] }}">
+                                                <span class="legend-indicator bg-{{ $status['color'] }}"></span>
+                                                {{ $status['label'] }}
                                             </span>
                                             @if (!$hopdong->da_thanh_ly && $ngayKetThuc->gt($today))
                                                 <br>
@@ -327,7 +338,7 @@
                                                 <small class="text-muted">Đã thanh lý</small>
                                             @else
                                                 <br>
-                                                <small class="text-danger">Đã hết hạn</small>
+                                                <small class="text-warning">Đã hết hạn</small>
                                             @endif
                                         </td>
                                         <td>
@@ -343,6 +354,7 @@
                                                 <a class="btn btn-sm btn-soft-dark btn-edit-hopdong" href="javascript:;"
                                                     data-id="{{ $hopdong->ma_hop_dong }}"
                                                     data-da-thanh-ly="{{ $hopdong->da_thanh_ly ? '1' : '0' }}"
+                                                    data-ngay-bat-dau="{{ $hopdong->ngay_bat_dau }}"
                                                     data-url="{{ route('admin.hopdong.edit', $hopdong->ma_hop_dong) }}"
                                                     data-toggle="tooltip" data-placement="top" title="Chỉnh sửa">
                                                     <i class="tio-edit"></i>
@@ -642,24 +654,42 @@
                 const maHopDong = this.getAttribute('data-id');
                 const daThanhLy = this.getAttribute('data-da-thanh-ly');
                 const url = this.getAttribute('data-url');
+                const ngayBatDau = this.getAttribute('data-ngay-bat-dau');
+
+                console.log('Ngày bắt đầu:', ngayBatDau);
                 if (daThanhLy === '1') {
-                    const alertBox = `
-                        <div class="alert alert-soft-danger alert-dismissible fade show mt-3" role="alert">
-                            <strong>Không thể chỉnh sửa!</strong> Hợp đồng này đã được thanh lý.
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Đóng">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                    `;
-                    $('#hopdong-alert-container').html(alertBox);
-                    setTimeout(() => {
-                        $('.alert').alert('close');
-                    }, 5000);
+                    showAlert('Hợp đồng này đã được thanh lý.');
                     return;
                 }
+
+                const today = new Date();
+                const startDate = new Date(ngayBatDau);
+                console.log('startDate:', startDate);
+
+                if (startDate <= today) {
+                    showAlert('Hợp đồng đã có hiệu lực, không thể chỉnh sửa.');
+                    return;
+                }
+
                 window.location.href = url;
             });
         });
+
+        function showAlert(message) {
+            const alertBox = `
+        <div class="alert alert-soft-danger alert-dismissible fade show mt-3" role="alert">
+            <strong>Không thể chỉnh sửa!</strong> ${message}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Đóng">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    `;
+            $('#hopdong-alert-container').html(alertBox);
+            setTimeout(() => {
+                $('.alert').alert('close');
+            }, 5000);
+        }
+
 
         document.querySelectorAll('.btn-thanh-ly').forEach(btn => {
             btn.addEventListener('click', function() {

@@ -206,6 +206,11 @@ class HopDongController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $hopDong = HopDong::findOrFail($id);
+
+        if (now()->greaterThanOrEqualTo($hopDong->ngay_bat_dau) || $hopDong->da_thanh_ly) {
+            return back()->withErrors(['error' => 'Hợp đồng đã có hiệu lực hoặc đã thanh lý, không thể chỉnh sửa.']);
+        }
         $validated = $request->validate([
             'toa_nha_id' => 'required|exists:toa_nha,ma_toa_nha',
             'vanphong_id' => 'required|exists:van_phong,ma_van_phong',

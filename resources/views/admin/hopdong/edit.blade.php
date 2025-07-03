@@ -38,7 +38,7 @@
                         alerts.forEach(alert => {
                             alert.classList.remove('show');
                             alert.classList.add('fade');
-                            setTimeout(() => alert.remove(), 300); 
+                            setTimeout(() => alert.remove(), 300);
                         });
                     }, 5000);
                 </script>
@@ -64,8 +64,8 @@
                             <div class="col-md-6">
                                 <label for="vanphong_id">Phòng</label>
                                 <select class="form-control" name="vanphong_id" id="vanphong_id">
-                                    <option value="{{ $vanPhong->ma_van_phong }}" selected>{{ $vanPhong->ma_van_phong }} -
-                                        {{ $vanPhong->dien_tich }}</option>
+                                    <option value="{{ $vanPhong->ma_van_phong }}" selected>{{ $vanPhong->ma_van_phong }} - {{$vanPhong->ten_van_phong}} -
+                                        {{ $vanPhong->dien_tich }}m²</option>
                                 </select>
                             </div>
                         </div>
@@ -94,14 +94,16 @@
 
                         <div class="row mt-3">
                             <div class="col-md-4">
-                                <label for="trang_thai">Trạng thái</label>
-                                <select class="form-control" name="tinh_trang" id="tinh_trang">
-                                    <option value="">Chọn trạng thái</option>
-                                    <option value="dang thue" {{ $hopDong->tinh_trang == 'dang thue' ? 'selected' : '' }}>
-                                        Đang thuê</option>
-                                    <option value="da thanh ly"
-                                        {{ $hopDong->tinh_trang == 'da thanh ly' ? 'selected' : '' }}>Đã thanh lý</option>
-                                </select>
+                                <label for="trang_thai">Tình trạng:</label>
+                                @php
+                                    $tenTrangThai = [
+                                        'dang thue' => 'Đang thuê',
+                                        'da thanh ly' => 'Đã thanh lý',
+                                        'het han' => 'Hết hạn',
+                                    ];
+                                @endphp
+                                <input type="text" class="form-control" value=" {{ $tenTrangThai[$hopDong->tinh_trang] ?? 'Không rõ' }}" readonly>
+                                <input type="hidden" name="tinh_trang" value="{{ $hopDong->tinh_trang }}">
                             </div>
                             <div class="col-md-8">
                                 <label for="ghi_chu">Ghi chú</label>

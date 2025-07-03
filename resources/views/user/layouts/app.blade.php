@@ -112,7 +112,7 @@
                             }
                         </style>
 
-                        <div class="dropdown account-dropdown">
+                        {{-- <div class="dropdown account-dropdown">
                             <button class="header-action-btn" data-bs-toggle="dropdown">
                                 <i class="bi bi-person"></i>
                             </button>
@@ -125,7 +125,38 @@
                                     <a href="{{ route('login') }}" class="btn btn-primary w-100 mb-2">Đăng Nhập</a>
                                 </div>
                             </div>
+                        </div> --}}
+                        <div class="dropdown account-dropdown">
+                            <button class="header-action-btn" data-bs-toggle="dropdown">
+                                <i class="bi bi-person"></i>
+                            </button>
+                            <div class="dropdown-menu">
+                                <div class="dropdown-header">
+                                    <h6>Chào mừng đến với <span class="sitename">BGROUP</span></h6>
+                                    <p class="mb-0">Dành cho khách thuê: Truy cập tài khoản &amp; quản lý thuê</p>
+                                </div>
+                        
+                                <div class="dropdown-footer">
+                                    @guest
+                                        <a href="{{ route('login') }}" class="btn btn-primary w-100 mb-2">Đăng nhập</a>
+                                    @endguest
+                        
+                                    @auth
+                                        @if(Auth::user()->vai_tro === 'admin')
+                                            <a href="{{ route('admin.dashboard') }}" class="btn btn-secondary w-100 mb-2">Trang quản lý</a>
+                                        @elseif(Auth::user()->vai_tro === 'KT')
+                                            <a href="{{ route('kt.dashboard') }}" class="btn btn-secondary w-100 mb-2">Trang quản lý</a>
+                                        @endif
+                        
+                                        <form method="POST" action="{{ route('logout') }}">
+                                            @csrf
+                                            <button type="submit" class="btn btn-danger w-100">Đăng xuất</button>
+                                        </form>
+                                    @endauth
+                                </div>
+                            </div>
                         </div>
+                        
                         <i class="mobile-nav-toggle d-xl-none bi bi-list me-0"></i>
 
                     </div>

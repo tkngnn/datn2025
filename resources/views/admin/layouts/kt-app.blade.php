@@ -395,6 +395,10 @@
                                             khoản</span>
                                     </a>
                                     <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="{{ route('user.home') }}">
+                                        <span class="text-truncate pr-2" title="Trang người dùng">Trang người
+                                            dùng</span>
+                                    </a>
 
                                     <form method="POST" action="{{ route('logout') }}">
                                         @csrf
@@ -471,6 +475,10 @@
                                             khoản</span>
                                     </a>
                                     <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="{{ route('user.home') }}">
+                                        <span class="text-truncate pr-2" title="Trang người dùng">Trang người
+                                            dùng</span>
+                                    </a>
                                     <form method="POST" action="{{ route('logout') }}">
                                         @csrf
                                         <button type="submit" class="dropdown-item">
@@ -1184,9 +1192,13 @@
 
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" href="{{ route('profile.edit') }}">
-                                                <span class="text-truncate pr-2" title="Profile">Hồ sơ</span>
+                                                <span class="text-truncate pr-2" title="Profile">Tài khoản</span>
                                             </a>
                                             <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="{{ route('user.home') }}">
+                                                <span class="text-truncate pr-2" title="Trang người dùng">Trang người
+                                                    dùng</span>
+                                            </a>
                                             <form method="POST" action="{{ route('logout') }}">
                                                 @csrf
                                                 <button type="submit" class="dropdown-item">

@@ -12,21 +12,23 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 class Kernel extends ConsoleKernel
 {
     protected $commands = [
-            \App\Console\Commands\TaoHoaDonHangThang::class,
-            \App\Console\Commands\TaoHoaDonHetHan::class,
-            \App\Console\Commands\GuiHoaDonHangThang::class,
-        ];
+        \App\Console\Commands\TaoHoaDonHangThang::class,
+        \App\Console\Commands\TaoHoaDonHetHan::class,
+        \App\Console\Commands\GuiHoaDonHangThang::class,
+        \App\Console\Commands\CapNhatHopDongHetHan::class,
+    ];
 
     protected function schedule(Schedule $schedule): void
     {
         $schedule->command('hoadon:tao-hang-thang')->monthlyOn(30, '08:00');
         $schedule->command('hoadon:het-han')->dailyAt('08:00');
         $schedule->command('gui:hoa-don-hang-thang')->monthlyOn(5, '08:00');
+        $schedule->command('hopdong:capnhat-hethan')->daily();
     }
 
     protected function commands(): void
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
         require base_path('routes/console.php');
     }
 }
