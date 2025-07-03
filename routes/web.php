@@ -36,9 +36,7 @@ Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
     Route::get('/lienhe', function () {
         return view('user.home.lienhe');
     })->name('lienhe');
-    Route::get('/about', function () {
-        return view('user.home.about');
-    })->name('about');
+    Route::get('/about', [HomeController::class, 'about'])->name('about');
 });
 
 Route::middleware(['auth', 'verified', 'check.role:admin'])->prefix('admin')->name('admin.')->group(function () {

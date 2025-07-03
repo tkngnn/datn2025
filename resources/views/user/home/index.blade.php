@@ -77,19 +77,19 @@
                         <div class="row">
                             <div class="col-6 mb-4">
                                 <div class="stat-item text-center">
-                                    <div class="stat-number">10+</div>
+                                    <div class="stat-number">{{ $tongToaNha }}+</div>
                                     <div class="stat-text">Tòa nhà văn phòng đang được quản lý</div>
                                 </div>
                             </div>
                             <div class="col-6 mb-4">
                                 <div class="stat-item text-center">
-                                    <div class="stat-number">50+</div>
+                                    <div class="stat-number">{{ $vanPhongDaChoThue }}+</div>
                                     <div class="stat-text">Văn phòng đã được cho thuê</div>
                                 </div>
                             </div>
                             <div class="col-6 mb-4">
                                 <div class="stat-item text-center">
-                                    <div class="stat-number">100+</div>
+                                    <div class="stat-number">{{ $soKhachHang }}+</div>
                                     <div class="stat-text">Khách hàng đã sử dụng dịch vụ</div>
                                 </div>
                             </div>
@@ -137,32 +137,6 @@
         </div>
     </section>
 
-    <section class="districts-slider py-5">
-        <div class="container">
-            <h2 class="section-title text-center mb-5">Văn phòng tại Hà Nội</h2>
-            <div class="swiper districtsSwiperHN">
-                <div class="swiper-wrapper">
-                    @foreach ($thongKeHN as $item)
-                        <div class="swiper-slide">
-                            <a href="{{ route('user.danhsach') }}?ten_toa_nha={{ urlencode($item['quan']) }}">
-                                <div class="district-card text-center p-3">
-                                    <img src="{{ $item['hinh_anh'] }}" alt="{{ $item['quan'] }}"
-                                        class="mb-2 rounded shadow" style="width: 100%; height: 150px; object-fit: cover;">
-                                    <h3 class="district-name">{{ $item['quan'] }}</h3>
-                                    <div class="district-count">{{ $item['so_toa_nha'] }}+ tòa nhà</div>
-                                </div>
-                            </a>
-                        </div>
-                    @endforeach
-
-                </div>
-                <div class="swiper-button-next districtsSwiperHN-next"></div>
-                <div class="swiper-button-prev districtsSwiperHN-prev"></div>
-                <div class="swiper-scrollbar districtsSwiperHN-scrollbar"></div>
-            </div>
-
-        </div>
-    </section>
     <style>
         .office-hero {
             padding: 80px 0;

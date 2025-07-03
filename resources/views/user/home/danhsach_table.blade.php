@@ -2,8 +2,6 @@
     <div class="col-lg-3">
         <div class="product-box">
             <div class="product-thumb">
-                {{-- <img src="assets/img/product/product-3.webp" alt="Product Image"
-                class="main-img" loading="lazy"> --}}
                 @if ($vp->getFirstMediaUrl('anh_van_phong'))
                     <img src="{{ $vp->getFirstMediaUrl('anh_van_phong') }}" alt="Ảnh văn phòng" class="main-img"
                         loading="lazy">
@@ -13,19 +11,8 @@
                 @endif
                 <div class="product-overlay">
                     <div class="product-quick-actions">
-                        {{-- <button type="button" class="quick-action-btn">
-                        <i class="bi bi-heart"></i>
-                    </button>
-                    <button type="button" class="quick-action-btn">
-                        <i class="bi bi-arrow-repeat"></i>
-                    </button>
-                    <button type="button" class="quick-action-btn">
-                        <i class="bi bi-eye"></i>
-                    </button> --}}
                     </div>
                     <div class="add-to-cart-container">
-                        {{-- <button  class="add-to-cart-btn">Hẹn Xem</button> --}}
-                        {{-- {{ dd($vp->slug) }} --}}
                         @if ($vp->slug)
                             <a class="add-to-cart-btn text-center" type="button"
                                 href="{{ route('user.vanphong.henxem', $vp->slug) }}">

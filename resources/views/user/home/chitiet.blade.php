@@ -111,8 +111,6 @@
 
               <div class="product-price-container mb-2">
                 <span class="current-price" style="color: red">{{ number_format($vanphong->gia_thue, 0, ',', '.') }}<span style="font-size: 0.75em;">/m²</span></span>
-                {{-- <span class="original-price">$299.99</span>
-                <span class="discount-badge">-17%</span> --}}
                 
               </div>
               <hr>
@@ -158,56 +156,12 @@
                 <li class="nav-item" role="presentation">
                   <button class="nav-link active" id="description-tab" data-bs-toggle="tab" data-bs-target="#description" type="button" role="tab" aria-controls="description" aria-selected="true">Mô tả</button>
                 </li>
-                {{-- <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="specifications-tab" data-bs-toggle="tab" data-bs-target="#specifications" type="button" role="tab" aria-controls="specifications" aria-selected="false">Thông tin chi tiết</button>
-                </li> --}}
               </ul>
               <div class="tab-content" id="productTabsContent">
-                <!-- Description Tab -->
                 <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
-                  <div class="product-description">
-                    {{-- <h4 style="text-decoration: underline;">GIỚI THIỆU VĂN PHÒNG CHO THUÊ {{ strtoupper($vanphong->ten_van_phong) }}</h4>
-                    {!! $vanphong->mo_ta !!}
-
-                    <h4 style="text-decoration: underline;">VỊ TRÍ TÒA NHÀ {{ strtoupper($vanphong->toaNha->ten_toa_nha) }}</h4> --}}
                     {!! $vanphong->toaNha->mo_ta !!}
-
                   </div>
                 </div>
-
-                <!-- Specifications Tab -->
-                {{-- <div class="tab-pane fade" id="specifications" role="tabpanel" aria-labelledby="specifications-tab">
-                  <div class="product-specifications">
-                    <div class="specs-group">
-                      <h4 style="text-decoration: underline;">THÔNG TIN VĂN PHÒNG</h4>
-                      <div class="specs-table">
-                        <div class="specs-row">
-                          <div class="specs-label">Tên tòa nhà</div>
-                          <div class="specs-value">{{ $vanphong->toaNha->ten_toa_nha ?? 'Không rõ tòa nhà' }}</div>
-                        </div>
-                        <div class="specs-row">
-                          <div class="specs-label">Địa chỉ</div>
-                          <div class="specs-value">{{ $vanphong->toaNha->dia_chi ?? 'Không rõ địa chỉ' }}</div>
-                        </div>
-                        
-                        <div class="specs-row">
-                          <div class="specs-label">Tổng số tầng</div>
-                          <div class="specs-value">{{ $vanphong->toaNha->so_tang ?? 'Không rõ tòa nhà' }} tầng</div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="specs-group">
-                      <h4 style="text-decoration: underline;">TIỆN ÍCH</h4>
-                      <ul>
-                        @foreach(explode(',', $vanphong->tien_ich) as $tienIch)
-                          <li>{{ trim($tienIch) }}</li>
-                      @endforeach
-                      </ul>
-                    </div>
-                  </div>
-                </div> --}}
-
               </div>
             </div>
           </div>

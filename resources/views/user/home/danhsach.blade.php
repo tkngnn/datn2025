@@ -60,15 +60,15 @@
                                     </div>
                                     <div class="col-12 col-md-6 col-lg-3">
                                         <div class="filter-item">
-                                            <label for="priceRange" class="form-label">Giá</label>
+                                            <label for="priceRange" class="form-label">Giá <small class="text-muted">(đơn vị: VND)</small></label>
                                             <select class="form-select" id="priceRange" name="gia_thue">
                                                 <option selected="" value="">Tất cả giá</option>
-                                                <option value="1000-2000">$1000 - $2000 /tháng</option>
-                                                <option value="2000-3000">$2000 - $3000 /tháng</option>
-                                                <option value="3000-5000">$3000 - $5000 /tháng</option>
-                                                <option value="5000-7000">$5000 - $7000 /tháng</option>
-                                                <option value="7000-10000">$7000 - $10,000 /tháng</option>
-                                                <option value="10000+">Trên $10,000 /tháng</option>
+                                                <option value="1000-2000">1000 - 2000 /m²</option>
+                                                <option value="2000-3000">2000 - 3000 /m²</option>
+                                                <option value="3000-5000">3000 - 5000 /m²</option>
+                                                <option value="5000-7000">5000 - 7000 /m²</option>
+                                                <option value="7000-10000">7000 - 10,000 /m²</option>
+                                                <option value="10000+">Trên 10,000 /m²</option>
                                             </select>
                                         </div>
                                     </div>
@@ -77,7 +77,7 @@
                                         <div class="filter-item">
                                             <label for="sortBy" class="form-label">Sắp xếp</label>
                                             <select class="form-select" id="sortBy" name="sap_xep">
-                                                <option selected="">Nổi bật</option>
+                                                <option selected="">Mặc định</option>
                                                 <option value="asc">Giá: Thấp đến Cao</option>
                                                 <option value="desc">Giá: Cao đến Thấp</option>
                                             </select>
@@ -108,22 +108,8 @@
                                     <div class="active-filters">
                                         <span class="active-filter-label">Bộ lọc:</span>
                                         <div class="filter-tags" id="active-filters-list">
-                                            {{-- các filter sẽ được thêm bằng JS --}}
                                         </div>
                                     </div>
-
-                                    {{-- <div class="active-filters">
-                                        <span class="active-filter-label">Active Filters:</span>
-                                        <div class="filter-tags">
-                                            <span class="filter-tag">
-                                                Electronics <button class="filter-remove"><i class="bi bi-x"></i></button>
-                                            </span>
-                                            <span class="filter-tag">
-                                                $50 to $100 <button class="filter-remove"><i class="bi bi-x"></i></button>
-                                            </span>
-                                            <button class="clear-all-btn">Clear All</button>
-                                        </div>
-                                    </div> --}}
                                 </div>
                             </div>
 
@@ -173,18 +159,15 @@
     <script>
         $(document).ready(function() {
 
-            // Khi có thay đổi bất kỳ filter nào
             $('#filterForm').on('change', 'input, select', function() {
                 filterVanPhong();
             });
 
-            // Khi nhấn nút tìm kiếm (icon kính lúp)
             $('.search-btn').on('click', function(e) {
                 e.preventDefault();
                 filterVanPhong();
             });
 
-            // Hàm gọi AJAX để lọc dữ liệu
             function filterVanPhong() {
                 let formData = $('#filterForm').serialize();
 
@@ -206,7 +189,6 @@
                 });
             }
 
-            // Cập nhật các filter đang dùng
             function updateActiveFilters() {
                 let filters = [];
                 let form = $('#filterForm');
@@ -261,7 +243,6 @@
                 $('#active-filters-list').html(html);
             }
 
-            // Xóa từng filter
             $(document).on('click', '.filter-remove', function() {
                 let name = $(this).closest('.filter-tag').data('name');
                 let el = $(`[name="${name}"]`);
@@ -274,7 +255,6 @@
                 filterVanPhong();
             });
 
-            // Xóa tất cả filter
             $(document).on('click', '.clear-all-btn', function() {
                 $('#filterForm')[0].reset();
                 $('#filterForm').find('input[name="ten_toa_nha"]').val('');
@@ -305,7 +285,6 @@
                     $('#category-pagination').html(res.pagination);
                     updateActiveFilters();
 
-                    // Cuộn lên đầu trang sau khi load
                     $('html, body').animate({
                         scrollTop: $('#vanphong-list').offset().top - 100
                     }, 500);

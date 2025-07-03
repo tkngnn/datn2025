@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\VanPhong;
 use App\Models\ToaNha;
+use App\Models\ChiTietHopDong;
+use App\Models\HopDong;
 //use Illuminate\Container\Attributes\Log;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
@@ -36,19 +38,7 @@ class HomeController extends Controller
             'Thủ Đức',
         ];
 
-        $dsQuanHN = [
-            'Hoàn Kiếm',
-            'Hai Bà Trưng',
-            'Cầu Giấy',
-            'Nam Từ Liêm',
-            'Ba Đình',
-            'Đống Đa',
-            'Thanh Xuân',
-            'Tây Hồ',
-        ];
-
         $thongKeHCM = [];
-        $thongKeHN = [];
 
         foreach ($dsQuanHCM as $quan) {
             $count = ToaNha::where('dia_chi', 'like', '%' . $quan . '%')->count();
@@ -60,17 +50,21 @@ class HomeController extends Controller
             ];
         }
 
-        foreach ($dsQuanHN as $quan) {
-            $count = ToaNha::where('dia_chi', 'like', '%' . $quan . '%')->count();
-            $tenFile = Str::slug($quan) . '.jpg';
-            $thongKeHN[] = [
-                'quan' => $quan,
-                'so_toa_nha' => $count,
-                'hinh_anh' => asset('user/assets/img/index/HN/' . $tenFile),
-            ];
-        }
+        $tongToaNha = ToaNha::count();
 
-        return view('user.home.index', compact('thongKeHCM', 'thongKeHN'));
+        $tongVanPhong = VanPhong::count();
+
+        $vanPhongDaChoThue = ChiTietHopDong::distinct('ma_van_phong')->count('ma_van_phong');
+
+        $soKhachHang = HopDong::distinct('user_id')->count('user_id');
+
+        return view('user.home.index', compact(
+            'thongKeHCM',
+            'tongToaNha',
+            'tongVanPhong',
+            'vanPhongDaChoThue',
+            'soKhachHang'
+        ));
     }
 
 
@@ -159,5 +153,23 @@ class HomeController extends Controller
             'timestamp' => now(),
         ]);
         return view('user.home.danhsach', compact('danhSachVanPhong'));
+    }
+
+    public function about()
+    {
+        $tongToaNha = ToaNha::count();
+
+        $tongVanPhong = VanPhong::count();
+
+        $vanPhongDaChoThue = ChiTietHopDong::distinct('ma_van_phong')->count('ma_van_phong');
+
+        $soKhachHang = HopDong::distinct('user_id')->count('user_id');
+
+        return view('user.home.about', compact(
+            'tongToaNha',
+            'tongVanPhong',
+            'vanPhongDaChoThue',
+            'soKhachHang'
+        ));
     }
 }
