@@ -39,6 +39,12 @@ jobs:
       - name: Generate APP_KEY
         run: php artisan key:generate
 
+      - name: Setup MySQL SSL
+        run: |
+          mkdir -p storage/certs
+          cp BaltimoreCyberTrustRoot.crt.pem storage/certs/
+          chmod 644 storage/certs/BaltimoreCyberTrustRoot.crt.pem
+          
       - name: Run migrations
         run: php artisan migrate --force
 
