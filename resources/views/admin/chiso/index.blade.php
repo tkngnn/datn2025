@@ -212,7 +212,7 @@
                                         </td>
                                         <td>{{ $cthd->vanphong->ten_van_phong }}
                                             <span
-                                                class="d-block font-size-sm">{{ $cthd->vanphong->toanha->ten_toa_nha }}</span>
+                                                class="d-block font-size-sm">Tòa nhà: {{ $cthd->vanphong->toanha->ten_toa_nha }}</span>
                                         </td>
                                         <td class="text-break px-3">{{ $hoadon->hopdong->user->name }}
                                             <span class="d-block font-size-sm">Mã hợp đồng:

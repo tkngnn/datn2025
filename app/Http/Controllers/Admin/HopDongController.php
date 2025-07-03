@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Mail\HenXemQueuedMailer;
 
 use App\Models\HopDong;
 use App\Models\User;
@@ -12,6 +13,7 @@ use App\Models\ChiTietHopDong;
 use App\Models\ToaNha;
 use App\Models\LichSuCoc;
 use App\Models\HopDongThanhLy;
+use App\Models\HenXem;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -156,6 +158,35 @@ class HopDongController extends Controller
                 }
             } catch (\Exception $e) {
                 Log::error("Gửi email thông báo hợp đồng thất bại: " . $e->getMessage());
+            }
+
+            //Xử lý đổi trạng thái hẹn xem thành "Đã hủy" và gửi mail
+            $maVanPhong = $request->vanphong_id;
+            $emailHopDong = User::where('id',$request->khach_thue_id)->value('email');
+
+            $dsHenXemBiHuy = HenXem::with('vanphong')
+                ->where('ma_van_phong', $maVanPhong)
+                ->whereIn('trang_thai', ['dang xu ly', 'chua xu ly','da xu ly'])
+                ->where('email', '!=', $emailHopDong)
+                ->get();
+            
+            $henXemDaXuLy = HenXem::with('vanphong')
+                ->where('ma_van_phong', $maVanPhong)
+                ->whereIn('trang_thai', ['dang xu ly', 'chua xu ly','da xu ly'])
+                ->where('email', $emailHopDong)
+                ->first();
+            
+            $henXemDaXuLy->trang_thai = 'da xu ly';
+            $henXemDaXuLy->save();
+
+            foreach($dsHenXemBiHuy as $henxem){
+                $henxem->trang_thai = 'da huy';
+                $henxem->save();
+
+                if ($henxem->email) {
+                    $henxem->load('vanphong');
+                    Mail::to($henxem->email)->queue(new HenXemQueuedMailer($henxem));
+                }
             }
 
             return redirect()->route('admin.hopdong.index')->with('success', 'Tạo hợp đồng thành công!');

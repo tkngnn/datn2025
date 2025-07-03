@@ -200,6 +200,7 @@
                 <th class="table-column-pl-0">Mã văn phòng</th>
                 <th>Tên văn phòng</th>
                 <th>Tòa nhà</th>
+                  <th>Tên khách</th>
                 <th>Diện tích</th>
                 <th>Giá thuê</th>
                 <th>Trạng thái</th>
@@ -208,33 +209,37 @@
             </thead>
 
             <tbody>
-              @foreach ($vanphongs as $vanphong)
+              @foreach ($henxems as $henxem)
                 <tr>
                   <td class="table-column-pr-0">
                   </td>
                   <td>
                     <a href="javascript:;" 
                         class="btn-xem-vanphong"
-                        data-id="{{ $vanphong->ma_van_phong }}">
-                      {{ $vanphong->ma_van_phong }}
+                        data-id="{{ $henxem->vanphong->ma_van_phong }}">
+                      {{ $henxem->vanphong->ma_van_phong }}
                     </a>
                   </td>
                   <td>
                     <a href="javascript:;" 
                       class="btn-xem-vanphong text-body"
-                      data-id="{{ $vanphong->ma_van_phong }}">
-                      {{ $vanphong->ten_van_phong }}
+                      data-id="{{ $henxem->vanphong->ma_van_phong }}">
+                      {{ $henxem->vanphong->ten_van_phong }}
                     </a>
                   </td>
-                  <td>{{ $vanphong->toanha->ten_toa_nha ?? 'Chưa có' }}</td>
-                  <td>{{ $vanphong->dien_tich }} m²</td>
-                  <td>{{ number_format($vanphong->gia_thue, 0, ',', '.') }}</td>
+                  <td>{{ $henxem->vanphong->toanha->ten_toa_nha ?? 'Chưa có' }}</td>
+                    <td class="text-break px-3">{{ $henxem->ho_ten }}
+                      <span class="d-block font-size-sm">{{ $henxem->email}}</span>
+                        <small class="badge badge-danger">{{ $henxem->thongbao }}</small>
+                    </td>
+                  <td>{{ $henxem->vanphong->dien_tich }} m²</td>
+                  <td>{{ number_format($henxem->vanphong->gia_thue, 0, ',', '.') }}</td>
                   <td>
-                    @if ($vanphong->trang_thai === 'da thue')
+                    @if ($henxem->vanphong->trang_thai === 'da thue')
                         <span class="legend-indicator bg-success"></span> Đã thuê
-                    @elseif ($vanphong->trang_thai === 'dang xem')
+                    @elseif ($henxem->vanphong->trang_thai === 'dang xem')
                       <span class="legend-indicator bg-secondary"></span> Đang xem
-                    @elseif ($vanphong->trang_thai === 'het han hop dong')
+                    @elseif ($henxem->vanphong->trang_thai === 'het han hop dong')
                       <span class="legend-indicator bg-warning"></span> Đã thuê
                     @else
                         <span class="legend-indicator bg-danger"></span> Đang trống
@@ -242,9 +247,22 @@
                   </td>
                   <td>
                     <div>
-                      <a class="btn btn-sm btn-soft-dark" href="{{ route('admin.vanphong.edit', $vanphong->ma_van_phong) }}" title="Sửa">
+                      <a class="btn btn-sm btn-soft-dark" href="{{ route('admin.vanphong.edit', $henxem->vanphong->ma_van_phong) }}" title="Sửa">
                         <i class="tio-edit"></i>
                       </a>
+                      @if (!$henxem->thongbao)
+                        <a class="btn btn-sm btn-soft-success" 
+                            href="#"
+                            title="Ký hợp đồng">
+                            <i class="tio-file-text"></i>
+                          </a>
+                      @else
+                        <a class="btn btn-sm btn-soft-success" 
+                        href="{{ route('admin.khachhang.create.henxem', $henxem->ma_hen_xem) }}"
+                        title="Tạo tài khoản">
+                        <i class="tio-add"></i>
+                      </a>
+                      @endif
                     </div>
                   </td>
                 </tr>
@@ -350,5 +368,20 @@ $(document).on('click', '.btn-xem-vanphong', function () {
     }
   });
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+        const params = new URLSearchParams(window.location.search);
+        const message = params.get('success');
+
+        if (message) {
+            const msgBox = document.getElementById('success');
+            msgBox.querySelector('strong').textContent = message;
+            msgBox.style.display = 'block';
+
+            setTimeout(() => {
+                msgBox.style.display = 'none';
+            }, 5000);
+        }
+    });
 </script>
 @endpush

@@ -171,8 +171,10 @@
                                             <label class="input-label">Trạng thái</label>
                                             <div class="select2-custom">
                                                 <select class="custom-select" name="trang_thai">
-                                                    <option value="Dang trong">Đang trống</option>
-                                                    <option value="Da thue">Đã thuê</option>
+                                                    <option value="dang trong">Đang trống</option>
+                                                    <option value="da thue">Đã thuê</option>
+                                                    <option value="dang xem">Đang xem</option>
+                                                    <option value="het han hop dong">Hết hạn hợp đồng</option>
                                                 </select>
                                             </div>
                                         </div>

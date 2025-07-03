@@ -228,7 +228,7 @@
                       <span class="d-block font-size-sm">Mã hợp đồng: {{ $hoadon->hopdong->ma_hop_dong }}</span>
                     </td>
                     <td>{{ $cthd->vanphong->ten_van_phong }}
-                      <span class="d-block font-size-sm">{{ $cthd->vanphong->toanha->ten_toa_nha }}</span>
+                      <span class="d-block font-size-sm">Tòa nhà: {{ $cthd->vanphong->toanha->ten_toa_nha }}</span>
                     </td>
                     <td class="text-break px-3">{{ $hoadon->thang_nam}}</td>
                     <td>{{ number_format($hoadon->tong_tien, 0, ',', '.') }}</td>
