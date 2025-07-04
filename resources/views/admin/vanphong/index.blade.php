@@ -51,7 +51,7 @@
                       <i class="tio-search"></i>
                     </div>
                   </div>
-                  <input id="datatableSearch" type="search" value="{{ request('vanphong') }}" class="form-control" placeholder="Tìm kiếm văn phòng" aria-label="Tìm kiếm văn phòng">
+                  <input id="datatableSearch" type="search" value="{{ request('khachhang') }}" class="form-control" placeholder="Tìm kiếm văn phòng" aria-label="Tìm kiếm văn phòng">
                 </div>
                 <!-- End Search -->
               </form>
@@ -133,7 +133,7 @@
                 <h5 class="mb-0">Bộ lọc</h5>
               </div>
               <div class="card-body">
-                <form method="GET" action="{{ route('admin.vanphong.index') }}">
+                <form method="GET" action="{{ route('admin.vanphong.' .$page) }}">
                   <div class="form-group">
                     <label for="ma_toa_nha">Tòa nhà</label>
                     <select name="ma_toa_nha" id="ma_toa_nha" class="form-control selectpicker" data-live-search="true" title="Chọn tòa nhà">
@@ -190,7 +190,11 @@
         <div class="table-responsive datatable-custom">
           <table id="datatable" class="table table-lg table-borderless table-thead-bordered table-nowrap table-align-middle card-table" data-hs-datatables-options='{
                    "columnDefs": [{
-                      "targets": [0, 7],
+                      "targets": [0, @if ($page =='index' || $page =='dangtrong')
+                      6
+                    @else
+                      7
+                    @endif],
                       "orderable": false
                     }],
                    "order": [],
@@ -210,7 +214,9 @@
                 </th>
                 <th class="table-column-pl-0">Mã văn phòng</th>
                 <th>Tên văn phòng</th>
-                <th>Tòa nhà</th>
+                @if ($page=='dathue' || $page=='dangxem' || $page=='hethan')
+                  <th>Tên khách/Email</th>
+                @endif
                 <th>Diện tích</th>
                 <th>Giá thuê</th>
                 <th>Trạng thái</th>
@@ -219,49 +225,130 @@
             </thead>
 
             <tbody>
-              @foreach ($vanphongs as $vanphong)
-                <tr>
-                  <td class="table-column-pr-0">
-                  </td>
-                  <td>
-                    <a href="javascript:;" 
-                        class="btn-xem-vanphong"
-                        data-id="{{ $vanphong->ma_van_phong }}">
-                      {{ $vanphong->ma_van_phong }}
-                    </a>
-                  </td>
-                  <td>
-                    <a href="javascript:;" 
-                      class="btn-xem-vanphong text-body"
-                      data-id="{{ $vanphong->ma_van_phong }}">
-                      {{ $vanphong->ten_van_phong }}
-                    </a>
-                  </td>
-                  <td>
-                    <a href="javascript:;" class="btn-xem-toanha text-body" data-idtoanha="{{ $vanphong->toanha->ma_toa_nha }}">
-                      {{ $vanphong->toanha->ten_toa_nha ?? 'Chưa có' }}</a></td>
-                  <td>{{ $vanphong->dien_tich }} m²</td>
-                  <td>{{ number_format($vanphong->gia_thue, 0, ',', '.') }}</td>
-                  <td>
-                    @if ($vanphong->trang_thai === 'da thue')
-                        <span class="legend-indicator bg-success"></span> Đã thuê
-                    @elseif ($vanphong->trang_thai === 'dang xem')
-                      <span class="legend-indicator bg-secondary"></span> Đang xem
-                    @elseif ($vanphong->trang_thai === 'het han hop dong')
-                      <span class="legend-indicator bg-warning"></span> Đã thuê
-                    @else
-                        <span class="legend-indicator bg-danger"></span> Đang trống
-                    @endif
-                  </td>
-                  <td>
-                    <div>
-                      <a class="btn btn-sm btn-soft-dark" href="{{ route('admin.vanphong.edit', $vanphong->ma_van_phong) }}" title="Sửa">
-                        <i class="tio-edit"></i>
+              @if ($page=='dangxem')
+                @foreach ($henxems as $henxem)
+                  <tr>
+                      <td class="table-column-pr-0">
+                      </td>
+                      <td>
+                          <a href="javascript:;" class="btn-xem-vanphong"
+                              data-id="{{ $henxem->vanphong->ma_van_phong }}">
+                              {{ $henxem->vanphong->ma_van_phong }}
+                          </a>
+                      </td>
+                      <td>
+                          <a href="javascript:;" class="btn-xem-vanphong text-body"
+                              data-id="{{ $henxem->vanphong->ma_van_phong }}">
+                              {{ $henxem->vanphong->ten_van_phong }}
+                          </a>
+                          <a href="javascript:;" class="d-block btn-xem-toanha font-size-sm text-body"
+                              data-idtoanha="{{ $henxem->vanphong->toanha->ma_toa_nha }}">
+                              {{ $henxem->vanphong->toanha->ten_toa_nha ?? 'Chưa có' }}</a>
+                      </td>
+                      <td class="text-break px-3">{{ $henxem->ho_ten }}
+                          <span class="d-block font-size-sm">{{ $henxem->email }}</span>
+                          <small class="badge badge-danger">{{ $henxem->thongbao }}</small>
+                      </td>
+                      <td>{{ $henxem->vanphong->dien_tich }} m²</td>
+                      <td>{{ number_format($henxem->vanphong->gia_thue, 0, ',', '.') }}</td>
+                      <td>
+                          @if ($henxem->vanphong->trang_thai === 'da thue')
+                              <span class="legend-indicator bg-success"></span> Đã thuê
+                          @elseif ($henxem->vanphong->trang_thai === 'dang xem')
+                              <span class="legend-indicator bg-secondary"></span> Đang xem
+                          @elseif ($henxem->vanphong->trang_thai === 'het han hop dong')
+                              <span class="legend-indicator bg-warning"></span> Đã thuê
+                          @else
+                              <span class="legend-indicator bg-danger"></span> Đang trống
+                          @endif
+                      </td>
+                      <td>
+                          <div>
+                              <a class="btn btn-sm btn-soft-dark"
+                                  href="{{ route('admin.vanphong.edit', $henxem->vanphong->ma_van_phong) }}"
+                                  title="Sửa">
+                                  <i class="tio-edit"></i>
+                              </a>
+                              @if (!$henxem->thongbao)
+                                  <a class="btn btn-sm btn-soft-success"
+                                      href="{{ route('admin.hopdong.create', [
+                                          'user_id' => $henxem->user_id,
+                                          'vanphong_id' => $henxem->vanphong->ma_van_phong,
+                                      ]) }}"
+                                      title="Tạo hợp đồng">
+                                      <i class="tio-file-text"></i>
+                                  </a>
+                              @else
+                                  <a class="btn btn-sm btn-soft-success"
+                                      href="{{ route('admin.khachhang.create.henxem', $henxem->ma_hen_xem) }}"
+                                      title="Tạo tài khoản">
+                                      <i class="tio-add"></i>
+                                  </a>
+                              @endif
+                          </div>
+                      </td>
+                  </tr>
+                @endforeach    
+              @else
+                @foreach ($vanphongs as $vanphong)
+                  <tr>
+                    
+                    <td class="table-column-pr-0">
+                    </td>
+                    <td>
+                      <a href="javascript:;" 
+                          class="btn-xem-vanphong"
+                          data-id="{{ $vanphong->ma_van_phong }}">
+                        {{ $vanphong->ma_van_phong }}
                       </a>
-                    </div>
-                  </td>
-                </tr>
-              @endforeach
+                    </td>
+                    <td>
+                      <a href="javascript:;" 
+                        class="btn-xem-vanphong text-body"
+                        data-id="{{ $vanphong->ma_van_phong }}">
+                        {{ $vanphong->ten_van_phong }}
+                      </a>
+                      <a href="javascript:;" class="d-block btn-xem-toanha font-size-sm text-body" data-idtoanha="{{ $vanphong->toanha->ma_toa_nha }}">
+                        {{ $vanphong->toanha->ten_toa_nha ?? 'Chưa có' }}</a>
+                    </td>
+                    @if ($page=='dathue' || $page=='dangxem' || $page=='hethan')
+                      <td>{{ $vanphong->chiTietHopDongs->first()->hopdong->user->name }}
+                        <span class="d-block font-size-sm">{{ $vanphong->chiTietHopDongs->first()->hopdong->user->email }}</span>
+                      </td>
+                    @endif
+                    
+                    <td>{{ $vanphong->dien_tich }} m²</td>
+                    <td>{{ number_format($vanphong->gia_thue, 0, ',', '.') }}</td>
+                    <td>
+                      @if ($vanphong->trang_thai === 'da thue')
+                          <span class="legend-indicator bg-success"></span> Đã thuê
+                      @elseif ($vanphong->trang_thai === 'dang xem')
+                        <span class="legend-indicator bg-secondary"></span> Đang xem
+                      @elseif ($vanphong->trang_thai === 'het han hop dong')
+                        <span class="legend-indicator bg-warning"></span> Đã thuê
+                      @else
+                          <span class="legend-indicator bg-danger"></span> Đang trống
+                      @endif
+                    </td>
+                    <td>
+                        <a class="btn btn-sm btn-soft-dark" href="{{ route('admin.vanphong.edit', $vanphong->ma_van_phong) }}" title="Sửa">
+                          <i class="tio-edit"></i>
+                        </a>
+                      @if ($page=='hethan')
+                        <a class="btn btn-sm btn-soft-success"
+                          href="{{ route('admin.hopdong.create', [
+                              'user_id' => $vanphong->chiTietHopDongs->first()->hopdong->user->id,
+                              'vanphong_id' => $vanphong->ma_van_phong,
+                          ]) }}"
+                          title="Tạo hợp đồng">
+                          <i class="tio-file-text"></i>
+                        </a>
+                      @endif
+                    </td>
+                  </tr>
+                @endforeach    
+              @endif
+              
             </tbody>
           </table>
         </div>
@@ -369,6 +456,21 @@
       });
     });
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+            const params = new URLSearchParams(window.location.search);
+            const message = params.get('success');
+
+            if (message) {
+                const msgBox = document.getElementById('success');
+                msgBox.querySelector('strong').textContent = message;
+                msgBox.style.display = 'block';
+
+                setTimeout(() => {
+                    msgBox.style.display = 'none';
+                }, 5000);
+            }
+        });
 
 $(document).on('click', '.btn-xem-vanphong', function () {
   const id = $(this).data('id');

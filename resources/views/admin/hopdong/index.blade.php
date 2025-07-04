@@ -296,8 +296,14 @@
                                         </td>
                                         <td>
                                             <div><strong>{{ $hopdong->user->name ?? 'Không có' }}</strong></div>
-                                            <div>Tòa Nhà: {{ $chiTiet->vanPhong->toaNha->ten_toa_nha ?? 'Không có' }}</div>
-                                            <div>Phòng: {{ $chiTiet->vanPhong->ma_van_phong ?? 'Không có' }} - {{$chiTiet->vanPhong->ten_van_phong ?? 'Không có'}}</div>
+                                            <div><a href="javascript:;" 
+                                                class="d-block btn-xem-toanha font-size-sm text-body" 
+                                                data-idtoanha="{{ $chiTiet->vanPhong->toaNha->ma_toa_nha }}">
+                                                Tòa Nhà: {{ $chiTiet->vanPhong->toaNha->ten_toa_nha ?? 'Không có' }}</a></div>
+                                            <div><a href="javascript:;" 
+                                                class="btn-xem-vanphong text-body"
+                                                data-idvanphong="{{ $chiTiet->vanPhong->ma_van_phong }}">
+                                                Phòng: {{ $chiTiet->vanPhong->ma_van_phong ?? 'Không có' }} - {{$chiTiet->vanPhong->ten_van_phong ?? 'Không có'}}</a></div>
                                         </td>
                                         <td>
                                             {{ number_format($chiTiet->gia_thue, 0, ',', '.') }} VNĐ
@@ -624,6 +630,41 @@
 
 
         <!-- End Biên Ban Thanh Ly Modal -->
+        <!-- VanPhong Modal Popup -->
+     <div class="modal fade" id="vanPhongModal" tabindex="-1" aria-labelledby="vanPhongModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title"></h5>
+              <button type="button" class="btn btn-close btn-sm btn-ghost-secondary" data-dismiss="modal" aria-label="Đóng">
+                <i class="tio-clear tio-lg"></i>
+              </button>
+            </div>
+            <div class="modal-body" id="vanPhongModalContent">
+              <div class="text-center">Đang tải...</div>
+            </div>
+          </div>
+        </div>
+      </div>          
+    <!-- End VanPhong Modal Popup --> 
+    <!-- ToaNha Modal Popup -->
+  <div class="modal fade" id="toaNhaModal" tabindex="-1" aria-labelledby="toaNhaModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button type="button" class="btn btn-close btn-sm btn-ghost-secondary" data-dismiss="modal"
+                    aria-label="Đóng">
+                    <i class="tio-clear tio-lg"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="toaNhaModalContent">
+                <div class="text-center">Đang tải...</div>
+            </div>
+        </div>
+    </div>
+  </div>
+  <!-- End ToaNha Modal Popup -->
     </main>
 @endsection
 @push('scripts')
@@ -971,5 +1012,29 @@
                 }, 200);
             };
         }
+
+$(document).on('click', '.btn-xem-vanphong', function () {
+  const idvanphong = $(this).data('idvanphong');
+  $('#vanPhongModalContent').html('<div class="text-center">Đang tải...</div>');
+  $('#vanPhongModal').modal('show');
+
+  $('#vanPhongModalContent').load(`/admin/vanphong/preview/${idvanphong}`, function (response, status, xhr) {
+    if (status === "error") {
+      $('#vanPhongModalContent').html('<div class="text-danger">Không thể tải thông tin văn phòng.</div>');
+    }
+  });
+});
+$(document).on('click', '.btn-xem-toanha', function() {
+  const idtoanha = $(this).data('idtoanha');
+  $('#toaNhaModalContent').html('<div class="text-center">Đang tải...</div>');
+  $('#toaNhaModal').modal('show');
+
+  $('#toaNhaModalContent').load(`/admin/toanha/preview/${idtoanha}`, function(response, status, xhr) {
+  if (status === "error") {
+  $('#toaNhaModalContent').html(
+  '<div class="text-danger">Không thể tải thông tin tòa nhà.</div>');
+  }
+  });
+});
     </script>
 @endpush

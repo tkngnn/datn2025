@@ -177,11 +177,6 @@
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <div class="avatar avatar-soft-primary avatar-circle">
-                                                <span class="avatar-initials">
-                                                    {{ strtoupper(substr($yeuCau->user->name ?? 'N/A', 0, 1)) }}
-                                                </span>
-                                            </div>
                                             <div class="ml-3">
                                                 <span class="d-block h5 text-hover-primary mb-0">
                                                     {{ $yeuCau->user->name ?? 'Không rõ' }}

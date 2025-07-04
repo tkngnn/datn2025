@@ -58,8 +58,8 @@ class HenXemController extends Controller
         //$henxem->trang_thai = 'da xu ly';
         //$henxem->save();
 
-        $vanphong = VanPhong::where('ma_van_phong', $henxem->ma_van_phong)->first();
+        $khachhang = User::where('name', $henxem->ho_ten)->first();
 
-        return redirect()->route('admin.vanphong.dangxem',['vanphong'=> $henxem->vanphong->ten_van_phong]);
+        return redirect()->route('admin.vanphong.dangxem',['khachhang'=> $khachhang->name]);
     }
 }

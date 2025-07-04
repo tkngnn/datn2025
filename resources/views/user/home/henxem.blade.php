@@ -58,19 +58,34 @@
 
                 <div class="col-md-6">
                     <label class="input-label">Họ tên</label>
+                    @if (auth()->check())
+                    <input type="text" name="ho_ten" class="form-control" value="{{ auth()->user()->name }}" disabled>
+                    <input type="hidden" name="ho_ten" value="{{ auth()->user()->name }}" >
+                    @else
                     <input type="text" name="ho_ten" class="form-control" placeholder="Nhập họ tên của bạn">
+                    @endif
                     <span class="text-danger" id="error-ho_ten"></span>
                 </div>
 
                 <div class="col-md-6 ">
                     <label class="input-label">Email</label>
+                    @if (auth()->check())
+                    <input type="email" id="email" class="form-control" name="email" value="{{ auth()->user()->email }}" disabled>
+                    <input type="hidden" id="email" name="email" value="{{ auth()->user()->email }}" >
+                    @else
                     <input type="email" id="email" class="form-control" name="email" placeholder="Nhập email">
+                    @endif
                     <span class="text-danger" id="error-email"></span>
                 </div>
 
                 <div class="col-md-6 ">
                     <label class="input-label">Số điện thoại</label>
+                    @if (auth()->check())
+                    <input type="text" class="form-control" name="sdt" value="{{ auth()->user()->so_dien_thoai }}" disabled>
+                    <input type="hidden" name="sdt" value="{{ auth()->user()->so_dien_thoai }}" >
+                    @else
                     <input type="text" class="form-control" name="sdt" placeholder="Nhập số điện thoại">
+                    @endif
                     <span class="text-danger" id="error-sdt"></span>
                 </div>
 

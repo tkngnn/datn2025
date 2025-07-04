@@ -42,13 +42,14 @@ class VanPhongController extends Controller
         $vanphongs = $query->get();
         $dsToaNha = ToaNha::orderBy('ten_toa_nha')->get();
         $title ="";
+        $page="index";
 
-        return view('admin.vanphong.index', compact('vanphongs', 'dsToaNha','title'));
+        return view('admin.vanphong.index', compact('vanphongs', 'dsToaNha','title','page'));
     }
 
     public function dathue(Request $request)
     {
-        $query = VanPhong::with('toaNha')->where('trang_thai','da thue');
+        $query = VanPhong::with('toaNha','chiTietHopDongs.hopdong.user')->where('trang_thai','da thue');
 
         if ($request->filled('ma_toa_nha')) {
             $query->where('ma_toa_nha', $request->ma_toa_nha);
@@ -77,8 +78,9 @@ class VanPhongController extends Controller
         $vanphongs = $query->get();
         $dsToaNha = ToaNha::orderBy('ten_toa_nha')->get();
         $title ="đã thuê";
+        $page="dathue";
 
-        return view('admin.vanphong.index', compact('vanphongs', 'dsToaNha','title'));
+        return view('admin.vanphong.index', compact('vanphongs', 'dsToaNha','title','page'));
     }
 
     public function dangxem(Request $request)
@@ -121,17 +123,23 @@ class VanPhongController extends Controller
         }
         $dsToaNha = ToaNha::orderBy('ten_toa_nha')->get();
         $title ="đang xem";
+        $page="dangxem";
 
-        return view('admin.vanphong.dangxem', [
+        return view('admin.vanphong.index', [
             'henxems' => $henxems,
             'dsToaNha' => $dsToaNha,
             'title' => 'đang xem',
+            'page' =>$page,
         ]);    
     }
 
     public function hethan(Request $request)
     {
-        $query = VanPhong::with('toaNha')->where('trang_thai','het han hop dong');
+        $query = VanPhong::with('toaNha','chiTietHopDongs.hopdong.user')
+        ->where('trang_thai','dang trong')
+        ->whereHas('chiTietHopDongs.hopdong', function ($q) {
+            $q->where('tinh_trang', 'het han');
+        });
 
         if ($request->filled('ma_toa_nha')) {
             $query->where('ma_toa_nha', $request->ma_toa_nha);
@@ -160,8 +168,9 @@ class VanPhongController extends Controller
         $vanphongs = $query->get();
         $dsToaNha = ToaNha::orderBy('ten_toa_nha')->get();
         $title ="hết hạn hợp đồng";
+        $page="hethan";
 
-        return view('admin.vanphong.index', compact('vanphongs', 'dsToaNha','title'));
+        return view('admin.vanphong.index', compact('vanphongs', 'dsToaNha','title','page'));
     }
 
     public function dangtrong(Request $request)
@@ -195,8 +204,9 @@ class VanPhongController extends Controller
         $vanphongs = $query->get();
         $dsToaNha = ToaNha::orderBy('ten_toa_nha')->get();
         $title ="đang trống";
+        $page="dangtrong";
 
-        return view('admin.vanphong.index', compact('vanphongs', 'dsToaNha','title'));
+        return view('admin.vanphong.index', compact('vanphongs', 'dsToaNha','title','page'));
     }
 
     public function create()

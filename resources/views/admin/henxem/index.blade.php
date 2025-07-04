@@ -61,9 +61,23 @@
                 <label class="font-weight-bold mr-1 mt-2">Bộ lọc: </label>
 
                 @if(request('trang_thai'))
-                    <span class="badge badge-soft-warning" style="padding: .8rem .8rem;">
-                    {{ request('trang_thai') == 'da xu ly' ? 'Đã xử lý' : 'Chưa xử lý' }}
+                  @if (request('trang_thai') == 'chua xu ly')
+                    <span class="badge badge-soft-secondary" style="padding: .8rem .8rem;">
+                    Chưa xử lý
                     </span>
+                  @elseif (request('trang_thai') == 'da xu ly')
+                    <span class="badge badge-soft-success" style="padding: .8rem .8rem;">
+                      Đã xử lý
+                    </span>
+                    @elseif (request('trang_thai') == 'dang xu ly')
+                    <span class="badge badge-soft-warning" style="padding: .8rem .8rem;">
+                      Đang xử lý
+                    </span>
+                  @else
+                    <span class="badge badge-soft-danger" style="padding: .8rem .8rem;">
+                      Đã hủy
+                    </span>
+                  @endif
                 @endif
                 </div>
             </div>
@@ -111,7 +125,9 @@
                         <select name="trang_thai" id="trang_thai" class="form-control selectpicker" data-live-search="true" title="Chọn trạng thái">
                             <option value="">-- Tất cả --</option>
                             <option value="da xu ly" {{ request('trang_thai') == 'da xu ly' ? 'selected' : '' }}>Đã xử lý</option>
+                            <option value="dang xu ly" {{ request('trang_thai') == 'dang xu ly' ? 'selected' : '' }}>Đang xử lý</option>
                             <option value="chua xu ly" {{ request('trang_thai') == 'chua xu ly' ? 'selected' : '' }}>Chưa xử lý</option>
+                            <option value="da huy" {{ request('trang_thai') == 'da huy' ? 'selected' : '' }}>Đã hủy</option>
                         </select>
                         </div>
                 
