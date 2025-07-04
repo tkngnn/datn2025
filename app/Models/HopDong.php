@@ -33,4 +33,10 @@ class HopDong extends Model
     {
         return $this->hasMany(LichSuCoc::class, 'ma_hop_dong');
     }
+    public function vanPhongs()
+    {
+        return $this->belongsToMany(VanPhong::class, 'chi_tiet_hop_dong', 'ma_hop_dong', 'ma_van_phong')
+            ->withTimestamps()
+            ->withPivot(['dien_tich', 'gia_thue']);
+    }
 }

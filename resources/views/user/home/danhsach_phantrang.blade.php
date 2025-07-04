@@ -3,7 +3,7 @@
         <ul>
             {{-- Previous Page Link --}}
             @if ($paginator->onFirstPage())
-                <li><span><i class="bi bi-arrow-left"></i><span class="d-none d-sm-inline" aria-label="Previous page">  Previous</span></span></li>
+                <li><span><i class="bi bi-arrow-left"></i><span class="d-none d-sm-inline" aria-label="Previous page">  Trước</span></span></li>
             @else
                 <li><a href="{{ $paginator->previousPageUrl() }}"><i class="bi bi-arrow-left"></i><span
                             class="d-none d-sm-inline" aria-label="Previous page">Trước</span></a></li>
@@ -33,7 +33,7 @@
                 <li><a href="{{ $paginator->nextPageUrl() }}"><span class="d-none d-sm-inline" aria-label="Next page">Sau</span><i
                             class="bi bi-arrow-right"></i></a></li>
             @else
-                <li><span><span class="d-none d-sm-inline" aria-label="Next page">Next</span><i class="bi bi-arrow-right"></i></span></li>
+                <li><span><span class="d-none d-sm-inline" aria-label="Next page">Sau</span><i class="bi bi-arrow-right"></i></span></li>
             @endif
         </ul>
     </nav>

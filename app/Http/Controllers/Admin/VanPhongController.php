@@ -110,7 +110,9 @@ class VanPhongController extends Controller
         }
         $henxems = $query->get();
         foreach($henxems as $henxem){
-            if (User::where('email', $henxem->email)->exists()) {
+            $user = User::where('email', $henxem->email)->first();
+            if ($user) {
+                $henxem->user_id = $user->id;
                 $henxem->thongbao = null;
             } else {
                 $henxem->thongbao = "Khách hàng chưa có tài khoản";

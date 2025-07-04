@@ -20,4 +20,8 @@ class HenXem extends Model
     {
         return $this->belongsTo(VanPhong::class, 'ma_van_phong', 'ma_van_phong');
     }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'email', 'email');
+    }
 }

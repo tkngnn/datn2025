@@ -26,21 +26,50 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="toa_nha_id">Tòa nhà</label>
-                                    <select class="form-control" name="toa_nha_id" id="toa_nha_id">
+                                    @php
+                                        $selectedVanPhong = $vanPhongs->firstWhere('ma_van_phong', $selectedVanPhongId);
+                                        $selectedToaNhaId = $selectedVanPhong?->toaNha?->ma_toa_nha;
+                                    @endphp
+                                    {{-- <select class="form-control" name="toa_nha_id" id="toa_nha_id">
                                         <option value="">-- Chọn tòa nhà --</option>
                                         @foreach ($toaNhas as $toaNha)
                                             <option value="{{ $toaNha->ma_toa_nha }}">{{ $toaNha->ten_toa_nha }}</option>
                                         @endforeach
+                                    </select> --}}
+                                    <select class="form-control" name="toa_nha_id" id="toa_nha_id"
+                                        {{ isset($selectedVanPhongId) ? 'readonly disabled' : '' }}>
+                                        <option value="">-- Chọn tòa nhà --</option>
+                                        @foreach ($toaNhas as $toaNha)
+                                            <option value="{{ $toaNha->ma_toa_nha }}"
+                                                {{ old('toa_nha_id', $selectedToaNhaId ?? '') == $toaNha->ma_toa_nha ? 'selected' : '' }}>
+                                                {{ $toaNha->ten_toa_nha }}
+                                            </option>
+                                        @endforeach
                                     </select>
+                                    @if (isset($selectedToaNhaId))
+                                        <input type="hidden" name="toa_nha_id" value="{{ $selectedToaNhaId }}">
+                                    @endif
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="vanphong_id">Phòng</label>
-                                    <select class="form-control" name="vanphong_id" id="vanphong_id">
+                                    {{-- <select class="form-control" name="vanphong_id" id="vanphong_id">
                                         <option value="">-- Chọn phòng --</option>
+                                    </select> --}}
+                                    <select name="vanphong_id" class="form-control" id="vanphong_id"
+                                        {{ isset($selectedVanPhongId) ? 'readonly disabled' : '' }}>
+                                        @foreach ($vanPhongs as $vp)
+                                            <option value="{{ $vp->ma_van_phong }}"
+                                                {{ old('vanphong_id', $selectedVanPhongId ?? '') == $vp->ma_van_phong ? 'selected' : '' }}>
+                                                {{ $vp->ten_van_phong }} - {{ $vp->toaNha->ten_toa_nha }}
+                                            </option>
+                                        @endforeach
                                     </select>
+                                    @if (isset($selectedVanPhongId))
+                                        <input type="hidden" name="vanphong_id" value="{{ $selectedVanPhongId }}">
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -89,20 +118,32 @@
                             <div class="col-md-5">
                                 <div class="form-group">
                                     <label for="ten_khach_thue">Tên khách thuê</label>
-                                    <select class="form-control" name="khach_thue_id" id="khach_thue_id">
+                                    {{-- <select class="form-control" name="khach_thue_id" id="khach_thue_id">
                                         <option value="">-- Chọn khách thuê --</option>
                                         @foreach ($users as $user)
                                             <option value="{{ $user->id }}">{{ $user->name }}
                                                 ({{ $user->so_dien_thoai }})
                                             </option>
                                         @endforeach
+                                    </select> --}}
+                                    <select name="khach_thue_id" class="form-control" id="khach_thue_id"
+                                        {{ isset($selectedUserId) ? 'readonly disabled' : '' }}>
+                                        @foreach ($users as $user)
+                                            <option value="{{ $user->id }}"
+                                                {{ old('khach_thue_id', $selectedUserId ?? '') == $user->id ? 'selected' : '' }}>
+                                                {{ $user->name }} - {{ $user->email }}
+                                            </option>
+                                        @endforeach
                                     </select>
+                                    @if (isset($selectedUserId))
+                                        <input type="hidden" name="khach_thue_id" value="{{ $selectedUserId }}">
+                                    @endif
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="sdt_khach_thue">Số điện thoại</label>
-                                    <input type="text" class="form-control" name="sdt_khach_thue" id="sdt_khach_thue">
+                                    <input type="number" class="form-control" name="sdt_khach_thue" id="sdt_khach_thue">
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -235,17 +276,126 @@
             dateFormat: "Y-m-d"
         });
 
+        // document.addEventListener('DOMContentLoaded', function() {
+        //     const toaNhaSelect = document.getElementById('toa_nha_id');
+        //     const vanPhongSelect = document.getElementById('vanphong_id');
+
+        //     const giaThueInput = document.getElementById('tien_thue');
+        //     const tienCocInput = document.getElementById('tien_coc');
+        //     const giaDienInput = document.getElementById('gia_dien');
+        //     const giaNuocInput = document.getElementById('gia_nuoc');
+        //     const dichVuKhacTextarea = document.getElementById('dich_vu_khac');
+
+        //     toaNhaSelect.addEventListener('change', function() {
+        //         const toaNhaId = this.value;
+        //         vanPhongSelect.innerHTML = '<option value="">-- Chọn phòng --</option>';
+
+        //         if (toaNhaId) {
+        //             fetch(`/admin/ajax/vanphong/${toaNhaId}`)
+        //                 .then(res => res.json())
+        //                 .then(data => {
+        //                     console.log('Danh sách văn phòng:', data);
+        //                     data.forEach(vp => {
+        //                         const option = document.createElement('option');
+        //                         option.value = vp.ma_van_phong;
+        //                         option.textContent =
+        //                             `Văn phòng ${vp.ma_van_phong} - ${vp.dien_tich} m²`;
+        //                         vanPhongSelect.appendChild(option);
+        //                     });
+        //                 })
+        //                 .catch(err => console.error('Lỗi khi fetch văn phòng:', err));
+        //         }
+        //     });
+
+        //     vanPhongSelect.addEventListener('change', function() {
+        //         const vanPhongId = this.value;
+
+        //         if (vanPhongId) {
+        //             fetch(`/admin/ajax/vanphong-detail/${vanPhongId}`)
+        //                 .then(res => res.json())
+        //                 .then(data => {
+        //                     console.log('Chi tiết văn phòng:', data);
+        //                     giaThueInput.value = data.gia_thue;
+        //                     tienCocInput.value = data.gia_thue * data.dien_tich * 3;
+        //                     giaDienInput.value = data.gia_dien;
+        //                     giaNuocInput.value = data.gia_nuoc;
+        //                     dichVuKhacTextarea.value = data.dich_vu_khac;
+        //                 })
+        //                 .catch(err => console.error('Lỗi khi fetch chi tiết VP:', err));
+        //         }
+        //     });
+
+        //     const userSelect = document.getElementById('khach_thue_id');
+        //     const phoneInput = document.getElementById('sdt_khach_thue');
+        //     const daiDienInput = document.getElementById('dai_dien');
+
+        //     userSelect.addEventListener('change', function() {
+        //         const userId = this.value;
+        //         if (userId) {
+        //             fetch(`/admin/ajax/user/${userId}`)
+        //                 .then(res => res.json())
+        //                 .then(data => {
+        //                     phoneInput.value = data.phone || '';
+        //                     daiDienInput.value = data.name || '';
+        //                 });
+        //         } else {
+        //             phoneInput.value = '';
+        //             daiDienInput.value = '';
+        //         }
+        //     });
+
+        //     document.getElementById('ngay_ky').addEventListener('change', validateDates);
+        //     document.getElementById('ngay_bat_dau').addEventListener('change', validateDates);
+        //     document.getElementById('han_hop_dong').addEventListener('change', validateDates);
+        //     validateDates();
+
+        // });
+
         document.addEventListener('DOMContentLoaded', function() {
             const toaNhaSelect = document.getElementById('toa_nha_id');
             const vanPhongSelect = document.getElementById('vanphong_id');
-
-            const giaThueInput = document.getElementById('tien_thue');
+            const userSelect = document.getElementById('khach_thue_id');
+            const phoneInput = document.getElementById('sdt_khach_thue');
+            const daiDienInput = document.getElementById('dai_dien');
+            const tienThueInput = document.getElementById('tien_thue');
             const tienCocInput = document.getElementById('tien_coc');
             const giaDienInput = document.getElementById('gia_dien');
             const giaNuocInput = document.getElementById('gia_nuoc');
-            const dichVuKhacTextarea = document.getElementById('dich_vu_khac');
+            const dichVuKhacInput = document.getElementById('dich_vu_khac');
 
-            toaNhaSelect.addEventListener('change', function() {
+            console.log('[AUTO] User preset:', userSelect);
+            const selectedVanPhongId = '{{ $selectedVanPhongId ?? '' }}';
+            const selectedUserId = '{{ $selectedUserId ?? '' }}';
+
+            // 1. Load thông tin văn phòng nếu có (dùng cho hẹn xem)
+            if (selectedVanPhongId) {
+                fetch(`/admin/ajax/vanphong-detail/${selectedVanPhongId}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log('[AUTO] Văn phòng preset:', data);
+                        tienThueInput.value = data.gia_thue || '';
+                        tienCocInput.value = data.gia_thue * data.dien_tich * 3 || '';
+                        giaDienInput.value = data.gia_dien || '';
+                        giaNuocInput.value = data.gia_nuoc || '';
+                        dichVuKhacInput.value = data.dich_vu_khac || '';
+                    })
+                    .catch(err => console.error('Lỗi fetch văn phòng preset:', err));
+            }
+
+            // 2. Load thông tin user nếu có (dùng cho hẹn xem)
+            if (selectedUserId) {
+                fetch(`/admin/ajax/user/${selectedUserId}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log('[AUTO] User preset:', data);
+                        phoneInput.value = data.so_dien_thoai || '';
+                        daiDienInput.value = data.name || '';
+                    })
+                    .catch(err => console.error('Lỗi fetch user preset:', err));
+            }
+
+            // 3. Khi chọn Tòa nhà → lấy danh sách văn phòng thuộc tòa đó
+            toaNhaSelect?.addEventListener('change', function() {
                 const toaNhaId = this.value;
                 vanPhongSelect.innerHTML = '<option value="">-- Chọn phòng --</option>';
 
@@ -253,50 +403,52 @@
                     fetch(`/admin/ajax/vanphong/${toaNhaId}`)
                         .then(res => res.json())
                         .then(data => {
-                            console.log('Danh sách văn phòng:', data);
+                            console.log('[DYNAMIC] Văn phòng theo tòa nhà:', data);
                             data.forEach(vp => {
                                 const option = document.createElement('option');
                                 option.value = vp.ma_van_phong;
                                 option.textContent =
-                                    `Văn phòng ${vp.ma_van_phong} - ${vp.dien_tich} m²`;
+                                    `VP ${vp.ten_van_phong} - ${vp.dien_tich} m²`;
                                 vanPhongSelect.appendChild(option);
                             });
                         })
-                        .catch(err => console.error('Lỗi khi fetch văn phòng:', err));
+                        .catch(err => console.error('Lỗi fetch văn phòng theo tòa:', err));
                 }
             });
 
-            vanPhongSelect.addEventListener('change', function() {
+            // 4. Khi chọn Văn phòng → tự điền thông tin thuê, cọc, dịch vụ
+            vanPhongSelect?.addEventListener('change', function() {
                 const vanPhongId = this.value;
+                console.log('văn phòng:', vanPhongId);
 
                 if (vanPhongId) {
                     fetch(`/admin/ajax/vanphong-detail/${vanPhongId}`)
                         .then(res => res.json())
                         .then(data => {
-                            console.log('Chi tiết văn phòng:', data);
-                            giaThueInput.value = data.gia_thue;
-                            tienCocInput.value = data.gia_thue * data.dien_tich * 3; 
-                            giaDienInput.value = data.gia_dien;
-                            giaNuocInput.value = data.gia_nuoc;
-                            dichVuKhacTextarea.value = data.dich_vu_khac;
+                            console.log('[DYNAMIC] Chi tiết văn phòng:', data);
+                            tienThueInput.value = data.gia_thue || '';
+                            tienCocInput.value = data.gia_thue * data.dien_tich * 3 || '';
+                            giaDienInput.value = data.gia_dien || '';
+                            giaNuocInput.value = data.gia_nuoc || '';
+                            dichVuKhacInput.value = data.dich_vu_khac || '';
                         })
-                        .catch(err => console.error('Lỗi khi fetch chi tiết VP:', err));
+                        .catch(err => console.error('Lỗi fetch detail VP:', err));
                 }
             });
 
-            const userSelect = document.getElementById('khach_thue_id');
-            const phoneInput = document.getElementById('sdt_khach_thue');
-            const daiDienInput = document.getElementById('dai_dien');
-
+            // 5. Khi chọn User → tự điền số điện thoại & người đại diện
             userSelect.addEventListener('change', function() {
                 const userId = this.value;
+
                 if (userId) {
                     fetch(`/admin/ajax/user/${userId}`)
                         .then(res => res.json())
                         .then(data => {
+                            console.log('[DYNAMIC] Thông tin user:', data);
                             phoneInput.value = data.phone || '';
                             daiDienInput.value = data.name || '';
-                        });
+                        })
+                        .catch(err => console.error('Lỗi fetch user:', err));
                 } else {
                     phoneInput.value = '';
                     daiDienInput.value = '';

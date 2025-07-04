@@ -14,6 +14,7 @@ class TNVPController extends Controller
     public function getByToaNha($toaNhaId)
     {
         $vanPhongs = VanPhong::where('ma_toa_nha', $toaNhaId)
+            ->whereIn('trang_thai', ['dang trong', 'dang xem'])
             ->get();
 
         Log::info('Lấy danh sách văn phòng cho tòa nhà: ' . $toaNhaId, ['vanPhongs' => $vanPhongs]);
@@ -23,7 +24,7 @@ class TNVPController extends Controller
     public function getDetails($vanPhongId)
     {
         $vanPhong = VanPhong::where('ma_van_phong', $vanPhongId)
-            ->where('trang_thai', 'dang trong')
+            ->whereIn('trang_thai', ['dang trong', 'dang xem'])
             ->first();
 
         Log::info('Lấy chi tiết văn phòng: ' . $vanPhongId, ['vanPhong' => $vanPhong]);
