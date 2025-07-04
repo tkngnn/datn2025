@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
 
 use App\Models\KhachHang;
+use App\Models\HenXem;
 
 class KhachHangController extends Controller
 {
@@ -27,10 +28,16 @@ class KhachHangController extends Controller
         return view('admin.khachhang.index', compact('khachhangs'));
     }
 
-    public function create()
+    public function create($id = null)
     {
         $nextId = KhachHang::max('id') + 1;
-        return view('admin.khachhang.create',compact('nextId'));
+        $khachhang = null;
+        $henxem = null;
+        if($id){
+            $khachhang=HenXem::where('ma_hen_xem',$id)->first();
+            $henxem = $id;
+        }
+        return view('admin.khachhang.create',compact('nextId','khachhang','henxem'));
     }
 
     public function store(Request $request)
@@ -49,6 +56,23 @@ class KhachHangController extends Controller
 
         KhachHang::create($data);
         $nextId = KhachHang::max('id') + 1;
+
+        if (!empty($request->henxem_id)) {
+            $henxem = HenXem::find($request->henxem_id);
+            if ($henxem) {
+                //$henxem->trang_thai = 'da xu ly';
+                //$vanphong = $henxem->ma_van_phong;
+                //$henxem->save();
+
+                return response()->json([
+                    'success' => true,
+                    'nextId' => $nextId,
+                    'redirect_url' => route('admin.vanphong.dangxem'),
+                    'vanphong' => $henxem->vanphong->ten_van_phong ?? null,
+                    'message' => 'Tạo tài khoản thành công từ lịch hẹn xem',
+                ]);
+            }
+        }
 
         return response()->json(['success' => true, 'nextId' => $nextId]);
     }

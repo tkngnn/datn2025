@@ -148,10 +148,10 @@
               <tr>
                 <th class="table-column-pr-0">
                 </th>
-                <th class="table-column-pl-0">Mã hẹn xem</th>
+                <th class="table-column-pl-0">Mã hẹn</th>
                 <th>Tên khách/Email</th>
                 <th>Số điện thoại</th>
-                <th>Mã văn phòng</th>
+                <th>Tên văn phòng</th>
                 <th>Ngày hẹn</th>
                 <th>Ghi chú</th>
                 <th>Trạng thái</th>
@@ -165,37 +165,67 @@
                   <td >
                   </td>
                   <td class="table-column-pr-0">
-                    <a href="#">#{{ $henxem->ma_hen_xem }}</a>
+                    <a href="#">{{ $henxem->ma_hen_xem }}</a>
                   </td>
                   <td class="text-break px-3">{{ $henxem->ho_ten }}
-                    <span class="d-block font-size-sm">{{ $henxem->email}}</span>
+                    <div>
+                      <span class="d-block font-size-sm">{{ $henxem->email}}</span>
+                    </div>
+                    <div>
+                      @if ($henxem->thongbao)
+                      <small class="badge badge-success">{{ $henxem->thongbao }}</small>
+                    @endif
+                    </div> 
                   </td>
                   <td class="text-break px-3">{{ $henxem->sdt }}</td>
-                  <td class="text-break px-3 text-center">{{ $henxem->ma_van_phong }}</td>
+                  <td>
+                    <a href="javascript:;" 
+                    class="btn-xem-vanphong text-body"
+                    data-idvanphong="{{ $henxem->vanphong->ma_van_phong }}">
+                    {{ $henxem->vanphong->ten_van_phong }}</a>
+                    <a href="javascript:;" class="d-block btn-xem-toanha font-size-sm text-body" data-idtoanha="{{ $henxem->vanphong->toanha->ma_toa_nha }}">
+                      Tòa nhà: {{ $henxem->vanphong->toanha->ten_toa_nha }}</a>
+                  </td>
                   <td class="text-break px-3">
                     {{ \Carbon\Carbon::parse($henxem->ngay_hen)->format('d-m-Y H:i') }}
                   </td>
                   <td style="max-width: 300px; white-space: normal; word-break: break-word;">{{ $henxem->ghi_chu }}</td>
                   <td class="text-break px-3">
-                    @if ($henxem->trang_thai === "da xu ly")
-                        <span class="legend-indicator bg-success"></span> Đã xử lý
-                    @else
-                        <span class="legend-indicator bg-danger"></span> Chưa xử lý
-                    @endif
+                      @if ($henxem->trang_thai === "da xu ly")
+                          <span class="legend-indicator bg-success"></span> Đã xử lý
+                      @elseif($henxem->trang_thai === "dang xu ly")
+                          <span class="legend-indicator bg-warning"></span> Đang xử lý
+                      @elseif($henxem->trang_thai === "da huy")
+                          <span class="legend-indicator bg-danger"></span> Đã hủy
+                      @else
+                          <span class="legend-indicator bg-secondary"></span> Chưa xử lý
+                      @endif
                   </td>
                   <td>
-                    <div>
-                      @if ($henxem->trang_thai !== "da xu ly")
-                        <form action="{{ route('admin.henxem.update', $henxem->ma_hen_xem) }}" method="POST" onsubmit="return confirm('Bạn có chắc đã hoàn thành lịch hẹn này?');">
-                          @csrf
-                          @method('PUT')
-                          <button class="btn btn-sm btn-soft-dark" type="submit" title="Xác nhận đã xử lý">
+                    <div class="d-flex gap-1">
+                      <form action="{{ route('admin.henxem.update', $henxem->ma_hen_xem) }}" method="POST" onsubmit="return confirm('Bạn có chắc đang xử lý lịch hẹn này?');">
+                        @csrf
+                        @method('PUT')
+                        @if ($henxem->trang_thai === "chua xu ly")
+                          <button class="btn btn-sm btn-soft-dark mr-1" type="submit" title="Xác nhận đang xử lý">
                             <i class="tio-edit"></i>
                           </button>
-                        </form>
+                        @endif
+                      </form>
+                  
+                      @if ($henxem->trang_thai !== "da huy" && $henxem->trang_thai !== "da xu ly" && $henxem->trang_thai !== "chua xu ly")
+                        <a class="btn btn-sm btn-soft-success" 
+                        @if ($henxem->thongbao)
+                          href="{{ route('admin.henxem.khachdadangki',$henxem->ma_hen_xem) }}" title="Tạo hợp đồng với khách hàng">
+                          <i class="tio-file-text"></i>
+                          @else
+                          href="{{ route('admin.khachhang.create.henxem', $henxem->ma_hen_xem) }}" title="Tạo tài khoản khách hàng">
+                          <i class="tio-add"></i>
+                          @endif
+                        </a>
                       @endif
                     </div>
-                  </td>
+                  </td>                  
                 </tr>
               @endforeach
             </tbody>
@@ -245,6 +275,69 @@
       <!-- End Card -->
     </div>
     <!-- End Content -->
-
+<!-- VanPhong Modal Popup -->
+<div class="modal fade" id="vanPhongModal" tabindex="-1" aria-labelledby="vanPhongModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"></h5>
+        <button type="button" class="btn btn-close btn-sm btn-ghost-secondary" data-bs-dismiss="modal" aria-label="Đóng">
+          <i class="tio-clear tio-lg"></i>
+        </button>
+      </div>
+      <div class="modal-body" id="vanPhongModalContent">
+        <div class="text-center">Đang tải...</div>
+      </div>
+    </div>
+  </div>
+</div>          
+<!-- End VanPhong Modal Popup --> 
+<!-- ToaNha Modal Popup -->
+<div class="modal fade" id="toaNhaModal" tabindex="-1" aria-labelledby="toaNhaModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title"></h5>
+              <button type="button" class="btn btn-close btn-sm btn-ghost-secondary" data-bs-dismiss="modal"
+                  aria-label="Đóng">
+                  <i class="tio-clear tio-lg"></i>
+              </button>
+          </div>
+          <div class="modal-body" id="toaNhaModalContent">
+              <div class="text-center">Đang tải...</div>
+          </div>
+      </div>
+  </div>
+</div>
+<!-- End ToaNha Modal Popup -->
   </main>
 @endsection
+@push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  $(document).on('click', '.btn-xem-vanphong', function () {
+  const idvanphong = $(this).data('idvanphong');
+  $('#vanPhongModalContent').html('<div class="text-center">Đang tải...</div>');
+  $('#vanPhongModal').modal('show');
+
+  $('#vanPhongModalContent').load(`/admin/vanphong/preview/${idvanphong}`, function (response, status, xhr) {
+    if (status === "error") {
+      $('#vanPhongModalContent').html('<div class="text-danger">Không thể tải thông tin văn phòng.</div>');
+    }
+  });
+});
+
+$(document).on('click', '.btn-xem-toanha', function() {
+            const idtoanha = $(this).data('idtoanha');
+            $('#toaNhaModalContent').html('<div class="text-center">Đang tải...</div>');
+            $('#toaNhaModal').modal('show');
+
+            $('#toaNhaModalContent').load(`/admin/toanha/preview/${idtoanha}`, function(response, status, xhr) {
+                if (status === "error") {
+                    $('#toaNhaModalContent').html(
+                        '<div class="text-danger">Không thể tải thông tin tòa nhà.</div>');
+                }
+            });
+        });
+</script>
+@endpush

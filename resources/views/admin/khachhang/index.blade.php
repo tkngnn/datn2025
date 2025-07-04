@@ -173,7 +173,7 @@
                   <td class="table-column-pr-0">
                   </td>
                   <td>
-                    <a href="#">#{{ $khachhang->id }}</a>
+                    <a href="#">{{ $khachhang->id }}</a>
                   </td>
                   <td class="text-break px-3">{{ $khachhang->name }}
                     <span class="d-block font-size-sm">{{ $khachhang->email}}</span>

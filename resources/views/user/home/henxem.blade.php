@@ -64,7 +64,7 @@
 
                 <div class="col-md-6 ">
                     <label class="input-label">Email</label>
-                    <input type="email" class="form-control" name="email" placeholder="Nhập email">
+                    <input type="email" id="email" class="form-control" name="email" placeholder="Nhập email">
                     <span class="text-danger" id="error-email"></span>
                 </div>
 
@@ -104,6 +104,29 @@
 @push('scripts')
 
 <script>
+  const emailInput = document.getElementById('email');
+  const emailError = document.getElementById('error-email');
+  const emailRegex = /^[a-z0-9](\.?[a-z0-9_\-+]){5,}@gmail\.com$/;
+
+  emailInput.addEventListener('input', function() {
+    const value = emailInput.value.trim();
+
+    if (!value) {
+      emailError.innerText = '';
+      emailInput.classList.remove('is-invalid');
+      return;
+    }
+
+    if (!emailRegex.test(value)) {
+      emailError.innerText =
+      'Email phải hợp lệ theo định dạng Gmail (ít nhất 6 ký tự trước @gmail.com)';
+      emailInput.classList.add('is-invalid');
+    } else {
+      emailError.innerText = '';
+      emailInput.classList.remove('is-invalid');
+    }
+  });
+
     function translateError(message) {
     if (message.includes("The ho ten field is required.")) return "Vui lòng nhập họ tên";
     if (message.includes("The email field is required")) return "Vui lòng nhập email";
@@ -115,6 +138,15 @@
     $('#formhenxem').on('submit', function(e) {
       e.preventDefault();
       $('.text-danger').html('');
+
+      const emailValue = emailInput.value.trim();
+
+      if (!emailRegex.test(emailValue)) {
+          emailError.innerText =
+              'Email phải hợp lệ theo định dạng Gmail (ít nhất 6 ký tự trước @gmail.com)';
+          emailInput.classList.add('is-invalid');
+          return;
+      }
 
       $.ajax({
         url: "{{ route('user.vanphong.guiyeucau') }}",

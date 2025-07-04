@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Mail\HenXemQueuedMailer;
 
 use App\Models\HopDong;
 use App\Models\User;
@@ -12,6 +13,7 @@ use App\Models\ChiTietHopDong;
 use App\Models\ToaNha;
 use App\Models\LichSuCoc;
 use App\Models\HopDongThanhLy;
+use App\Models\HenXem;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -26,7 +28,7 @@ class HopDongController extends Controller
 {
     /**
      * Display a listing of the resource.
-    */
+     */
     public function index(Request $request)
     {
         $query = HopDong::with([
@@ -70,13 +72,49 @@ class HopDongController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    /*public function create()
     {
         $users = User::where('vai_tro', 'KT')->get();
         $toaNhas = ToaNha::with('vanPhongs')->get();
         $vanPhongs = VanPhong::with('toaNha')->get();
 
         return view('admin.hopdong.create', compact('users', 'vanPhongs', 'toaNhas'));
+    }*/
+    public function create(Request $request)
+    {
+        $selectedUserId = $request->query('user_id');
+        $selectedVanPhongId = $request->query('vanphong_id');
+
+        // Lấy user là KT
+        $users = User::where('vai_tro', 'KT')->get();
+
+        // Nếu có selectedUserId mà không nằm trong danh sách -> thêm vào
+        if ($selectedUserId && !$users->pluck('id')->contains($selectedUserId)) {
+            $user = User::find($selectedUserId);
+            if ($user) {
+                $users->push($user);
+            }
+        }
+
+        // Lấy toàn bộ toà nhà (để hiển thị)
+        $toaNhas = ToaNha::with('vanPhongs')->get();
+
+        // Nếu có vanphong_id => chỉ load văn phòng đó thôi
+        if ($selectedVanPhongId) {
+            $vanPhongs = VanPhong::with('toaNha')->where('ma_van_phong', $selectedVanPhongId)->get();
+        } else {
+            // Load tất cả văn phòng chưa có hợp đồng
+            $vanPhongs = VanPhong::with('toaNha')->where('trang_thai', 'dang trong')
+                ->get();
+        }
+
+        return view('admin.hopdong.create', compact(
+            'users',
+            'vanPhongs',
+            'toaNhas',
+            'selectedUserId',
+            'selectedVanPhongId'
+        ));
     }
 
     /**
@@ -156,6 +194,37 @@ class HopDongController extends Controller
                 }
             } catch (\Exception $e) {
                 Log::error("Gửi email thông báo hợp đồng thất bại: " . $e->getMessage());
+            }
+
+            //Xử lý đổi trạng thái hẹn xem thành "Đã hủy" và gửi mail
+            $maVanPhong = $request->vanphong_id;
+            $emailHopDong = User::where('id', $request->khach_thue_id)->value('email');
+
+            $dsHenXemBiHuy = HenXem::with('vanphong')
+                ->where('ma_van_phong', $maVanPhong)
+                ->whereIn('trang_thai', ['dang xu ly', 'chua xu ly', 'da xu ly'])
+                ->where('email', '!=', $emailHopDong)
+                ->get();
+
+            $henXemDaXuLy = HenXem::with('vanphong')
+                ->where('ma_van_phong', $maVanPhong)
+                ->whereIn('trang_thai', ['dang xu ly', 'chua xu ly', 'da xu ly'])
+                ->where('email', $emailHopDong)
+                ->first();
+
+            if ($henXemDaXuLy) {
+                $henXemDaXuLy->trang_thai = 'da xu ly';
+                $henXemDaXuLy->save();
+            }
+
+            foreach ($dsHenXemBiHuy as $henxem) {
+                $henxem->trang_thai = 'da huy';
+                $henxem->save();
+
+                if ($henxem->email) {
+                    $henxem->load('vanphong');
+                    Mail::to($henxem->email)->queue(new HenXemQueuedMailer($henxem));
+                }
             }
 
             return redirect()->route('admin.hopdong.index')->with('success', 'Tạo hợp đồng thành công!');

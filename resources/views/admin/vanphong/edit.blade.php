@@ -164,11 +164,17 @@
                                             <div class="select2-custom">
                                                 <select class="custom-select" name="trang_thai">
                                                     <option
-                                                        value="Da thue"{{ $vanphong->trang_thai == 'Da thue' ? 'selected' : '' }}>
+                                                        value="da thue"{{ $vanphong->trang_thai == 'da thue' ? 'selected' : '' }}>
                                                         Đã thuê</option>
                                                     <option
-                                                        value="Dang trong"{{ $vanphong->trang_thai == 'Dang trong' ? 'selected' : '' }}>
+                                                        value="dang trong"{{ $vanphong->trang_thai == 'dang trong' ? 'selected' : '' }}>
                                                         Đang trống</option>
+                                                    <option
+                                                        value="dang xem"{{ $vanphong->trang_thai == 'dang xem' ? 'selected' : '' }}>
+                                                        Đang xem</option>
+                                                    <option
+                                                        value="het han hop dong"{{ $vanphong->trang_thai == 'het han hop dong' ? 'selected' : '' }}>
+                                                        Hết hạn hợp đồng</option>
                                                 </select>
                                             </div>
                                         </div>

@@ -258,7 +258,7 @@
                                   </div>
                                   <div class="col-auto">
                                     <a href="{{ route('admin.chiso.index') }}" class="btn btn-danger mr-2">
-                                      <i class="tio-chevron-left"></i>
+                                      Hủy
                                     </a>
                                       <button type="submit" class="btn btn-primary">Lưu</button>
                                   </div>

@@ -64,8 +64,8 @@
                             <div class="col-md-6">
                                 <label for="vanphong_id">Phòng</label>
                                 <select class="form-control" name="vanphong_id" id="vanphong_id">
-                                    <option value="{{ $vanPhong->ma_van_phong }}" selected>{{ $vanPhong->ma_van_phong }} - {{$vanPhong->ten_van_phong}} -
-                                        {{ $vanPhong->dien_tich }}m²</option>
+                                    <option value="{{ $vanPhong->ma_van_phong }}" selected>{{ $vanPhong->ma_van_phong }} - {{ $vanPhong->ten_van_phong }} -
+                                        {{ $vanPhong->dien_tich }}/m²</option>
                                 </select>
                             </div>
                         </div>

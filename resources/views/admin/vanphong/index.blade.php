@@ -13,11 +13,18 @@
     @endphp
 
     <div class="content container-fluid">
+      <div id="success" class="alert alert-success alert-dismissible fade show" role="alert"
+                style="display:none; position: fixed; top: 20px; right: 20px; z-index: 1050; min-width: 250px;">
+                <strong>Thêm khách hàng thành công từ danh sách hẹn xem</span></strong>
+                <button type="button" class="close" aria-label="Close" onclick="$('#success').hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
       <!-- Page Header -->
       <div class="page-header">
         <div class="row align-items-end">
           <div class="col-sm mb-2 mb-sm-0">
-            <h1 class="page-header-title">Văn phòng</h1>
+            <h1 class="page-header-title">Văn phòng {{ $title }}</h1>
           </div>
 
           <div class="col-sm-auto">
@@ -44,7 +51,7 @@
                       <i class="tio-search"></i>
                     </div>
                   </div>
-                  <input id="datatableSearch" type="search" class="form-control" placeholder="Tìm kiếm văn phòng" aria-label="Tìm kiếm văn phòng">
+                  <input id="datatableSearch" type="search" value="{{ request('vanphong') }}" class="form-control" placeholder="Tìm kiếm văn phòng" aria-label="Tìm kiếm văn phòng">
                 </div>
                 <!-- End Search -->
               </form>
@@ -75,7 +82,16 @@
 
                     @if(request('trang_thai'))
                       <span class="badge badge-soft-warning" style="padding: .8rem .8rem;">
-                        Trạng thái: {{ request('trang_thai') == 'Dang trong' ? 'Đang trống' : 'Đã thuê' }}
+                        Trạng thái: 
+                          @if (request('trang_thai') == 'dang trong')
+                          Đang trống
+                          @elseif (request('trang_thai') == 'dang xem')
+                          Đang xem
+                          @elseif (request('trang_thai') == 'het han hop dong')
+                          Hết hạn
+                          @else
+                            Đang thuê
+                          @endif
                       </span>
                     @endif
                   </div>
@@ -145,15 +161,18 @@
                       <input type="text" name="gia_thue_max" class="form-control format-money" placeholder="Đến" value="{{ request('gia_thue_max') }}">
                     </div>
                   </div>
-          
-                  <div class="form-group">
-                    <label for="trang_thai">Trạng thái</label>
-                    <select name="trang_thai" id="trang_thai" class="form-control selectpicker" data-live-search="true" title="Chọn trạng thái">
-                      <option value="">-- Tất cả --</option>
-                      <option value="Dang trong" {{ request('trang_thai') == 'Dang trong' ? 'selected' : '' }}>Đang trống</option>
-                      <option value="Da thue" {{ request('trang_thai') == 'Da thue' ? 'selected' : '' }}>Đã thuê</option>
-                    </select>
-                  </div>
+                  @if(!$title)
+                    <div class="form-group">
+                      <label for="trang_thai">Trạng thái</label>
+                      <select name="trang_thai" id="trang_thai" class="form-control selectpicker" data-live-search="true" title="Chọn trạng thái">
+                        <option value="">-- Tất cả --</option>
+                        <option value="dang trong" {{ request('trang_thai') == 'dang trong' ? 'selected' : '' }}>Đang trống</option>
+                        <option value="da thue" {{ request('trang_thai') == 'da thue' ? 'selected' : '' }}>Đã thuê</option>
+                        <option value="dang xem" {{ request('trang_thai') == 'dang xem' ? 'selected' : '' }}>Đang xem</option>
+                        <option value="het han hop dong" {{ request('trang_thai') == 'het han hop dong' ? 'selected' : '' }}>Hết hạn hợp đồng</option>
+                      </select>
+                    </div>
+                  @endif
           
                   <button type="submit" class="btn btn-primary btn-block mt-3">Lọc</button>
                 </form>
@@ -218,12 +237,18 @@
                       {{ $vanphong->ten_van_phong }}
                     </a>
                   </td>
-                  <td>{{ $vanphong->toanha->ten_toa_nha ?? 'Chưa có' }}</td>
-                  <td>{{ $vanphong->dien_tich }}</td>
+                  <td>
+                    <a href="javascript:;" class="btn-xem-toanha text-body" data-idtoanha="{{ $vanphong->toanha->ma_toa_nha }}">
+                      {{ $vanphong->toanha->ten_toa_nha ?? 'Chưa có' }}</a></td>
+                  <td>{{ $vanphong->dien_tich }} m²</td>
                   <td>{{ number_format($vanphong->gia_thue, 0, ',', '.') }}</td>
                   <td>
                     @if ($vanphong->trang_thai === 'da thue')
                         <span class="legend-indicator bg-success"></span> Đã thuê
+                    @elseif ($vanphong->trang_thai === 'dang xem')
+                      <span class="legend-indicator bg-secondary"></span> Đang xem
+                    @elseif ($vanphong->trang_thai === 'het han hop dong')
+                      <span class="legend-indicator bg-warning"></span> Đã thuê
                     @else
                         <span class="legend-indicator bg-danger"></span> Đang trống
                     @endif
@@ -301,6 +326,24 @@
       </div>
     </div>          
   <!-- End VanPhong Modal Popup --> 
+  <!-- ToaNha Modal Popup -->
+<div class="modal fade" id="toaNhaModal" tabindex="-1" aria-labelledby="toaNhaModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title"></h5>
+              <button type="button" class="btn btn-close btn-sm btn-ghost-secondary" data-bs-dismiss="modal"
+                  aria-label="Đóng">
+                  <i class="tio-clear tio-lg"></i>
+              </button>
+          </div>
+          <div class="modal-body" id="toaNhaModalContent">
+              <div class="text-center">Đang tải...</div>
+          </div>
+      </div>
+  </div>
+</div>
+<!-- End ToaNha Modal Popup -->
   </main>
 @endsection
 @push('scripts')
@@ -338,5 +381,17 @@ $(document).on('click', '.btn-xem-vanphong', function () {
     }
   });
 });
+$(document).on('click', '.btn-xem-toanha', function() {
+            const idtoanha = $(this).data('idtoanha');
+            $('#toaNhaModalContent').html('<div class="text-center">Đang tải...</div>');
+            $('#toaNhaModal').modal('show');
+
+            $('#toaNhaModalContent').load(`/admin/toanha/preview/${idtoanha}`, function(response, status, xhr) {
+                if (status === "error") {
+                    $('#toaNhaModalContent').html(
+                        '<div class="text-danger">Không thể tải thông tin tòa nhà.</div>');
+                }
+            });
+        });
 </script>
 @endpush

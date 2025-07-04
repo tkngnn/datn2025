@@ -69,6 +69,10 @@ Route::middleware(['auth', 'verified', 'check.role:admin'])->prefix('admin')->na
 
     //Route quản lý văn phòng
     Route::get('vanphong', [VanPhongController::class, 'index'])->name('vanphong.index');
+    Route::get('vanphong/dathue', [VanPhongController::class, 'dathue'])->name('vanphong.dathue');
+    Route::get('vanphong/dangxem', [VanPhongController::class, 'dangxem'])->name('vanphong.dangxem');
+    Route::get('vanphong/hethanhopdong', [VanPhongController::class, 'hethan'])->name('vanphong.hethan');
+    Route::get('vanphong/dangtrong', [VanPhongController::class, 'dangtrong'])->name('vanphong.dangtrong');
     Route::get('vanphong/create', [VanPhongController::class, 'create'])->name('vanphong.create');
     Route::post('vanphong', [VanPhongController::class, 'store'])->name('vanphong.store');
     Route::get('vanphong/{ma_van_phong}/edit', [VanPhongController::class, 'edit'])->name('vanphong.edit');
@@ -78,6 +82,7 @@ Route::middleware(['auth', 'verified', 'check.role:admin'])->prefix('admin')->na
     //Route quản lý khách hàng
     Route::get('khachhang', [KhachHangController::class, 'index'])->name('khachhang.index');
     Route::get('khachhang/create', [KhachHangController::class, 'create'])->name('khachhang.create');
+    Route::get('khachhang/create/{id}', [KhachHangController::class, 'create'])->name('khachhang.create.henxem');
     Route::post('khachhang', [KhachHangController::class, 'store'])->name('khachhang.store');
     Route::get('khachhang/{id}/edit', [KhachHangController::class, 'edit'])->name('khachhang.edit');
     Route::put('khachhang/{id}', [KhachHangController::class, 'update'])->name('khachhang.update');
@@ -86,6 +91,7 @@ Route::middleware(['auth', 'verified', 'check.role:admin'])->prefix('admin')->na
     Route::get('henxem', [HenXemController::class, 'index'])->name('henxem.index');
     Route::get('henxem/create', [HenXemController::class, 'create'])->name('henxem.create');
     Route::post('henxem', [HenXemController::class, 'store'])->name('henxem.store');
+    Route::get('henxem/khachdadangki/{id}', [HenXemController::class, 'khachdadangki'])->name('henxem.khachdadangki');
     Route::get('henxem/{id}/edit', [HenXemController::class, 'edit'])->name('henxem.edit');
     Route::put('henxem/{id}', [HenXemController::class, 'update'])->name('henxem.update');
 

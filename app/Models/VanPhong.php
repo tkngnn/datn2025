@@ -46,6 +46,12 @@ class VanPhong extends Model implements HasMedia
         return $this->hasMany(ChiTietHopDong::class, 'ma_van_phong');
     }
 
+    public function hopDongs()
+    {
+        return $this->belongsToMany(HopDong::class, 'chi_tiet_hop_dong', 'ma_van_phong', 'ma_hop_dong')
+            ->withTimestamps()
+            ->withPivot(['dien_tich', 'gia_thue']);
+    }
     public function henXems()
     {
         return $this->hasMany(HenXem::class, 'ma_van_phong');

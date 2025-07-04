@@ -39,6 +39,9 @@
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control" id="id"
                                                 value="{{ $nextId }}" disabled>
+                                            @if(isset($henxem))
+                                                <input type="hidden" name="henxem_id" value="{{ $henxem }}">
+                                            @endif
                                         </div>
                                     </div>
 
@@ -46,7 +49,7 @@
                                         <label class="col-sm-3 col-form-label input-label">Tên khách hàng</label>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control" name="name"
-                                                placeholder="Nhập tên khách hàng" value="{{ old('name') }}">
+                                                placeholder="Nhập tên khách hàng" value="{{ old('name',$khachhang->ho_ten) }}">
                                             <span class="text-danger" id="error-name"></span>
                                         </div>
                                     </div>
@@ -56,7 +59,7 @@
                                         <div class="col-sm-9">
                                             <div class="input-group">
                                                 <input type="email" class="form-control" name="email" id="email"
-                                                    placeholder="Nhập email" value="{{ old('email') }}">
+                                                    placeholder="Nhập email" value="{{ old('email',$khachhang->email) }}">
                                             </div>
                                             <span class="text-danger" id="error-email"></span>
                                         </div>
@@ -87,7 +90,7 @@
                                         <div class="col-sm-9">
                                             <div class="input-group">
                                                 <input type="text" class="form-control" name="so_dien_thoai"
-                                                    placeholder="Nhập số điện thoại" value="{{ old('so_dien_thoai') }}">
+                                                    placeholder="Nhập số điện thoại" value="{{ old('so_dien_thoai',$khachhang->sdt) }}">
                                             </div>
                                             <span class="text-danger" id="error-so_dien_thoai"></span>
                                         </div>
@@ -109,7 +112,7 @@
                                         <div class="col-sm-9">
                                             <div class="select2-custom">
                                                 <select class="custom-select" name="vai_tro">
-                                                    <option value="KH">Khách hàng</option>
+                                                    <option value="KT">Khách hàng</option>
                                                     <option value="Admin">Admin</option>
                                                 </select>
                                             </div>
@@ -207,6 +210,14 @@
                         method: "POST",
                         data: $(this).serialize(),
                         success: function(response) {
+                            if (response.redirect_url) {
+                                const params = new URLSearchParams({
+                                    vanphong: response.vanphong || '',
+                                    success: response.message || ''
+                                });
+                                window.location.href = response.redirect_url + '?' + params.toString();
+                                return;
+                            }
                             $('#formkhachhang')[0].reset();
                             $('#successMessage').fadeIn();
                             $('#id').val(response.nextId);
