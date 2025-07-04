@@ -118,6 +118,21 @@
                 </div>
 
             </div>
+            <div class="row">
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <canvas id="toaNhaChart"></canvas>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <canvas id="khachThueChart"></canvas>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <canvas id="hopDongChart"></canvas>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <canvas id="hoaDonChart"></canvas>
+                </div>
+            </div>
+
             <!-- End Stats -->
 
             <!-- Table -->
@@ -127,6 +142,15 @@
                         <div class="col-12 col-md">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h5 class="card-header-title">Khách thuê</h5>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <div class="row align-items-sm-center">
+                                <div class="col-sm-auto">
+                                    <a class="btn btn-white" href="{{ route('admin.khachhang.index') }}" title="Xem tất cả">
+                                        <i class="tio-arrow-forward"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -172,7 +196,7 @@
                                     <td class="table-column-pr-0">
                                     </td>
                                     <td>
-                                        <a href="#">#{{ $khachhang->id }}</a>
+                                        <a href="#">{{ $khachhang->id }}</a>
                                     </td>
                                     <td class="text-break px-3">{{ $khachhang->name }}</td>
                                     <td class="text-break px-3">{{ $khachhang->email }}</td>
@@ -352,12 +376,12 @@
                             }
                         },
                         interaction: {
-                            mode: 'index', 
-                            intersect: false 
+                            mode: 'index',
+                            intersect: false
                         },
                         plugins: {
                             tooltip: {
-                                mode: 'index', 
+                                mode: 'index',
                                 intersect: false,
                                 callbacks: {
                                     label: function(context) {
@@ -380,6 +404,86 @@
                 });
             } catch (error) {
                 console.error('Lỗi khi khởi tạo biểu đồ:', error);
+            }
+        });
+
+        const toaNhaChart = new Chart(document.getElementById('toaNhaChart'), {
+            type: 'pie',
+            data: {
+                labels: ['Đang thuê', 'Còn trống'],
+                datasets: [{
+                    data: [{{ $totalPhongDangThue }}, {{ $totalPhongConTrong }}],
+                    backgroundColor: ['#4caf50', '#ff9800'],
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Tòa nhà'
+                    }
+                }
+            }
+        });
+
+        const khachThueChart = new Chart(document.getElementById('khachThueChart'), {
+            type: 'pie',
+            data: {
+                labels: ['Đang hoạt động', 'Không hoạt động'],
+                datasets: [{
+                    data: [{{ $userActive }}, {{ $totalKhachThue - $userActive }}],
+                    backgroundColor: ['#2196f3', '#e91e63'],
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Khách thuê'
+                    }
+                }
+            }
+        });
+
+        const hopDongChart = new Chart(document.getElementById('hopDongChart'), {
+            type: 'pie',
+            data: {
+                labels: ['Còn hiệu lực', 'Đã thanh lý'],
+                datasets: [{
+                    data: [{{ $hopDongHieuLuc }}, {{ $hopDongDaThanhLy }}],
+                    backgroundColor: ['#9c27b0', '#ffc107'],
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Hợp đồng'
+                    }
+                }
+            }
+        });
+
+        const hoaDonChart = new Chart(document.getElementById('hoaDonChart'), {
+            type: 'pie',
+            data: {
+                labels: ['Đã thanh toán', 'Chưa thanh toán'],
+                datasets: [{
+                    data: [{{ $hoaDonDaTT }}, {{ $hoaDonChuaTT }}],
+                    backgroundColor: ['#00bcd4', '#f44336'],
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Hóa đơn'
+                    }
+                }
             }
         });
     </script>

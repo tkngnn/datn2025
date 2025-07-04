@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Models\HopDong;
+use App\Models\VanPhong;
 use Carbon\Carbon;
 
 class CapNhatHopDongHetHan extends Command
@@ -25,11 +26,28 @@ class CapNhatHopDongHetHan extends Command
      */
     public function handle()
     {
-        $soLuong = HopDong::where('da_thanh_ly', false)
+        $hopDongs = HopDong::where('da_thanh_ly', false)
             ->where('ngay_ket_thuc', '<', Carbon::now())
             ->where('tinh_trang', '!=', 'het han')
-            ->update(['tinh_trang' => 'het han']);
+            ->get();
 
-        $this->info("Đã cập nhật {$soLuong} hợp đồng hết hạn.");
+        $soLuong = 0;
+        $vanPhongIds = [];
+
+        foreach ($hopDongs as $hopDong) {
+            $hopDong->tinh_trang = 'het han';
+            $hopDong->save();
+
+            $vanPhongIds[] = optional($hopDong->chiTietHopDongs->first())->ma_van_phong;
+            $soLuong++;
+        }
+
+        $vanPhongIds = array_filter(array_unique($vanPhongIds));
+
+        VanPhong::whereIn('ma_van_phong', $vanPhongIds)->update([
+            'trang_thai' => 'dang trong'
+        ]);
+
+        $this->info("Đã cập nhật {$soLuong} hợp đồng hết hạn và văn phòng tương ứng về trạng thái đang trống.");
     }
 }

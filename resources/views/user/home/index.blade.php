@@ -107,7 +107,7 @@
     </section>
 
 
-    <section class="districts-slider py-5 districts-section-hcm">
+    {{-- <section class="districts-slider py-5 districts-section-hcm">
         <div class="container">
             <h2 class="section-title text-center mb-5">Văn phòng tại TP.HCM</h2>
             <div class="swiper districtsSwiperHCM">
@@ -115,13 +115,13 @@
                     @foreach (array_chunk($thongKeHCM, 2) as $group)
                         <div class="swiper-slide">
                             @foreach ($group as $item)
-                                <a href="{{ route('user.danhsach') }}?ten_toa_nha={{ urlencode($item['quan']) }}"
+                                <a href="{{ route('user.danhsach') }}?ten_toa_nha={{ urlencode($item['phuong']) }}"
                                     class="text-decoration-none text-dark">
                                     <div class="district-card text-center p-3">
-                                        <img src="{{ $item['hinh_anh'] }}" alt="{{ $item['quan'] }}"
+                                        <img src="{{ $item['hinh_anh'] }}" alt="{{ $item['phuong'] }}"
                                             class="mb-2 rounded shadow"
                                             style="width: 100%; height: 150px; object-fit: cover;">
-                                        <h3 class="district-name">{{ $item['quan'] }}</h3>
+                                        <h3 class="district-name">{{ $item['phuong'] }}</h3>
                                         <div class="district-count">{{ $item['so_toa_nha'] }}+ tòa nhà</div>
                                     </div>
                                 </a>
@@ -134,6 +134,39 @@
                 <div class="swiper-scrollbar districtsSwiperHCM-scrollbar"></div>
             </div>
 
+        </div>
+    </section> --}}
+    <section class="districts-slider py-5 districts-section-hcm">
+        <div class="container">
+            <h2 class="section-title text-center mb-5">Văn phòng tại TP.HCM</h2>
+            <div class="swiper districtsSwiperHCM">
+                <div class="swiper-wrapper">
+                    @foreach (array_chunk($thongKeHCM, 3) as $group)
+                        <!-- Thay đổi từ 2 thành 3 -->
+                        <div class="swiper-slide">
+                            <div class="row justify-content-center"> <!-- Thêm row và justify-content-center -->
+                                @foreach ($group as $item)
+                                    <div class="col-md-4"> <!-- Mỗi item chiếm 4 cột (tổng 12/3=4) -->
+                                        <a href="{{ route('user.danhsach') }}?ten_toa_nha={{ urlencode($item['phuong']) }}"
+                                            class="text-decoration-none text-dark">
+                                            <div class="district-card text-center p-3">
+                                                <img src="{{ $item['hinh_anh'] }}" alt="{{ $item['phuong'] }}"
+                                                    class="mb-2 rounded shadow"
+                                                    style="width: 100%; height: 150px; object-fit: cover;">
+                                                <h3 class="district-name">{{ $item['phuong'] }}</h3>
+                                                <div class="district-count">{{ $item['so_toa_nha'] }}+ tòa nhà</div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+                <div class="swiper-button-next districtsSwiperHCM-next"></div>
+                <div class="swiper-button-prev districtsSwiperHCM-prev"></div>
+                <div class="swiper-scrollbar districtsSwiperHCM-scrollbar"></div>
+            </div>
         </div>
     </section>
 
@@ -280,7 +313,6 @@
             }
         }
     </style>
-
     <style>
         .districts-section-hcm {
             background-color: color-mix(in srgb, var(--accent-color), transparent 95%);
@@ -348,7 +380,7 @@
             }
         }
     </style>
-    <style>
+    {{-- <style>
         .districts-slider {
             background-color: #fff;
             position: relative;
@@ -454,15 +486,134 @@
             padding-left: 0;
             padding-right: 0;
         }
+    </style> --}}
+    <style>
+        .districts-slider {
+            background-color: #fff;
+            position: relative;
+        }
+
+        .districts-section-hcm {
+            background-color: color-mix(in srgb, var(--accent-color), transparent 95%);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        .district-card {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            height: 100%;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            margin: 0 10px;
+        }
+
+        .district-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .district-count {
+            font-size: 1rem;
+            color: #0d6efd;
+            font-weight: 500;
+        }
+
+        .swiper {
+            padding: 20px 0;
+        }
+
+        /* Sửa lại phần swiper-slide */
+        .swiper-slide {
+            width: 100% !important;
+            padding: 0 15px;
+        }
+
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: #0d6efd;
+            background: rgba(255, 255, 255, 0.8);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .swiper-button-next:after,
+        .swiper-button-prev:after {
+            font-size: 1.2rem;
+        }
+
+        .swiper-scrollbar {
+            background: rgba(0, 0, 0, 0.05);
+            height: 4px;
+            bottom: 0;
+        }
+
+        .swiper-scrollbar-drag {
+            background: #0d6efd;
+        }
+
+        .districtsSwiperHCM,
+        .districtsSwiperHN {
+            overflow: hidden;
+            padding: 20px 0 30px;
+            position: relative;
+        }
+
+        .districtsSwiperHCM .swiper-scrollbar,
+        .districtsSwiperHN .swiper-scrollbar {
+            position: absolute;
+            left: 0;
+            bottom: 10px;
+            width: 100%;
+            height: 4px;
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .districtsSwiperHCM .swiper-scrollbar-drag,
+        .districtsSwiperHN .swiper-scrollbar-drag {
+            background: #0d6efd;
+            height: 100%;
+            position: relative;
+            border-radius: 4px;
+        }
+
+        /* Thêm style mới để căn giữa */
+        .swiper-wrapper {
+            display: flex;
+            align-items: center;
+        }
+
+        .districts-slider .container {
+            max-width: 1140px;
+            margin: 0 auto;
+        }
+
+        /* Đảm bảo các card có kích thước bằng nhau */
+        .col-md-4 {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .district-card {
+            flex: 1;
+        }
     </style>
 @endsection
 @push('scripts')
     <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
-    <script>
+    {{-- <script>
         document.addEventListener('DOMContentLoaded', function() {
             const swiperHCM = new Swiper('.districtsSwiperHCM', {
-
-                freeMode: true,
+                freeMode: true
                 grabCursor: true,
                 navigation: {
                     nextEl: '.districtsSwiperHCM-next',
@@ -476,7 +627,7 @@
                 },
                 breakpoints: {
                     0: {
-                        slidesPerView: 'auto'
+                        slidesPerView: 1,
                     },
                     768: {
                         slidesPerView: 2,
@@ -489,32 +640,26 @@
                     }
                 }
             });
-
-            const swiperHN = new Swiper('.districtsSwiperHN', {
-                freeMode: true,
-                grabCursor: true,
+        });
+    </script> --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            new Swiper('.districtsSwiperHCM', {
+                slidesPerView: 1,
+                spaceBetween: 20,
                 navigation: {
-                    nextEl: '.districtsSwiperHN-next',
-                    prevEl: '.districtsSwiperHN-prev',
+                    nextEl: '.districtsSwiperHCM-next',
+                    prevEl: '.districtsSwiperHCM-prev',
                 },
                 scrollbar: {
-                    el: '.districtsSwiperHN-scrollbar',
-                    draggable: true,
-                    dragSize: 'auto',
-                    snapOnRelease: true
+                    el: '.districtsSwiperHCM-scrollbar',
                 },
                 breakpoints: {
-                    0: {
-                        slidesPerView: 'auto'
-                    },
                     768: {
-                        slidesPerView: 2,
+                        slidesPerView: 1,
                     },
-                    1024: {
-                        slidesPerView: 3,
-                    },
-                    1280: {
-                        slidesPerView: 4,
+                    992: {
+                        slidesPerView: 1,
                     }
                 }
             });

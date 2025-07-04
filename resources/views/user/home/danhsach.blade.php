@@ -10,10 +10,10 @@
             <h1 class="mb-2 mb-lg-0">Văn Phòng</h1>
             <nav class="breadcrumbs">
                 <ol>
-                  <li><a href="{{ route('user.home') }}">Trang chủ</a></li>
-                  <li class="active"><a href="#">Văn phòng</a></li>
+                    <li><a href="{{ route('user.home') }}">Trang chủ</a></li>
+                    <li class="active"><a href="#">Văn phòng</a></li>
                 </ol>
-              </nav>
+            </nav>
         </div>
     </div><!-- End Page Title -->
 
@@ -30,7 +30,7 @@
                         <div class="filter-container mb-4" data-aos="fade-up" data-aos-delay="100">
                             <form id="filterForm">
                                 <div class="row g-3">
-                                    <div class="col-12 col-md-6 col-lg-4">
+                                    <div class="col-12 col-md-6 col-lg-3">
                                         <div class="filter-item search-form">
                                             <label for="productSearch" class="form-label">Tòa Nhà</label>
                                             <div class="input-group">
@@ -46,6 +46,21 @@
 
                                     <div class="col-12 col-md-6 col-lg-3">
                                         <div class="filter-item">
+                                            <label for="toaNhaSelect" class="form-label">Chọn tòa nhà</label>
+                                            <select class="form-select" id="toaNhaSelect" name="toa_nha_id">
+                                                <option value="">Tất cả tòa nhà</option>
+                                                @foreach ($dsToaNha as $toaNha)
+                                                    <option value="{{ $toaNha->ma_toa_nha }}"
+                                                        {{ request('toa_nha_id') == $toaNha->ma_toa_nha ? 'selected' : '' }}>
+                                                        {{ $toaNha->ten_toa_nha }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-md-6 col-lg-2">
+                                        <div class="filter-item">
                                             <label for="areaRange" class="form-label">Diện tích</label>
                                             <select class="form-select" id="areaRange" name="dien_tich">
                                                 <option selected="" value="">Tất cả diện tích</option>
@@ -58,9 +73,10 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-12 col-md-6 col-lg-3">
+                                    <div class="col-12 col-md-6 col-lg-2">
                                         <div class="filter-item">
-                                            <label for="priceRange" class="form-label">Giá <small class="text-muted">(đơn vị: VND)</small></label>
+                                            <label for="priceRange" class="form-label">Giá <small class="text-muted">(đơn
+                                                    vị: VND)</small></label>
                                             <select class="form-select" id="priceRange" name="gia_thue">
                                                 <option selected="" value="">Tất cả giá</option>
                                                 <option value="1000-2000">1000 - 2000 /m²</option>
@@ -83,24 +99,6 @@
                                             </select>
                                         </div>
                                     </div>
-
-                                    {{-- <div class="col-12 col-md-6 col-lg-2">
-                                        <div class="filter-item">
-                                            <label class="form-label">View</label>
-                                            <div class="d-flex align-items-center">
-                                                <div class="view-options me-3">
-                                                    <button type="button" class="btn view-btn active" data-view="grid"
-                                                        aria-label="Grid view">
-                                                        <i class="bi bi-grid-3x3-gap-fill"></i>
-                                                    </button>
-                                                    <button type="button" class="btn view-btn" data-view="list"
-                                                        aria-label="List view">
-                                                        <i class="bi bi-list-ul"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> --}}
                                 </div>
                             </form>
                             <div class="row mt-3">
@@ -198,6 +196,17 @@
                     filters.push({
                         label: `Tòa nhà: ${tenToaNha}`,
                         name: 'ten_toa_nha'
+                    });
+                }
+
+                let toaNhaSelect = form.find('select[name="toa_nha_id"]');
+                let toaNhaText = toaNhaSelect.find('option:selected').text();
+                let toaNhaValue = toaNhaSelect.val();
+
+                if (toaNhaValue) {
+                    filters.push({
+                        label: `Tòa nhà: ${toaNhaText}`,
+                        name: 'toa_nha_id'
                     });
                 }
 

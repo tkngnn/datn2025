@@ -19,32 +19,23 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $dsQuanHCM = [
-            'Quận 1',
-            'Quận 2',
-            'Quận 3',
-            'Quận 4',
-            'Quận 5',
-            'Quận 7',
-            'Quận 8',
-            'Quận 10',
-            'Quận 11',
-            'Quận 12',
-            'Quận Phú Nhuận',
-            'Quận Tân Phú',
-            'Quận Bình Thạnh',
-            'Quận Tân Bình',
-            'Quận Gò Vấp',
-            'Thủ Đức',
+        $dsPhuongHCM = [
+            'Phường Bến Thành',
+            'Phường Cô Giang',
+            'Phường Nguyễn Cư Trinh',
+            'Phường 6',
+            'Phường Võ Thị Sáu',
+            'Phường 14',
+            'Phường 25',
         ];
 
         $thongKeHCM = [];
 
-        foreach ($dsQuanHCM as $quan) {
-            $count = ToaNha::where('dia_chi', 'like', '%' . $quan . '%')->count();
-            $tenFile = Str::slug($quan) . '.jpg';
+        foreach ($dsPhuongHCM as $phuong) {
+            $count = ToaNha::where('dia_chi', 'like', '%' . $phuong . '%')->count();
+            $tenFile = Str::slug($phuong) . '.jpg'; 
             $thongKeHCM[] = [
-                'quan' => $quan,
+                'phuong' => $phuong,
                 'so_toa_nha' => $count,
                 'hinh_anh' => asset('user/assets/img/index/TPHCM/' . $tenFile),
             ];
@@ -73,6 +64,10 @@ class HomeController extends Controller
     {
         $query = VanPhong::with(['toaNha', 'media'])
             ->whereRaw("LOWER(TRIM(trang_thai)) = ?", ['dang trong']);
+
+        $dsToaNha = ToaNha::select('ma_toa_nha', 'ten_toa_nha')
+            ->where('trang_thai', 'hoat dong')
+            ->get();
 
         if ($request->filled('ten_toa_nha')) {
             $query->whereHas('toaNha', function ($q) use ($request) {
@@ -129,6 +124,10 @@ class HomeController extends Controller
             }
         }
 
+        if ($request->filled('toa_nha_id')) {
+            $query->where('ma_toa_nha', $request->toa_nha_id);
+        }
+
         if ($request->filled('sap_xep')) {
             if ($request->sap_xep == 'asc') {
                 $query->orderBy('gia_thue', 'asc');
@@ -152,7 +151,7 @@ class HomeController extends Controller
             'count' => $danhSachVanPhong->count(),
             'timestamp' => now(),
         ]);
-        return view('user.home.danhsach', compact('danhSachVanPhong'));
+        return view('user.home.danhsach', compact('danhSachVanPhong', 'dsToaNha'));
     }
 
     public function about()

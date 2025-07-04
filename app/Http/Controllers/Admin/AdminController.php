@@ -68,7 +68,7 @@ class AdminController extends Controller
             'dich_vu_phu' => $data->dich_vu_phu ?? 0,
         ];
 
-        $khachhangs = KhachHang::orderBy('created_at', 'desc')->take(10)->get();
+        $khachhangs = KhachHang::orderBy('created_at', 'desc')->take(5)->get();
 
         return view('admin.index', compact(
             'totalToaNha',

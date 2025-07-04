@@ -4,13 +4,13 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Index - eStore Bootstrap Template</title>
+    <title>BGROUP</title>
     <meta name="description" content="">
     <meta name="keywords" content="">
 
     <!-- Favicons -->
-    <link href="{{ asset('user/assets/img/favicon.png') }}" rel="icon">
-    <link href="{{ asset('user/assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+    <link href="{{ asset('user/assets/img/bGROUP_white.png') }}" rel="icon">
+    <link href="{{ asset('user/assets/img/bGROUP.png') }}" rel="apple-touch-icon">
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com" rel="preconnect">
