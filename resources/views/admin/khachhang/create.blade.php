@@ -212,7 +212,7 @@
                         success: function(response) {
                             if (response.redirect_url) {
                                 const params = new URLSearchParams({
-                                    vanphong: response.vanphong || '',
+                                    khachhang: response.khachhang || '',
                                     success: response.message || ''
                                 });
                                 window.location.href = response.redirect_url + '?' + params.toString();

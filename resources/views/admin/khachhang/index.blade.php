@@ -60,9 +60,15 @@
                 @endif
 
                 @if(request('trang_thai') !== null)
-                  <span class="badge badge-soft-success" style="padding: .8rem .8rem;">
-                    {{ request('trang_thai') == '1' ? 'Đang hoạt động' : 'Ngừng hoạt động' }}
-                  </span>
+                  @if (request('trang_thai') == '1')
+                    <span class="badge badge-soft-success" style="padding: .8rem .8rem;">
+                      Đang hoạt động
+                    </span>
+                  @else
+                    <span class="badge badge-soft-danger" style="padding: .8rem .8rem;">
+                      Ngừng hoạt động
+                    </span>
+                  @endif
                 @endif
               </div>
             </div>

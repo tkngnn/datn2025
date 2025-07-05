@@ -68,7 +68,7 @@ class KhachHangController extends Controller
                     'success' => true,
                     'nextId' => $nextId,
                     'redirect_url' => route('admin.vanphong.dangxem'),
-                    'vanphong' => $henxem->vanphong->ten_van_phong ?? null,
+                    'khachhang' => $henxem->ho_ten ?? null,
                     'message' => 'Tạo tài khoản thành công từ lịch hẹn xem',
                 ]);
             }
