@@ -150,7 +150,7 @@
                         
                                         <form method="POST" action="{{ route('logout') }}">
                                             @csrf
-                                            <button type="submit" class="btn btn-danger w-100">Đăng xuất</button>
+                                            <button type="submit" class="btn btn-danger w-100">Đăng xuất 1</button>
                                         </form>
                                     @endauth
                                 </div>
