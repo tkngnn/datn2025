@@ -123,6 +123,11 @@
                     <div class="container" data-aos="fade-up" data-aos-delay="100">
 
                         <div class="row gy-4" id="vanphong-list">
+                            @if (isset($error))
+                                <div class="alert alert-danger mt-3">
+                                    {{ $error }}
+                                </div>
+                            @endif
                             <!-- Product 1 -->
                             @include('user.home.danhsach_table', ['danhSachVanPhong' => $danhSachVanPhong])
                             <!-- End Product 1 -->
