@@ -49,7 +49,7 @@
                                         <label class="col-sm-3 col-form-label input-label">Tên khách hàng</label>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control" name="name"
-                                                placeholder="Nhập tên khách hàng" value="{{ old('name',$khachhang->ho_ten) }}">
+                                                placeholder="Nhập tên khách hàng" value="{{ old('name',$khachhang->ho_ten??"") }}">
                                             <span class="text-danger" id="error-name"></span>
                                         </div>
                                     </div>
@@ -59,7 +59,7 @@
                                         <div class="col-sm-9">
                                             <div class="input-group">
                                                 <input type="email" class="form-control" name="email" id="email"
-                                                    placeholder="Nhập email" value="{{ old('email',$khachhang->email) }}">
+                                                    placeholder="Nhập email" value="{{ old('email',$khachhang->email??"") }}">
                                             </div>
                                             <span class="text-danger" id="error-email"></span>
                                         </div>
@@ -70,7 +70,7 @@
                                         <div class="col-sm-9">
                                             <div class="input-group">
                                                 <input type="text" class="form-control" name="cccd" id="cccd"
-                                                    placeholder="Nhập cccd" value="{{ old('cccd') }}">
+                                                    placeholder="Nhập cccd" value="{{ old('cccd',$khachhang->cccd??"") }}">
                                             </div>
                                             <span class="text-danger" id="error-cccd"></span>
                                         </div>
@@ -90,7 +90,7 @@
                                         <div class="col-sm-9">
                                             <div class="input-group">
                                                 <input type="text" class="form-control" name="so_dien_thoai"
-                                                    placeholder="Nhập số điện thoại" value="{{ old('so_dien_thoai',$khachhang->sdt) }}">
+                                                    placeholder="Nhập số điện thoại" value="{{ old('so_dien_thoai',$khachhang->sdt??"") }}">
                                             </div>
                                             <span class="text-danger" id="error-so_dien_thoai"></span>
                                         </div>
@@ -101,7 +101,7 @@
                                         <div class="col-sm-9">
                                             <div class="input-group">
                                                 <input type="text" class="form-control" name="dia_chi"
-                                                    placeholder="Nhập địa chỉ" value="{{ old('dia_chi') }}">
+                                                    placeholder="Nhập địa chỉ" value="{{ old('dia_chi',$khachhang->dic_chi??"") }}">
                                             </div>
                                             <span class="text-danger" id="error-dia_chi"></span>
                                         </div>

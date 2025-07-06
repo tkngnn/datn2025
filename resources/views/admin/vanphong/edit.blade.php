@@ -99,10 +99,15 @@
                                     <div class="col-sm-8">
                                         <div class="form-group">
                                             <label class="input-label">Tên văn phòng</label>
+                                            <div class="input-group">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">Văn phòng</span>
+                                                </div>
                                             <input type="text" class="form-control" name="ten_van_phong"
                                                 placeholder="Nhập tên văn phòng"
                                                 value="{{ old('ten_van_phong', $vanphong->ten_van_phong) }}">
                                             <span class="text-danger" id="error-ten_van_phong"></span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -117,7 +122,7 @@
                                                     @foreach ($toanhas as $toanha)
                                                         <option value="{{ $toanha->ma_toa_nha }}"
                                                             {{ $vanphong->ma_toa_nha == $toanha->ma_toa_nha ? 'selected' : '' }}>
-                                                            {{ $toanha->ten_toa_nha }}</option>
+                                                            {{ $toanha->ma_toa_nha }} - {{ $toanha->ten_toa_nha }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -163,18 +168,18 @@
                                             <label class="input-label">Trạng thái</label>
                                             <div class="select2-custom">
                                                 <select class="custom-select" name="trang_thai">
-                                                    <option
-                                                        value="da thue"{{ $vanphong->trang_thai == 'da thue' ? 'selected' : '' }}>
-                                                        Đã thuê</option>
-                                                    <option
-                                                        value="dang trong"{{ $vanphong->trang_thai == 'dang trong' ? 'selected' : '' }}>
-                                                        Đang trống</option>
-                                                    <option
-                                                        value="dang xem"{{ $vanphong->trang_thai == 'dang xem' ? 'selected' : '' }}>
-                                                        Đang xem</option>
-                                                    <option
-                                                        value="het han hop dong"{{ $vanphong->trang_thai == 'het han hop dong' ? 'selected' : '' }}>
-                                                        Hết hạn hợp đồng</option>
+                                                    @if ($vanphong->trang_thai == 'dang trong')
+                                                        <option value="dang trong" selected>Đang trống</option>
+                                                        <option value="khong hoat dong">Không hoạt động</option>
+                                                    @else
+                                                        @if ($vanphong->trang_thai == 'da thue')
+                                                            <option value="da thue" selected>Đã thuê</option>
+                                                        @elseif ($vanphong->trang_thai == 'dang xem')
+                                                            <option value="dang xem" selected>Đang xem</option>
+                                                        @elseif ($vanphong->trang_thai == 'het han hop dong')
+                                                            <option value="het han hop dong" selected>Hết hạn hợp đồng</option>
+                                                        @endif
+                                                    @endif
                                                 </select>
                                             </div>
                                         </div>
