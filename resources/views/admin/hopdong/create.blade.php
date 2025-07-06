@@ -13,6 +13,11 @@
                     <div class="col-sm">
                         <h1 class="page-header-title">Tạo Hợp Đồng</h1>
                     </div>
+                    @if ($errors->has('error'))
+                        <div class="alert alert-danger">
+                            {{ $errors->first('error') }}
+                        </div>
+                    @endif
                 </div>
             </div>
             <form action="{{ route('admin.hopdong.store') }}" method="POST">
@@ -26,40 +31,37 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="toa_nha_id">Tòa nhà</label>
-                                    @php
-                                        $selectedVanPhong = $vanPhongs->firstWhere('ma_van_phong', $selectedVanPhongId);
-                                        $selectedToaNhaId = $selectedVanPhong?->toaNha?->ma_toa_nha;
-                                    @endphp
-                                    {{-- <select class="form-control" name="toa_nha_id" id="toa_nha_id">
-                                        <option value="">-- Chọn tòa nhà --</option>
-                                        @foreach ($toaNhas as $toaNha)
-                                            <option value="{{ $toaNha->ma_toa_nha }}">{{ $toaNha->ten_toa_nha }}</option>
-                                        @endforeach
-                                    </select> --}}
-                                    <select class="form-control" name="toa_nha_id" id="toa_nha_id"
-                                        {{ isset($selectedVanPhongId) ? 'readonly disabled' : '' }}>
-                                        <option value="">-- Chọn tòa nhà --</option>
-                                        @foreach ($toaNhas as $toaNha)
-                                            <option value="{{ $toaNha->ma_toa_nha }}"
-                                                {{ old('toa_nha_id', $selectedToaNhaId ?? '') == $toaNha->ma_toa_nha ? 'selected' : '' }}>
-                                                {{ $toaNha->ten_toa_nha }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    @if (isset($selectedToaNhaId))
+                                    @if (isset($selectedVanPhongId) && isset($selectedToaNhaId))
+                                        @php
+                                            $toaNhaSelected = $toaNhas->firstWhere(
+                                                'ma_toa_nha',
+                                                (int) $selectedToaNhaId,
+                                            );
+                                        @endphp
                                         <input type="hidden" name="toa_nha_id" value="{{ $selectedToaNhaId }}">
+                                        <input type="text" class="form-control"
+                                            value="{{ $toaNhaSelected->ten_toa_nha }}" readonly>
+                                    @else
+                                        <select class="form-control" name="toa_nha_id" id="toa_nha_id">
+                                            <option value="">-- Chọn tòa nhà --</option>
+                                            @foreach ($toaNhas as $toaNha)
+                                                <option value="{{ $toaNha->ma_toa_nha }}"
+                                                    {{ old('toa_nha_id', $selectedToaNhaId ?? '') == $toaNha->ma_toa_nha ? 'selected' : '' }}>
+                                                    {{ $toaNha->ten_toa_nha }}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                     @endif
+
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="vanphong_id">Phòng</label>
-                                    {{-- <select class="form-control" name="vanphong_id" id="vanphong_id">
-                                        <option value="">-- Chọn phòng --</option>
-                                    </select> --}}
                                     <select name="vanphong_id" class="form-control" id="vanphong_id"
                                         {{ isset($selectedVanPhongId) ? 'readonly disabled' : '' }}>
+                                        <option value="">-- Chọn văn phòng --</option>
                                         @foreach ($vanPhongs as $vp)
                                             <option value="{{ $vp->ma_van_phong }}"
                                                 {{ old('vanphong_id', $selectedVanPhongId ?? '') == $vp->ma_van_phong ? 'selected' : '' }}>
@@ -118,14 +120,6 @@
                             <div class="col-md-5">
                                 <div class="form-group">
                                     <label for="ten_khach_thue">Tên khách thuê</label>
-                                    {{-- <select class="form-control" name="khach_thue_id" id="khach_thue_id">
-                                        <option value="">-- Chọn khách thuê --</option>
-                                        @foreach ($users as $user)
-                                            <option value="{{ $user->id }}">{{ $user->name }}
-                                                ({{ $user->so_dien_thoai }})
-                                            </option>
-                                        @endforeach
-                                    </select> --}}
                                     <select name="khach_thue_id" class="form-control" id="khach_thue_id"
                                         {{ isset($selectedUserId) ? 'readonly disabled' : '' }}>
                                         @foreach ($users as $user)
@@ -165,7 +159,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="tien_thue">Tiền thuê (VNĐ)</label>
+                                    <label for="tien_thue">Giá thuê (VNĐ/m²)</label>
                                     <input type="number" class="form-control" name="tien_thue" id="tien_thue"
                                         placeholder="Ví dụ: 12000000">
                                 </div>
@@ -180,7 +174,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="tien_coc">Tiền cọc (VNĐ)</label>
+                            <label for="tien_coc">Tiền cọc (VNĐ) <small class="text-muted"> 3 tháng tiền nhà </small></label>
                             <input type="number" class="form-control" name="tien_coc" id="tien_coc"
                                 placeholder="Ví dụ: 24000000">
                         </div>
@@ -209,7 +203,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="dich_vu_khac">Dịch vụ khác</label>
+                                    <label for="dich_vu_khac">Dịch vụ khác (VNĐ)</label>
                                     <input type="number" class="form-control" name="dich_vu_khac" id="dich_vu_khac"
                                         placeholder="Ví dụ: 18000">
                                 </div>
@@ -231,8 +225,8 @@
                 </div>
 
                 <div class="text-center mb-5">
-                    <button type="submit" class="btn btn-primary">Lưu</button>
                     <a href="{{ route('admin.hopdong.index') }}" class="btn btn-danger">Hủy</a>
+                    <button type="submit" class="btn btn-primary">Lưu</button>
                 </div>
             </form>
         </div>
@@ -371,13 +365,29 @@
                     .catch(err => console.error('Lỗi fetch văn phòng preset:', err));
             }
 
+            // if (selectedUserId) {
+            //     fetch(`/admin/ajax/user/${selectedUserId}`)
+            //         .then(res => res.json())
+            //         .then(data => {
+            //             console.log('[AUTO] User preset:', data);
+            //             phoneInput.value = data.so_dien_thoai || '';
+            //             daiDienInput.value = data.name || '';
+            //         })
+            //         .catch(err => console.error('Lỗi fetch user preset:', err));
+            // }
             if (selectedUserId) {
                 fetch(`/admin/ajax/user/${selectedUserId}`)
                     .then(res => res.json())
                     .then(data => {
-                        console.log('[AUTO] User preset:', data);
-                        phoneInput.value = data.so_dien_thoai || '';
-                        daiDienInput.value = data.name || '';
+                        setTimeout(() => {
+                            console.log('[AUTO] User preset:', data);
+                            const phoneInput = document.getElementById('sdt_khach_thue');
+                            const daiDienInput = document.getElementById('dai_dien');
+                            if (phoneInput && daiDienInput) {
+                                phoneInput.value = data.phone || '';
+                                daiDienInput.value = data.name || '';
+                            }
+                        }, 100); // đợi DOM render hoàn tất
                     })
                     .catch(err => console.error('Lỗi fetch user preset:', err));
             }
