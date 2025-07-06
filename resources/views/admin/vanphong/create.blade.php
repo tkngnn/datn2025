@@ -111,8 +111,13 @@
                                     <div class="col-sm-8">
                                         <div class="form-group">
                                             <label class="input-label">Tên văn phòng</label>
-                                            <input type="text" class="form-control" name="ten_van_phong"
+                                            <div class="input-group">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">Văn phòng</span>
+                                                </div>
+                                                <input type="text" class="form-control" id="ten_van_phong" name="ten_van_phong"
                                                 placeholder="Nhập tên văn phòng" value="{{ old('ten_van_phong') }}">
+                                            </div>
                                             <span class="text-danger" id="error-ten_van_phong"></span>
                                         </div>
                                     </div>
@@ -123,10 +128,10 @@
                                         <div class="form-group">
                                             <label class="input-label">Tòa nhà</label>
                                             <div class="select2-custom">
-                                                <select class="js-select2-custom custom-select" name="ma_toa_nha"
+                                                <select class="js-select2-custom custom-select" id="ma_toa_nha" name="ma_toa_nha"
                                                     style="opacity: 0;">
                                                     @foreach ($toanhas as $toanha)
-                                                        <option value="{{ $toanha->ma_toa_nha }}">{{ $toanha->ten_toa_nha }}
+                                                        <option value="{{ $toanha->ma_toa_nha }}">{{ $toanha->ma_toa_nha }} - {{ $toanha->ten_toa_nha }}
                                                         </option>
                                                     @endforeach
                                                 </select>
@@ -172,9 +177,7 @@
                                             <div class="select2-custom">
                                                 <select class="custom-select" name="trang_thai">
                                                     <option value="dang trong">Đang trống</option>
-                                                    <option value="da thue">Đã thuê</option>
-                                                    <option value="dang xem">Đang xem</option>
-                                                    <option value="het han hop dong">Hết hạn hợp đồng</option>
+                                                    <option value="khong hoat dong">Không hoạt động</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -262,6 +265,33 @@
         <!-- Footer -->
         <!-- End Footer -->
         <script>
+            $(document).ready(function () {
+                $('.js-select2-custom').select2();
+
+                function goiYTenVanPhong(toaNhaId) {
+                    if (!toaNhaId) return;
+
+                    fetch("/admin/vanphong/create?ma_toa_nha=" + toaNhaId, {
+                        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        $('#ten_van_phong').val(data.ten_goi_y);
+                    })
+                    .catch(err => console.error('Lỗi khi lấy gợi ý tên:', err));
+                }
+
+                $('#ma_toa_nha').on('change', function () {
+                    const id = $(this).val();
+                    goiYTenVanPhong(id);
+                });
+
+                const macDinh = $('#ma_toa_nha').val();
+                if (macDinh) {
+                    goiYTenVanPhong(macDinh);
+                }
+            });
+
             const imageInput = document.getElementById('imageInput');
             const previewContainer = document.getElementById('previewContainer');
             let selectedFiles = [];
@@ -302,6 +332,23 @@
                 selectedFiles.forEach(file => dataTransfer.items.add(file));
                 imageInput.files = dataTransfer.files;
             }
+
+            // document.getElementById('ma_toa_nha').addEventListener('change', function () {
+            //     $('.js-select2-custom').select2();
+            //     console.log('change detected');
+            //     const toaNhaId = this.value;
+
+            //     if (!toaNhaId) return;
+
+            //     fetch("/admin/vanphong/create?ma_toa_nha=" + toaNhaId, {
+            //         headers: { 'X-Requested-With': 'XMLHttpRequest' }
+            //     })
+            //     .then(res => res.json())
+            //     .then(data => {
+            //         document.getElementById('ten_van_phong').value = data.ten_goi_y;
+            //     })
+            //     .catch(err => console.error('Lỗi khi lấy gợi ý tên:', err));
+            // });
 
             document.getElementById('gia_thue').addEventListener('input', function(e) {
                 let value = e.target.value.replace(/\D/g, '');

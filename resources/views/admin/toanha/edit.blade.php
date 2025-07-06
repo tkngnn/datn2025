@@ -99,10 +99,15 @@
                                                 <option value="hoat dong"
                                                     {{ old('trang_thai', $toaNha->trang_thai) == 'hoat dong' ? 'selected' : '' }}>
                                                     Hoạt động</option>
-                                                <option value="khong hoat dong"
+                                                @if ($vanPhongDangThue == 0)
+                                                    <option value="khong hoat dong"
                                                     {{ old('trang_thai', $toaNha->trang_thai) == 'khong hoat dong' ? 'selected' : '' }}>
                                                     Không hoạt động</option>
+                                                @endif
                                             </select>
+                                            @if ($vanPhongDangThue != 0)
+                                            <span><strong>Chú ý: </strong>Đang có văn phòng cho thuê/đang xem không thể thay đổi trạng thái tòa nhà!</span>
+                                            @endif
                                         </div>
                                         <!-- End Form Group -->
                                     </div>

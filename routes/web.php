@@ -73,6 +73,7 @@ Route::middleware(['auth', 'verified', 'check.role:admin'])->prefix('admin')->na
     Route::get('vanphong/dangxem', [VanPhongController::class, 'dangxem'])->name('vanphong.dangxem');
     Route::get('vanphong/hethanhopdong', [VanPhongController::class, 'hethan'])->name('vanphong.hethan');
     Route::get('vanphong/dangtrong', [VanPhongController::class, 'dangtrong'])->name('vanphong.dangtrong');
+    Route::get('vanphong/khonghoatdong', [VanPhongController::class, 'khonghoatdong'])->name('vanphong.khonghoatdong');
     Route::get('vanphong/create', [VanPhongController::class, 'create'])->name('vanphong.create');
     Route::post('vanphong', [VanPhongController::class, 'store'])->name('vanphong.store');
     Route::get('vanphong/{ma_van_phong}/edit', [VanPhongController::class, 'edit'])->name('vanphong.edit');

@@ -71,8 +71,14 @@
 
         <h1 class="product-title">🏢 Tòa nhà {{ $toaNha->ten_toa_nha }}</h1>
 
-        <div class="product-price-container">
-            <i class="bi bi-layers"></i> {{ $toaNha->so_tang ?? '—' }} tầng
+        <p style="font-size: large;">
+            Trạng thái: <strong>
+              @if ($toaNha->trang_thai == 'hoat dong')
+                ĐANG HOẠT ĐỘNG
+              @else
+                NGỪNG HOẠT ĐỘNG
+              @endif
+            </strong>
         </div>
 
         <hr>

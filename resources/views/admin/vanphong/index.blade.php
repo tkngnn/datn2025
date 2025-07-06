@@ -82,13 +82,14 @@
 
                     @if(request('trang_thai'))
                       <span class="badge badge-soft-warning" style="padding: .8rem .8rem;">
-                        Trạng thái: 
                           @if (request('trang_thai') == 'dang trong')
                           Đang trống
                           @elseif (request('trang_thai') == 'dang xem')
                           Đang xem
                           @elseif (request('trang_thai') == 'het han hop dong')
                           Hết hạn
+                          @elseif (request('trang_thai') == 'cho ban giao')
+                          Chờ bàn giao
                           @else
                             Đang thuê
                           @endif
@@ -167,13 +168,13 @@
                       <select name="trang_thai" id="trang_thai" class="form-control selectpicker" data-live-search="true" title="Chọn trạng thái">
                         <option value="">-- Tất cả --</option>
                         <option value="dang trong" {{ request('trang_thai') == 'dang trong' ? 'selected' : '' }}>Đang trống</option>
+                        <option value="cho ban giao" {{ request('trang_thai') == 'cho ban giao' ? 'selected' : '' }}>Chờ bàn giao</option>
                         <option value="da thue" {{ request('trang_thai') == 'da thue' ? 'selected' : '' }}>Đã thuê</option>
                         <option value="dang xem" {{ request('trang_thai') == 'dang xem' ? 'selected' : '' }}>Đang xem</option>
                         <option value="het han hop dong" {{ request('trang_thai') == 'het han hop dong' ? 'selected' : '' }}>Hết hạn hợp đồng</option>
                       </select>
                     </div>
                   @endif
-          
                   <button type="submit" class="btn btn-primary btn-block mt-3">Lọc</button>
                 </form>
               </div>
@@ -190,7 +191,7 @@
         <div class="table-responsive datatable-custom">
           <table id="datatable" class="table table-lg table-borderless table-thead-bordered table-nowrap table-align-middle card-table" data-hs-datatables-options='{
                    "columnDefs": [{
-                      "targets": [0, @if ($page =='index' || $page =='dangtrong')
+                      "targets": [0, @if ($page =='index' || $page =='dangtrong'||$page =='khonghoatdong')
                       6
                     @else
                       7
@@ -258,17 +259,14 @@
                               <span class="legend-indicator bg-secondary"></span> Đang xem
                           @elseif ($henxem->vanphong->trang_thai === 'het han hop dong')
                               <span class="legend-indicator bg-warning"></span> Đã thuê
+                          @elseif ($henxem->vanphong->trang_thai === 'dang trong')
+                          <span class="legend-indicator bg-danger"></span> Đang trống
                           @else
-                              <span class="legend-indicator bg-danger"></span> Đang trống
+                              <span class="legend-indicator bg-dark"></span> Không hoạt động
                           @endif
                       </td>
                       <td>
                           <div>
-                              <a class="btn btn-sm btn-soft-dark"
-                                  href="{{ route('admin.vanphong.edit', $henxem->vanphong->ma_van_phong) }}"
-                                  title="Sửa">
-                                  <i class="tio-edit"></i>
-                              </a>
                               @if (!$henxem->thongbao)
                                   <a class="btn btn-sm btn-soft-success"
                                       href="{{ route('admin.hopdong.create', [
@@ -321,19 +319,23 @@
                     <td>{{ number_format($vanphong->gia_thue, 0, ',', '.') }}</td>
                     <td>
                       @if ($vanphong->trang_thai === 'da thue')
-                          <span class="legend-indicator bg-success"></span> Đã thuê
-                      @elseif ($vanphong->trang_thai === 'dang xem')
-                        <span class="legend-indicator bg-secondary"></span> Đang xem
-                      @elseif ($vanphong->trang_thai === 'het han hop dong')
-                        <span class="legend-indicator bg-warning"></span> Đã thuê
-                      @else
+                              <span class="legend-indicator bg-success"></span> Đã thuê
+                          @elseif ($vanphong->trang_thai === 'dang xem')
+                              <span class="legend-indicator bg-secondary"></span> Đang xem
+                          @elseif ($vanphong->trang_thai === 'het han hop dong')
+                              <span class="legend-indicator bg-warning"></span> Đã thuê
+                          @elseif ($vanphong->trang_thai === 'dang trong')
                           <span class="legend-indicator bg-danger"></span> Đang trống
-                      @endif
+                          @else
+                              <span class="legend-indicator bg-dark"></span> Không hoạt động
+                          @endif
                     </td>
                     <td>
-                        <a class="btn btn-sm btn-soft-dark" href="{{ route('admin.vanphong.edit', $vanphong->ma_van_phong) }}" title="Sửa">
+                      @if ($vanphong->trang_thai === 'het han hop dong' || $vanphong->trang_thai === 'dang trong' || $vanphong->trang_thai === 'khong hoat dong')
+                      <a class="btn btn-sm btn-soft-dark" href="{{ route('admin.vanphong.edit', $vanphong->ma_van_phong) }}" title="Sửa">
                           <i class="tio-edit"></i>
                         </a>
+                      @endif
                       @if ($page=='hethan')
                         <a class="btn btn-sm btn-soft-success"
                           href="{{ route('admin.hopdong.create', [

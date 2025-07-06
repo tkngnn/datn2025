@@ -138,7 +138,7 @@ class VanPhongController extends Controller
         $query = VanPhong::with('toaNha','chiTietHopDongs.hopdong.user')
         ->where('trang_thai','dang trong')
         ->whereHas('chiTietHopDongs.hopdong', function ($q) {
-            $q->where('tinh_trang', 'het han');
+            $q->where('tinh_trang', 'da thanh ly');
         });
 
         if ($request->filled('ma_toa_nha')) {
@@ -209,10 +209,63 @@ class VanPhongController extends Controller
         return view('admin.vanphong.index', compact('vanphongs', 'dsToaNha','title','page'));
     }
 
-    public function create()
+    public function khonghoatdong(Request $request)
     {
+        $query = VanPhong::with('toaNha')->where('trang_thai','khong hoat dong');
+
+        if ($request->filled('ma_toa_nha')) {
+            $query->where('ma_toa_nha', $request->ma_toa_nha);
+        }
+
+        if ($request->filled('trang_thai')) {
+            $query->where('trang_thai', $request->trang_thai);
+        }
+
+        if ($request->filled('dien_tich_min')) {
+            $query->where('dien_tich', '>=', $request->dien_tich_min);
+        }
+
+        if ($request->filled('dien_tich_max')) {
+            $query->where('dien_tich', '<=', $request->dien_tich_max);
+        }
+
+        if ($request->filled('gia_thue_min')) {
+            $query->where('gia_thue', '>=', $request->gia_thue_min);
+        }
+
+        if ($request->filled('gia_thue_max')) {
+            $query->where('gia_thue', '<=', $request->gia_thue_max);
+        }
+
+        $vanphongs = $query->get();
+        $dsToaNha = ToaNha::orderBy('ten_toa_nha')->get();
+        $title ="không hoạt động";
+        $page="khonghoatdong";
+
+        return view('admin.vanphong.index', compact('vanphongs', 'dsToaNha','title','page'));
+    }
+
+    public function create(Request $request)
+    {
+        if ($request->ajax() && $request->has('ma_toa_nha')) {
+        $toaNhaId = $request->input('ma_toa_nha');
+
+        $vanPhongCuoi = VanPhong::where('ma_toa_nha', $toaNhaId)
+            ->orderByDesc('ten_van_phong')
+            ->first();
+
+        if ($vanPhongCuoi) {
+            $so = (int) preg_replace('/\D/', '', $vanPhongCuoi->ten_van_phong);
+            $tenMoi = str_pad($so + 1, 4, '0', STR_PAD_LEFT);
+        } else {
+            $tenMoi = $request->ma_toa_nha.'001';
+        }
+
+        return response()->json(['ten_goi_y' => $tenMoi]);
+    }
+
         $vanphongs = VanPhong::all();
-        $toanhas = ToaNha::all();
+        $toanhas = ToaNha::where('trang_thai','!=','khong hoat dong')->get();
         $nextId = VanPhong::max('ma_van_phong') + 1;
         return view('admin.vanphong.create', compact('vanphongs', 'toanhas', 'nextId'));
     }
@@ -229,6 +282,8 @@ class VanPhongController extends Controller
             'trang_thai' => 'required',
             'images.*' => 'nullable|mimes:jpeg,png|max:2048',
         ]);
+
+        $data['ten_van_phong']='Văn phòng '.trim($request->ten_van_phong);
 
         $vanphong = VanPhong::create($data);
 
@@ -248,7 +303,7 @@ class VanPhongController extends Controller
     public function edit($ma_van_phong)
     {
         $vanphong = VanPhong::with('media')->findOrFail($ma_van_phong);
-        $toanhas = ToaNha::all();
+        $toanhas = ToaNha::where('trang_thai','!=','khong hoat dong')->get();
         return view('admin.vanphong.edit', compact('vanphong', 'toanhas'));
     }
 
@@ -269,6 +324,8 @@ class VanPhongController extends Controller
             'images.*' => 'nullable|mimes:jpeg,png,jpg,gif|max:2048',
             'deleted_images' => 'nullable|string',
         ]);
+
+        $data['ten_van_phong']='Văn phòng '.trim($request->ten_van_phong);
 
         $vanphong->update($data);
 

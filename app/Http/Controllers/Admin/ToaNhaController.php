@@ -71,21 +71,22 @@ class ToaNhaController extends Controller
      */
     public function edit(string $id)
     {
-        $toaNha = ToaNha::findOrFail($id);
-        return view('admin.toanha.edit', compact('toaNha'));
+            $toaNha = ToaNha::findOrFail($id);
+            $vanPhongDangThue = $toaNha->vanPhongs()
+            ->whereIn('trang_thai',['dang xem','da thue','cho ban giao'])
+            ->count();
+            return view('admin.toanha.edit', compact('toaNha','vanPhongDangThue'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
+        $trangThai = ToaNha::where('ma_toa_nha', $id)->value('trang_thai');
         $request->validate([
             'building_name' => 'required|string|max:100',
             'address' => 'required|string|max:255',
             'floor_count' => 'required|integer|min:1',
             'mo_ta' => 'nullable|string',
-            'trang_thai' => 'required|in:hoat dong, khong hoat dong',
+            'trang_thai' => 'required|in:hoat dong,khong hoat dong',
         ]);
 
         $toanha = ToaNha::findOrFail($id);
@@ -97,6 +98,25 @@ class ToaNhaController extends Controller
             'trang_thai' => $request->trang_thai,
         ]);
 
+        if($request->trang_thai == 'khong hoat dong')
+        {
+            $dsVanPhong = $toanha->vanPhongs;
+            foreach($dsVanPhong as $vanphong)
+            {
+                $vanphong->trang_thai='khong hoat dong';
+                $vanphong->save();
+            }
+        }
+
+        if($request->trang_thai == 'hoat dong' && $trangThai == 'khong hoat dong')
+        {
+            $dsVanPhong = $toanha->vanPhongs;
+            foreach($dsVanPhong as $vanphong)
+            {
+                $vanphong->trang_thai='dang trong';
+                $vanphong->save();
+            }
+        }
         return redirect()->route('admin.toanha.index')->with('success', 'Cập nhật tòa nhà thành công.');
     }
 

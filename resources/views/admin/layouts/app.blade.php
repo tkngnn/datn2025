@@ -2003,41 +2003,47 @@
                                     </li>
                                 </ul>
                             </li> --}}
-                            <li class="navbar-vertical-aside-has-menu {{ request()->is('admin/vanphong*') || request()->is('admin/vanphong/dathue*') || request()->is('admin/vanphong/dangxem*') || request()->is('admin/vanphong/hethanhopdong*') ||request()->is('admin/vanphong/dangtrong*') ? 'show' : '' }}">
-                                <a class="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle {{ request()->is('admin/vanphong*') || request()->is('admin/vanphong/dathue*') || request()->is('admin/vanphong/dangxem*') || request()->is('admin/vanphong/hethanhopdong*') ||request()->is('admin/vanphong/dangtrong*') ? 'active' : '' }}"
+                            <li class="navbar-vertical-aside-has-menu {{ request()->is('admin/vanphong*') || request()->is('admin/vanphong/dathue*') || request()->is('admin/vanphong/dangxem*') || request()->is('admin/vanphong/hethanhopdong*') ||request()->is('admin/vanphong/dangtrong*') ||request()->is('admin/vanphong/khonghoatdong*') ? 'show' : '' }}">
+                                <a class="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle {{ request()->is('admin/vanphong*') || request()->is('admin/vanphong/dathue*') || request()->is('admin/vanphong/dangxem*') || request()->is('admin/vanphong/hethanhopdong*') ||request()->is('admin/vanphong/dangtrong*')||request()->is('admin/vanphong/khonghoatdong*') ? 'active' : '' }}"
                                     href="javascript:;" title="Khách hàng">
                                     <i class="tio-dashboard-vs-outlined nav-icon"></i>
                                     <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Văn phòng</span>
                                 </a>
                                 <ul class="js-navbar-vertical-aside-submenu nav nav-sub">
                                     <li class="nav-item">
-                                        <a class="nav-link {{ request()->routeIs('admin.vanphong.index*') ? 'active' : '' }}" href="{{ route('admin.vanphong.index') }}" title="Danh sách khách hàng">
+                                        <a class="nav-link {{ request()->routeIs('admin.vanphong.index*') ? 'active' : '' }}" href="{{ route('admin.vanphong.index') }}" title="Danh sách tất cả văn phòng">
                                             <span class="tio-circle nav-indicator-icon"></span>
                                             <span class="text-truncate">Tất cả</span>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link {{ request()->routeIs('admin.vanphong.dathue*') ? 'active' : '' }}" href="{{ route('admin.vanphong.dathue') }}" title="Khách đặt lịch hẹn xem phòng">
+                                        <a class="nav-link {{ request()->routeIs('admin.vanphong.dathue*') ? 'active' : '' }}" href="{{ route('admin.vanphong.dathue') }}" title="Danh sách văn phòng đã thuê">
                                             <span class="tio-circle nav-indicator-icon"></span>
                                             <span class="text-truncate">Đã thuê</span>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link {{ request()->routeIs('admin.vanphong.dangxem*') ? 'active' : '' }}" href="{{ route('admin.vanphong.dangxem') }}" title="Danh sách khách hàng">
+                                        <a class="nav-link {{ request()->routeIs('admin.vanphong.dangxem*') ? 'active' : '' }}" href="{{ route('admin.vanphong.dangxem') }}" title="Danh sách văn phòng đang xem">
                                             <span class="tio-circle nav-indicator-icon"></span>
                                             <span class="text-truncate">Đang xem</span>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link {{ request()->routeIs('admin.vanphong.hethan*') ? 'active' : '' }}" href="{{ route('admin.vanphong.hethan') }}" title="Khách đặt lịch hẹn xem phòng">
+                                        <a class="nav-link {{ request()->routeIs('admin.vanphong.hethan*') ? 'active' : '' }}" href="{{ route('admin.vanphong.hethan') }}" title="Danh sách văn phòng của hợp đồng thanh lý">
                                             <span class="tio-circle nav-indicator-icon"></span>
                                             <span class="text-truncate">Hết hạn hợp đồng</span>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link {{ request()->routeIs('admin.vanphong.dangtrong*') ? 'active' : '' }}" href="{{ route('admin.vanphong.dangtrong') }}" title="Khách đặt lịch hẹn xem phòng">
+                                        <a class="nav-link {{ request()->routeIs('admin.vanphong.dangtrong*') ? 'active' : '' }}" href="{{ route('admin.vanphong.dangtrong') }}" title="Danh sách văn phòng đang trống">
                                             <span class="tio-circle nav-indicator-icon"></span>
                                             <span class="text-truncate">Đang trống</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ request()->routeIs('admin.vanphong.khonghoatdong*') ? 'active' : '' }}" href="{{ route('admin.vanphong.khonghoatdong') }}" title="Danh sách văn phòng không hoạt động">
+                                            <span class="tio-circle nav-indicator-icon"></span>
+                                            <span class="text-truncate">Không hoạt động</span>
                                         </a>
                                     </li>
                                 </ul>

@@ -97,6 +97,21 @@
       <p style="font-size: x-large; color:red">
         {{ number_format($vanphong->gia_thue, 0, ',', '.') }} VND/m²
       </p>
+      <p style="font-size: large;">
+        Trạng thái: <strong>
+          @if ($vanphong->trang_thai == 'da thue')
+            ĐÃ THUÊ
+          @elseif ($vanphong->trang_thai == 'dang trong')
+            ĐANG TRỐNG
+          @elseif ($vanphong->trang_thai == 'het han')
+            ĐANG TRONG HỢP ĐỒNG THANH LÝ
+          @elseif ($vanphong->trang_thai == 'dang xem')
+            ĐANG XEM
+          @else
+            NGỪNG HOẠT ĐỘNG
+          @endif
+        </strong>
+      </p>
       <hr>
       <p><i class="bi bi-building"></i> <strong> Tên tòa nhà:</strong> {{ $vanphong->toaNha->ten_toa_nha ?? 'Không rõ' }}</p>
       <p><i class="bi bi-geo-alt-fill"></i> <strong> Địa chỉ:</strong> {{ $vanphong->toaNha->dia_chi ?? 'Không rõ' }}</p>
