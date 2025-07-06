@@ -35,6 +35,7 @@
     <!-- CSS cho preview hình ảnh -->
     <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
         rel="stylesheet">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
 </head>
 
@@ -2003,39 +2004,51 @@
                                     </li>
                                 </ul>
                             </li> --}}
-                            <li class="navbar-vertical-aside-has-menu {{ request()->is('admin/vanphong*') || request()->is('admin/vanphong/dathue*') || request()->is('admin/vanphong/dangxem*') || request()->is('admin/vanphong/hethanhopdong*') ||request()->is('admin/vanphong/dangtrong*') ? 'show' : '' }}">
-                                <a class="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle {{ request()->is('admin/vanphong*') || request()->is('admin/vanphong/dathue*') || request()->is('admin/vanphong/dangxem*') || request()->is('admin/vanphong/hethanhopdong*') ||request()->is('admin/vanphong/dangtrong*') ? 'active' : '' }}"
+                            <li
+                                class="navbar-vertical-aside-has-menu {{ request()->is('admin/vanphong*') || request()->is('admin/vanphong/dathue*') || request()->is('admin/vanphong/dangxem*') || request()->is('admin/vanphong/hethanhopdong*') || request()->is('admin/vanphong/dangtrong*') ? 'show' : '' }}">
+                                <a class="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle {{ request()->is('admin/vanphong*') || request()->is('admin/vanphong/dathue*') || request()->is('admin/vanphong/dangxem*') || request()->is('admin/vanphong/hethanhopdong*') || request()->is('admin/vanphong/dangtrong*') ? 'active' : '' }}"
                                     href="javascript:;" title="Khách hàng">
                                     <i class="tio-dashboard-vs-outlined nav-icon"></i>
-                                    <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Văn phòng</span>
+                                    <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Văn
+                                        phòng</span>
                                 </a>
                                 <ul class="js-navbar-vertical-aside-submenu nav nav-sub">
                                     <li class="nav-item">
-                                        <a class="nav-link {{ request()->routeIs('admin.vanphong.index*') ? 'active' : '' }}" href="{{ route('admin.vanphong.index') }}" title="Danh sách khách hàng">
+                                        <a class="nav-link {{ request()->routeIs('admin.vanphong.index*') ? 'active' : '' }}"
+                                            href="{{ route('admin.vanphong.index') }}"
+                                            title="Danh sách khách hàng">
                                             <span class="tio-circle nav-indicator-icon"></span>
                                             <span class="text-truncate">Tất cả</span>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link {{ request()->routeIs('admin.vanphong.dathue*') ? 'active' : '' }}" href="{{ route('admin.vanphong.dathue') }}" title="Khách đặt lịch hẹn xem phòng">
+                                        <a class="nav-link {{ request()->routeIs('admin.vanphong.dathue*') ? 'active' : '' }}"
+                                            href="{{ route('admin.vanphong.dathue') }}"
+                                            title="Khách đặt lịch hẹn xem phòng">
                                             <span class="tio-circle nav-indicator-icon"></span>
                                             <span class="text-truncate">Đã thuê</span>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link {{ request()->routeIs('admin.vanphong.dangxem*') ? 'active' : '' }}" href="{{ route('admin.vanphong.dangxem') }}" title="Danh sách khách hàng">
+                                        <a class="nav-link {{ request()->routeIs('admin.vanphong.dangxem*') ? 'active' : '' }}"
+                                            href="{{ route('admin.vanphong.dangxem') }}"
+                                            title="Danh sách khách hàng">
                                             <span class="tio-circle nav-indicator-icon"></span>
                                             <span class="text-truncate">Đang xem</span>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link {{ request()->routeIs('admin.vanphong.hethan*') ? 'active' : '' }}" href="{{ route('admin.vanphong.hethan') }}" title="Khách đặt lịch hẹn xem phòng">
+                                        <a class="nav-link {{ request()->routeIs('admin.vanphong.hethan*') ? 'active' : '' }}"
+                                            href="{{ route('admin.vanphong.hethan') }}"
+                                            title="Khách đặt lịch hẹn xem phòng">
                                             <span class="tio-circle nav-indicator-icon"></span>
                                             <span class="text-truncate">Hết hạn hợp đồng</span>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link {{ request()->routeIs('admin.vanphong.dangtrong*') ? 'active' : '' }}" href="{{ route('admin.vanphong.dangtrong') }}" title="Khách đặt lịch hẹn xem phòng">
+                                        <a class="nav-link {{ request()->routeIs('admin.vanphong.dangtrong*') ? 'active' : '' }}"
+                                            href="{{ route('admin.vanphong.dangtrong') }}"
+                                            title="Khách đặt lịch hẹn xem phòng">
                                             <span class="tio-circle nav-indicator-icon"></span>
                                             <span class="text-truncate">Đang trống</span>
                                         </a>
@@ -3452,11 +3465,13 @@
                         <div class="row justify-content-between">
                             <div class="col">
                                 <img class="img-fluid ie-welcome-brands"
-                                    src="{{ asset('assets/svg/brands/gitlab-gray.svg') }}" alt="Image Description">
+                                    src="{{ asset('assets/svg/brands/gitlab-gray.svg') }}"
+                                    alt="Image Description">
                             </div>
                             <div class="col">
                                 <img class="img-fluid ie-welcome-brands"
-                                    src="{{ asset('assets/svg/brands/fitbit-gray.svg') }}" alt="Image Description">
+                                    src="{{ asset('assets/svg/brands/fitbit-gray.svg') }}"
+                                    alt="Image Description">
                             </div>
                             <div class="col">
                                 <img class="img-fluid ie-welcome-brands"

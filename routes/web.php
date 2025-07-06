@@ -50,6 +50,7 @@ Route::middleware(['auth', 'verified', 'check.role:admin'])->prefix('admin')->na
     //Route quản lý hợp đồng
     Route::resource('hopdong', HopDongController::class);
     Route::get('/hopdong/{id}/view', [HopDongController::class, 'show'])->name('hopdong.view');
+    Route::post('/hopdong/xac-nhan-da-ky', [HopDongController::class, 'xacNhanDaKy'])->name('admin.hopdong.xac_nhan_da_ky');
     Route::get('/ajax/vanphong/{toaNhaId}', [TNVPController::class, 'getByToaNha']);
     Route::get('/ajax/vanphong-detail/{vanPhongId}', [TNVPController::class, 'getDetails']);
     Route::get('/ajax/user/{id}', function ($id) {

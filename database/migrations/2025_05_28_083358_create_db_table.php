@@ -81,6 +81,7 @@ return new class extends Migration
 
         // ChiTietHopDong
         Schema::create('chi_tiet_hop_dong', function (Blueprint $table) {
+            $table->id();
             $table->unsignedBigInteger('ma_hop_dong');
             $table->unsignedBigInteger('ma_van_phong');
             $table->float('dien_tich');
@@ -88,7 +89,6 @@ return new class extends Migration
             $table->decimal('gia_dien', 18, 2);
             $table->decimal('gia_nuoc', 18, 2);
             $table->decimal('dich_vu_khac', 18, 2)->default(0);
-            $table->primary(['ma_hop_dong', 'ma_van_phong']);
             $table->foreign('ma_hop_dong')->references('ma_hop_dong')->on('hop_dong')->onDelete('cascade');
             $table->foreign('ma_van_phong')->references('ma_van_phong')->on('van_phong')->onDelete('cascade');
             $table->timestamps();

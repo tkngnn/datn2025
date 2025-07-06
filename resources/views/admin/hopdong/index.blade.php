@@ -180,7 +180,18 @@
 
                                         <div class="form-group">
                                             <label>Trạng thái hợp đồng</label>
-                                            <div class="custom-control custom-checkbox">
+                                            @php
+                                                $trangThais = [
+                                                    'da lap' => 'Đã lập',
+                                                    'da ky' => 'Đã ký',
+                                                    'dang thue' => 'Đang thuê',
+                                                    'da thanh ly' => 'Đã thanh lý',
+                                                    'het han' => 'Hết hạn',
+                                                    'da huy' => 'Đã hủy',
+                                                ];
+                                                $selectedTrangThai = (array) request('tinh_trang_hop_dong');
+                                            @endphp
+                                            {{-- <div class="custom-control custom-checkbox">
                                                 <input type="checkbox" class="custom-control-input" id="dangThue"
                                                     name="tinh_trang_hop_dong[]" value="dang thue"
                                                     {{ in_array('dang thue', (array) request('tinh_trang_hop_dong')) ? 'checked' : '' }}>
@@ -197,7 +208,17 @@
                                                     name="tinh_trang_hop_dong[]" value="het han"
                                                     {{ in_array('het han', (array) request('tinh_trang_hop_dong')) ? 'checked' : '' }}>
                                                 <label class="custom-control-label" for="hetHan">Hết hạn</label>
-                                            </div>
+                                            </div> --}}
+                                            @foreach ($trangThais as $value => $label)
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input"
+                                                        id="{{ Str::slug($value) }}" name="tinh_trang_hop_dong[]"
+                                                        value="{{ $value }}"
+                                                        {{ in_array($value, $selectedTrangThai) ? 'checked' : '' }}>
+                                                    <label class="custom-control-label"
+                                                        for="{{ Str::slug($value) }}">{{ $label }}</label>
+                                                </div>
+                                            @endforeach
                                         </div>
 
                                         <div class="form-group">
@@ -296,14 +317,15 @@
                                         </td>
                                         <td>
                                             <div><strong>{{ $hopdong->user->name ?? 'Không có' }}</strong></div>
-                                            <div><a href="javascript:;" 
-                                                class="d-block btn-xem-toanha font-size-sm text-body" 
-                                                data-idtoanha="{{ $chiTiet->vanPhong->toaNha->ma_toa_nha }}">
-                                                Tòa Nhà: {{ $chiTiet->vanPhong->toaNha->ten_toa_nha ?? 'Không có' }}</a></div>
-                                            <div><a href="javascript:;" 
-                                                class="btn-xem-vanphong text-body"
-                                                data-idvanphong="{{ $chiTiet->vanPhong->ma_van_phong }}">
-                                                Phòng: {{ $chiTiet->vanPhong->ma_van_phong ?? 'Không có' }} - {{$chiTiet->vanPhong->ten_van_phong ?? 'Không có'}}</a></div>
+                                            <div><a href="javascript:;"
+                                                    class="d-block btn-xem-toanha font-size-sm text-body"
+                                                    data-idtoanha="{{ $chiTiet->vanPhong->toaNha->ma_toa_nha }}">
+                                                    Tòa Nhà:
+                                                    {{ $chiTiet->vanPhong->toaNha->ten_toa_nha ?? 'Không có' }}</a></div>
+                                            <div><a href="javascript:;" class="btn-xem-vanphong text-body"
+                                                    data-idvanphong="{{ $chiTiet->vanPhong->ma_van_phong }}">
+                                                    Phòng: {{ $chiTiet->vanPhong->ma_van_phong ?? 'Không có' }} -
+                                                    {{ $chiTiet->vanPhong->ten_van_phong ?? 'Không có' }}</a></div>
                                         </td>
                                         <td>
                                             {{ number_format($chiTiet->gia_thue, 0, ',', '.') }} VNĐ
@@ -321,9 +343,12 @@
                                         <td>
                                             @php
                                                 $map = [
+                                                    'da lap' => ['label' => 'Đã lập', 'color' => 'info'],
+                                                    'da ky' => ['label' => 'Đã ký', 'color' => 'primary'],
                                                     'dang thue' => ['label' => 'Đang thuê', 'color' => 'success'],
-                                                    'da thanh ly' => ['label' => 'Đã thanh lý', 'color' => 'danger'],
                                                     'het han' => ['label' => 'Hết hạn', 'color' => 'warning'],
+                                                    'da thanh ly' => ['label' => 'Đã thanh lý', 'color' => 'danger'],
+                                                    'da huy' => ['label' => 'Đã hủy', 'color' => 'dark'],
                                                 ];
 
                                                 $status = $map[$hopdong->tinh_trang] ?? [
@@ -336,15 +361,21 @@
                                                 <span class="legend-indicator bg-{{ $status['color'] }}"></span>
                                                 {{ $status['label'] }}
                                             </span>
-                                            @if (!$hopdong->da_thanh_ly && $ngayKetThuc->gt($today))
-                                                <br>
+
+                                            <br>
+
+                                            @if ($hopdong->tinh_trang === 'dang thue' && !$hopdong->da_thanh_ly && $ngayKetThuc->gt($today))
                                                 <small class="text-muted">Còn {{ $ngayConLai }} ngày</small>
-                                            @elseif($hopdong->da_thanh_ly)
-                                                <br>
+                                            @elseif ($hopdong->tinh_trang === 'da thanh ly')
                                                 <small class="text-muted">Đã thanh lý</small>
-                                            @else
-                                                <br>
+                                            @elseif ($hopdong->tinh_trang === 'het han')
                                                 <small class="text-warning">Đã hết hạn</small>
+                                            @elseif ($hopdong->tinh_trang === 'da huy')
+                                                <small class="text-muted">Đã bị hủy</small>
+                                            @elseif ($hopdong->tinh_trang === 'da ky')
+                                                <small class="text-muted">Chờ đến ngày bắt đầu</small>
+                                            @elseif ($hopdong->tinh_trang === 'da lap')
+                                                <small class="text-muted">Chưa ký</small>
                                             @endif
                                         </td>
                                         <td>
@@ -357,10 +388,20 @@
                                                     data-toggle="tooltip" data-placement="top" title="Xem">
                                                     <i class="tio-visible-outlined"></i>
                                                 </a>
+                                                @if ($hopdong->tinh_trang === 'da lap')
+                                                    <a href="javascript:;" class="btn btn-sm btn-soft-success btn-da-ky"
+                                                        data-id="{{ $hopdong->ma_hop_dong }}"
+                                                        data-vp-id="{{ $chiTiet->ma_van_phong ?? '' }}"
+                                                        data-toggle="tooltip" data-placement="top"
+                                                        title="Xác nhận đã ký">
+                                                        <i class="tio-all-done"></i>
+                                                    </a>
+                                                @endif
                                                 <a class="btn btn-sm btn-soft-dark btn-edit-hopdong" href="javascript:;"
                                                     data-id="{{ $hopdong->ma_hop_dong }}"
                                                     data-da-thanh-ly="{{ $hopdong->da_thanh_ly ? '1' : '0' }}"
                                                     data-ngay-bat-dau="{{ $hopdong->ngay_bat_dau }}"
+                                                    data-tinh-trang="{{ $hopdong->tinh_trang }}"
                                                     data-url="{{ route('admin.hopdong.edit', $hopdong->ma_hop_dong) }}"
                                                     data-toggle="tooltip" data-placement="top" title="Chỉnh sửa">
                                                     <i class="tio-edit"></i>
@@ -631,40 +672,42 @@
 
         <!-- End Biên Ban Thanh Ly Modal -->
         <!-- VanPhong Modal Popup -->
-     <div class="modal fade" id="vanPhongModal" tabindex="-1" aria-labelledby="vanPhongModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title"></h5>
-              <button type="button" class="btn btn-close btn-sm btn-ghost-secondary" data-dismiss="modal" aria-label="Đóng">
-                <i class="tio-clear tio-lg"></i>
-              </button>
-            </div>
-            <div class="modal-body" id="vanPhongModalContent">
-              <div class="text-center">Đang tải...</div>
-            </div>
-          </div>
-        </div>
-      </div>          
-    <!-- End VanPhong Modal Popup --> 
-    <!-- ToaNha Modal Popup -->
-  <div class="modal fade" id="toaNhaModal" tabindex="-1" aria-labelledby="toaNhaModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"></h5>
-                <button type="button" class="btn btn-close btn-sm btn-ghost-secondary" data-dismiss="modal"
-                    aria-label="Đóng">
-                    <i class="tio-clear tio-lg"></i>
-                </button>
-            </div>
-            <div class="modal-body" id="toaNhaModalContent">
-                <div class="text-center">Đang tải...</div>
+        <div class="modal fade" id="vanPhongModal" tabindex="-1" aria-labelledby="vanPhongModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"></h5>
+                        <button type="button" class="btn btn-close btn-sm btn-ghost-secondary" data-dismiss="modal"
+                            aria-label="Đóng">
+                            <i class="tio-clear tio-lg"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="vanPhongModalContent">
+                        <div class="text-center">Đang tải...</div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-  </div>
-  <!-- End ToaNha Modal Popup -->
+        <!-- End VanPhong Modal Popup -->
+        <!-- ToaNha Modal Popup -->
+        <div class="modal fade" id="toaNhaModal" tabindex="-1" aria-labelledby="toaNhaModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"></h5>
+                        <button type="button" class="btn btn-close btn-sm btn-ghost-secondary" data-dismiss="modal"
+                            aria-label="Đóng">
+                            <i class="tio-clear tio-lg"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="toaNhaModalContent">
+                        <div class="text-center">Đang tải...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End ToaNha Modal Popup -->
     </main>
 @endsection
 @push('scripts')
@@ -690,13 +733,55 @@
             });
         });
 
+        document.querySelectorAll('.btn-da-ky').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const hopDongId = this.getAttribute('data-id');
+                const vanPhongId = this.getAttribute('data-vp-id');
+
+                if (confirm("Xác nhận hợp đồng đã ký và cập nhật tình trạng văn phòng?")) {
+                    fetch(`/admin/hopdong/xac-nhan-da-ky`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
+                                    ?.getAttribute('content') || ''
+                            },
+                            body: JSON.stringify({
+                                hop_dong_id: hopDongId,
+                                van_phong_id: vanPhongId
+                            })
+                        })
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.success) {
+                                alert("Cập nhật thành công!");
+                                location.reload();
+                            } else {
+                                alert("Cập nhật thất bại. Lỗi: " + data.message);
+                            }
+                        })
+                        .catch(err => {
+                            console.error(err);
+                            alert("Có lỗi xảy ra.");
+                            console.error(err);
+                        });
+                }
+            });
+        });
+
+
         document.querySelectorAll('.btn-edit-hopdong').forEach(btn => {
             btn.addEventListener('click', function() {
                 const maHopDong = this.getAttribute('data-id');
                 const daThanhLy = this.getAttribute('data-da-thanh-ly');
+                const tinhTrang = this.getAttribute('data-tinh-trang');
                 const url = this.getAttribute('data-url');
                 const ngayBatDau = this.getAttribute('data-ngay-bat-dau');
 
+                if (tinhTrang !== 'da lap') {
+                    showAlert('Hợp đồng đã ký, không thể chỉnh sửa.');
+                    return;
+                }
                 console.log('Ngày bắt đầu:', ngayBatDau);
                 if (daThanhLy === '1') {
                     showAlert('Hợp đồng này đã được thanh lý.');
@@ -718,13 +803,13 @@
 
         function showAlert(message) {
             const alertBox = `
-        <div class="alert alert-soft-danger alert-dismissible fade show mt-3" role="alert">
-            <strong>Không thể chỉnh sửa!</strong> ${message}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Đóng">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    `;
+                <div class="alert alert-soft-danger alert-dismissible fade show mt-3" role="alert">
+                    <strong>Không thể chỉnh sửa!</strong> ${message}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Đóng">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            `;
             $('#hopdong-alert-container').html(alertBox);
             setTimeout(() => {
                 $('.alert').alert('close');
@@ -1013,28 +1098,30 @@
             };
         }
 
-$(document).on('click', '.btn-xem-vanphong', function () {
-  const idvanphong = $(this).data('idvanphong');
-  $('#vanPhongModalContent').html('<div class="text-center">Đang tải...</div>');
-  $('#vanPhongModal').modal('show');
+        $(document).on('click', '.btn-xem-vanphong', function() {
+            const idvanphong = $(this).data('idvanphong');
+            $('#vanPhongModalContent').html('<div class="text-center">Đang tải...</div>');
+            $('#vanPhongModal').modal('show');
 
-  $('#vanPhongModalContent').load(`/admin/vanphong/preview/${idvanphong}`, function (response, status, xhr) {
-    if (status === "error") {
-      $('#vanPhongModalContent').html('<div class="text-danger">Không thể tải thông tin văn phòng.</div>');
-    }
-  });
-});
-$(document).on('click', '.btn-xem-toanha', function() {
-  const idtoanha = $(this).data('idtoanha');
-  $('#toaNhaModalContent').html('<div class="text-center">Đang tải...</div>');
-  $('#toaNhaModal').modal('show');
+            $('#vanPhongModalContent').load(`/admin/vanphong/preview/${idvanphong}`, function(response, status,
+                xhr) {
+                if (status === "error") {
+                    $('#vanPhongModalContent').html(
+                        '<div class="text-danger">Không thể tải thông tin văn phòng.</div>');
+                }
+            });
+        });
+        $(document).on('click', '.btn-xem-toanha', function() {
+            const idtoanha = $(this).data('idtoanha');
+            $('#toaNhaModalContent').html('<div class="text-center">Đang tải...</div>');
+            $('#toaNhaModal').modal('show');
 
-  $('#toaNhaModalContent').load(`/admin/toanha/preview/${idtoanha}`, function(response, status, xhr) {
-  if (status === "error") {
-  $('#toaNhaModalContent').html(
-  '<div class="text-danger">Không thể tải thông tin tòa nhà.</div>');
-  }
-  });
-});
+            $('#toaNhaModalContent').load(`/admin/toanha/preview/${idtoanha}`, function(response, status, xhr) {
+                if (status === "error") {
+                    $('#toaNhaModalContent').html(
+                        '<div class="text-danger">Không thể tải thông tin tòa nhà.</div>');
+                }
+            });
+        });
     </script>
 @endpush
