@@ -143,13 +143,14 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="sdt_khach_thue">Số điện thoại</label>
-                                    <input type="number" class="form-control" name="sdt_khach_thue" id="sdt_khach_thue">
+                                    <input type="number" class="form-control" name="sdt_khach_thue" id="sdt_khach_thue"
+                                        readonly>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="dai_dien">Người đại diện</label>
-                                    <input type="text" class="form-control" name="dai_dien" id="dai_dien">
+                                    <input type="text" class="form-control" name="dai_dien" id="dai_dien" readonly>
                                 </div>
                             </div>
                         </div>
@@ -162,25 +163,14 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="tien_thue">Tiền thuê (VNĐ)</label>
                                     <input type="number" class="form-control" name="tien_thue" id="tien_thue"
                                         placeholder="Ví dụ: 12000000">
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="chu_ky">Chu kỳ thanh toán</label>
-                                    <select name="chu_ky" id="chu_ky" class="form-control">
-                                        <option value="1">Hàng tháng</option>
-                                        <option value="3">3 tháng</option>
-                                        <option value="6">6 tháng</option>
-                                        <option value="12">12 tháng</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="ngay_bat_dau_tinh_tien">Ngày bắt đầu tính tiền</label>
                                     <input type="date" class="form-control" name="ngay_bat_dau_tinh_tien"
@@ -367,7 +357,6 @@
             const selectedVanPhongId = '{{ $selectedVanPhongId ?? '' }}';
             const selectedUserId = '{{ $selectedUserId ?? '' }}';
 
-            // 1. Load thông tin văn phòng nếu có (dùng cho hẹn xem)
             if (selectedVanPhongId) {
                 fetch(`/admin/ajax/vanphong-detail/${selectedVanPhongId}`)
                     .then(res => res.json())
@@ -382,7 +371,6 @@
                     .catch(err => console.error('Lỗi fetch văn phòng preset:', err));
             }
 
-            // 2. Load thông tin user nếu có (dùng cho hẹn xem)
             if (selectedUserId) {
                 fetch(`/admin/ajax/user/${selectedUserId}`)
                     .then(res => res.json())
@@ -394,7 +382,6 @@
                     .catch(err => console.error('Lỗi fetch user preset:', err));
             }
 
-            // 3. Khi chọn Tòa nhà → lấy danh sách văn phòng thuộc tòa đó
             toaNhaSelect?.addEventListener('change', function() {
                 const toaNhaId = this.value;
                 vanPhongSelect.innerHTML = '<option value="">-- Chọn phòng --</option>';
@@ -416,7 +403,6 @@
                 }
             });
 
-            // 4. Khi chọn Văn phòng → tự điền thông tin thuê, cọc, dịch vụ
             vanPhongSelect?.addEventListener('change', function() {
                 const vanPhongId = this.value;
                 console.log('văn phòng:', vanPhongId);
@@ -436,7 +422,6 @@
                 }
             });
 
-            // 5. Khi chọn User → tự điền số điện thoại & người đại diện
             userSelect.addEventListener('change', function() {
                 const userId = this.value;
 

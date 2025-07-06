@@ -10,8 +10,9 @@ class ChiTietHopDong extends Model
     use SoftDeletes;
 
     protected $table = 'chi_tiet_hop_dong';
-    public $incrementing = false;
-    //protected $primaryKey = ['ma_hop_dong', 'ma_van_phong'];
+    protected $primaryKey = 'id';
+    public $incrementing = true;
+    protected $keyType = 'int';
     protected $fillable = ['ma_hop_dong', 'ma_van_phong', 'dien_tich', 'gia_thue', 'gia_dien', 'gia_nuoc', 'dich_vu_khac'];
 
     public function hopDong()
@@ -23,4 +24,5 @@ class ChiTietHopDong extends Model
     {
         return $this->belongsTo(VanPhong::class, 'ma_van_phong');
     }
+
 }

@@ -35,6 +35,7 @@
     <!-- CSS cho preview hình ảnh -->
     <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
         rel="stylesheet">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
 </head>
 
@@ -2007,7 +2008,8 @@
                                 <a class="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle {{ request()->is('admin/vanphong*') || request()->is('admin/vanphong/dathue*') || request()->is('admin/vanphong/dangxem*') || request()->is('admin/vanphong/hethanhopdong*') ||request()->is('admin/vanphong/dangtrong*') ? 'active' : '' }}"
                                     href="javascript:;" title="Khách hàng">
                                     <i class="tio-dashboard-vs-outlined nav-icon"></i>
-                                    <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Văn phòng</span>
+                                    <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">Văn
+                                        phòng</span>
                                 </a>
                                 <ul class="js-navbar-vertical-aside-submenu nav nav-sub">
                                     <li class="nav-item">
@@ -2038,6 +2040,12 @@
                                         <a class="nav-link {{ request()->routeIs('admin.vanphong.dangtrong*') ? 'active' : '' }}" href="{{ route('admin.vanphong.dangtrong') }}" title="Khách đặt lịch hẹn xem phòng">
                                             <span class="tio-circle nav-indicator-icon"></span>
                                             <span class="text-truncate">Đang trống</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ request()->routeIs('admin.vanphong.khonghoatdong*') ? 'active' : '' }}" href="{{ route('admin.vanphong.khonghoatdong') }}" title="Danh sách văn phòng không hoạt động">
+                                            <span class="tio-circle nav-indicator-icon"></span>
+                                            <span class="text-truncate">Không hoạt động</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -3452,11 +3460,13 @@
                         <div class="row justify-content-between">
                             <div class="col">
                                 <img class="img-fluid ie-welcome-brands"
-                                    src="{{ asset('assets/svg/brands/gitlab-gray.svg') }}" alt="Image Description">
+                                    src="{{ asset('assets/svg/brands/gitlab-gray.svg') }}"
+                                    alt="Image Description">
                             </div>
                             <div class="col">
                                 <img class="img-fluid ie-welcome-brands"
-                                    src="{{ asset('assets/svg/brands/fitbit-gray.svg') }}" alt="Image Description">
+                                    src="{{ asset('assets/svg/brands/fitbit-gray.svg') }}"
+                                    alt="Image Description">
                             </div>
                             <div class="col">
                                 <img class="img-fluid ie-welcome-brands"

@@ -55,18 +55,37 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="toa_nha_id">Tòa nhà</label>
-                                <select class="form-control" name="toa_nha_id" id="toa_nha_id">
+                                {{-- <select class="form-control" name="toa_nha_id" id="toa_nha_id">
                                     <option value="{{ $vanPhong->toaNha->ma_toa_nha }}" selected>
                                         {{ $vanPhong->toaNha->ten_toa_nha }}</option>
+                                </select> --}}
+                                <select class="form-control" name="toa_nha_id" id="toa_nha_id">
+                                    @foreach ($toaNhas as $toaNhaItem)
+                                        <option value="{{ $toaNhaItem->ma_toa_nha }}"
+                                            {{ $vanPhong && $vanPhong->ma_toa_nha == $toaNhaItem->ma_toa_nha ? 'selected' : '' }}>
+                                            {{ $toaNhaItem->ten_toa_nha }}
+                                        </option>
+                                    @endforeach
                                 </select>
                             </div>
 
                             <div class="col-md-6">
                                 <label for="vanphong_id">Phòng</label>
-                                <select class="form-control" name="vanphong_id" id="vanphong_id">
+                                {{-- <select class="form-control" name="vanphong_id" id="vanphong_id">
                                     <option value="{{ $vanPhong->ma_van_phong }}" selected>{{ $vanPhong->ma_van_phong }} - {{ $vanPhong->ten_van_phong }} -
                                         {{ $vanPhong->dien_tich }}/m²</option>
+                                </select> --}}
+                                <select class="form-control" name="vanphong_id" id="vanphong_id">
+                                    @foreach ($vanPhongs as $vp)
+                                        <option value="{{ $vp->ma_van_phong }}"
+                                            {{ $vanPhong && $vp->ma_van_phong == $vanPhong->ma_van_phong ? 'selected' : '' }}>
+                                            {{ $vp->ma_van_phong }} - {{ $vp->ten_van_phong ?? '' }} -
+                                            {{ $vp->dien_tich }} m²
+                                        </option>
+                                    @endforeach
                                 </select>
+                                <input type="hidden" name="vanphong_id_cu"
+                                    value="{{ $chiTiet->ma_van_phong }}">
                             </div>
                         </div>
 
@@ -97,12 +116,16 @@
                                 <label for="trang_thai">Tình trạng:</label>
                                 @php
                                     $tenTrangThai = [
+                                        'da lap' => 'Đã lập',
+                                        'da ky' => 'Đã ký',
                                         'dang thue' => 'Đang thuê',
-                                        'da thanh ly' => 'Đã thanh lý',
                                         'het han' => 'Hết hạn',
+                                        'da thanh ly' => 'Đã thanh lý',
+                                        'da huy' => 'Đã hủy',
                                     ];
                                 @endphp
-                                <input type="text" class="form-control" value=" {{ $tenTrangThai[$hopDong->tinh_trang] ?? 'Không rõ' }}" readonly>
+                                <input type="text" class="form-control"
+                                    value=" {{ $tenTrangThai[$hopDong->tinh_trang] ?? 'Không rõ' }}" readonly>
                                 <input type="hidden" name="tinh_trang" value="{{ $hopDong->tinh_trang }}">
                             </div>
                             <div class="col-md-8">
@@ -123,9 +146,17 @@
                         <div class="row">
                             <div class="col-md-5">
                                 <label for="khach_thue_id">Tên khách thuê</label>
-                                <select class="form-control" name="khach_thue_id" id="khach_thue_id">
+                                {{-- <select class="form-control" name="khach_thue_id" id="khach_thue_id">
                                     <option value="{{ $hopDong->user->id }}">{{ $hopDong->user->name }}
                                         ({{ $hopDong->user->so_dien_thoai }})</option>
+                                </select> --}}
+                                <select class="form-control" name="khach_thue_id" id="khach_thue_id">
+                                    @foreach ($users as $user)
+                                        <option value="{{ $user->id }}"
+                                            {{ $hopDong->user->id == $user->id ? 'selected' : '' }}>
+                                            {{ $user->name }} ({{ $user->so_dien_thoai }})
+                                        </option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="col-md-4">
@@ -148,27 +179,16 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <label for="tien_thue">Tiền thuê</label>
                                 <input type="number" class="form-control" name="tien_thue" id="tien_thue"
                                     value="{{ $chiTiet->gia_thue }}">
                             </div>
-                            <div class="col-md-4">
-                                <label for="chu_ky">Chu kỳ thanh toán</label>
-                                <select name="chu_ky" class="form-control" id="chu_ky">
-                                    <option value="1" {{ $hopDong->chu_ky == 1 ? 'selected' : '' }}>Hàng tháng
-                                    </option>
-                                    <option value="3" {{ $hopDong->chu_ky == 3 ? 'selected' : '' }}>3 tháng</option>
-                                    <option value="6" {{ $hopDong->chu_ky == 6 ? 'selected' : '' }}>6 tháng</option>
-                                    <option value="12" {{ $hopDong->chu_ky == 12 ? 'selected' : '' }}>12 tháng
-                                    </option>
-                                </select>
-                            </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <label for="ngay_bat_dau_tinh_tien">Ngày bắt đầu tính tiền</label>
                                 <input type="date" class="form-control" name="ngay_bat_dau_tinh_tien"
                                     value="{{ \Carbon\Carbon::parse($hopDong->ngay_bat_dau)->format('Y-m-d') }}"
-                                    id="ngay_bat_dau_tinh_tien">
+                                    id="ngay_bat_dau_tinh_tien" readonly>
                             </div>
                         </div>
 
@@ -205,7 +225,14 @@
 
                         <div class="form-group mt-3">
                             <label for="note">Chi tiết dịch vụ</label>
-                            <textarea class="form-control" name="note" id="note" rows="6">{{ $chiTiet->ghi_chu }}</textarea>
+                            <textarea class="form-control" name="note" id="note" rows="6"
+                                placeholder="Ghi rõ loại dịch vụ, giá...">{{ $chiTiet->ghi_chu }}Phí dịch vụ bao gồm:
+                            » Dịch vụ vệ sinh khu vực công cộng
+                            » Tổng vệ sinh định kỳ mặt tiền tòa nhà.
+                            » Thu gom và xử lý nước/rác thải sinh hoạt.
+                            » Phun thuốc diệt côn trùng định kỳ.
+                            » Bảo trì, bảo dưỡng hệ thống thang máy
+                            </textarea>
                         </div>
                     </div>
                 </div>

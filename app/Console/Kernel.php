@@ -16,6 +16,7 @@ class Kernel extends ConsoleKernel
         \App\Console\Commands\TaoHoaDonHetHan::class,
         \App\Console\Commands\GuiHoaDonHangThang::class,
         \App\Console\Commands\CapNhatHopDongHetHan::class,
+        \App\Console\Commands\CapNhatHopDongBatDau::class,
     ];
 
     protected function schedule(Schedule $schedule): void
@@ -23,6 +24,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('hoadon:tao-hang-thang')->monthlyOn(30, '08:00');
         $schedule->command('hoadon:het-han')->dailyAt('08:00');
         $schedule->command('gui:hoa-don-hang-thang')->monthlyOn(5, '08:00');
+        $schedule->command('hopdong:capnhat-batdau')->dailyAt('00:10');
         $schedule->command('hopdong:capnhat-hethan')->daily();
     }
 
