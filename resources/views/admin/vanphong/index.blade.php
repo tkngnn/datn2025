@@ -260,7 +260,9 @@
                           @elseif ($henxem->vanphong->trang_thai === 'het han hop dong')
                               <span class="legend-indicator bg-warning"></span> Đã thuê
                           @elseif ($henxem->vanphong->trang_thai === 'dang trong')
-                          <span class="legend-indicator bg-danger"></span> Đang trống
+                              <span class="legend-indicator bg-danger"></span> Đang trống
+                          @elseif ($henxem->vanphong->trang_thai === 'cho ban giao')
+                              <span class="legend-indicator bg-info"></span> Chờ bàn giao
                           @else
                               <span class="legend-indicator bg-dark"></span> Không hoạt động
                           @endif
@@ -326,6 +328,8 @@
                               <span class="legend-indicator bg-warning"></span> Đã thuê
                           @elseif ($vanphong->trang_thai === 'dang trong')
                           <span class="legend-indicator bg-danger"></span> Đang trống
+                          @elseif ($vanphong->trang_thai === 'cho ban giao')
+                              <span class="legend-indicator bg-info"></span> Chờ bàn giao
                           @else
                               <span class="legend-indicator bg-dark"></span> Không hoạt động
                           @endif
