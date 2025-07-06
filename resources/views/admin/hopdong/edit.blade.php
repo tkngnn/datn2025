@@ -22,7 +22,11 @@
                         </button>
                     </div>
                 @endif
-
+                @if ($errors->has('error'))
+                    <div class="alert alert-danger">
+                        {{ $errors->first('error') }}
+                    </div>
+                @endif
                 @if (session('error'))
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                         <strong>Lỗi!</strong> {{ session('error') }}
@@ -84,8 +88,7 @@
                                         </option>
                                     @endforeach
                                 </select>
-                                <input type="hidden" name="vanphong_id_cu"
-                                    value="{{ $chiTiet->ma_van_phong }}">
+                                <input type="hidden" name="vanphong_id_cu" value="{{ $chiTiet->ma_van_phong }}">
                             </div>
                         </div>
 
@@ -193,7 +196,8 @@
                         </div>
 
                         <div class="form-group mt-3">
-                            <label for="tien_coc">Tiền cọc (VNĐ) <small class="text-muted"> 3 tháng tiền nhà </small></label>
+                            <label for="tien_coc">Tiền cọc (VNĐ) <small class="text-muted"> 3 tháng tiền nhà
+                                </small></label>
                             <input type="number" class="form-control" name="tien_coc" id="tien_coc"
                                 value="{{ $hopDong->tong_tien_coc }}">
                         </div>

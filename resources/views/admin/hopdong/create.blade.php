@@ -13,6 +13,14 @@
                     <div class="col-sm">
                         <h1 class="page-header-title">Tạo Hợp Đồng</h1>
                     </div>
+                    @if (session('error'))
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>Lỗi!</strong> {{ session('error') }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Đóng">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    @endif
                     @if ($errors->has('error'))
                         <div class="alert alert-danger">
                             {{ $errors->first('error') }}
@@ -174,7 +182,8 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="tien_coc">Tiền cọc (VNĐ) <small class="text-muted"> 3 tháng tiền nhà </small></label>
+                            <label for="tien_coc">Tiền cọc (VNĐ) <small class="text-muted"> 3 tháng tiền nhà
+                                </small></label>
                             <input type="number" class="form-control" name="tien_coc" id="tien_coc"
                                 placeholder="Ví dụ: 24000000">
                         </div>

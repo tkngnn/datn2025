@@ -233,7 +233,7 @@ class HopDongController extends Controller
             return redirect()->route('admin.hopdong.index')->with('success', 'Tạo hợp đồng thành công!');
         } catch (\Exception $e) {
             DB::rollBack();
-            return back()->withInput()->withErrors(['error' => 'Đã xảy ra lỗi: ' . $e->getMessage()]);
+            return back()->withInput()->with(['error' => 'Đã xảy ra lỗi: ' . $e->getMessage()]);
         }
     }
 
@@ -431,7 +431,7 @@ class HopDongController extends Controller
             return redirect()->route('admin.hopdong.index')->with('success', 'Cập nhật hợp đồng thành công!');
         } catch (\Exception $e) {
             DB::rollBack();
-            return back()->withInput()->withErrors(['error' => 'Đã xảy ra lỗi: ' . $e->getMessage()]);
+            return back()->withInput()->with(['error' => 'Đã xảy ra lỗi: ' . $e->getMessage()]);
         }
     }
 
