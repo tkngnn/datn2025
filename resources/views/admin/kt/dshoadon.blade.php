@@ -5,12 +5,13 @@
 @section('content')
     <main id="content" role="main" class="main">
         @php
-      $dangLoc = request()->has('ma_toa_nha') ||
-        request()->has('thang_nam') ||
-        request()->has('gia_thue_min') ||
-        request()->has('gia_thue_max') ||
-        request()->has('trang_thai');
-    @endphp
+            $dangLoc =
+                request()->has('ma_toa_nha') ||
+                request()->has('thang_nam') ||
+                request()->has('gia_thue_min') ||
+                request()->has('gia_thue_max') ||
+                request()->has('trang_thai');
+        @endphp
         <!-- Content -->
         <div class="content container-fluid">
             <!-- Page Header -->
@@ -45,10 +46,41 @@
                         </li>
                     </ul>
                     <!-- End Nav -->
+
                 </div>
                 <!-- End Nav Scroller -->
             </div>
+            @if (session('success'))
+                <div class="alert alert-soft-success" role="alert">
+                    <strong>Thành công!</strong> {{ session('success') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Đóng">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
 
+            @if (session('error'))
+                <div class="alert alert-soft-danger" role="alert">
+                    <strong>Lỗi!</strong> {{ session('error') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Đóng">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
+
+            <script>
+                setTimeout(function() {
+                    const alerts = document.querySelectorAll('.alert');
+                    alerts.forEach(alert => {
+                        if (alert.id !== 'noDebtMessage' || alert.classList.contains(
+                                'tong-hop-dong-can-thanh-ly')) {
+                            alert.classList.remove('show');
+                            alert.classList.add('fade');
+                            setTimeout(() => alert.remove(), 300);
+                        }
+                    });
+                }, 5000);
+            </script>
             <!-- Card -->
             <div class="card">
                 <!-- Header -->
@@ -71,41 +103,42 @@
                         </div>
 
                         @if ($dangLoc)
-                        <div class="hs-unfold mr-2">
-                        <div class="d-flex flex-wrap gap-2">
-                            <label class="font-weight-bold mr-1 mt-2">Bộ lọc: </label>
-                            @if(request('ma_toa_nha'))
-                            <span class="badge badge-soft-primary" style="padding: .8rem .8rem;">
-                                {{ $dsToaNha->firstWhere('ma_toa_nha', request('ma_toa_nha'))?->ten_toa_nha ?? 'Không rõ' }}
-                            </span>
-                            @endif
+                            <div class="hs-unfold mr-2">
+                                <div class="d-flex flex-wrap gap-2">
+                                    <label class="font-weight-bold mr-1 mt-2">Bộ lọc: </label>
+                                    @if (request('ma_toa_nha'))
+                                        <span class="badge badge-soft-primary" style="padding: .8rem .8rem;">
+                                            {{ $dsToaNha->firstWhere('ma_toa_nha', request('ma_toa_nha'))?->ten_toa_nha ?? 'Không rõ' }}
+                                        </span>
+                                    @endif
 
-                            @if(request('gia_thue_min') || request('gia_thue_max'))
-                            <span class="badge badge-soft-success" style="padding: .8rem .8rem;">
-                                Giá thuê:
-                                {{ request('gia_thue_min') ?? '...' }} - {{ request('gia_thue_max') ?? '...' }} VND/m²
-                            </span>
-                            @endif
+                                    @if (request('gia_thue_min') || request('gia_thue_max'))
+                                        <span class="badge badge-soft-success" style="padding: .8rem .8rem;">
+                                            Giá thuê:
+                                            {{ request('gia_thue_min') ?? '...' }} - {{ request('gia_thue_max') ?? '...' }}
+                                            VND/m²
+                                        </span>
+                                    @endif
 
-                            @if(request('thang_nam'))
-                            <span class="badge badge-soft-secondary" style="padding: .8rem .8rem;">
-                                {{ \Carbon\Carbon::parse(request('thang_nam'))->format('m/Y') }}
-                            </span>
-                            @endif
+                                    @if (request('thang_nam'))
+                                        <span class="badge badge-soft-secondary" style="padding: .8rem .8rem;">
+                                            {{ \Carbon\Carbon::parse(request('thang_nam'))->format('m/Y') }}
+                                        </span>
+                                    @endif
 
-                            @if(request('trang_thai'))
-                            <span class="badge badge-soft-warning" style="padding: .8rem .8rem;">
-                                {{ request('trang_thai') == 'da thanh toan' ? 'Đã thanh toán' : 'Chưa thanh toán' }}
-                            </span>
-                            @endif
-                        </div>
-                        </div>
-                    @endif
-                    <div class="col-auto">
-                    <!-- Unfold -->
-                    <div class="hs-unfold mr-2">
-                        <a class="js-hs-unfold-invoker btn btn-white" href="javascript:;"
-                            data-hs-unfold-options='{
+                                    @if (request('trang_thai'))
+                                        <span class="badge badge-soft-warning" style="padding: .8rem .8rem;">
+                                            {{ request('trang_thai') == 'da thanh toan' ? 'Đã thanh toán' : 'Chưa thanh toán' }}
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                        @endif
+                        <div class="col-auto">
+                            <!-- Unfold -->
+                            <div class="hs-unfold mr-2">
+                                <a class="js-hs-unfold-invoker btn btn-white" href="javascript:;"
+                                    data-hs-unfold-options='{
                                 "target": "#datatableFilterSidebar",
                                 "type": "css-animation",
                                 "animationIn": "fadeInRight",
@@ -113,70 +146,80 @@
                                 "hasOverlay": true,
                                 "smartPositionOff": true
                             }'>
-                            <i class="tio-filter-list mr-1"></i>
-                        </a>
-                    </div>
-                    
-                    <!-- End Unfold -->
-                    <!-- Unfold -->
-                    @if ($dangLoc)
-                        <div class="hs-unfold mr-2">
-                            <a href="{{ url()->current() }}" class="btn btn-outline-secondary ml-2">
-                                <i class="tio-refresh"></i>
-                            </a>
-                        </div>
-                        @endif
-                    <!-- End Unfold -->
-                    </div>
-
-                    <!-- Sidebar filter -->
-                    <div id="datatableFilterSidebar" class="hs-unfold-content sidebar sidebar-bordered sidebar-box-shadow">
-                    <div class="card mb-5">
-                        <div class="card-header">
-                        <h5 class="mb-0">Bộ lọc</h5>
-                        </div>
-                        <div class="card-body">
-                        <form method="GET" action="{{ route('kt.hoadon') }}">
-                            <div class="form-group">
-                            <label for="ma_toa_nha">Tòa nhà</label>
-                            <select name="ma_toa_nha" id="ma_toa_nha" class="form-control selectpicker" data-live-search="true" title="Chọn tòa nhà">
-                                <option value="">-- Tất cả --</option>
-                                @foreach($dsToaNha as $toaNha)
-                                <option value="{{ $toaNha->ma_toa_nha }}" {{ request('ma_toa_nha') == $toaNha->ma_toa_nha ? 'selected' : '' }}>
-                                    {{ $toaNha->ten_toa_nha }}
-                                </option>
-                                @endforeach
-                            </select>
-                            </div>
-                    
-                            <div class="form-group">
-                            <label>Tiền</label>
-                            <div class="input-group">
-                                <input type="text" name="gia_thue_min" class="form-control format-money" placeholder="Từ" value="{{ request('gia_thue_min') }}">
-                                <input type="text" name="gia_thue_max" class="form-control format-money" placeholder="Đến" value="{{ request('gia_thue_max') }}">
-                            </div>
+                                    <i class="tio-filter-list mr-1"></i>
+                                </a>
                             </div>
 
-                            <div class="form-group">
-                            <label for="thang_nam">Tháng năm</label>
-                            <input type="month" name="thang_nam" id="thang_nam" class="form-control"
-                                    value="{{ request('thang_nam') }}">
-                            </div>
-
-                            <div class="form-group">
-                            <label for="trang_thai">Trạng thái</label>
-                            <select name="trang_thai" id="trang_thai" class="form-control selectpicker" data-live-search="true" title="Chọn trạng thái">
-                                <option value="">-- Tất cả --</option>
-                                <option value="da thanh toan" {{ request('trang_thai') == 'da thanh toan' ? 'selected' : '' }}>Đã thanh toán</option>
-                                <option value="chua thanh toan" {{ request('trang_thai') == 'chua thanh toan' ? 'selected' : '' }}>Chưa thanh toán</option>
-                            </select>
-                            </div>
-                    
-                            <button type="submit" class="btn btn-primary btn-block mt-3">Lọc</button>
-                        </form>
+                            <!-- End Unfold -->
+                            <!-- Unfold -->
+                            @if ($dangLoc)
+                                <div class="hs-unfold mr-2">
+                                    <a href="{{ url()->current() }}" class="btn btn-outline-secondary ml-2">
+                                        <i class="tio-refresh"></i>
+                                    </a>
+                                </div>
+                            @endif
+                            <!-- End Unfold -->
                         </div>
-                    </div>
-                    </div>
+
+                        <!-- Sidebar filter -->
+                        <div id="datatableFilterSidebar"
+                            class="hs-unfold-content sidebar sidebar-bordered sidebar-box-shadow">
+                            <div class="card mb-5">
+                                <div class="card-header">
+                                    <h5 class="mb-0">Bộ lọc</h5>
+                                </div>
+                                <div class="card-body">
+                                    <form method="GET" action="{{ route('kt.hoadon') }}">
+                                        <div class="form-group">
+                                            <label for="ma_toa_nha">Tòa nhà</label>
+                                            <select name="ma_toa_nha" id="ma_toa_nha" class="form-control selectpicker"
+                                                data-live-search="true" title="Chọn tòa nhà">
+                                                <option value="">-- Tất cả --</option>
+                                                @foreach ($dsToaNha as $toaNha)
+                                                    <option value="{{ $toaNha->ma_toa_nha }}"
+                                                        {{ request('ma_toa_nha') == $toaNha->ma_toa_nha ? 'selected' : '' }}>
+                                                        {{ $toaNha->ten_toa_nha }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Tiền</label>
+                                            <div class="input-group">
+                                                <input type="text" name="gia_thue_min" class="form-control format-money"
+                                                    placeholder="Từ" value="{{ request('gia_thue_min') }}">
+                                                <input type="text" name="gia_thue_max" class="form-control format-money"
+                                                    placeholder="Đến" value="{{ request('gia_thue_max') }}">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="thang_nam">Tháng năm</label>
+                                            <input type="month" name="thang_nam" id="thang_nam" class="form-control"
+                                                value="{{ request('thang_nam') }}">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="trang_thai">Trạng thái</label>
+                                            <select name="trang_thai" id="trang_thai" class="form-control selectpicker"
+                                                data-live-search="true" title="Chọn trạng thái">
+                                                <option value="">-- Tất cả --</option>
+                                                <option value="da thanh toan"
+                                                    {{ request('trang_thai') == 'da thanh toan' ? 'selected' : '' }}>Đã
+                                                    thanh toán</option>
+                                                <option value="chua thanh toan"
+                                                    {{ request('trang_thai') == 'chua thanh toan' ? 'selected' : '' }}>Chưa
+                                                    thanh toán</option>
+                                            </select>
+                                        </div>
+
+                                        <button type="submit" class="btn btn-primary btn-block mt-3">Lọc</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
                     <!-- End Row -->
@@ -220,11 +263,11 @@
                                 <tr>
                                     <td>
                                         <a class="btn-xem-hoadon" href="javascript:;"
-                                                data-hoadon='@json($hoaDon)'
-                                                data-id="{{ $hoaDon->ma_hoa_don }}"
-                                                data-export-url="{{ route('kt.hoadon', $hoaDon->ma_hoa_don) }}"
-                                                data-toggle="tooltip" data-placement="top" title="Xem">
-                                                {{ $hoaDon->ma_hoa_don }}</a>
+                                            data-hoadon='@json($hoaDon)'
+                                            data-id="{{ $hoaDon->ma_hoa_don }}"
+                                            data-export-url="{{ route('kt.hoadon', $hoaDon->ma_hoa_don) }}"
+                                            data-toggle="tooltip" data-placement="top" title="Xem">
+                                            {{ $hoaDon->ma_hoa_don }}</a>
                                     </td>
                                     <td>{{ $hoaDon->thang_nam }}</td>
                                     <td>{{ number_format($hoaDon->tong_tien, 0, ',', '.') }} đ</td>
@@ -236,7 +279,7 @@
                                             <span class="badge badge-soft-danger"> Chưa thanh toán
                                             </span>
                                         @endif
-                                        
+
                                     </td>
                                     <td>
                                         <div class="btn-group" role="group" style="gap: 0.5rem;">
@@ -312,38 +355,39 @@
         <!-- End Content -->
 
         <!-- HoaDon Modal Popup -->
-      <div class="modal fade" id="hoadonModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title"></h5>
-              <button type="button" class="btn btn-close btn-sm btn-ghost-secondary" data-bs-dismiss="modal" aria-label="Đóng">
-                <i class="tio-clear tio-lg"></i>
-              </button>
+        <div class="modal fade" id="hoadonModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"></h5>
+                        <button type="button" class="btn btn-close btn-sm btn-ghost-secondary" data-bs-dismiss="modal"
+                            aria-label="Đóng">
+                            <i class="tio-clear tio-lg"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="modalBodyContent">
+                        <!-- Nội dung ở đây -->
+                        <div class="text-center">Đang tải...</div>
+                    </div>
+                </div>
             </div>
-            <div class="modal-body" id="modalBodyContent">
-              <!-- Nội dung ở đây -->
-              <div class="text-center">Đang tải...</div>
-            </div>
-          </div>
         </div>
-      </div>
-    <!-- End HoaDon Modal Popup -->
+        <!-- End HoaDon Modal Popup -->
     </main>
 @endsection
 @push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        $(document).on('click', '.btn-xem-hoadon', function () {
+        $(document).on('click', '.btn-xem-hoadon', function() {
             const id = $(this).data('id');
             $('#modalBodyContent').html('<div class="text-center">Đang tải...</div>');
             $('#hoadonModal').modal('show');
-        
-            $('#modalBodyContent').load(`/kt/hoadon/preview/${id}`, function (response, status, xhr) {
+
+            $('#modalBodyContent').load(`/kt/hoadon/preview/${id}`, function(response, status, xhr) {
                 if (status === "error") {
                     $('#modalBodyContent').html('<div class="text-danger">Lỗi tải dữ liệu</div>');
                 }
             });
         });
-        </script>
+    </script>
 @endpush

@@ -482,7 +482,7 @@ class HopDongController extends Controller
         if ($chiTietHopDong) {
             $vanPhong = $chiTietHopDong->vanPhong;
             if ($vanPhong) {
-                $vanPhong->update(['trang_thai' => 'Dang trong']);
+                $vanPhong->update(['trang_thai' => 'dang trong']);
             }
         }
 

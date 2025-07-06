@@ -12,6 +12,7 @@ use App\Models\ThanhToan;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\PaymentSuccessMail;
+use Illuminate\Support\Facades\DB;
 
 class ThanhToanController extends Controller
 {
@@ -82,7 +83,7 @@ class ThanhToanController extends Controller
         return redirect($vnp_Url);
     }
 
-    public function vnpayReturn(Request $request)
+    /*public function vnpayReturn(Request $request)
     {
         $vnp_HashSecret = env('VNPAY_HASH_SECRET');
         $vnp_SecureHash = $request->input('vnp_SecureHash');
@@ -149,6 +150,145 @@ class ThanhToanController extends Controller
             }
         } else {
             return redirect()->route('kt.hoadon')->with('error', 'Sai chữ ký xác minh!');
+        }
+    }*/
+    public function vnpayReturn(Request $request)
+    {
+        try {
+            Log::info('[VNPay Return] Request Data:', $request->all());
+
+            $vnp_HashSecret = env('VNPAY_HASH_SECRET');
+            $vnp_SecureHash = $request->input('vnp_SecureHash');
+            $inputData = [];
+
+            foreach ($request->all() as $key => $value) {
+                if (substr($key, 0, 4) == "vnp_") {
+                    $inputData[$key] = $value;
+                }
+            }
+
+            unset($inputData['vnp_SecureHash']);
+            unset($inputData['vnp_SecureHashType']);
+
+            ksort($inputData);
+            $hashData = "";
+            $i = 0;
+
+            foreach ($inputData as $key => $value) {
+                if ($i == 1) {
+                    $hashData .= '&' . urlencode($key) . "=" . urlencode($value);
+                } else {
+                    $hashData .= urlencode($key) . "=" . urlencode($value);
+                    $i = 1;
+                }
+            }
+
+            $secureHash = hash_hmac('sha512', $hashData, $vnp_HashSecret);
+
+            if ($secureHash !== $vnp_SecureHash) {
+                Log::error('[VNPay Return] Sai chữ ký xác thực', [
+                    'expected' => $secureHash,
+                    'received' => $vnp_SecureHash
+                ]);
+                return redirect()->route('kt.hoadon')->with('error', 'Chữ ký không hợp lệ!');
+            }
+
+            if ($inputData['vnp_TmnCode'] != env('VNPAY_TMN_CODE')) {
+                Log::error('[VNPay Return] Sai mã website', [
+                    'expected' => env('VNPAY_TMN_CODE'),
+                    'received' => $inputData['vnp_TmnCode']
+                ]);
+                return redirect()->route('kt.hoadon')->with('error', 'Mã website không hợp lệ!');
+            }
+
+            $txnRef = $inputData['vnp_TxnRef'];
+            $hoaDon = HoaDon::where('ma_hoa_don', $txnRef)->first();
+
+            if (!$hoaDon) {
+                ThanhToan::create([
+                    'ma_hoa_don' => $txnRef,
+                    'ma_giao_dich' => $inputData['vnp_TransactionNo'] ?? '',
+                    'so_tien' => $inputData['vnp_Amount'] / 100,
+                    'phuong_thuc' => $inputData['vnp_CardType'] ?? 'VNPAY',
+                    'trang_thai' => 'that bai',
+                    'thoi_gian' => Carbon::now(),
+                    'noi_dung' => 'Hóa đơn không tồn tại',
+                    'phan_hoi_tu_cong_thanh_toan' => json_encode($inputData),
+                ]);
+
+                Log::error('[VNPay Return] Hóa đơn không tồn tại', ['ma_hoa_don' => $txnRef]);
+                return redirect()->route('kt.hoadon')->with('error', 'Hóa đơn không tồn tại!');
+            }
+
+            if (isset($inputData['vnp_Command']) && $inputData['vnp_Command'] == 'ipn') {
+                return response()->json([
+                    'RspCode' => '00',
+                    'Message' => 'Confirm Success'
+                ]);
+            }
+
+            if ($hoaDon->trang_thai === 'da thanh toan') {
+                Log::warning('[VNPay Return] Hóa đơn đã thanh toán trước đó', ['ma_hoa_don' => $txnRef]);
+                return redirect()->route('kt.hoadon')->with('warning', 'Hóa đơn đã được thanh toán trước đó!');
+            }
+
+            if ($inputData['vnp_ResponseCode'] == '00') {
+                DB::transaction(function () use ($hoaDon, $inputData) {
+                    $amount = $inputData['vnp_Amount'] / 100;
+                    if ($amount != $hoaDon->tong_tien) {
+                        throw new \Exception("Số tiền thanh toán không khớp");
+                    }
+
+                    $hoaDon->trang_thai = 'da thanh toan';
+                    $hoaDon->save();
+
+                    $this->sendPaymentSuccess($hoaDon->ma_hoa_don);
+
+                    ThanhToan::create([
+                        'ma_hoa_don' => $hoaDon->ma_hoa_don,
+                        'ma_giao_dich' => $inputData['vnp_TransactionNo'] ?? '',
+                        'so_tien' => $amount,
+                        'phuong_thuc' => $inputData['vnp_CardType'] ?? 'VNPAY',
+                        'trang_thai' => 'thanh cong',
+                        'thoi_gian' => Carbon::now(),
+                        'noi_dung' => $inputData['vnp_OrderInfo'] ?? '',
+                        'phan_hoi_tu_cong_thanh_toan' => json_encode($inputData),
+                    ]);
+
+                    Log::info('[VNPay Return] Thanh toán thành công', [
+                        'ma_hoa_don' => $hoaDon->ma_hoa_don,
+                        'so_tien' => $amount
+                    ]);
+                });
+
+                return redirect()->route('kt.hoadon')->with('success', 'Thanh toán thành công!');
+            } else {
+                ThanhToan::create([
+                    'ma_hoa_don' => $hoaDon->ma_hoa_don,
+                    'ma_giao_dich' => $inputData['vnp_TransactionNo'] ?? '',
+                    'so_tien' => $inputData['vnp_Amount'] / 100,
+                    'phuong_thuc' => $inputData['vnp_CardType'] ?? 'VNPAY',
+                    'trang_thai' => 'that bai',
+                    'thoi_gian' => Carbon::now(),
+                    'noi_dung' => $inputData['vnp_OrderInfo'] ?? '',
+                    'phan_hoi_tu_cong_thanh_toan' => json_encode($inputData),
+                ]);
+
+                Log::error('[VNPay Return] Thanh toán thất bại', [
+                    'ma_hoa_don' => $hoaDon->ma_hoa_don,
+                    'response_code' => $inputData['vnp_ResponseCode'],
+                    'message' => $inputData['vnp_Message'] ?? ''
+                ]);
+
+                return redirect()->route('kt.hoadon')->with('error', 'Thanh toán thất bại: ' . ($inputData['vnp_Message'] ?? ''));
+            }
+        } catch (\Exception $e) {
+            Log::error('[VNPay Return] Exception: ' . $e->getMessage(), [
+                'trace' => $e->getTraceAsString(),
+                'ma_hoa_don' => $txnRef ?? 'unknown'
+            ]);
+
+            return redirect()->route('kt.hoadon')->with('error', 'Đã xảy ra lỗi khi xử lý thanh toán!');
         }
     }
 

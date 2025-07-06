@@ -122,7 +122,7 @@ return new class extends Migration
             $table->string('trang_thai', 50);
             $table->dateTime('thoi_gian');
             $table->string('noi_dung', 255);
-            $table->string('phan_hoi_tu_cong_thanh_toan', 255)->nullable();
+            $table->longText('phan_hoi_tu_cong_thanh_toan', 255)->nullable();
             $table->foreign('ma_hoa_don')->references('ma_hoa_don')->on('hoa_don')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
