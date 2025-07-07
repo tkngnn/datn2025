@@ -33,7 +33,7 @@ class HomeController extends Controller
         $thongKeHCM = [];
 
         foreach ($dsPhuongHCM as $phuong) {
-            $count = ToaNha::where('dia_chi', 'like', '%' . $phuong . '%')->whereRaw('LOWER(trang_thai) = ?', ['hoat dong'])->count();
+            $count = ToaNha::where('dia_chi', 'like', '%' . $phuong . '%')->where('trang_thai', 'hoat dong')->count();
             $tenFile = Str::slug($phuong) . '.jpg';
             $thongKeHCM[] = [
                 'phuong' => $phuong,

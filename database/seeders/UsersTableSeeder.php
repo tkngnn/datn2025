@@ -181,7 +181,7 @@ class UsersTableSeeder extends Seeder
                 'dia_chi' => '12 Lạch Tray, Phường Lạch Tray, Quận Ngô Quyền, TP. Hải Phòng',
                 'cccd' => '134567890123',
                 'vai_tro' => 'KT',
-                'trang_thai' => '0',
+                'trang_thai' => '1',
                 'created_at' => now(), 'updated_at' => now()
             ]
         ]);
