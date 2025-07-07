@@ -17,7 +17,7 @@ class UsersTableSeeder extends Seeder
         DB::table('users')->insert([
             [
                 'name' => 'Nguyễn Hoàng Nam',
-                'email' => 'nam.nguyen@example.com',
+                'email' => 'nam.nguyen@gmail.com',
                 'password' => Hash::make('123456'),
                 'so_dien_thoai' => '0912345678',
                 'dia_chi' => 'Số 15 Lê Duẩn, Phường Bến Nghé, Quận 1, TP. Hồ Chí Minh',
@@ -28,7 +28,7 @@ class UsersTableSeeder extends Seeder
             ],
             [
                 'name' => 'Lê Văn Phúc',
-                'email' => 'phuc.le@example.com',
+                'email' => 'phuc.le@gmail.com',
                 'password' => Hash::make('123456'),
                 'so_dien_thoai' => '0934567890',
                 'dia_chi' => '98 Nguyễn Oanh, Phường 17, Quận Gò Vấp, TP. Hồ Chí Minh',
@@ -39,7 +39,7 @@ class UsersTableSeeder extends Seeder
             ],
             [
                 'name' => 'Trần Thị Minh Thư',
-                'email' => 'minhthu.tran@example.com',
+                'email' => 'minhthu.tran@gmail.com',
                 'password' => Hash::make('123456'),
                 'so_dien_thoai' => '0923456789',
                 'dia_chi' => '123 Nguyễn Thị Minh Khai, Phường Phạm Ngũ Lão, Quận 1, TP. Hồ Chí Minh',
@@ -50,7 +50,7 @@ class UsersTableSeeder extends Seeder
             ],
             [
                 'name' => 'Phạm Thị Hồng Nhung',
-                'email' => 'hongnhung.pham@example.com',
+                'email' => 'hongnhung.pham@gmail.com',
                 'password' => Hash::make('123456'),
                 'so_dien_thoai' => '0945678901',
                 'dia_chi' => '25 Hoàng Diệu, Phường 10, Quận Phú Nhuận, TP. Hồ Chí Minh',
@@ -61,7 +61,7 @@ class UsersTableSeeder extends Seeder
             ],
             [
                 'name' => 'Đỗ Quốc Khánh',
-                'email' => 'quockhanh.do@example.com',
+                'email' => 'quockhanh.do@gmail.com',
                 'password' => Hash::make('123456'),
                 'so_dien_thoai' => '0956789012',
                 'dia_chi' => '42 Lý Thường Kiệt, Phường 7, Quận Tân Bình, TP. Hồ Chí Minh',
@@ -72,7 +72,7 @@ class UsersTableSeeder extends Seeder
             ],
             [
                 'name' => 'Vũ Thị Mai Hương',
-                'email' => 'maihuong.vu@example.com',
+                'email' => 'maihuong.vu@gmail.com',
                 'password' => Hash::make('123456'),
                 'so_dien_thoai' => '0961234567',
                 'dia_chi' => '35 Nguyễn Thị Tú, Phường Bình Hưng Hòa B, Quận Bình Tân, TP. Hồ Chí Minh',
@@ -83,7 +83,7 @@ class UsersTableSeeder extends Seeder
             ],
             [
                 'name' => 'Ngô Văn Tài',
-                'email' => 'tai.ngo@example.com',
+                'email' => 'tai.ngo@gmail.com',
                 'password' => Hash::make('123456'),
                 'so_dien_thoai' => '0972345678',
                 'dia_chi' => '52 Trần Phú, Phường Hải Châu 1, Quận Hải Châu, TP. Đà Nẵng',
@@ -94,7 +94,7 @@ class UsersTableSeeder extends Seeder
             ],
             [
                 'name' => 'Phan Thị Lan',
-                'email' => 'lan.phan@example.com',
+                'email' => 'lan.phan@gmail.com',
                 'password' => Hash::make('123456'),
                 'so_dien_thoai' => '0983456789',
                 'dia_chi' => 'Số 2 Phạm Văn Đồng, Phường Dịch Vọng Hậu, Quận Cầu Giấy, TP. Hà Nội',
@@ -153,7 +153,7 @@ class UsersTableSeeder extends Seeder
             ],
             [
                 'name' => 'Trịnh Đức Minh',
-                'email' => 'minh.trinh@example.com',
+                'email' => 'minh.trinh@gmail.com',
                 'password' => Hash::make('123456'),
                 'so_dien_thoai' => '0994567890',
                 'dia_chi' => '18 Nguyễn Văn Cừ, Phường An Bình, Quận Ninh Kiều, TP. Cần Thơ',
@@ -164,7 +164,7 @@ class UsersTableSeeder extends Seeder
             ],
             [
                 'name' => 'Bùi Thị Kim Ngân',
-                'email' => 'kimngan.bui@example.com',
+                'email' => 'kimngan.bui@gmail.com',
                 'password' => Hash::make('123456'),
                 'so_dien_thoai' => '0905678901',
                 'dia_chi' => '12 Lạch Tray, Phường Lạch Tray, Quận Ngô Quyền, TP. Hải Phòng',

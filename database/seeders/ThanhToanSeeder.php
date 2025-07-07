@@ -14,7 +14,7 @@ class ThanhToanSeeder extends Seeder
             [
                 'ma_hoa_don' => 1,
                 'ma_giao_dich' => 'GD20250401',
-                'so_tien' => 15750000.00,
+                'so_tien' => 83863450,
                 'phuong_thuc' => 'Chuyen khoan',
                 'trang_thai' => 'Hoan thanh',
                 'thoi_gian' => now()->subDays(10),
@@ -27,7 +27,7 @@ class ThanhToanSeeder extends Seeder
             [
                 'ma_hoa_don' => 3,
                 'ma_giao_dich' => 'GD20250402',
-                'so_tien' => 12400000.00,
+                'so_tien' => 276341450,
                 'phuong_thuc' => 'Tien mat',
                 'trang_thai' => 'Hoan thanh',
                 'thoi_gian' => now()->subDays(8),
@@ -40,7 +40,7 @@ class ThanhToanSeeder extends Seeder
             [
                 'ma_hoa_don' => 5,
                 'ma_giao_dich' => 'GD20250403',
-                'so_tien' => 30960000.00,
+                'so_tien' => 169458850,
                 'phuong_thuc' => 'Chuyen khoan',
                 'trang_thai' => 'Hoan thanh',
                 'thoi_gian' => now()->subDays(3),

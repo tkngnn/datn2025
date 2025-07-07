@@ -82,6 +82,11 @@ class HopDongController extends Controller
         if ($selectedUserId && !$users->pluck('id')->contains($selectedUserId)) {
             $user = User::find($selectedUserId);
             if ($user) {
+                if ($user->trang_thai == 0) {
+                    return redirect()->route('admin.hopdong.index')
+                        ->with(['error' => 'Người dùng đã bị vô hiệu hóa, không thể lập hợp đồng.']);
+                }
+
                 $users->push($user);
             }
         }
@@ -95,12 +100,32 @@ class HopDongController extends Controller
                 ->get();
         }
 
+        if ($selectedVanPhongId) {
+            $selectedVanPhong = $vanPhongs->first(function ($vp) use ($selectedVanPhongId) {
+                return (string) $vp->ma_van_phong === (string) $selectedVanPhongId;
+            });
+            $selectedToaNhaId = $selectedVanPhong?->toaNha?->ma_toa_nha ?? null;
+
+            Log::debug('Selected VanPhong:', [$selectedVanPhong]);
+            Log::debug('Related ToaNha:', [$selectedVanPhong?->toaNha]);
+            if (
+                !$selectedVanPhong ||
+                $selectedVanPhong->trang_thai === 'khong hoat dong' ||
+                $selectedVanPhong->toaNha?->trang_thai === 'khong hoat dong'
+            ) {
+                return redirect()->route('admin.hopdong.index')
+                    ->with(['error' => 'Văn phòng hoặc tòa nhà đã ngưng hoạt động, không thể lập hợp đồng.']);
+            }
+        } else {
+            $selectedToaNhaId = null;
+        }
         return view('admin.hopdong.create', compact(
             'users',
             'vanPhongs',
             'toaNhas',
             'selectedUserId',
-            'selectedVanPhongId'
+            'selectedVanPhongId',
+            'selectedToaNhaId'
         ));
     }
 
@@ -121,7 +146,6 @@ class HopDongController extends Controller
             'dai_dien' => 'nullable|string|max:100',
 
             'tien_thue' => 'required|numeric|min:0',
-            'chu_ky' => 'required|in:1,3,6,12',
             'ngay_bat_dau_tinh_tien' => 'required|date|after_or_equal:ngay_bat_dau',
             'tien_coc' => 'required|numeric|min:0',
 
@@ -131,7 +155,7 @@ class HopDongController extends Controller
             'note' => 'nullable|string',
             'ghi_chu' => 'nullable|string|max:255',
         ]);
-
+        Log::info('Request data:', $request->all());
         DB::beginTransaction();
         try {
             $hopDong = HopDong::create([
@@ -143,9 +167,9 @@ class HopDongController extends Controller
                 'tinh_trang' => 'da lap',
                 'ghi_chu_thanh_ly' => $validated['ghi_chu'] ?? null,
             ]);
-
+            Log::info('Tạo hợp đồng:', $hopDong->toArray());
             $vanPhong = VanPhong::findOrFail($validated['vanphong_id']);
-
+            Log::debug('VanPhong ID:', [$validated['vanphong_id']]);
             ChiTietHopDong::create([
                 'ma_hop_dong' => $hopDong->ma_hop_dong,
                 'ma_van_phong' => $validated['vanphong_id'],
@@ -155,7 +179,15 @@ class HopDongController extends Controller
                 'gia_nuoc' => $validated['gia_nuoc'],
                 'dich_vu_khac' => $validated['dich_vu_khac'] ?? 0,
             ]);
-
+            Log::debug('Dữ liệu Chi Tiết HĐ:', [
+                'ma_hop_dong' => $hopDong->ma_hop_dong,
+                'ma_van_phong' => $validated['vanphong_id'],
+                'dien_tich' => $vanPhong->dien_tich,
+                'gia_thue' => $validated['tien_thue'],
+                'gia_dien' => $validated['gia_dien'],
+                'gia_nuoc' => $validated['gia_nuoc'],
+                'dich_vu_khac' => $validated['dich_vu_khac'] ?? 0,
+            ]);
             LichSuCoc::create([
                 'ma_hop_dong' => $hopDong->ma_hop_dong,
                 'so_tien' => $validated['tien_coc'],
@@ -164,10 +196,6 @@ class HopDongController extends Controller
                 'tinh_trang_hoan' => 'chua hoan',
                 'so_tien_hoan' => null,
                 'ghi_chu' => 'Cọc ban đầu khi ký hợp đồng'
-            ]);
-
-            $vanPhong->update([
-                'trang_thai' => 'da thue'
             ]);
 
             DB::commit();
@@ -205,7 +233,7 @@ class HopDongController extends Controller
             return redirect()->route('admin.hopdong.index')->with('success', 'Tạo hợp đồng thành công!');
         } catch (\Exception $e) {
             DB::rollBack();
-            return back()->withInput()->withErrors(['error' => 'Đã xảy ra lỗi: ' . $e->getMessage()]);
+            return back()->withInput()->with(['error' => 'Đã xảy ra lỗi: ' . $e->getMessage()]);
         }
     }
 
@@ -355,7 +383,7 @@ class HopDongController extends Controller
                 'tinh_trang' => $validated['tinh_trang'],
             ]);
             Log::info('Validated Data updatehd');
-           
+
             $chiTiet = ChiTietHopDong::where('ma_hop_dong', $hopDong->ma_hop_dong)
                 ->where('ma_van_phong', $maVanPhongCu)
                 ->first();
@@ -364,7 +392,6 @@ class HopDongController extends Controller
             if ($chiTiet) {
                 Log::info('updatechi tiet:');
                 if ($validated['vanphong_id'] == $maVanPhongCu) {
-                    // Văn phòng không đổi → update bình thường
                     $chiTiet->update([
                         'gia_thue' => $validated['tien_thue'],
                         'gia_dien' => $validated['gia_dien'],
@@ -377,15 +404,12 @@ class HopDongController extends Controller
                     $vanPhongMoi = VanPhong::findOrFail($validated['vanphong_id']);
                     Log::info('→ Tìm được văn phòng mới', $vanPhongMoi->toArray());
 
-                    // 1. Xóa bản ghi cũ
-                    //$chiTiet->delete();
                     try {
-                        //$chiTiet->forceDelete();
-                        $chiTiet->forceDelete();                        Log::info('→ Đã force delete chi tiết cũ', $chiTiet->toArray());
+                        $chiTiet->forceDelete();
+                        Log::info('→ Đã xóa chi tiết cũ', $chiTiet->toArray());
                     } catch (\Exception $e) {
-                        Log::error('❌ Lỗi khi force delete chi tiết cũ: ' . $e->getMessage());
+                        Log::error('Lỗi khi xóa chi tiết cũ: ' . $e->getMessage());
                     }
-                    // 2. Tạo bản ghi mới
                     $newChiTiet = ChiTietHopDong::create([
                         'ma_hop_dong' => $hopDong->ma_hop_dong,
                         'ma_van_phong' => $validated['vanphong_id'],
@@ -404,21 +428,10 @@ class HopDongController extends Controller
 
             DB::commit();
 
-            try {
-                $user = User::findOrFail($validated['khach_thue_id']);
-
-                if ($user->email) {
-                    Mail::to($user->email)->send(new HopDongMoiMail($user, $hopDong));
-                } else {
-                    Log::warning("User {$user->id} không có email để gửi thông báo hợp đồng.");
-                }
-            } catch (\Exception $e) {
-                Log::error("Gửi email thông báo hợp đồng thất bại: " . $e->getMessage());
-            }
             return redirect()->route('admin.hopdong.index')->with('success', 'Cập nhật hợp đồng thành công!');
         } catch (\Exception $e) {
             DB::rollBack();
-            return back()->withInput()->withErrors(['error' => 'Đã xảy ra lỗi: ' . $e->getMessage()]);
+            return back()->withInput()->with(['error' => 'Đã xảy ra lỗi: ' . $e->getMessage()]);
         }
     }
 
@@ -469,7 +482,7 @@ class HopDongController extends Controller
         if ($chiTietHopDong) {
             $vanPhong = $chiTietHopDong->vanPhong;
             if ($vanPhong) {
-                $vanPhong->update(['trang_thai' => 'Dang trong']);
+                $vanPhong->update(['trang_thai' => 'dang trong']);
             }
         }
 

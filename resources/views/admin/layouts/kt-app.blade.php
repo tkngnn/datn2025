@@ -7,11 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Title -->
-    <title>Dashboard | Front - Admin &amp; Dashboard Template</title>
+    <title>BGROUP</title>
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="favicon.ico">
-
+    <link rel="shortcut icon" href="{{ asset('user/assets/img/bGROUP_white.png') }}">
     <!-- Font -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
 

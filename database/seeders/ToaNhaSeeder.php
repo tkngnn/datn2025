@@ -14,7 +14,7 @@ class ToaNhaSeeder extends Seeder
         DB::table('toa_nha')->insert([
             [
                 'ten_toa_nha' => 'Lim 3 Tower',
-                'dia_chi' => '144 Lê Lai, F. Bến Thành, Q.1', 
+                'dia_chi' => '144 Lê Lai, Phường Bến Thành, TP.HCM', 
                 'mo_ta' => " <h2>Giới thiệu tòa nhà Lim 3 Tower</h2>
                 <p><strong>Lim 3 Tower</strong> là một trong những tòa nhà văn phòng hiện đại nhất nằm tại khu vực trung tâm Quận 1 – nơi hội tụ các hoạt động kinh tế, thương mại và tài chính sôi động nhất Thành phố Hồ Chí Minh. Tọa lạc tại địa chỉ <strong>29A Nguyễn Đình Chiểu, Phường Đa Kao, Quận 1</strong>, tòa nhà sở hữu vị trí đắc địa, dễ dàng kết nối với các tuyến đường lớn như Hai Bà Trưng, Nguyễn Thị Minh Khai và Điện Biên Phủ.</p>
 
@@ -41,7 +41,7 @@ class ToaNhaSeeder extends Seeder
             ],
             [
                 'ten_toa_nha' => 'Central Plaza',
-                'dia_chi' => '159C Đề Thám, Phường Cô Giang, Quận 1', 
+                'dia_chi' => '159C Đề Thám, Phường Cô Giang, TP.HCM', 
                 'mo_ta' => "<h2>Giới thiệu tòa nhà Central Plaza</h2>
                 <p>Tọa lạc tại số <strong>159C Đề Thám, Phường Cô Giang, Quận 1</strong> – trái tim của thành phố, <strong>Central Plaza</strong> không chỉ giữ vị trí đắc địa ở ngay trung tâm mà còn tạo nên một dấu ấn vững chắc trong lòng khách hàng nhờ sự tiện nghi và chất lượng dịch vụ vượt trội.</p>
 
@@ -66,7 +66,7 @@ class ToaNhaSeeder extends Seeder
             ], 
             [
                 'ten_toa_nha' => 'Deutsches Haus',
-                'dia_chi' => '51 Nguyễn Cư Trinh, Phường Nguyễn Cư Trinh, Quận 1', 
+                'dia_chi' => '51 Nguyễn Cư Trinh, Phường Nguyễn Cư Trinh, TP.HCM', 
                 'mo_ta' => "<h2>Giới thiệu tòa nhà Deutsches Haus</h2>
                 <p><strong>Deutsches Haus</strong> tự hào với vị trí chiến lược tại trung tâm thành phố Hồ Chí Minh. Đây là một trong những tòa nhà văn phòng hạng A cao cấp và hiện đại bậc nhất thành phố.</p>
 
@@ -91,7 +91,7 @@ class ToaNhaSeeder extends Seeder
             ],
             [
                 'ten_toa_nha' => 'The Nexus Tower',
-                'dia_chi' => '55 Hồ Hảo Hớn, Phường Cô Giang, Quận 1', 
+                'dia_chi' => '55 Hồ Hảo Hớn, Phường Cô Giang, TP.HCM', 
                 'mo_ta' => "<h2>Giới thiệu tòa nhà The Nexus Tower</h2>
                 <p><strong>The Nexus Tower</strong> nằm ở vị trí đắc địa ngay trung tâm Quận 1. Tòa nhà mang đến một môi trường làm việc chuyên nghiệp, hiện đại và đẳng cấp, phù hợp với mọi doanh nghiệp đang tìm kiếm vị trí chiến lược để phát triển kinh doanh.</p>
 
@@ -117,7 +117,7 @@ class ToaNhaSeeder extends Seeder
             ], 
             [
                 'ten_toa_nha' => 'Sonatus Building',
-                'dia_chi' => '123 Nguyễn Đình Chiểu, Phường 6, Quận 3', 
+                'dia_chi' => '123 Nguyễn Đình Chiểu, Phường 6, TP.HCM', 
                 'mo_ta' => '"<h2>Giới thiệu tòa nhà Sonatus Building</h2>
                 <p><strong>Sonatus Building</strong> là một trong những tòa nhà văn phòng hàng đầu tại Quận 3, TP. Hồ Chí Minh. Đây là vị trí trung tâm, giao thông thuận tiện, dễ dàng kết nối với các trục đường chính.</p>
 
@@ -143,7 +143,7 @@ class ToaNhaSeeder extends Seeder
             ],
             [
                 'ten_toa_nha' => 'Saigon Tower',
-                'dia_chi' => '13 Trương Định, Phường Võ Thị Sáu, Quận 3', 
+                'dia_chi' => '13 Trương Định, Phường Võ Thị Sáu, TP.HCM', 
                 'mo_ta' => "<h2>Giới thiệu tòa nhà Saigon Tower</h2>
                 <p><strong>Saigon Tower</strong> là một trong những biểu tượng văn phòng cao cấp tại trung tâm Thành phố Hồ Chí Minh. Vị trí trung tâm của trung tâm là nơi lý tưởng cho các doanh nghiệp quốc tế lẫn nội địa thiết lập hoặc mở rộng văn phòng đại diện.</p>
 
@@ -168,7 +168,7 @@ class ToaNhaSeeder extends Seeder
             ], 
             [
                 'ten_toa_nha' => 'AB Tower',
-                'dia_chi' => '186 Nguyễn Thị Minh Khai, Phường Võ Thị Sáu, Quận 3', 
+                'dia_chi' => '186 Nguyễn Thị Minh Khai, Phường Võ Thị Sáu, TP.HCM', 
                 'mo_ta' => "<h2>Giới thiệu tòa nhà AB Tower</h2>
                 <p><strong>AB Tower</strong> là một trong những tòa nhà văn phòng cao cấp tọa lạc ngay tại trung tâm hành chính – thương mại – giải trí sôi động nhất TP.HCM. Đây là lựa chọn lý tưởng cho các doanh nghiệp trong và ngoài nước đang tìm kiếm không gian làm việc chuyên nghiệp và hiện đại.</p>
 
@@ -193,7 +193,7 @@ class ToaNhaSeeder extends Seeder
             ],
             [
                 'ten_toa_nha' => 'HB Bank Tower',
-                'dia_chi' => '225 Nam Kỳ Khởi Nghĩa, Phường 14, Quận 3', 
+                'dia_chi' => '225 Nam Kỳ Khởi Nghĩa, Phường 14, TP.HCM', 
                 'mo_ta' => "<h2>Giới thiệu tòa nhà HD Bank Tower</h2>
                 <p><strong>HD Bank Tower</strong> là một trong những tòa nhà văn phòng cao cấp đáng cân nhắc nhất Quận 1, TP. Hồ Chí Minh. Tòa nhà sở hữu vị trí kết nối chiến lược, gần các tuyến đường trọng điểm và các tiện ích như ngân hàng, khách sạn, trung tâm thương mại, nhà hàng, trạm xe buýt,...</p>
 
@@ -218,7 +218,7 @@ class ToaNhaSeeder extends Seeder
             ], 
             [
                 'ten_toa_nha' => 'An An Building',
-                'dia_chi' => '26 Ung Văn Khiêm, Phường 25, Quận Bình Thạnh', 
+                'dia_chi' => '26 Ung Văn Khiêm, Phường 25, TP.HCM', 
                 'mo_ta' => "<h2>Giới thiệu tòa nhà An An Building</h2>
                 <p><strong>An An Building</strong> tọa lạc trên tuyến đường <strong>Ung Văn Khiêm</strong> – một trong những trục đường giao thông huyết mạch nối liền các quận nội thành TP.HCM. Đây là lựa chọn lý tưởng cho các doanh nghiệp vừa và nhỏ đang tìm kiếm văn phòng cho thuê với mức chi phí hợp lý và không gian làm việc hiện đại.</p>
 
@@ -246,7 +246,7 @@ class ToaNhaSeeder extends Seeder
             ],
             [
                 'ten_toa_nha' => 'Havana Tower',
-                'dia_chi' => '278 Nguyễn Đình Chiểu, Phường 6, Quận 3', 
+                'dia_chi' => '278 Nguyễn Đình Chiểu, Phường 6, TP.HCM', 
                 'mo_ta' => "<h2>Giới thiệu tòa nhà Havana Tower 2</h2>
                 <p><strong>Havana Tower</strong> là sự lựa chọn lý tưởng cho doanh nghiệp đang tìm kiếm mặt bằng kinh doanh hoặc văn phòng làm việc tại trung tâm thành phố Hồ Chí Minh. Tòa nhà sở hữu vị trí chiến lược, dễ dàng kết nối với các tuyến đường trọng yếu và khu hành chính – tài chính quan trọng.</p>
 
@@ -271,7 +271,7 @@ class ToaNhaSeeder extends Seeder
             ], 
             [
                 'ten_toa_nha' => 'Zen Plaza Tower',
-                'dia_chi' => '34A Phạm Ngọc Thạch, Phường 6, Quận 3', 
+                'dia_chi' => '34A Phạm Ngọc Thạch, Phường 6, TP.HCM', 
                 'mo_ta' => "<h2>Giới thiệu tòa nhà Zen Plaza</h2>
                 <p><strong>Zen Plaza</strong> được mệnh danh là “thành phố trong lòng thành phố” – một trong những tòa nhà văn phòng nổi bật bậc nhất tại Quận 3, TP.HCM. Zen Plaza không chỉ có kiến trúc hiện đại mà còn sở hữu vị trí trung tâm cực kỳ thuận tiện cho hoạt động kinh doanh và giao thương.</p>
 

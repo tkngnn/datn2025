@@ -32,11 +32,11 @@
                                 <div class="row g-3">
                                     <div class="col-12 col-md-6 col-lg-3">
                                         <div class="filter-item search-form">
-                                            <label for="productSearch" class="form-label">Tòa Nhà</label>
+                                            <label for="productSearch" class="form-label">Tìm kiếm</label>
                                             <div class="input-group">
                                                 <input type="text" name="ten_toa_nha" class="form-control"
                                                     id="productSearch" placeholder="Tìm kiếm tòa nhà..."
-                                                    aria-label="Tìm kiếm tòa nhà" value="{{ request('ten_toa_nha') }}">
+                                                    aria-label="Tìm kiếm tên đường..." value="{{ request('ten_toa_nha') }}">
                                                 <button class="btn search-btn" type="button" aria-label="Search">
                                                     <i class="bi bi-search"></i>
                                                 </button>

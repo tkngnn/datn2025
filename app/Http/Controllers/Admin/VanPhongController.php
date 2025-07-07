@@ -20,7 +20,14 @@ class VanPhongController extends Controller
         }
 
         if ($request->filled('trang_thai')) {
-            $query->where('trang_thai', $request->trang_thai);
+            if ($request->trang_thai == 'het han hop dong') {
+                $query->where('trang_thai', 'dang trong')
+                    ->whereHas('chiTietHopDongs.hopdong', function ($q) {
+                        $q->where('tinh_trang', 'da thanh ly');
+                    });
+            } else {
+                $query->where('trang_thai', $request->trang_thai);
+            }
         }
 
         if ($request->filled('dien_tich_min')) {

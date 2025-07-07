@@ -22,7 +22,11 @@
                         </button>
                     </div>
                 @endif
-
+                @if ($errors->has('error'))
+                    <div class="alert alert-danger">
+                        {{ $errors->first('error') }}
+                    </div>
+                @endif
                 @if (session('error'))
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                         <strong>Lỗi!</strong> {{ session('error') }}
@@ -84,8 +88,7 @@
                                         </option>
                                     @endforeach
                                 </select>
-                                <input type="hidden" name="vanphong_id_cu"
-                                    value="{{ $chiTiet->ma_van_phong }}">
+                                <input type="hidden" name="vanphong_id_cu" value="{{ $chiTiet->ma_van_phong }}">
                             </div>
                         </div>
 
@@ -180,7 +183,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6">
-                                <label for="tien_thue">Tiền thuê</label>
+                                <label for="tien_thue">Giá thuê (VNĐ/m²)</label>
                                 <input type="number" class="form-control" name="tien_thue" id="tien_thue"
                                     value="{{ $chiTiet->gia_thue }}">
                             </div>
@@ -193,7 +196,8 @@
                         </div>
 
                         <div class="form-group mt-3">
-                            <label for="tien_coc">Tiền cọc</label>
+                            <label for="tien_coc">Tiền cọc (VNĐ) <small class="text-muted"> 3 tháng tiền nhà
+                                </small></label>
                             <input type="number" class="form-control" name="tien_coc" id="tien_coc"
                                 value="{{ $hopDong->tong_tien_coc }}">
                         </div>
@@ -207,17 +211,17 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-4">
-                                <label for="gia_dien">Giá điện</label>
+                                <label for="gia_dien">Giá điện (VNĐ/kWh)</label>
                                 <input type="number" class="form-control" name="gia_dien" id="gia_dien"
                                     value="{{ $chiTiet->gia_dien }}">
                             </div>
                             <div class="col-md-4">
-                                <label for="gia_nuoc">Giá nước</label>
+                                <label for="gia_nuoc">Giá nước (VNĐ/m³)</label>
                                 <input type="number" class="form-control" name="gia_nuoc" id="gia_nuoc"
                                     value="{{ $chiTiet->gia_nuoc }}">
                             </div>
                             <div class="col-md-4">
-                                <label for="dich_vu_khac">Dịch vụ khác</label>
+                                <label for="dich_vu_khac">Dịch vụ khác (VNĐ)</label>
                                 <input type="number" class="form-control" name="dich_vu_khac" id="dich_vu_khac"
                                     value="{{ $chiTiet->dich_vu_khac }}">
                             </div>
