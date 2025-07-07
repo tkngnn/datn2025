@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\KhachHang;
 use App\Models\HenXem;
+use App\Models\HopDong;
 
 class KhachHangController extends Controller
 {
@@ -80,7 +81,10 @@ class KhachHangController extends Controller
     public function edit($id)
     {
         $khachhang = KhachHang::findOrFail($id);
-        return view('admin.khachhang.edit', compact('khachhang'));
+        $hopdongs=HopDong::where('user_id',$id)
+        ->whereIn('tinh_trang',['dang thue','da ky', 'da lap'])
+        ->count();
+        return view('admin.khachhang.edit', compact('khachhang','hopdongs'));
     }
 
     public function update(Request $request, $id)

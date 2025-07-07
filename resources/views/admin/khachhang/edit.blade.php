@@ -44,7 +44,8 @@
                   <div class="row form-group">
                     <label class="col-sm-3 col-form-label input-label">Tên khách hàng</label>
                     <div class="col-sm-9">
-                      <input type="text" class="form-control" name="name" placeholder="Nhập tên khách hàng" value="{{ old('name',$khachhang->name) }}">
+                      <input type="text" class="form-control" name="name" placeholder="Nhập tên khách hàng" value="{{ old('name',$khachhang->name) }}" @if ($hopdongs > 0) disabled @endif>
+                      <input type="hidden" name="name" value="{{ $khachhang->name }}">
                       <span class="text-danger" id="error-name"></span>
                     </div>
                   </div>
@@ -53,7 +54,8 @@
                     <label class="col-sm-3 col-form-label input-label">Email</label>
                     <div class="col-sm-9">
                       <div class="input-group">
-                        <input type="email" class="form-control" name="email" placeholder="Nhập email" value="{{ old('email',$khachhang->email) }}">
+                        <input type="email" class="form-control" name="email" placeholder="Nhập email" value="{{ old('email',$khachhang->email) }} " @if ($hopdongs > 0) disabled @endif>
+                        <input type="hidden" name="email" value="{{ $khachhang->email }}">
                       </div>
                       <span class="text-danger" id="error-email"></span>
                     </div>
@@ -63,7 +65,8 @@
                     <label class="col-sm-3 col-form-label input-label">CCCD</label>
                     <div class="col-sm-9">
                       <div class="input-group">
-                        <input type="text" class="form-control" name="cccd" id="cccd" placeholder="Nhập cccd" value="{{ old('cccd',$khachhang->cccd) }}">
+                        <input type="text" class="form-control" name="cccd" id="cccd" placeholder="Nhập cccd" value="{{ old('cccd',$khachhang->cccd) }}" @if ($hopdongs > 0) disabled @endif>
+                        <input type="hidden" name="cccd" value="{{ $khachhang->cccd }}">
                       </div>
                       <span class="text-danger" id="error-cccd"></span>
                     </div>
@@ -123,8 +126,13 @@
                       <div class="select2-custom">
                         <select class="custom-select" name="trang_thai">
                           <option value="1"{{ $khachhang->trang_thai == '1' ? 'selected' : '' }}>Đang sử dụng</option>
-                          <option value="0"{{ $khachhang->trang_thai == '0' ? 'selected' : '' }}>Ngừng hoạt động</option>
+                          @if (!$hopdongs > 0)
+                            <option value="0"{{ $khachhang->trang_thai == '0' ? 'selected' : '' }}>Ngừng hoạt động</option>          
+                          @endif
                         </select>
+                        @if ($hopdongs > 0)
+                          <span><strong>Chú ý: </strong>Đang có hợp đồng đang thuê/ đã ký không thể thay đổi trạng thái!</span>
+                        @endif
                       </div>  
                     </div>
                   </div>

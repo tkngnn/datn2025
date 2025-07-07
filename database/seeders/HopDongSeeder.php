@@ -67,7 +67,7 @@ class HopDongSeeder extends Seeder
             [
                 'user_id' => 4,
                 'ngay_bat_dau' => now()->addMonths(5),
-                'ngay_ket_thuc' => now()->addMonths(3),
+                'ngay_ket_thuc' => now()->addMonths(11),
                 'tong_tien_coc' => 460560000,
                 'tinh_trang' => 'da lap',
                 'da_thanh_ly' => false,
