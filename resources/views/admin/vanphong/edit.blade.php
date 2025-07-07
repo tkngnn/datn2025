@@ -171,14 +171,9 @@
                                                     @if ($vanphong->trang_thai == 'dang trong')
                                                         <option value="dang trong" selected>Đang trống</option>
                                                         <option value="khong hoat dong">Không hoạt động</option>
-                                                    @else
-                                                        @if ($vanphong->trang_thai == 'da thue')
-                                                            <option value="da thue" selected>Đã thuê</option>
-                                                        @elseif ($vanphong->trang_thai == 'dang xem')
-                                                            <option value="dang xem" selected>Đang xem</option>
-                                                        @elseif ($vanphong->trang_thai == 'het han hop dong')
-                                                            <option value="het han hop dong" selected>Hết hạn hợp đồng</option>
-                                                        @endif
+                                                    @elseif($vanphong->trang_thai == 'khong hoat dong')
+                                                        <option value="dang trong" >Đang trống</option>
+                                                        <option value="khong hoat dong"selected>Không hoạt động</option>
                                                     @endif
                                                 </select>
                                             </div>
