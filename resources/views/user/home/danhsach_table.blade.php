@@ -28,9 +28,7 @@
                     <a href="{{ route('user.vanphong.chitiet', $vp->slug) }}">
                         <div class="product-details">
                             <h3 class="product-title">{{ $vp->toaNha->ten_toa_nha }}
-                                -
-                                Văn
-                                phòng {{ $vp->ten_van_phong }} - {{ $vp->ma_van_phong }}</h3>
+                                - {{ $vp->ten_van_phong }} - {{ $vp->ma_van_phong }}</h3>
                             <div class="product-rating-container">
                                 <span class="text-muted">{{ $vp->toaNha->dia_chi }}</span>
                             </div>

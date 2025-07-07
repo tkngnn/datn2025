@@ -107,7 +107,7 @@
                 </div>
               </div> --}}
 
-              <h1 class="product-title">Văn phòng {{ $vanphong->ten_van_phong }}</h1>
+              <h1 class="product-title">{{ $vanphong->ten_van_phong }}</h1>
 
               <div class="product-price-container mb-2">
                 <span class="current-price" style="color: red">{{ number_format($vanphong->gia_thue, 0, ',', '.') }}<span style="font-size: 0.75em;">/m²</span></span>

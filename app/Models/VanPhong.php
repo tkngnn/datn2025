@@ -32,7 +32,6 @@ class VanPhong extends Model implements HasMedia
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('anh_van_phong')
-             ->acceptsMimeTypes(['image/jpeg', 'image/png'])
              ->useDisk('public');
     }
 
