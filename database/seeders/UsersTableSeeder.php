@@ -105,7 +105,7 @@ class UsersTableSeeder extends Seeder
             ],
             [
                 'name' => 'Ngô Thị Hạnh',
-                'email' => 'hanh.ngo@gmail.com',
+                'email' => 'nhinhii260699@gmail.com',
                 'password' => Hash::make('123456'),
                 'so_dien_thoai' => '0966666666',
                 'dia_chi' => '12 Phạm Văn Chiêu, Phường 9, Quận Gò Vấp, TP. Hồ Chí Minh',
@@ -165,6 +165,17 @@ class UsersTableSeeder extends Seeder
             [
                 'name' => 'Bùi Thị Kim Ngân',
                 'email' => 'kimngan.bui@gmail.com',
+                'password' => Hash::make('123456'),
+                'so_dien_thoai' => '0905678901',
+                'dia_chi' => '12 Lạch Tray, Phường Lạch Tray, Quận Ngô Quyền, TP. Hải Phòng',
+                'cccd' => '134567890123',
+                'vai_tro' => 'KT',
+                'trang_thai' => '0',
+                'created_at' => now(), 'updated_at' => now()
+            ],
+            [
+                'name' => 'Đặng Phan Thanh Trúc',
+                'email' => 'dangtruc2004444@gmail.com',
                 'password' => Hash::make('123456'),
                 'so_dien_thoai' => '0905678901',
                 'dia_chi' => '12 Lạch Tray, Phường Lạch Tray, Quận Ngô Quyền, TP. Hải Phòng',

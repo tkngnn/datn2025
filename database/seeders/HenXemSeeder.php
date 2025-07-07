@@ -15,9 +15,9 @@ class HenXemSeeder extends Seeder
     {
         DB::table('hen_xem')->insert([
             [
-                'ho_ten' => 'Trần Thị Minh Thư',
+                'ho_ten' => 'Đặng Phan Thanh Trúc',
                 'sdt' => '0923456789',
-                'email' => 'minhthu.tran@gmail.com',
+                'email' => 'dangtruc2004444@gmail.com',
                 'ma_van_phong' => 3,
                 'ngay_hen' => now()->addDays(3),
                 'ghi_chu' => 'Muốn xem văn phòng tầng 3, diện tích 40m².',
