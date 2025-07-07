@@ -21,7 +21,17 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
           cd /var/www/datn2025
+          echo "🔄 Pulling latest code..."
           git pull origin main
+          echo "📦 Installing dependencies..."
           composer install --no-interaction --prefer-dist --optimize-autoloader
-          php artisan migrate --force
+          echo "🧹 Clearing old caches..."
+          php artisan cache:clear
+          php artisan config:clear
+          echo "⚙️ Caching config..."
           php artisan config:cache
+          echo "🔁 Running migrations..."
+          php artisan migrate --force
+          echo "🌱 Running seeders..."
+          php artisan db:seed --force
+          echo "✅ Done!"
