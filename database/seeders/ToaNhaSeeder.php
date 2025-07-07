@@ -60,7 +60,7 @@ class ToaNhaSeeder extends Seeder
 
                 <p><strong>Liên hệ với chúng tôi ngay hôm nay</strong> để được tư vấn chi tiết và trải nghiệm không gian văn phòng đẳng cấp tại Central Plaza.</p>", 
                 'so_tang' => 8, 
-                'trang_thai' => 'khong hoat dong', 
+                'trang_thai' => 'hoat dong', 
                 'created_at' => now(), 
                 'updated_at' => now()
             ], 
@@ -111,7 +111,7 @@ class ToaNhaSeeder extends Seeder
 
                 <p>Nếu bạn đang cần một môi trường làm việc chất lượng cao, mang đến hình ảnh thương hiệu mạnh mẽ, <strong>The Nexus Tower</strong> chính là nơi lý tưởng để bắt đầu. Hãy liên hệ với chúng tôi để được hỗ trợ và tư vấn nhanh nhất!</p>", 
                 'so_tang' => 10, 
-                'trang_thai' => 'khong hoat dong', 
+                'trang_thai' => 'hoat dong', 
                 'created_at' => now(), 
                 'updated_at' => now()
             ], 
@@ -162,7 +162,7 @@ class ToaNhaSeeder extends Seeder
 
                 <p><strong>Saigon Tower – lựa chọn xứng đáng để doanh nghiệp bạn phát triển bền vững giữa lòng thành phố sôi động.</strong></p>", 
                 'so_tang' => 8, 
-                'trang_thai' => 'khong hoat dong', 
+                'trang_thai' => 'hoat dong', 
                 'created_at' => now(), 
                 'updated_at' => now()
             ], 
@@ -187,7 +187,7 @@ class ToaNhaSeeder extends Seeder
 
                 <p><strong>AB Tower – Văn phòng lý tưởng cho doanh nghiệp hiện đại giữa lòng thành phố năng động.</strong></p>", 
                 'so_tang' => 6, 
-                'trang_thai' => 'hoat dong', 
+                'trang_thai' => 'khong hoat dong', 
                 'created_at' => now(), 
                 'updated_at' => now()
             ],
@@ -212,7 +212,7 @@ class ToaNhaSeeder extends Seeder
 
                 <p><strong>HD Bank Tower – Văn phòng lý tưởng giữa trung tâm tài chính năng động nhất TP.HCM.</strong></p>", 
                 'so_tang' => 11, 
-                'trang_thai' => 'khong hoat dong', 
+                'trang_thai' => 'hoat dong', 
                 'created_at' => now(), 
                 'updated_at' => now()
             ], 
