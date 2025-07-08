@@ -104,7 +104,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="han_hop_dong">Hạn hợp đồng</label>
+                                    <label for="han_hop_dong">Ngày kết thúc</label>
                                     <input type="date" class="form-control" name="han_hop_dong" id="han_hop_dong"
                                         onchange="validateDates()">
                                     <small class="text-danger" id="error_han_hop_dong"></small>
@@ -248,6 +248,7 @@
     <script>
         flatpickr("#ngay_ky", {
             dateFormat: "Y-m-d",
+            defaultDate: "today",
             onChange: function(selectedDates, dateStr, instance) {
                 validateDates();
             }
@@ -268,81 +269,6 @@
         flatpickr("#ngay_bat_dau_tinh_tien", {
             dateFormat: "Y-m-d"
         });
-
-        // document.addEventListener('DOMContentLoaded', function() {
-        //     const toaNhaSelect = document.getElementById('toa_nha_id');
-        //     const vanPhongSelect = document.getElementById('vanphong_id');
-
-        //     const giaThueInput = document.getElementById('tien_thue');
-        //     const tienCocInput = document.getElementById('tien_coc');
-        //     const giaDienInput = document.getElementById('gia_dien');
-        //     const giaNuocInput = document.getElementById('gia_nuoc');
-        //     const dichVuKhacTextarea = document.getElementById('dich_vu_khac');
-
-        //     toaNhaSelect.addEventListener('change', function() {
-        //         const toaNhaId = this.value;
-        //         vanPhongSelect.innerHTML = '<option value="">-- Chọn phòng --</option>';
-
-        //         if (toaNhaId) {
-        //             fetch(`/admin/ajax/vanphong/${toaNhaId}`)
-        //                 .then(res => res.json())
-        //                 .then(data => {
-        //                     console.log('Danh sách văn phòng:', data);
-        //                     data.forEach(vp => {
-        //                         const option = document.createElement('option');
-        //                         option.value = vp.ma_van_phong;
-        //                         option.textContent =
-        //                             `Văn phòng ${vp.ma_van_phong} - ${vp.dien_tich} m²`;
-        //                         vanPhongSelect.appendChild(option);
-        //                     });
-        //                 })
-        //                 .catch(err => console.error('Lỗi khi fetch văn phòng:', err));
-        //         }
-        //     });
-
-        //     vanPhongSelect.addEventListener('change', function() {
-        //         const vanPhongId = this.value;
-
-        //         if (vanPhongId) {
-        //             fetch(`/admin/ajax/vanphong-detail/${vanPhongId}`)
-        //                 .then(res => res.json())
-        //                 .then(data => {
-        //                     console.log('Chi tiết văn phòng:', data);
-        //                     giaThueInput.value = data.gia_thue;
-        //                     tienCocInput.value = data.gia_thue * data.dien_tich * 3;
-        //                     giaDienInput.value = data.gia_dien;
-        //                     giaNuocInput.value = data.gia_nuoc;
-        //                     dichVuKhacTextarea.value = data.dich_vu_khac;
-        //                 })
-        //                 .catch(err => console.error('Lỗi khi fetch chi tiết VP:', err));
-        //         }
-        //     });
-
-        //     const userSelect = document.getElementById('khach_thue_id');
-        //     const phoneInput = document.getElementById('sdt_khach_thue');
-        //     const daiDienInput = document.getElementById('dai_dien');
-
-        //     userSelect.addEventListener('change', function() {
-        //         const userId = this.value;
-        //         if (userId) {
-        //             fetch(`/admin/ajax/user/${userId}`)
-        //                 .then(res => res.json())
-        //                 .then(data => {
-        //                     phoneInput.value = data.phone || '';
-        //                     daiDienInput.value = data.name || '';
-        //                 });
-        //         } else {
-        //             phoneInput.value = '';
-        //             daiDienInput.value = '';
-        //         }
-        //     });
-
-        //     document.getElementById('ngay_ky').addEventListener('change', validateDates);
-        //     document.getElementById('ngay_bat_dau').addEventListener('change', validateDates);
-        //     document.getElementById('han_hop_dong').addEventListener('change', validateDates);
-        //     validateDates();
-
-        // });
 
         document.addEventListener('DOMContentLoaded', function() {
             const toaNhaSelect = document.getElementById('toa_nha_id');
@@ -374,16 +300,6 @@
                     .catch(err => console.error('Lỗi fetch văn phòng preset:', err));
             }
 
-            // if (selectedUserId) {
-            //     fetch(`/admin/ajax/user/${selectedUserId}`)
-            //         .then(res => res.json())
-            //         .then(data => {
-            //             console.log('[AUTO] User preset:', data);
-            //             phoneInput.value = data.so_dien_thoai || '';
-            //             daiDienInput.value = data.name || '';
-            //         })
-            //         .catch(err => console.error('Lỗi fetch user preset:', err));
-            // }
             if (selectedUserId) {
                 fetch(`/admin/ajax/user/${selectedUserId}`)
                     .then(res => res.json())
@@ -396,7 +312,7 @@
                                 phoneInput.value = data.phone || '';
                                 daiDienInput.value = data.name || '';
                             }
-                        }, 100); // đợi DOM render hoàn tất
+                        }, 100); 
                     })
                     .catch(err => console.error('Lỗi fetch user preset:', err));
             }

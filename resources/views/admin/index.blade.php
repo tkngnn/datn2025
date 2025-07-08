@@ -136,7 +136,7 @@
             <!-- End Stats -->
 
             <!-- Table -->
-            <div class="card mb-3 mb-lg-5">
+            {{-- <div class="card mb-3 mb-lg-5">
                 <div class="card-header">
                     <div class="row justify-content-between align-items-center flex-grow-1">
                         <div class="col-12 col-md">
@@ -224,7 +224,7 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </div> --}}
             <!-- End Table -->
 
             <div class="card mb-3 mb-lg-5">

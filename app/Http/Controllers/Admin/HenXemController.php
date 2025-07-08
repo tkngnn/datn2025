@@ -19,8 +19,10 @@ class HenXemController extends Controller
         $query = HenXem::with('vanphong');
         if ($request->filled('trang_thai')) {
                 $query->where('trang_thai', $request->trang_thai);
-            }  
-        
+            }
+        $query->orderByRaw("CASE WHEN trang_thai = 'chua xu ly' THEN 0 ELSE 1 END")
+            ->orderBy('created_at', 'desc');
+
         $henxems=$query->get();
         foreach($henxems as $henxem){
             if(User::where('email', $henxem->email)->exists())
@@ -58,8 +60,8 @@ class HenXemController extends Controller
         //$henxem->trang_thai = 'da xu ly';
         //$henxem->save();
 
-        $khachhang = User::where('name', $henxem->ho_ten)->first();
+        $khachhang = User::where('email', $henxem->email)->first();
 
-        return redirect()->route('admin.vanphong.dangxem',['khachhang'=> $khachhang->name]);
+        return redirect()->route('admin.vanphong.dangxem',['khachhang'=> $khachhang->email]);
     }
 }

@@ -36,7 +36,7 @@
                                 <span>Diện tích: {{ $vp->dien_tich }} m²</span>
                             </div>
                             <div class="product-price">
-                                <span>Giá thuê: {{ number_format($vp->gia_thue) }} /m²</span>
+                                <span>Giá thuê: {{ number_format($vp->gia_thue) }} VNĐ/m²</span>
                             </div>
                         </div>
                     </a>

@@ -107,7 +107,7 @@
                             </div>
 
                             <div class="col-md-4">
-                                <label for="han_hop_dong">Hạn hợp đồng</label>
+                                <label for="han_hop_dong">Ngày kết thúc</label>
                                 <input type="date" class="form-control" name="han_hop_dong" id="han_hop_dong"
                                     value="{{ \Carbon\Carbon::parse($hopDong->ngay_ket_thuc)->format('Y-m-d') }}">
                                 <small class="text-danger" id="error_han_hop_dong"></small>

@@ -306,17 +306,6 @@ class HopDongController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    /**
-    public function edit($id)
-    {
-        $hopDong = HopDong::with(['user', 'chiTietHopDongs.vanPhong'])->findOrFail($id);
-        $toaNha = ToaNha::all();
-        $users = User::all();
-        $chiTiet = $hopDong->chiTietHopDongs->first();
-        $vanPhong = $chiTiet?->vanPhong;
-
-        return view('admin.hopdong.edit', compact('hopDong', 'toaNha', 'users', 'chiTiet', 'vanPhong'));
-    }*/
     public function edit($id)
     {
         $hopDong = HopDong::with(['user', 'chiTietHopDongs.vanPhong.toaNha'])->findOrFail($id);
