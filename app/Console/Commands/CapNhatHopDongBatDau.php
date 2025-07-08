@@ -54,7 +54,7 @@ class CapNhatHopDongBatDau extends Command
                 $soVanPhongDaThue++;
                 $soCapNhatDangThue++;
             } else {
-                $hopDong->tinh_trang = 'đã hủy';
+                $hopDong->tinh_trang = 'da huy';
                 $hopDong->save();
 
                 $soCapNhatHuy++;
