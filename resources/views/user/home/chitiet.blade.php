@@ -121,11 +121,11 @@
                     {{ $vanphong->toaNha->ten_toa_nha ?? 'Không rõ tòa nhà' }}
                 </li>
                 <li>
-                    <i class="bi bi-geo-alt-fill"></i><strong style="color: #777;"> Địa chỉ: </strong>
+                    <i class="bi bi-geo-alt-fill"></i><strong style="color: #777;"> Địa chỉ tòa nhà: </strong>
                     {{ $vanphong->toaNha->dia_chi ?? 'Không rõ địa chỉ' }}
                 </li>
                 <li>
-                    <i class="bi bi-aspect-ratio"></i><strong style="color: #777;"> Diện tích: </strong>
+                    <i class="bi bi-aspect-ratio"></i><strong style="color: #777;"> Diện tích văn phòng: </strong>
                     {{ $vanphong->dien_tich }} m²
                 </li>
             </ul>

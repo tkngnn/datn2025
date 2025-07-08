@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Log;
 
 use App\Models\KhachHang;
 use App\Models\HenXem;
 use App\Models\HopDong;
+use App\Models\User;
 
 class KhachHangController extends Controller
 {
@@ -60,6 +62,9 @@ class KhachHangController extends Controller
 
         if (!empty($request->henxem_id)) {
             $henxem = HenXem::find($request->henxem_id);
+            Log::info('Email cần tìm: ' . $henxem->email);
+            $khachhang = User::where('email',$henxem->email)->first();
+            Log::info('Khách hàng tìm được: ' . ($khachhang ? $khachhang->email : 'Không có'));
             if ($henxem) {
                 //$henxem->trang_thai = 'da xu ly';
                 //$vanphong = $henxem->ma_van_phong;
@@ -69,7 +74,7 @@ class KhachHangController extends Controller
                     'success' => true,
                     'nextId' => $nextId,
                     'redirect_url' => route('admin.vanphong.dangxem'),
-                    'khachhang' => $henxem->ho_ten ?? null,
+                    'khachhang' => $khachhang->email ?? null,
                     'message' => 'Tạo tài khoản thành công từ lịch hẹn xem',
                 ]);
             }

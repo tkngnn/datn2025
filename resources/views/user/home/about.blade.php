@@ -52,7 +52,7 @@
                             <div class="icon-box">
                                 <i class="bi bi-bullseye"></i>
                             </div>
-                            <h3><a href="#" class="stretched-link">Sứ mệnh rõ ràng</a></h3>
+                            <h3><span class="stretched-link">Sứ mệnh rõ ràng</span></h3>
                             <p>Đồng hành cùng doanh nghiệp vượt qua mọi thủ tục pháp lý và hành chính, mang lại giải pháp
                                 toàn diện cho địa chỉ kinh doanh.</p>
                         </div>
@@ -63,7 +63,7 @@
                             <div class="icon-box">
                                 <i class="bi bi-person-check"></i>
                             </div>
-                            <h3><a href="#" class="stretched-link">Uy tín và tận tâm</a></h3>
+                            <h3><span class="stretched-link">Uy tín và tận tâm</span></h3>
                             <p>Chúng tôi xem khách hàng như người thân, luôn lắng nghe và phục vụ bằng sự chuyên nghiệp, tận
                                 tâm và trách nhiệm.</p>
                         </div>
@@ -74,7 +74,7 @@
                             <div class="icon-box">
                                 <i class="bi bi-clipboard-data"></i>
                             </div>
-                            <h3><a href="#" class="stretched-link">Tầm nhìn rộng mở</a></h3>
+                            <h3><span class="stretched-link">Tầm nhìn rộng mở</span></h3>
                             <p>Hướng đến trở thành thương hiệu hàng đầu tại Việt Nam và vươn tầm ra khu vực ASEAN trong lĩnh
                                 vực văn phòng và dịch vụ hỗ trợ doanh nghiệp.</p>
                         </div>

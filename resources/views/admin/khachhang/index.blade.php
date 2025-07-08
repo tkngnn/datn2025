@@ -198,7 +198,7 @@
                   </td>
                   <td class="text-break px-3">
                     @if ($khachhang->trang_thai === 1)
-                        <span class="legend-indicator bg-success"></span> Đang hoạt dộng
+                        <span class="legend-indicator bg-success"></span> Đang hoạt động
                     @else
                         <span class="legend-indicator bg-danger"></span> Ngừng hoạt động
                     @endif

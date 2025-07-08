@@ -265,7 +265,7 @@ class ToaNhaSeeder extends Seeder
 
                 <p><strong>Havana Tower – nơi không gian làm việc nâng tầm thương hiệu và hiệu suất cho doanh nghiệp hiện đại.</strong></p>", 
                 'so_tang' => 9, 
-                'trang_thai' => 'khong hoat dong', 
+                'trang_thai' => 'hoat dong', 
                 'created_at' => now(), 
                 'updated_at' => now()
             ], 
