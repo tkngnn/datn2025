@@ -14,6 +14,7 @@ use App\Models\ToaNha;
 use App\Models\LichSuCoc;
 use App\Models\HopDongThanhLy;
 use App\Models\HenXem;
+use App\Models\Mau;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -293,14 +294,48 @@ class HopDongController extends Controller
         $vanPhong = $chiTiet->vanPhong;
         $toaNha = $vanPhong->toaNha;
 
+        $mau = Mau::where('ten_mau', 'Hợp đồng')->orderByDesc('phien_ban')->first();
+        $noiDung = $mau->noi_dung;
 
+        $values = [
+            'MA_HOP_DONG' => $hopdong->ma_hop_dong,
+            'TEN_KHACH_HANG' => $hopdong->user->name ?? 'Không có',
+            'DIA_CHI_KHACH_HANG' => $hopdong->user->dia_chi ?? 'Không rõ',
+            'SDT_KHACH_HANG' => $hopdong->user->so_dien_thoai ?? 'Không rõ',
+            'DAI_DIEN_KHACH_HANG' => $hopdong->user->name ?? 'Không có',
+            'EMAIL_KHACH_HANG' => $hopdong->user->email ?? 'Không rõ',
+            'CCCD_KHACH_HANG' => $hopdong->user->cccd ?? 'Không rõ',
+
+            'DIA_CHI_TOA_NHA' => $toaNha->dia_chi ?? '[Địa chỉ tòa nhà]' ,
+            'TEN_TOA_NHA' => $toaNha->ten_toa_nha ?? '[Tên tòa nhà]',
+            'MA_VAN_PHONG' =>  $vanPhong->ma_van_phong ?? '[Mã văn phòng]',
+            'DIEN_TICH_VAN_PHONG' => $chiTiet->dien_tich,
+
+            'NGAY_BAT_DAU' => \Carbon\Carbon::parse($hopdong->ngay_bat_dau)->format('d/m/Y'),
+            'NGAY_KET_THUC' =>  \Carbon\Carbon::parse($hopdong->ngay_ket_thuc)->format('d/m/Y'),
+
+            'GIA_THUE' => number_format($chiTiet->gia_thue ?? 0, 0, ',', '.'),
+            'PHI_DICH_VU' => number_format($chiTiet->dich_vu_khac ?? 0, 0, ',', '.'),
+            'GIA_DIEN' => number_format($chiTiet->gia_dien ?? 0, 0, ',', '.'),
+            'GIA_NUOC' => number_format($chiTiet->gia_nuoc ?? 0, 0, ',', '.'),
+            'TIEN_COC' => number_format($hopdong->tong_tien_coc ?? 0, 0, ',', '.'),
+
+
+            'NGAY_KY_D' => \Carbon\Carbon::parse($hopdong->ngay_ky)->format('d'),
+            'NGAY_KY_M' => \Carbon\Carbon::parse($hopdong->ngay_ky)->format('m') ,
+            'NGAY_KY_Y' => \Carbon\Carbon::parse($hopdong->ngay_ky)->format('y'),
+        ];
+
+        foreach ($values as $key => $value) {
+            $noiDung = str_replace('{{ ' . $key . ' }}', $value, $noiDung);
+        }
 
         Log::info('HopDong:', $hopdong->toArray());
         Log::info('ChiTiet:', $chiTiet->toArray());
         Log::info('VanPhong:', $vanPhong->toArray());
         Log::info('ToaNha:', $toaNha->toArray());
 
-        return view('admin.hopdong.preview', compact('hopdong', 'chiTiet', 'vanPhong', 'toaNha'));
+        return view('admin.hopdong.preview', ['noiDung' => $noiDung]);
     }
 
     /**
@@ -501,8 +536,59 @@ class HopDongController extends Controller
         if (!$thanhLy) {
             return redirect()->back()->with('error', 'Không tìm thấy biên bản thanh lý.');
         }
+        
+        $mau = Mau::where('ten_mau', 'Thanh lý')->orderByDesc('phien_ban')->first();
+        $noiDung = $mau->noi_dung;
 
-        return view('admin.hopdong.preview_thanhly', compact('hopdong', 'thanhLy'));
+        $values = [
+
+            'MA_HOP_DONG' => $hopdong->ma_hop_dong,
+            'TEN_KHACH_HANG' => $hopdong->user->name ?? 'Không có',
+            'DIA_CHI_KHACH_HANG' => $hopdong->user->dia_chi ?? 'Không rõ',
+            'SDT_KHACH_HANG' => $hopdong->user->so_dien_thoai ?? 'Không rõ',
+            'DAI_DIEN_KHACH_HANG' => $hopdong->user->name ?? 'Không có',
+            'EMAIL_KHACH_HANG' => $hopdong->user->email ?? 'Không rõ',
+            'CCCD_KHACH_HANG' => $hopdong->user->cccd ?? 'Không rõ',
+
+            'NGAY_THANH_LY_D' => \Carbon\Carbon::parse($thanhLy->ngay_thanh_ly)->format('d'),
+            'NGAY_THANH_LY_M' => \Carbon\Carbon::parse($thanhLy->ngay_thanh_ly)->format('m') ,
+            'NGAY_THANH_LY_Y' => \Carbon\Carbon::parse($thanhLy->ngay_thanh_ly)->format('y'),
+            'NGAY_KY' =>\Carbon\Carbon::parse($hopdong->ngay_bat_dau)->format('d/m/Y') ,
+            'NGAY_BAT_DAU' => \Carbon\Carbon::parse($hopdong->ngay_bat_dau)->format('d/m/Y'),
+            'NGAY_KET_THUC' => \Carbon\Carbon::parse($hopdong->ngay_ket_thuc)->format('d/m/Y'),
+            'TONG_THANH_TOAN' => number_format(abs($thanhLy->tong_thanh_toan), 0, ',', '.'),
+
+            'NGAY_CHUYEN_DI'=>\Carbon\Carbon::parse($thanhLy->ngay_chuyen_di)->format('d/m/Y'),
+            'CONG_NO'=> number_format($thanhLy->cong_no, 0, ',', '.'),
+            'HOAN_COC'=> number_format($thanhLy->hoan_tra_tien_coc, 0, ',', '.'),
+            'PHI_PHAT'=>number_format($thanhLy->phi_phat, 0, ',', '.'),
+        ];
+
+        if ($thanhLy->tong_thanh_toan < 0) {
+            $values['TONG'] = 'Bên A có trách nhiệm hoàn trả lại số tiền ' . number_format(abs($thanhLy->tong_thanh_toan), 0, ',', '.') . ' VNĐ cho Bên B.';
+        } elseif ($thanhLy->tong_thanh_toan > 0) {
+            $values['TONG'] = 'Bên B có nghĩa vụ thanh toán số tiền ' . number_format($thanhLy->tong_thanh_toan, 0, ',', '.') . ' VNĐ để hoàn tất các công nợ với Bên A.';
+        } else {
+            $values['TONG'] = 'Hai bên không còn khoản công nợ nào phải thanh toán.';
+        }
+
+        switch ($thanhLy->ly_do_thanh_ly) {
+            case 'roi_phong':
+                $values['LY_DO'] = 'Rời phòng';
+                break;
+            case 'bo_coc':
+                $values['LY_DO'] = 'Bỏ cọc';
+                break;
+            default:
+                $values['LY_DO'] = $thanhLy->ly_do_thanh_ly;
+                break;
+        }
+
+        foreach ($values as $key => $value) {
+            $noiDung = str_replace('{{ ' . $key . ' }}', $value, $noiDung);
+        }
+
+        return view('admin.hopdong.preview_thanhly', ['noiDung' => $noiDung]);
     }
 
 
@@ -531,4 +617,31 @@ class HopDongController extends Controller
 
         return $pdf->download("hopdong-{$hopdong->ma_hop_dong}.pdf");
     }
+
+    public function mau($tenmau)
+    {
+        $mau = Mau::where('ten_mau', $tenmau)
+        ->orderByDesc('phien_ban')
+        ->first();
+
+        return view('admin.hopdong.mau', compact('mau','tenmau'));
+    }
+    
+    public function taomau(Request $request)
+    {
+        $tenMau = $request->input('ten_mau');
+        $noiDung = $request->input('noi_dung');
+
+        $mauMoiNhat = Mau::where('ten_mau', $tenMau)->orderByDesc('phien_ban')->first();
+        $phienBanMoi = $mauMoiNhat ? $mauMoiNhat->phien_ban + 1 : 1;
+
+        $mau = new Mau();
+        $mau->ten_mau = $tenMau;
+        $mau->phien_ban = $phienBanMoi;
+        $mau->noi_dung = $noiDung;
+        $mau->save();
+
+        return redirect()->back()->with('success', 'Tạo mẫu phiên bản mới thành công!');
+    }
+
 }

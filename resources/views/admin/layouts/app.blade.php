@@ -29,6 +29,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js"></script>
     <script src="{{ asset('user/assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.3.0/classic/ckeditor.js"></script>
 
     <!-- CSS của FilePond -->
     <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
