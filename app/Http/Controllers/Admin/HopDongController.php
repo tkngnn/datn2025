@@ -435,10 +435,17 @@ class HopDongController extends Controller
 
     public function thanhLy(Request $request, $maHopDong)
     {
-        $request->validate([
-            'ly_do' => 'required|in:Khách rời phòng,Khách bỏ cọc',
+        $rules = [
+            'ly_do'         => 'required|in:Khách rời phòng,Khách bỏ cọc',
             'ngay_thanh_ly' => 'required|date',
-        ]);
+        ];
+
+        if ($request->phi_phat > 0) {
+            $rules['ghi_chu'] = 'required|string|max:255';
+        }
+
+        $request->validate($rules);
+
 
         $lyDo = $request->ly_do === 'Khách rời phòng' ? 'roi_phong' : 'bo_coc';
 
@@ -459,12 +466,14 @@ class HopDongController extends Controller
             'hoan_tra_tien_coc' => $lyDo === 'roi_phong' ? $request->hoan_tra_coc : 0,
             'phi_phat' => $lyDo === 'roi_phong' ? $request->phi_phat : 0,
             'tong_thanh_toan' => $lyDo === 'roi_phong' ? $request->tong_cong : 0,
+            'ghi_chu' => $request->input('ghi_chu'),
         ]);
 
         HopDong::where('ma_hop_dong', $maHopDong)->update([
             'da_thanh_ly' => true,
             'tinh_trang' => 'da thanh ly',
             'ngay_thanh_ly' => $request->ngay_thanh_ly,
+            'ghi_chu_thanh_ly' => $request->input('ghi_chu'),
         ]);
 
         $chiTietHopDong = ChiTietHopDong::where('ma_hop_dong', $maHopDong)->first();

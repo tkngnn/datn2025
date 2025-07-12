@@ -20,7 +20,7 @@ class ThongKeController extends Controller
      * Display a listing of the resource.
      */
 
-    public function index()
+    public function index(Request $request)
     {
         $totalToaNha = ToaNha::count();
         $totalPhong = VanPhong::count();
@@ -40,6 +40,11 @@ class ThongKeController extends Controller
         $hoaDonDaTT = HoaDon::where('trang_thai', 'da thanh toan')->count();
         $hoaDonMoi = HoaDon::where('created_at', '>=', now()->subDays(7))->count();
 
+        //cho phần thời gian thuê
+        $dsToaNhaCB = ToaNha::all();
+        $year = (int) $request->input('year', date('Y'));
+        $maToaNha = $request->input('toa_nha', '');
+
         return view('admin.thongke.index', compact(
             'totalToaNha',
             'totalPhong',
@@ -54,7 +59,10 @@ class ThongKeController extends Controller
             'totalHoaDon',
             'hoaDonChuaTT',
             'hoaDonDaTT',
-            'hoaDonMoi'
+            'hoaDonMoi',
+            'dsToaNhaCB',
+            'maToaNha',
+            'year'
         ));
     }
 
@@ -168,5 +176,100 @@ class ThongKeController extends Controller
         }
 
         return view('admin.thongke.tylelapday', compact('result', 'month', 'year', 'dsToaNha', 'maToaNha', 'dsToaNhaCB'));
+    }
+
+    /*public function thoiGianThueVanPhong(Request $request)
+    {
+        $year = (int) $request->input('year', date('Y'));
+        $maToaNha = $request->input('toa_nha', '');
+
+        $dsToaNha = $maToaNha
+            ? ToaNha::where('ma_toa_nha', $maToaNha)->get()
+            : ToaNha::all();
+        $dsToaNhaCB = ToaNha::all();
+
+        $data = [];
+
+        foreach ($dsToaNha as $toaNha) {
+            $vanPhongs = VanPhong::where('ma_toa_nha', $toaNha->ma_toa_nha)->get();
+
+            foreach ($vanPhongs as $vp) {
+                $thoiGianThue = array_fill(1, 12, 'trong');
+
+                $dsHopDong = ChiTietHopDong::join('hop_dong', 'chi_tiet_hop_dong.ma_hop_dong', '=', 'hop_dong.ma_hop_dong')
+                    ->where('ma_van_phong', $vp->ma_van_phong)
+                    ->whereYear('hop_dong.ngay_bat_dau', '<=', $year)
+                    ->where(function ($query) use ($year) {
+                        $query->whereNull('hop_dong.ngay_ket_thuc')
+                            ->orWhereYear('hop_dong.ngay_ket_thuc', '>=', $year);
+                    })
+                    ->select('hop_dong.ngay_bat_dau', 'hop_dong.ngay_ket_thuc')
+                    ->get();
+
+                foreach ($dsHopDong as $hd) {
+                    $start = Carbon::parse($hd->ngay_bat_dau)->year == $year ? Carbon::parse($hd->ngay_bat_dau)->month : 1;
+                    $end = $hd->ngay_ket_thuc
+                        ? (Carbon::parse($hd->ngay_ket_thuc)->year == $year ? Carbon::parse($hd->ngay_ket_thuc)->month : 12)
+                        : 12;
+
+                    for ($m = $start; $m <= $end; $m++) {
+                        $thoiGianThue[$m] = 'thue';
+                    }
+                }
+
+                $data[] = [
+                    'ten_van_phong' => 'VP #' . $vp->ma_van_phong,
+                    'thoi_gian' => $thoiGianThue,
+                ];
+            }
+        }
+
+        return view('admin.thongke.thoigianthue', compact('data', 'year', 'dsToaNha', 'maToaNha', 'dsToaNhaCB'));
+    }*/
+
+    public function thoiGianThueVanPhong(Request $request)
+    {
+        $year = (int) $request->input('year', date('Y'));
+        $maToaNha = $request->input('toa_nha', '');
+
+        $dsToaNha = $maToaNha
+            ? ToaNha::where('ma_toa_nha', $maToaNha)->get()
+            : ToaNha::all();
+
+        $data = [];
+
+        foreach ($dsToaNha as $toaNha) {
+            foreach ($toaNha->vanPhongs as $vp) {
+                $thoiGianThue = array_fill(1, 12, 'trong');
+
+                $dsHopDong = ChiTietHopDong::join('hop_dong', 'chi_tiet_hop_dong.ma_hop_dong', '=', 'hop_dong.ma_hop_dong')
+                    ->where('ma_van_phong', $vp->ma_van_phong)
+                    ->whereYear('hop_dong.ngay_bat_dau', '<=', $year)
+                    ->where(function ($query) use ($year) {
+                        $query->whereNull('hop_dong.ngay_ket_thuc')
+                            ->orWhereYear('hop_dong.ngay_ket_thuc', '>=', $year);
+                    })
+                    ->select('hop_dong.ngay_bat_dau', 'hop_dong.ngay_ket_thuc')
+                    ->get();
+
+                foreach ($dsHopDong as $hd) {
+                    $start = Carbon::parse($hd->ngay_bat_dau)->year == $year ? Carbon::parse($hd->ngay_bat_dau)->month : 1;
+                    $end = $hd->ngay_ket_thuc
+                        ? (Carbon::parse($hd->ngay_ket_thuc)->year == $year ? Carbon::parse($hd->ngay_ket_thuc)->month : 12)
+                        : 12;
+
+                    for ($m = $start; $m <= $end; $m++) {
+                        $thoiGianThue[$m] = 'thue';
+                    }
+                }
+
+                $data[] = [
+                    'ten_van_phong' => 'VP #' . $vp->ma_van_phong,
+                    'thoi_gian' => $thoiGianThue,
+                ];
+            }
+        }
+        Log::info($data);
+        return response()->json($data);
     }
 }

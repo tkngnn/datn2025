@@ -104,6 +104,8 @@ Route::middleware(['auth', 'verified', 'check.role:admin'])->prefix('admin')->na
     Route::get('thongke', [ThongKeController::class, 'index'])->name('thongke.index');
     Route::get('thongke/doanh-thu-thang', [ThongKeController::class, 'doanhThuThang'])->name('thongke.doanh_thu_thang');
     Route::get('thongke/ty-le-lap-day', [ThongKeController::class, 'tyLeLapDay'])->name('thongke.ty_le_lap_day');
+    Route::get('/thongke/thoigian', [ThongKeController::class, 'thoiGianThueVanPhong'])->name('admin.thongke.thoigian');
+    
     // Route quản lý chỉ số
     Route::get('chiso', [ChiSoController::class, 'index'])->name('chiso.index');
     Route::get('chiso/create', [ChiSoController::class, 'create'])->name('chiso.create');

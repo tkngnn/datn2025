@@ -594,9 +594,6 @@
                                     tiền
                                     nào.
                                 </p>
-
-
-
                                 <h2 class="mt-4 text-primary">3. Hoàn cọc và phí phạt</h2>
                                 <div class="row g-3">
                                     <div class="col-md-6">
@@ -610,7 +607,13 @@
                                             value="0">
                                     </div>
                                 </div>
-
+                                <div class="row g-3">
+                                    <div class="col-md-12">
+                                        <label>Nội dung phí phạt: </label>
+                                        <input type="text" name="ghi_chu" id="ghi_chu" class="form-control"
+                                            value="">
+                                    </div>
+                                </div>
                                 <h2 class="mt-4 text-primary">4. Tổng hợp</h2>
                                 <table class="table table-bordered text-dark">
                                     <tbody>
