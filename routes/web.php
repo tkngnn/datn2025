@@ -67,6 +67,8 @@ Route::middleware(['auth', 'verified', 'check.role:admin'])->prefix('admin')->na
         ->name('admin.hopdong.thanhly');
     Route::get('/hopdong/{id}/bien-ban-thanh-ly', [HopDongController::class, 'showBienBanThanhLy']);
     Route::get('/hopdong/{id}/export-pdf', [HopDongController::class, 'exportPDF'])->name('hopdong.export_pdf');
+    Route::get('/hopdong/mau/{tenmau}', [HopDongController::class, 'mau'])->name('hopdong.mau');
+    Route::post('/hopdong/mau/{tenmau}', [HopDongController::class, 'taomau'])->name('hopdong.taomau');
 
     //Route quản lý văn phòng
     Route::get('vanphong', [VanPhongController::class, 'index'])->name('vanphong.index');

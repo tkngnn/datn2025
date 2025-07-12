@@ -21,11 +21,31 @@
                         <h1 class="page-header-title">Danh Sách Hợp Đồng <span
                                 class="badge badge-soft-dark ml-2">{{ $hopDongs->count() }}</span></h1>
                     </div>
-                    <div class="col-sm-auto">
-                        <a class="btn btn-primary" href="{{ route('admin.hopdong.create') }}" title="Thêm hợp đồng">
+                    <div class="d-flex gap-2 col-sm-auto">
+                        <a class="btn btn-primary mr-1" href="{{ route('admin.hopdong.create') }}" title="Thêm hợp đồng">
                             <i class="tio-add"></i>
                         </a>
+                    
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                Quản lý mẫu
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('admin.hopdong.mau','Hợp đồng') }}">
+                                        <i class="tio-edit"></i> Sửa mẫu hợp đồng
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('admin.hopdong.mau','Thanh lý') }}">
+                                        <i class="tio-edit"></i> Sửa mẫu thanh lý
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
+                    
+                    
                 </div>
                 <!-- End Row -->
 
