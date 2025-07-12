@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             YeuCauHoTroSeeder::class,
             LichSuCocSeeder::class,
             ThanhLySeeder::class,
+            MauSeeder::class,
         ]);
     }
 }

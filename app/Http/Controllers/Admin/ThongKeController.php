@@ -264,7 +264,7 @@ class ThongKeController extends Controller
                 }
 
                 $data[] = [
-                    'ten_van_phong' => 'VP #' . $vp->ma_van_phong,
+                    'ten_van_phong' => $toaNha->ten_toa_nha . ' - ' . ($vp->ten_van_phong ?? ('VP #' . $vp->ma_van_phong)),
                     'thoi_gian' => $thoiGianThue,
                 ];
             }

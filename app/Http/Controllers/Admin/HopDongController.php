@@ -58,14 +58,23 @@ class HopDongController extends Controller
 
         $today = Carbon::today();
 
-        $hopDongsCanThanhLy = $hopDongs->filter(function ($hopdong) use ($today) {
+        /*$hopDongsCanThanhLy = $hopDongs->filter(function ($hopdong) use ($today) {
             $ngayKetThuc = Carbon::parse($hopdong->ngay_ket_thuc);
             $soNgayConLai = $ngayKetThuc->diffInDays($today, false);
 
             return !$hopdong->da_thanh_ly && (
                 $soNgayConLai >= -7 && $soNgayConLai <= 0
             );
+        });*/
+        $hopDongsCanThanhLy = $hopDongs->filter(function ($hopdong) use ($today) {
+            $ngayKetThuc = Carbon::parse($hopdong->ngay_ket_thuc);
+
+            return !$hopdong->da_thanh_ly && (
+                $ngayKetThuc->isPast() ||
+                $ngayKetThuc->diffInDays($today, true) <= 7 && $ngayKetThuc->gte($today) // sắp hết hạn
+            );
         });
+        
         $dsToaNha = ToaNha::all();
 
         return view('admin.hopdong.index', compact('hopDongs', 'hopDongsCanThanhLy', 'dsToaNha'));
@@ -157,6 +166,19 @@ class HopDongController extends Controller
             'ghi_chu' => 'nullable|string|max:255',
         ]);
         Log::info('Request data:', $request->all());
+
+        $mauHopDongMoiNhat = Mau::where('ten_mau', 'Hợp đồng')
+            ->orderByDesc('phien_ban')
+            ->first();
+
+        $phienBanMau = $mauHopDongMoiNhat ? $mauHopDongMoiNhat->id : 1;
+        if ($mauHopDongMoiNhat) {
+            Log::info('HOPDONG:', $mauHopDongMoiNhat->toArray());
+        } else {
+            Log::warning('Không tìm thấy mẫu hợp đồng!');
+        }
+        Log::info('PB:', ['phien_ban' => $phienBanMau]);
+
         DB::beginTransaction();
         try {
             $hopDong = HopDong::create([
@@ -167,6 +189,7 @@ class HopDongController extends Controller
                 'tong_tien_coc' => $validated['tien_coc'],
                 'tinh_trang' => 'da lap',
                 'ghi_chu_thanh_ly' => $validated['ghi_chu'] ?? null,
+                'id_mau'    => $phienBanMau,
             ]);
             Log::info('Tạo hợp đồng:', $hopDong->toArray());
             $vanPhong = VanPhong::findOrFail($validated['vanphong_id']);
@@ -294,7 +317,7 @@ class HopDongController extends Controller
         $vanPhong = $chiTiet->vanPhong;
         $toaNha = $vanPhong->toaNha;
 
-        $mau = Mau::where('ten_mau', 'Hợp đồng')->orderByDesc('phien_ban')->first();
+        $mau = Mau::where('id', $hopdong->id_mau)->first();
         $noiDung = $mau->noi_dung;
 
         $values = [
@@ -306,7 +329,7 @@ class HopDongController extends Controller
             'EMAIL_KHACH_HANG' => $hopdong->user->email ?? 'Không rõ',
             'CCCD_KHACH_HANG' => $hopdong->user->cccd ?? 'Không rõ',
 
-            'DIA_CHI_TOA_NHA' => $toaNha->dia_chi ?? '[Địa chỉ tòa nhà]' ,
+            'DIA_CHI_TOA_NHA' => $toaNha->dia_chi ?? '[Địa chỉ tòa nhà]',
             'TEN_TOA_NHA' => $toaNha->ten_toa_nha ?? '[Tên tòa nhà]',
             'MA_VAN_PHONG' =>  $vanPhong->ma_van_phong ?? '[Mã văn phòng]',
             'DIEN_TICH_VAN_PHONG' => $chiTiet->dien_tich,
@@ -322,7 +345,7 @@ class HopDongController extends Controller
 
 
             'NGAY_KY_D' => \Carbon\Carbon::parse($hopdong->ngay_ky)->format('d'),
-            'NGAY_KY_M' => \Carbon\Carbon::parse($hopdong->ngay_ky)->format('m') ,
+            'NGAY_KY_M' => \Carbon\Carbon::parse($hopdong->ngay_ky)->format('m'),
             'NGAY_KY_Y' => \Carbon\Carbon::parse($hopdong->ngay_ky)->format('y'),
         ];
 
@@ -493,6 +516,17 @@ class HopDongController extends Controller
             ]);
         }
 
+        $mauHopDongMoiNhat = Mau::where('ten_mau', 'Thanh lý')
+            ->orderByDesc('phien_ban')
+            ->first();
+
+        $phienBanMau = $mauHopDongMoiNhat ? $mauHopDongMoiNhat->id : 1;
+        if ($mauHopDongMoiNhat) {
+            Log::info('THANHLY:', $mauHopDongMoiNhat->toArray());
+        } else {
+            Log::warning('Không tìm thấy mẫu thanh lý!');
+        }
+        Log::info('PBTL:', ['phien_ban' => $phienBanMau]);
         HopDongThanhLy::create([
             'ma_hop_dong' => $maHopDong,
             'ngay_chuyen_di' => $request->ngay_thanh_ly,
@@ -502,6 +536,8 @@ class HopDongController extends Controller
             'phi_phat' => $lyDo === 'roi_phong' ? $request->phi_phat : 0,
             'tong_thanh_toan' => $lyDo === 'roi_phong' ? $request->tong_cong : 0,
             'ghi_chu' => $request->input('ghi_chu'),
+            'id_mau' => $phienBanMau,
+
         ]);
 
         HopDong::where('ma_hop_dong', $maHopDong)->update([
@@ -536,8 +572,8 @@ class HopDongController extends Controller
         if (!$thanhLy) {
             return redirect()->back()->with('error', 'Không tìm thấy biên bản thanh lý.');
         }
-        
-        $mau = Mau::where('ten_mau', 'Thanh lý')->orderByDesc('phien_ban')->first();
+
+        $mau = Mau::where('id', $thanhLy->id_mau)->first();
         $noiDung = $mau->noi_dung;
 
         $values = [
@@ -551,17 +587,18 @@ class HopDongController extends Controller
             'CCCD_KHACH_HANG' => $hopdong->user->cccd ?? 'Không rõ',
 
             'NGAY_THANH_LY_D' => \Carbon\Carbon::parse($thanhLy->ngay_thanh_ly)->format('d'),
-            'NGAY_THANH_LY_M' => \Carbon\Carbon::parse($thanhLy->ngay_thanh_ly)->format('m') ,
+            'NGAY_THANH_LY_M' => \Carbon\Carbon::parse($thanhLy->ngay_thanh_ly)->format('m'),
             'NGAY_THANH_LY_Y' => \Carbon\Carbon::parse($thanhLy->ngay_thanh_ly)->format('y'),
-            'NGAY_KY' =>\Carbon\Carbon::parse($hopdong->ngay_bat_dau)->format('d/m/Y') ,
+            'NGAY_KY' => \Carbon\Carbon::parse($hopdong->ngay_bat_dau)->format('d/m/Y'),
             'NGAY_BAT_DAU' => \Carbon\Carbon::parse($hopdong->ngay_bat_dau)->format('d/m/Y'),
             'NGAY_KET_THUC' => \Carbon\Carbon::parse($hopdong->ngay_ket_thuc)->format('d/m/Y'),
             'TONG_THANH_TOAN' => number_format(abs($thanhLy->tong_thanh_toan), 0, ',', '.'),
 
-            'NGAY_CHUYEN_DI'=>\Carbon\Carbon::parse($thanhLy->ngay_chuyen_di)->format('d/m/Y'),
-            'CONG_NO'=> number_format($thanhLy->cong_no, 0, ',', '.'),
-            'HOAN_COC'=> number_format($thanhLy->hoan_tra_tien_coc, 0, ',', '.'),
-            'PHI_PHAT'=>number_format($thanhLy->phi_phat, 0, ',', '.'),
+            'NGAY_CHUYEN_DI' => \Carbon\Carbon::parse($thanhLy->ngay_chuyen_di)->format('d/m/Y'),
+            'CONG_NO' => number_format($thanhLy->cong_no, 0, ',', '.'),
+            'HOAN_COC' => number_format($thanhLy->hoan_tra_tien_coc, 0, ',', '.'),
+            'PHI_PHAT' => number_format($thanhLy->phi_phat, 0, ',', '.'),
+            'NOI_DUNG_PHI_PHAT' => $thanhLy->ghi_chu,
         ];
 
         if ($thanhLy->tong_thanh_toan < 0) {
@@ -621,12 +658,12 @@ class HopDongController extends Controller
     public function mau($tenmau)
     {
         $mau = Mau::where('ten_mau', $tenmau)
-        ->orderByDesc('phien_ban')
-        ->first();
+            ->orderByDesc('phien_ban')
+            ->first();
 
-        return view('admin.hopdong.mau', compact('mau','tenmau'));
+        return view('admin.hopdong.mau', compact('mau', 'tenmau'));
     }
-    
+
     public function taomau(Request $request)
     {
         $tenMau = $request->input('ten_mau');
@@ -643,5 +680,4 @@ class HopDongController extends Controller
 
         return redirect()->back()->with('success', 'Tạo mẫu phiên bản mới thành công!');
     }
-
 }

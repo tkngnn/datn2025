@@ -25,27 +25,28 @@
                         <a class="btn btn-primary mr-1" href="{{ route('admin.hopdong.create') }}" title="Thêm hợp đồng">
                             <i class="tio-add"></i>
                         </a>
-                    
+
                         <div class="btn-group">
-                            <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
+                                aria-expanded="false">
                                 Quản lý mẫu
                             </button>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a class="dropdown-item" href="{{ route('admin.hopdong.mau','Hợp đồng') }}">
+                                    <a class="dropdown-item" href="{{ route('admin.hopdong.mau', 'Hợp đồng') }}">
                                         <i class="tio-edit"></i> Sửa mẫu hợp đồng
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="{{ route('admin.hopdong.mau','Thanh lý') }}">
+                                    <a class="dropdown-item" href="{{ route('admin.hopdong.mau', 'Thanh lý') }}">
                                         <i class="tio-edit"></i> Sửa mẫu thanh lý
                                     </a>
                                 </li>
                             </ul>
                         </div>
                     </div>
-                    
-                    
+
+
                 </div>
                 <!-- End Row -->
 
@@ -739,7 +740,7 @@
         $(document).ready(function() {
             $('.selectpicker').selectpicker();
 
-            $('.btn-xem-hopdong').click(function() {
+            $(document).on('click', '.btn-xem-hopdong', function() {
                 let id = $(this).data('id');
                 let exportUrl = $(this).data('export-url');
                 fetch(`/admin/hopdong/${id}/view`)

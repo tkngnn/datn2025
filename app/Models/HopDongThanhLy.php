@@ -21,6 +21,7 @@ class HopDongThanhLy extends Model
         'hoan_tra_tien_coc',
         'phi_phat',
         'tong_thanh_toan',
+        'id_mau',
         'ghi_chu',
     ];
 

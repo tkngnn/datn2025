@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('hop_dong', function (Blueprint $table) {
-            $table->unsignedInteger('phien_ban_mau')->default(1)->after('ngay_thanh_ly');
+            $table->unsignedInteger('id_mau')->default(1)->after('ngay_thanh_ly');
         });
 
         Schema::table('hop_dong_thanh_ly', function (Blueprint $table) {
-            $table->unsignedInteger('phien_ban_mau')->default(1)->after('tong_thanh_toan');
+            $table->unsignedInteger('id_mau')->default(1)->after('tong_thanh_toan');
         });
     }
 
@@ -26,11 +26,11 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('hop_dong', function (Blueprint $table) {
-            $table->dropColumn('phien_ban_mau');
+            $table->dropColumn('id_mau');
         });
 
         Schema::table('hop_dong_thanh_ly', function (Blueprint $table) {
-            $table->dropColumn('phien_ban_mau');
+            $table->dropColumn('id_mau');
         });
     }
 };
