@@ -19,7 +19,7 @@ class ToaNhaController extends Controller
             $query->where('trang_thai', $request->trang_thai);
         }
 
-        $dsToaNha = $query->paginate(10);
+        $dsToaNha = $query->get();
 
         return view('admin.toanha.index', compact('dsToaNha'));
     }
