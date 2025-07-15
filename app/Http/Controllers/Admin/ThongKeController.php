@@ -243,19 +243,22 @@ class ThongKeController extends Controller
                 $thoiGianThue = array_fill(1, 12, 'trong');
 
                 $dsHopDong = ChiTietHopDong::join('hop_dong', 'chi_tiet_hop_dong.ma_hop_dong', '=', 'hop_dong.ma_hop_dong')
+                    ->leftJoin('hop_dong_thanh_ly', 'hop_dong.ma_hop_dong', '=', 'hop_dong_thanh_ly.ma_hop_dong')
                     ->where('ma_van_phong', $vp->ma_van_phong)
                     ->whereYear('hop_dong.ngay_bat_dau', '<=', $year)
                     ->where(function ($query) use ($year) {
                         $query->whereNull('hop_dong.ngay_ket_thuc')
                             ->orWhereYear('hop_dong.ngay_ket_thuc', '>=', $year);
                     })
-                    ->select('hop_dong.ngay_bat_dau', 'hop_dong.ngay_ket_thuc')
+                    ->selectRaw('hop_dong.ngay_bat_dau, COALESCE(hop_dong_thanh_ly.ngay_chuyen_di, hop_dong.ngay_ket_thuc)  AS ket_thuc_thuc_te')
                     ->get();
 
                 foreach ($dsHopDong as $hd) {
                     $start = Carbon::parse($hd->ngay_bat_dau)->year == $year ? Carbon::parse($hd->ngay_bat_dau)->month : 1;
-                    $end = $hd->ngay_ket_thuc
-                        ? (Carbon::parse($hd->ngay_ket_thuc)->year == $year ? Carbon::parse($hd->ngay_ket_thuc)->month : 12)
+                    $end = $hd->ket_thuc_thuc_te
+                        ? (Carbon::parse($hd->ket_thuc_thuc_te)->year == $year
+                            ? Carbon::parse($hd->ket_thuc_thuc_te)->month
+                            : 12)
                         : 12;
 
                     for ($m = $start; $m <= $end; $m++) {
