@@ -65,7 +65,7 @@ class HomeController extends Controller
     {
         try {
             $query = VanPhong::with(['toaNha', 'media'])
-                ->whereRaw("LOWER(TRIM(trang_thai)) = ?", ['dang trong']);
+                ->whereRaw("LOWER(TRIM(trang_thai)) IN (?, ?)", ['dang trong', 'dang xem']);
 
             $dsToaNha = ToaNha::select('ma_toa_nha', 'ten_toa_nha')
                 ->where('trang_thai', 'hoat dong')
@@ -158,8 +158,8 @@ class HomeController extends Controller
             Log::error('Lỗi khi truy vấn danh sách văn phòng: ' . $e->getMessage());
 
             return view('user.home.danhsach', [
-                'danhSachVanPhong' => collect(), 
-                'dsToaNha' => collect(),        
+                'danhSachVanPhong' => collect(),
+                'dsToaNha' => collect(),
                 'error' => 'Không thể truy xuất dữ liệu, vui lòng thử lại sau.'
             ]);
         }
